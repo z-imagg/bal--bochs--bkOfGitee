@@ -2,7 +2,7 @@
 
 ### clone 仓库
 ```bash
-/crk/$  git clone https://prgrmz07:Dcer-RPtKsYZmayT3eyX@gitcode.net/crk/bochs.git     dev/露出build过程中的makefile
+/crk/$  git clone https://prgrmz07:Dcer-RPtKsYZmayT3eyX@gitcode.net/crk/bochs.git  -b   dev/露出build过程中的makefile
 ```
 
 
