@@ -13,18 +13,18 @@ SECTION mbr align=16 vstart=0x7c00
          mov ss,ax
          mov sp,ax
       
-         mov ax,[cs:phy_base]            ;计算用于加载用户程序的逻辑段地址 
-         mov dx,[cs:phy_base+0x02]
+         mov ax,[cs:phy_base]            ;计算用于加载用户程序的逻辑段地址 ;pyh_base[0...7]:0x10000
+         mov dx,[cs:phy_base+0x02]  ;dx:0001H, ax:0000H. 即 dx_ax == pyh_base[0...7] == 0x10000
          mov bx,16        
-         div bx            
-         mov ds,ax                       ;令DS和ES指向该段以进行操作
-         mov es,ax                        
+         div bx     ;dx:0000H, ax:1000H ;即 dx_ax == pyh_base[0...7]/(2^4) == 0x1000
+         mov ds,ax                       ;令DS和ES指向该段以进行操作; ds:0x1000
+         mov es,ax                        ;es:0x1000
     
          ;以下读取程序的起始部分 
          xor di,di
          mov si,app_lba_start            ;程序在硬盘上的起始逻辑扇区号 
          xor bx,bx                       ;加载到DS:0x0000处 
-         call read_hard_disk_0
+         call read_hard_disk_0; 执行此行报错:  [HD    ] ata0-0: read sectors issued to non-disk. 很明显, read_hard_disk_0 是要从硬盘0读取, 而我用的软盘a, 肯定找不到硬盘0
       
          ;以下判断整个程序有多大
          mov dx,[2]                      ;曾经把dx写成了ds，花了二十分钟排错 
