@@ -3,12 +3,6 @@ import sys,os
 from types import FunctionType
 import pdb
 
-#此过滤器 基本能过滤掉大部分非关心目标
-#  python bochs\makefile_util\line_filter.py   cpu.txt bochs\makefile_util\lnFltMap_Makefile_target.py cpuo.txt & type cpuo.txt
-
-# cd /crk/bochs/bochs/cpu  && make --question  --print-data-base > /crk/cpu.txt 
-# python /crk/bochs/makefile_util/line_filter.py   /crk/cpu.txt /crk/bochs/makefile_util/lnFltMap_Makefile_target.py /crk/cpu_makefile_target.txt & more /crk/cpu_makefile_target.txt 
-
 
 usage_ms_windows="""   python line_filter.py 输入文本文件 lnFltMap_xxx.py 输出文本文件  """  
 
