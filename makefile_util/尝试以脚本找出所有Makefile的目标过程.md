@@ -1,5 +1,10 @@
 ##  [露出build过程中的makefile](https://gitcode.net/crk/bochs/-/commit/faa84bb0e4ddb9e3d6455ca82b2763a0aa4453ba)
 
+### clone 仓库
+```bash
+/crk/$  git clone https://prgrmz07:Dcer-RPtKsYZmayT3eyX@gitcode.net/crk/bochs.git     dev/露出build过程中的makefile
+```
+
 
 ### 生成配置 (生成Makefile)
 ```bash
