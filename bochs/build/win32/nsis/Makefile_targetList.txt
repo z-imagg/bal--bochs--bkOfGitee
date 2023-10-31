@@ -1,0 +1,4 @@
+clean
+Bochs-2.7.svn.exe
+all
+fixups

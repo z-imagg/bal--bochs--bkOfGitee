@@ -1,0 +1,14 @@
+documentation/index.html
+copy_from_srcdir
+clean
+dist-clean
+upload_docs
+	  scp $(TARGZ) $${SFUSER},bochs@$(REMOTE_HOST)
+all
+test_sfuser
+development/index.html
+bochsdoc.tar.gz
+user/index.html
+install
+dl_docs
+fixperm

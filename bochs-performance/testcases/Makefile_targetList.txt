@@ -1,0 +1,25 @@
+blur-O2-opcode-dynamic1-test
+blur-profile
+blur-O2-opcode-fnptr
+blur-O2-switch
+blur-O2-func
+blur-O2-opcode-dynamic2-test
+clean
+blur-O2-opcode-translated1
+blur-O2-unroll
+run-all
+	for i in $(LIST); do rm -f blur.out; echo Running $$i; ./$$i; echo -n "checksum of output
+blur-no-opt
+blur-O2-fnptr-switch
+blur-translate
+all
+blur-O2
+blur-O2-opcode-translated3
+blur-O2-opcode-dynamic3
+blur-O2-opcode-translated2
+blur-O2-fnptr-table
+blur-O2-opcode-switch
+blur-O2-opcode-dynamic2
+blur-O2-opcode-dynamic1
+dltest
+blur-O2-switch-call
