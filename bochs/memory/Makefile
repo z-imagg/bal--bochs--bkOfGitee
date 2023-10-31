@@ -44,6 +44,15 @@ BX_OBJS = \
 
 BX_INCLUDES = ../bochs.h ../config.h
 
+printAllVar:
+    $(foreach var,$(.VARIABLES),$(info $(var) = $($(var))))
+
+#Makefile打印所有变量printAllVar用法:
+#/crk/bochs/bochs/memory$ make printAllVar | grep "CXX ="
+#CXX = c++
+#/crk/bochs/bochs/memory$ make printAllVar | grep "BX_OBJS ="
+#BX_OBJS = memory.o misc_mem.o
+
 all: libmemory.a
 
 .cc.o:
