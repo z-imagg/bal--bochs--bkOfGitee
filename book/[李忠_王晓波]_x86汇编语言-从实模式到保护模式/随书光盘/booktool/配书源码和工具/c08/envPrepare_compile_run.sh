@@ -12,10 +12,17 @@ apt install nasm bochs -y
 nasm --version
 #NASM version 2.15.05
 
-#bochsdbg安装
+#0.6. bochsdbg安装
 # 方案1.在win10下安装Bochs-win64-2.7.exe， 其中含有bochsdbg.exe
 #       https://sourceforge.net/projects/bochs/files/bochs/2.7/Bochs-win64-2.7.exe/download
 # 方案2.自己编译bochs源码
+
+#这里选用 "方案1.在win10下安装Bochs-win64-2.7.exe"
+where bochs
+# D:\Bochs-2.6.11\bochs.exe
+where bochsdbg
+# D:\Bochs-2.6.11\bochsdbg.exe
+
 
 bochs --help
 #Bochs x86 Emulator 2.7
@@ -28,29 +35,22 @@ nasm c08.asm -o c08.bin -f bin -l c08.list.txt
 
 
 
-#2. 制作启动软盘
-#生成1.44MB软盘镜像
-dd if=/dev/zero of=./1440KB_floppy.img bs=512 count=2880
-
-dd if=./c08_mbr.bin of=./1440KB_floppy.img seek=0
-#引导扇区写入软盘的第 0+1 个扇区
-#可省略"seek=0"
-
-
-dd if=./c08.bin of=./1440KB_floppy.img seek=99
-#用户程序写到软盘的第 99+1 个扇区 ，
-#因c08_mbr.asm第6行 指出了 用户程序在软盘的第100个扇区 :" app_lba_start equ 100           ;声明常数（用户程序起始逻辑扇区号）"
-
-#dd命令部分选项解释:
-#bs: block size 块尺寸(块字节数),  count: block count 块数
-# 写起点为 输出设备(软盘)的第 N+1 个块(扇区):  seek=N          skip N obs-sized blocks at start of output
-# 读起点为 输入设备(文件)的第 N+1 个块:  skip=N          skip N ibs-sized blocks at start of input
-
+#2. 制作启动硬盘
+#生成9.84MB硬盘(20Cylinder柱面 16Header磁头 63SectorsPerTrack扇区每磁道)镜像
+#20*16*63*512 Byte==10321920 Byte=9.84375 MByte
+#10321920 Byte == 20160 * 512 Byte, 因此以下dd命令中的 count=20160
+dd if=/dev/zero of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img bs=512 count=20160
+dd if=./c08_mbr.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=0
+dd if=./c08.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img  conv=notrunc  seek=100
+#c08_mbr.asm第6行"app_lba_start equ 100" 读取第app_lba_start+1个(即第101个)扇区 因此跳过前100个扇区(即seek=100)
+#dd选项 conv=notrunc 可替换目标设备中的一部分 
 
 #3. bochs启动该软盘
+bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
+#.bxrc文件中 的硬盘镜像路径 是windows下的路径:  "F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img",
 
 #4. bochsdbg启动该软盘 (调试模式启动)
-bochsdbg -f .\bochsrc00.bxrc
+bochsdbg -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 #以下是bochsdbg命令提示符下的脚本
 break 0x7c00
 continue
@@ -106,3 +106,6 @@ n|next|p - execute instruction stepping over subroutines
 help print-stack
 """print-stack [num_words] - print the num_words top 16 bit words on the stack
 """
+
+#若异常退出bochs, 需要删除 *.img.lock文件， 否则下次启动bochs会失败.
+del HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img.lock

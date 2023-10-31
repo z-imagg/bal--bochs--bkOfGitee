@@ -3,7 +3,7 @@
          ;文件说明：硬盘主引导扇区代码（加载程序） 
          ;创建日期：2011-5-5 18:17
          
-         app_lba_start equ 100           ;声明常数（用户程序起始逻辑扇区号）
+         app_lba_start equ 100           ;声明常数（用户程序起始逻辑扇区号）; 实际是读取的 第app_lba_start+1个扇区
                                          ;常数的声明不会占用汇编地址
                                     
 SECTION mbr align=16 vstart=0x7c00                                     
