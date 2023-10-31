@@ -1,2 +1,3 @@
 #!/bin/sh
-make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'|sort -u
+make --question  --print-data-base | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'|sort -u
+#-qp :  --question  --print-data-base 
