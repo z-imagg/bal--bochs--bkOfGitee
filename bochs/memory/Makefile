@@ -62,7 +62,7 @@ BX_INCLUDES = ../bochs.h ../config.h
 # printAllVar
 
 printAllVar:
-    $(foreach var,$(.VARIABLES),$(info $(var) = $($(var))))
+	$(foreach var,$(.VARIABLES),$(info $(var) = $($(var))))  #目标内容开头必须是tab, 不能用空格代替
 
 #Makefile打印所有变量printAllVar用法:
 #/crk/bochs/bochs/memory$ make printAllVar | grep "CXX ="
