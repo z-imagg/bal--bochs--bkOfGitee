@@ -33,31 +33,7 @@ Saved working directory and index state WIP on 露出build过程中的makefile: 
 
 ```
 > 显示 有Makefile的目录列表 [target_dir_list](https://gitcode.net/crk/bochs/-/blob/dev/%E9%9C%B2%E5%87%BAbuild%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84makefile/target_dir_list)
-```bash
-/crk/bochs$ cat target_dir_list
-/crk/bochs/bochs-performance/testcases
-/crk/bochs/bochs/memory
-/crk/bochs/bochs/cpu
-/crk/bochs/bochs/cpu/avx
-/crk/bochs/bochs/cpu/cpudb
-/crk/bochs/bochs/cpu/fpu
-/crk/bochs/bochs
-/crk/bochs/bochs/misc
-/crk/bochs/bochs/instrument/stubs
-/crk/bochs/bochs/gui
-/crk/bochs/bochs/host/linux/pcidev
-/crk/bochs/bochs/iodev/sound
-/crk/bochs/bochs/iodev
-/crk/bochs/bochs/iodev/hdimage
-/crk/bochs/bochs/iodev/usb
-/crk/bochs/bochs/iodev/network
-/crk/bochs/bochs/iodev/display
-/crk/bochs/bochs/build/win32/nsis
-/crk/bochs/bochs/bx_debug
-/crk/bochs/bochs/doc/docbook
-/crk/bochs/bochs/bios
 
-```
 
 >  
 
@@ -67,10 +43,33 @@ Saved working directory and index state WIP on 露出build过程中的makefile: 
 
 ```bash 
 
-/crk/bochs$ cat target_dir_list | xargs -I@ bash -c "cd @ ; echo @; make --question  --print-data-base > Makefile_data-base.txt; python3 /crk/bochs/makefile_util/line_filter.py   Makefile_data-base.txt /crk/bochs/makefile_util/lnFltMap_Makefile_target.py Makefile_targetList.txt "  
+/crk/bochs$ cat target_dir_list | xargs -I@ bash -c "cd @ ; echo -n  \"@ \"; make --question  --print-data-base > Makefile_data-base.txt; python3 /crk/bochs/makefile_util/line_filter.py   Makefile_data-base.txt /crk/bochs/makefile_util/lnFltMap_Makefile_target.py Makefile_targetList.txt > /dev/null; wc -l Makefile_targetList.txt "  
 
- 
+
+ """
+/crk/bochs/bochs-performance/testcases 25 Makefile_targetList.txt
+/crk/bochs/bochs/memory 7 Makefile_targetList.txt
+/crk/bochs/bochs/cpu 105 Makefile_targetList.txt
+/crk/bochs/bochs/cpu/avx 31 Makefile_targetList.txt
+/crk/bochs/bochs/cpu/cpudb 31 Makefile_targetList.txt
+/crk/bochs/bochs/cpu/fpu 25 Makefile_targetList.txt
+/crk/bochs/bochs 147 Makefile_targetList.txt
+/crk/bochs/bochs/misc 5 Makefile_targetList.txt
+/crk/bochs/bochs/instrument/stubs 4 Makefile_targetList.txt
+/crk/bochs/bochs/gui 80 Makefile_targetList.txt
+/crk/bochs/bochs/host/linux/pcidev 8 Makefile_targetList.txt
+/crk/bochs/bochs/iodev/sound 39 Makefile_targetList.txt
+/crk/bochs/bochs/iodev 73 Makefile_targetList.txt
+/crk/bochs/bochs/iodev/hdimage 34 Makefile_targetList.txt
+/crk/bochs/bochs/iodev/usb 50 Makefile_targetList.txt
+/crk/bochs/bochs/iodev/network 87 Makefile_targetList.txt
+/crk/bochs/bochs/iodev/display 25 Makefile_targetList.txt
+/crk/bochs/bochs/build/win32/nsis 4 Makefile_targetList.txt
+/crk/bochs/bochs/bx_debug 11 Makefile_targetList.txt
+/crk/bochs/bochs/doc/docbook 14 Makefile_targetList.txt
+/crk/bochs/bochs/bios 13 Makefile_targetList.txt
+"""
 
 ```
 
-> [targetListPerMakefile.txt](https://gitcode.net/crk/bochs/-/blob/dev/%E9%9C%B2%E5%87%BAbuild%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84makefile/targetListPerMakefile.txt)
+> 
