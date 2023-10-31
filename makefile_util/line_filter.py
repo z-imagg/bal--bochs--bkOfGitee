@@ -2,39 +2,23 @@
 import sys,os
 from types import FunctionType
 import pdb
-_LnFeed_RN="\r\n"
-_LnFeed_N="\n"
 
 #此过滤器 基本能过滤掉大部分非关心目标
-#set filter_expr="def lnFltMap(lnK,prevLn): keep= lnK.__contains__(':') and  not lnK.__contains__(':=') and  not lnK.__contains__('%.') and  not lnK.__contains__('%::') and  not lnK.__contains__('(%):') and  not lnK.__contains__(' = ') and not lnK.startswith('#') and not lnK.split(':')[0].endswith('.h') and not lnK.split(':')[0].endswith('.c')  and not lnK.split(':')[0].endswith('.cc') and not lnK.split(':')[0].endswith('.cpp')  and prevLn not in [f'# Not a target:{_LnFeed_N}'  , f'# Not a target:{_LnFeed_RN}' ] ; return (True,f'''{lnK.split(':')[0]}{_LnFeed_N}''') if keep else (False,lnK) " & python bochs\makefile_util\line_filter.py   cpu.txt cpuo.txt & more cpuo.txt
+#  python bochs\makefile_util\line_filter.py   cpu.txt bochs\makefile_util\lnFltMap_Makefile_target.py cpuo.txt & type cpuo.txt
 
 
-#lnFltMap例子: makefile目标过滤器
-def lnFltMap_demo_Makefile_target(lnK,prevLn): 
-	keep= lnK.__contains__(':') \
-	and  not lnK.__contains__(':=') \
-	and  not lnK.__contains__('%.') \
-	and  not lnK.__contains__('%::') \
-	and  not lnK.__contains__('(%):') \
-	and  not lnK.__contains__(' = ') \
-	and not lnK.startswith('#') \
-	and not lnK.split(':')[0].endswith('.h') \
-	and not lnK.split(':')[0].endswith('.c')  \
-	and not lnK.split(':')[0].endswith('.cc') \
-	and not lnK.split(':')[0].endswith('.cpp')  \
-	and prevLn not in [f'# Not a target:{_LnFeed_N}'  , f'# Not a target:{_LnFeed_RN}' ]
-	return (keep,lnK.split(':')[0])
 
-usage_ms_windows=""" 用法: set filter_expr='def lnFltMap(lnK,prevLn): return lnK.contains(":")' & python line_filter.py 输入文本文件 输出文本文件 'def lnFltMap(lnK,prevLn): return lnK.__contains__(":")' """ #用函数样式
-# usage_ms_windows="""用法: set filter_expr='def lnFltMap(lnK,prevLn): return lnK.contains(":")' & python line_filter.py 输入文本文件 输出文本文件 'lnFltMap=lambda x:x[0].__contains__(":")' """ #暂时不用lambda样式
+usage_ms_windows="""   python line_filter.py 输入文本文件 lnFltMap_xxx.py 输出文本文件  """  
+
 
 print(f"sys.argv:{sys.argv} ")
-assert os.environ.__contains__('filter_expr') and len(sys.argv)>2, usage_ms_windows
+assert os.environ.__contains__('filter_expr') and len(sys.argv)>3, usage_ms_windows
 fn_in=sys.argv[1]
-fn_out=sys.argv[2]
-_filter_expr=os.environ['filter_expr']
-filter_expr=eval(_filter_expr)#去掉一层引号 从 '"def lnFltMap2(lnK,prevLn): xxx" ' 变成  "def lnFltMap2(lnK,prevLn): xxx"
-print(f" os.environ['filter_expr']={filter_expr},{type(filter_expr)}")
+fn_filter_expr=sys.argv[2]
+fn_out=sys.argv[3]
+with open(fn_filter_expr, "r",encoding="utf-8") as fin_filter_expr:
+    filter_expr= fin_filter_expr.read()
+print(f"filter_expr=【{filter_expr}】")
 
 
 # exec(filter_expr, globals())
