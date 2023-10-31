@@ -59,30 +59,17 @@ Saved working directory and index state WIP on 露出build过程中的makefile: 
 
 ```
 
-
-### 初试刀 比如 在每个目录下执行make clean
-```bash
-/crk/bochs$ cat target_dir_list | xargs -I@ bash -c "cd @ ; echo -n curDir:;  pwd; make clean" > /crk/bochs/DemoCleanPerMakefile.txt
-```
-> [DemoCleanPerMakefile.txt](https://gitcode.net/crk/bochs/-/blob/dev/%E9%9C%B2%E5%87%BAbuild%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84makefile/DemoCleanPerMakefile.txt)
+>  
 
 
 ### 在每个目录下列出target们
-```bash
-/crk/bochs$ cat >/crk/bochs/makefile_util/makeListTarget.sh  << 'EOF'
-#!/bin/sh
-make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'|sort -u
-EOF
 
-/crk/bochs/$ chmod +x /crk/bochs/makefile_util/makeListTarget.sh
-```
 
 ```bash 
 
-/crk/bochs$ cat target_dir_list | xargs -I@ bash -c "cd @ ; echo -n curDir:;  pwd; /crk/bochs/makefile_util/makeListTarget.sh" > /crk/bochs/targetListPerMakefile
+/crk/bochs$ cat target_dir_list | xargs -I@ bash -c "cd @ ; echo @; make --question  --print-data-base > Makefile_data-base.txt; python3 /crk/bochs/makefile_util/line_filter.py   Makefile_data-base.txt /crk/bochs/makefile_util/lnFltMap_Makefile_target.py Makefile_targetList.txt "  
 
-/crk/bochs$ wc -l /crk/bochs/targetListPerMakefile.txt
-1319 targetListPerMakefile.txt
+ 
 
 ```
 
