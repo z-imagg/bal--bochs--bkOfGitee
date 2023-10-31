@@ -27,7 +27,7 @@ Saved working directory and index state WIP on 露出build过程中的makefile: 
 /crk/bochs/$ find `pwd` -name Makefile | xargs -I@ bash  -c  " dirname @ " > target_dir_list
 
 ```
-> 显示 有Makefile的目录列表
+> 显示 有Makefile的目录列表 [target_dir_list](https://gitcode.net/crk/bochs/-/blob/dev/%E9%9C%B2%E5%87%BAbuild%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84makefile/target_dir_list)
 ```bash
 /crk/bochs$ cat target_dir_list
 /crk/bochs/bochs-performance/testcases
