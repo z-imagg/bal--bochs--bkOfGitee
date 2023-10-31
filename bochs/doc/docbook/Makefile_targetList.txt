@@ -3,7 +3,7 @@ copy_from_srcdir
 clean
 dist-clean
 upload_docs
-	  scp $(TARGZ) $${SFUSER},bochs@$(REMOTE_HOST)
+	  scp $(TARGZ) $${SFUSER},bochs@$(REMOTE_HOST)  #TODO 请确认这不是不一个合法的Makefile目标, 若不是 则应该是要修改文件 list_Makefile_target_compare_awk_to_line_filter_py.sh, 并重做 "以line_filter__py找出所有Makefile的目标列表.md"
 all
 test_sfuser
 development/index.html

@@ -8,7 +8,7 @@ clean
 blur-O2-opcode-translated1
 blur-O2-unroll
 run-all
-	for i in $(LIST); do rm -f blur.out; echo Running $$i; ./$$i; echo -n "checksum of output
+	for i in $(LIST); do rm -f blur.out; echo Running $$i; ./$$i; echo -n "checksum of output #TODO 请确认这不是不一个合法的Makefile目标, 若不是 则应该是要修改文件 list_Makefile_target_compare_awk_to_line_filter_py.sh, 并重做 "以line_filter__py找出所有Makefile的目标列表.md"
 blur-no-opt
 blur-O2-fnptr-switch
 blur-translate
