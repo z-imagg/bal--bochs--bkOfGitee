@@ -1,0 +1,11 @@
+parse-clean
+libdebug.a
+dbg_breakpoints.o
+parser.o
+clean
+dist-clean
+lexer.o
+all
+linux.o
+dbg_main.o
+symbols.o

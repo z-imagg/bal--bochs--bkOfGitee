@@ -1,0 +1,13 @@
+rombios32.out
+rombios16.bin
+rombios32.o
+clean
+dist-clean
+bios
+biossums
+BIOS-bochs-legacy
+BIOS-bochs-latest
+bios-clean
+biossums.o
+rombios32start.o
+rombios32.bin
