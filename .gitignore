@@ -19,18 +19,18 @@ bochs-msvc-src.zip
 /bochs/bxcommit.exe
 /bochs/bxhub
 /bochs/bxhub.exe
-/bochs/bxversion.h
-/bochs/bxversion.rc
-/bochs/config.h
+# /bochs/bxversion.h
+# /bochs/bxversion.rc
+# /bochs/config.h
 /bochs/config.log
-/bochs/config.status
+# /bochs/config.status
 /bochs/bochsout.txt
 /bochs/config.cache
 /bochs/.conf.my
 /bochs/niclist.exe
 /bochs/parport.out
-/bochs/ltdlconf.h
-/bochs/libtool
+# /bochs/ltdlconf.h
+# /bochs/libtool
 /bochs/.bochs.out
 /bochs/vs2019
 
@@ -38,13 +38,13 @@ bochs-msvc-src.zip
 
 # /bochs/build/linux/
 /bochs/build/linux/DOC-linux.html
-/bochs/build/linux/bochs-dlx
+# /bochs/build/linux/bochs-dlx
 
 # /bochs/build/macosx/
-/bochs/build/macosx/Info.plist
+# /bochs/build/macosx/Info.plist
 
 # /bochs/build/win32/nsis/
-/bochs/build/win32/nsis/bochs.nsi
+# /bochs/build/win32/nsis/bochs.nsi
 
 # /bochs/bx_debug/
 
