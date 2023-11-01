@@ -386,7 +386,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqDq(bxInstruction_c *i)
 const Bit64u BX_SVM_CR_WRITE_MASK = (BX_CONST64(1) << 63);
 #endif
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指令 MOV
 {
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
