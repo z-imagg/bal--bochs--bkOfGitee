@@ -45,6 +45,16 @@ dd if=./c08.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img  co
 #c08_mbr.asm第6行"app_lba_start equ 100" 读取第app_lba_start+1个(即第101个)扇区 因此跳过前100个扇区(即seek=100)
 #dd选项 conv=notrunc 可替换目标设备中的一部分 
 
+#3B.  链接bxrc中文目录为英文目录
+
+#windows下:
+mkdir F:\bxrc-book-x86FromRealToProtectMode\cdrom\
+mklink /D F:\bxrc-book-x86FromRealToProtectMode\cdrom\booktool\ F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具
+
+#linux下:
+#TODO
+
+
 #3. bochs启动该软盘(以c08为例)
 bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 #.bxrc文件中 的硬盘镜像路径 是windows下的路径:  "F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img",

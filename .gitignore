@@ -106,3 +106,8 @@ bochs-msvc-src.zip
 /sfsite/tmp
 /sfsite/xcf
 /sfsite/.glimpse*
+
+*.bin
+*.list.txt
+
+*.img

@@ -35,6 +35,9 @@ dd if=/dev/zero of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img bs=
 dd if=./c08_mbr.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=0
 dd if=./c08.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img  conv=notrunc  seek=100
 
+#3B.  链接bxrc中文目录为英文目录
+#  宿主机win10x64下操作 同 'envPrepare_compile_run.sh/3B.  链接bxrc中文目录为英文目录'
+
 
 #3. bochs启动该软盘(以c08为例)
 #  宿主机win10x64下操作 同 'envPrepare_compile_run.sh/3. bochs启动该软盘'
