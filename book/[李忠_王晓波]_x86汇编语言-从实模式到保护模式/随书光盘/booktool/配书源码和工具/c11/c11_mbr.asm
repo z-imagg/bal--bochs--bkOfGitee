@@ -1,7 +1,6 @@
          ;代码清单11-1 ;文件名：c11_mbr.asm
          ;文件说明：硬盘主引导扇区代码 
          ;创建日期：2011-5-16 19:54
-		%include	"macro.inc"	;  宏 gen_zs ( GDIdx, TI, RPL)
 
          ;设置堆栈段和栈指针 
          mov ax,cs      
@@ -48,12 +47,12 @@
          mov cr0,eax                        ;设置PE位
       
          ;以下进入保护模式; jmp dword gen_zs(0x0001,0B,00B):flush 隐含操作  "gen_zs(0x0001,0B,00B)" ---> cs
-         jmp dword gen_zs(0x0001,0B,00B):flush             ;16位的描述符选择子(GDIdx为1, 即#1描述符,即 代码段描述符)：32位偏移
+         jmp dword 00000000000_01_000B:flush             ;16位的描述符选择子(GDIdx为1, 即#1描述符,即 代码段描述符)：32位偏移
                                             ;清流水线并串行化处理器 
          [bits 32] 
 
     flush:
-         mov cx,gen_zs(0x0002,0B,00B)         ;加载数据段选择子(GDIdx为2, 即#2描述符,即 数据段描述符)
+         mov cx,00000000000_10_000B         ;加载数据段选择子(GDIdx为2, 即#2描述符,即 数据段描述符)
          mov ds,cx
 
          ;以下在屏幕上显示"Protect mode OK." 
@@ -74,7 +73,7 @@
          mov byte [0x1c],'K'
 
          ;以下用简单的示例来帮助阐述32位保护模式下的堆栈操作 
-         mov cx,gen_zs(0x0003,0B,00B)         ;加载堆栈段选择子(GDIdx为3, 即#3描述符,即 堆栈段描述符)
+         mov cx,00000000000_11_000B         ;加载堆栈段选择子(GDIdx为3, 即#3描述符,即 堆栈段描述符)
          mov ss,cx
          mov esp,0x7c00
 
