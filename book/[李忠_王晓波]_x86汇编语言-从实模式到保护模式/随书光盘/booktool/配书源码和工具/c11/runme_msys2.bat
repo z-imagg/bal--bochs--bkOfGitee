@@ -7,6 +7,6 @@ d:\msys64\usr\bin\bash  -l /f/crk/bochs/book/[李忠_王晓波]_x86汇编语言-
 
 
 where bochs
-bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
-REM bochsdbg -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
+REM bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
+bochsdbg -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 pause
