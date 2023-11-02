@@ -27,7 +27,7 @@ where bochsdbg
 bochs --help
 #Bochs x86 Emulator 2.7
 
-#1. 编译
+#1. 编译(以c08为例)
 nasm c08_mbr.asm -o c08_mbr.bin -f bin -l c08_mbr.list.txt
 nasm c08.asm -o c08.bin -f bin -l c08.list.txt
 # c08_mbr.list.txt 可找到phy_base值为 0x000000C7 ，如下: 
@@ -35,7 +35,7 @@ nasm c08.asm -o c08.bin -f bin -l c08.list.txt
 
 
 
-#2. 制作启动硬盘
+#2. 制作启动硬盘(以c08为例)
 #生成9.84MB硬盘(20Cylinder柱面 16Header磁头 63SectorsPerTrack扇区每磁道)镜像
 #20*16*63*512 Byte==10321920 Byte=9.84375 MByte
 #10321920 Byte == 20160 * 512 Byte, 因此以下dd命令中的 count=20160
@@ -45,11 +45,11 @@ dd if=./c08.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img  co
 #c08_mbr.asm第6行"app_lba_start equ 100" 读取第app_lba_start+1个(即第101个)扇区 因此跳过前100个扇区(即seek=100)
 #dd选项 conv=notrunc 可替换目标设备中的一部分 
 
-#3. bochs启动该软盘
+#3. bochs启动该软盘(以c08为例)
 bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 #.bxrc文件中 的硬盘镜像路径 是windows下的路径:  "F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img",
 
-#4. bochsdbg启动该软盘 (调试模式启动)
+#4. bochsdbg启动该软盘 (调试模式启动)(以c08为例)
 bochsdbg -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 #以下是bochsdbg命令提示符下的脚本
 break 0x7c00
