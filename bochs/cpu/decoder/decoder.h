@@ -50,7 +50,7 @@ enum BxSegregs {
 
 #ifndef __BxSegregsName
 #define __BxSegregsName
-char[8][3] BxSegregsName={"ES","CS","SS","DS","FS","GS","6S","NL"};
+char BxSegregsName[8][3]={"ES","CS","SS","DS","FS","GS","6S","NL"};
 #endif
 
 #define BX_NULL_SEG_REG(seg) ((seg) == BX_SEG_REG_NULL)
