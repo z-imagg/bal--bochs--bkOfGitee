@@ -48,11 +48,6 @@ enum BxSegregs {
   BX_SEG_REG_NULL = 7
 };
 
-#ifndef __BxSegregsName
-#define __BxSegregsName
-char BxSegregsName[8][3]={"ES","CS","SS","DS","FS","GS","6S","NL"};
-#endif
-
 #define BX_NULL_SEG_REG(seg) ((seg) == BX_SEG_REG_NULL)
 
 enum BxRegs8L {
