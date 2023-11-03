@@ -151,6 +151,8 @@ BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
       seg->selector    = selector;
       seg->cache       = descriptor;
       seg->cache.valid = SegValidCache;
+      
+      BX_INFO(("记录日志,load_seg_reg,参数new_value#0x%x,selector#0x%x,descriptor#0x%x;", new_value, selector,descriptor));
 
       return;
     }
