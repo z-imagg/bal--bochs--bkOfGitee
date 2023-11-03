@@ -96,6 +96,8 @@ BX_CPU_C::load_cs(bx_selector_t *selector, bx_descriptor_t *descriptor, Bit8u cp
   BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.rpl = cpl;
   BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].cache.valid  = SegValidCache;
 
+  BX_INFO(("记录日志,load_cs;selector.value#0x%x,selector.ti#%d;",  selector->value, selector->ti ));
+
 #if BX_SUPPORT_X86_64
   if (long_mode()) {
     handleCpuModeChange();
