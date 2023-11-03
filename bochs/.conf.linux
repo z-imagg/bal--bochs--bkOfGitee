@@ -8,8 +8,8 @@ which_config=plugins
 
 CC="gcc"
 CXX="c++"
-CFLAGS="-Wall -O3 -fomit-frame-pointer -pipe"    # for speed
-#CFLAGS="-Wall -g -pipe"                         # for development
+#CFLAGS="-Wall -O3 -fomit-frame-pointer -pipe"    # for speed
+CFLAGS="-Wall   -O0    -g2   -pipe"                         # for development
 CXXFLAGS="$CFLAGS"
 
 export CC
