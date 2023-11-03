@@ -831,7 +831,7 @@ public: // for now...
 #define BX_SUPPORT_SVM_EXTENSION(feature_mask) \
    (BX_CPU_THIS_PTR svm_extensions_bitmask & (feature_mask))
 
-  // General register set
+  // General register set 通用寄存器集
   // rax: accumulator
   // rbx: base
   // rcx: count
@@ -855,7 +855,7 @@ public: // for now...
    * ==|==|=====| ==|==|==|==| ==|==|==|==| ==|==|==|==
    *  0|NT| IOPL| OF|DF|IF|TF| SF|ZF| 0|AF|  0|PF| 1|CF
    */
-  Bit32u eflags; // Raw 32-bit value in x86 bit position.
+  Bit32u eflags; // Raw 32-bit value in x86 bit position. x86的32位标志寄存器
 
   // lazy arithmetic flags state
   bx_lazyflags_entry oszapc;
@@ -863,8 +863,8 @@ public: // for now...
   // so that we can back up when handling faults, exceptions, etc.
   // we need to store the value of the instruction pointer, before
   // each fetch/execute cycle.
-  bx_address prev_rip;
-  bx_address prev_rsp;
+  bx_address prev_rip;//先前的ip(指令指针)
+  bx_address prev_rsp;//先前的sp(栈顶指针)
 #if BX_SUPPORT_CET
   bx_address prev_ssp;
 #endif
@@ -881,26 +881,26 @@ public: // for now...
 
   // What events to inhibit at any given time.  Certain instructions
   // inhibit interrupts, some debug exceptions and single-step traps.
-  unsigned inhibit_mask;
+  unsigned inhibit_mask;//抑制哪些事件
   Bit64u inhibit_icount;
 
   /* user segment register set */
-  bx_segment_reg_t  sregs[6];
+  bx_segment_reg_t  sregs[6];//用户段寄存器集
 
-  /* system segment registers */
-  bx_global_segment_reg_t gdtr; /* global descriptor table register */
-  bx_global_segment_reg_t idtr; /* interrupt descriptor table register */
-  bx_segment_reg_t        ldtr; /* local descriptor table register */
-  bx_segment_reg_t        tr;   /* task register */
+  /* system segment registers 系统段寄存器*/
+  bx_global_segment_reg_t gdtr; /* global descriptor table register 全局描述符表寄存器gdtr*/
+  bx_global_segment_reg_t idtr; /* interrupt descriptor table register 中断描述符表寄存器idtr*/
+  bx_segment_reg_t        ldtr; /* local descriptor table register 本地描述符表寄存器*/
+  bx_segment_reg_t        tr;   /* task register 任务寄存器*/
 
-  /* debug registers DR0-DR7 */
+  /* debug registers DR0-DR7 调试寄存器 DR0-DR7*/
   bx_address dr[4]; /* DR0-DR3 */
   bx_dr6_t   dr6;
   bx_dr7_t   dr7;
 
   Bit32u debug_trap; // holds DR6 value (16bit) to be set
 
-  /* Control registers */
+  /* Control registers 控制寄存器 cr0 cr2 cr2 cr4*/
   bx_cr0_t   cr0;
   bx_address cr2;
   bx_address cr3;
@@ -913,11 +913,11 @@ public: // for now...
 #endif
 
 #if BX_CPU_LEVEL >= 5
-  // TSC: Time Stamp Counter
-  // Instead of storing a counter and incrementing it every instruction, we
-  // remember the time in ticks that it was reset to zero.  With a little
-  // algebra, we can also support setting it to something other than zero.
-  // Don't read this directly; use get_TSC and set_TSC to access the TSC.
+  // TSC: Time Stamp Counter 时间戳计数器
+  // Instead of storing a counter and incrementing it every instruction 不用此法:每条指令对计数器自增, we
+  // remember the time in ticks that it was reset to zero 而 记住 当滴答数置零时 的 时刻.  With a little
+  // algebra 用一点代数, we can also support setting it to something other than zero.
+  // Don't read this directly 不要直接读; use get_TSC and set_TSC to access the TSC 而 用get_TSC、set_TSC去访问 TSC(时间戳计数器).
   Bit64s tsc_adjust;
 #if BX_SUPPORT_VMX || BX_SUPPORT_SVM
   Bit64s tsc_offset;
@@ -956,7 +956,7 @@ public: // for now...
 
 #if BX_CPU_LEVEL >= 6
 
-  // Vector register set
+  // Vector register set 向量寄存器集
   // vmm0-vmmN: up to 32 vector registers
   // vtmp: temp register
 #if BX_SUPPORT_EVEX
@@ -986,7 +986,7 @@ public: // for now...
   bx_local_apic_c lapic;
 #endif
 
-  /* SMM base register */
+  /* SMM base register SMM基础寄存器*/
   Bit32u smbase;
 
 #if BX_CPU_LEVEL >= 5
@@ -1061,7 +1061,7 @@ public: // for now...
 #define BX_EVENT_NMI                          (1 <<  0)
 #define BX_EVENT_SMI                          (1 <<  1)
 #define BX_EVENT_INIT                         (1 <<  2)
-#define BX_EVENT_CODE_BREAKPOINT_ASSIST       (1 <<  3)
+#define BX_EVENT_CODE_BREAKPOINT_ASSIST       (1 <<  3)/*事件码_断点助手*/
 #define BX_EVENT_VMX_MONITOR_TRAP_FLAG        (1 <<  4)
 #define BX_EVENT_VMX_PREEMPTION_TIMER_EXPIRED (1 <<  5)
 #define BX_EVENT_VMX_INTERRUPT_WINDOW_EXITING (1 <<  6)
@@ -1138,7 +1138,7 @@ public: // for now...
   // Boundaries of current code page, based on EIP
   bx_address eipPageBias;
   Bit32u     eipPageWindowSize;
-  const Bit8u *eipFetchPtr;
+  const Bit8u *eipFetchPtr;//eip取指针
   bx_phy_address pAddrFetchPage; // Guest physical address of current instruction page
 
   // Boundaries of current stack page, based on ESP
@@ -1160,30 +1160,30 @@ public: // for now...
   // statistics
   bx_cpu_statistics *stats;
 
-#if BX_DEBUGGER
-  bx_phy_address watchpoint;
-  Bit8u break_point;
+#if BX_DEBUGGER//如果编译调试器
+  bx_phy_address watchpoint;//观察点
+  Bit8u break_point;//断点
   Bit8u magic_break;
-  Bit8u stop_reason;
-  bool trace;
-  bool trace_reg;
-  bool trace_mem;
-  bool mode_break;
+  Bit8u stop_reason;//停止原因
+  bool trace;//是否跟踪
+  bool trace_reg;//跟踪寄存器
+  bool trace_mem;//跟踪内存
+  bool mode_break;//断的模式
 #if BX_SUPPORT_VMX || BX_SUPPORT_SVM
   bool vmexit_break;
 #endif
-  unsigned show_flag;
+  unsigned show_flag;//显示标记
   bx_guard_found_t guard_found;
 #endif
 
-#if BX_INSTRUMENTATION
-  // store far branch CS:EIP pair for instrumentation purposes
-  // unfortunatelly prev_rip CPU field cannot be used as is because it
-  // could be overwritten by task switch which could happen as result
+#if BX_INSTRUMENTATION//如果编译Instrumentation
+  // store far branch CS:EIP pair for instrumentation purposes 由于 CPU.prev_rip字段
+  // unfortunatelly prev_rip CPU field cannot be used as is because it 在任务切换时会被覆盖
+  // could be overwritten by task switch which could happen as result 因此新加字段CS:EIP表示远分支
   // of the far branch
   struct {
-    Bit16u prev_cs;
-    bx_address prev_rip;
+    Bit16u prev_cs;//先前的cs
+    bx_address prev_rip;//先前的eip
   } far_branch;
 
 #define FAR_BRANCH_PREV_CS (BX_CPU_THIS_PTR far_branch.prev_cs)
@@ -1216,7 +1216,7 @@ public: // for now...
   Bit32u fetchModeMask;
 
   struct {
-    bx_address rm_addr;       // The address offset after resolution
+    bx_address rm_addr;       // The address offset after resolution resolution是什么意思?
     bx_phy_address paddress1; // physical address after translation of 1st len1 bytes of data
     bx_phy_address paddress2; // physical address after translation of 2nd len2 bytes of data
     Bit32u len1;              // Number of bytes in page 1
@@ -1250,11 +1250,11 @@ public: // for now...
     SET_FLAGS_OSZAPC_LOGIC_32(1);
   }
 
-  BX_SMF BX_CPP_INLINE unsigned getB_OF(void) { return BX_CPU_THIS_PTR oszapc.getB_OF(); }
-  BX_SMF BX_CPP_INLINE unsigned get_OF(void) { return BX_CPU_THIS_PTR oszapc.get_OF(); }
-  BX_SMF BX_CPP_INLINE void set_OF(bool val) { BX_CPU_THIS_PTR oszapc.set_OF(val); }
-  BX_SMF BX_CPP_INLINE void clear_OF(void) { BX_CPU_THIS_PTR oszapc.clear_OF(); }
-  BX_SMF BX_CPP_INLINE void assert_OF(void) { BX_CPU_THIS_PTR oszapc.assert_OF(); }
+  BX_SMF BX_CPP_INLINE unsigned getB_OF(void) { return BX_CPU_THIS_PTR oszapc.getB_OF(); }//获取标志OF
+  BX_SMF BX_CPP_INLINE unsigned get_OF(void) { return BX_CPU_THIS_PTR oszapc.get_OF(); }//获取标志OF
+  BX_SMF BX_CPP_INLINE void set_OF(bool val) { BX_CPU_THIS_PTR oszapc.set_OF(val); }//设置标志OF
+  BX_SMF BX_CPP_INLINE void clear_OF(void) { BX_CPU_THIS_PTR oszapc.clear_OF(); }//清除标志OF
+  BX_SMF BX_CPP_INLINE void assert_OF(void) { BX_CPU_THIS_PTR oszapc.assert_OF(); }//断言标志OF
 
   BX_SMF BX_CPP_INLINE unsigned getB_SF(void) { return BX_CPU_THIS_PTR oszapc.getB_SF(); }
   BX_SMF BX_CPP_INLINE unsigned get_SF(void) { return BX_CPU_THIS_PTR oszapc.get_SF(); }
@@ -1287,10 +1287,10 @@ public: // for now...
   BX_SMF BX_CPP_INLINE void assert_CF(void) { BX_CPU_THIS_PTR oszapc.assert_CF(); }
 
   // constructors & destructors...
-  BX_CPU_C(unsigned id = 0);
+  BX_CPU_C(unsigned id = 0);//模拟CPU 构造器
  ~BX_CPU_C();
 
-  void initialize(void);
+  void initialize(void);//模拟CPU 初始化
   void init_statistics(void);
   void after_restore_state(void);
   void register_state(void);
@@ -4869,7 +4869,7 @@ public: // for now...
 
   BX_SMF BX_CPP_INLINE bx_address get_instruction_pointer(void);
 
-  BX_SMF BX_CPP_INLINE Bit32u get_eip(void) { return (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx); }
+  BX_SMF BX_CPP_INLINE Bit32u get_eip(void) { return (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx); }//函数get_eip()的返回值 就是bochs源码对eip的表示
   BX_SMF BX_CPP_INLINE Bit16u get_ip (void) { return (BX_CPU_THIS_PTR gen_reg[BX_16BIT_REG_IP].word.rx); }
 #if BX_SUPPORT_X86_64
   BX_SMF BX_CPP_INLINE Bit64u get_rip(void) { return (BX_CPU_THIS_PTR gen_reg[BX_64BIT_REG_RIP].rrx); }
@@ -5733,7 +5733,7 @@ class bxInstruction_c;
   RIP += (i)->ilen();                                  \
   return BX_CPU_CALL_METHOD(i->execute1, (i));         \
 }
-
+//一些指令模拟函数末尾调用了BX_NEXT_TRACE
 #define BX_NEXT_TRACE(i) {                             \
   BX_COMMIT_INSTRUCTION(i);                            \
   return;                                              \
@@ -5742,13 +5742,13 @@ class bxInstruction_c;
 #if BX_ENABLE_TRACE_LINKING == 0
 #define linkTrace(i)
 #endif
-
+//一些指令模拟函数末尾调用了BX_LINK_TRACE
 #define BX_LINK_TRACE(i) {                             \
   BX_COMMIT_INSTRUCTION(i);                            \
   linkTrace(i);                                        \
   return;                                              \
 }
-
+//一些指令模拟函数末尾调用了BX_NEXT_INSTR
 #define BX_NEXT_INSTR(i) {                             \
   BX_COMMIT_INSTRUCTION(i);                            \
   if (BX_CPU_THIS_PTR async_event) return;             \

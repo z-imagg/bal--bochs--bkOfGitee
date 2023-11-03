@@ -35,7 +35,7 @@
 #endif
 
 #if BX_SUPPORT_X86_64
-void BX_CPU_C::long_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16u error_code)
+void BX_CPU_C::long_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16u error_code)//x86长模式中断处理过程
 {
   bx_descriptor_t gate_descriptor, cs_descriptor;
   bx_selector_t cs_selector;
@@ -59,7 +59,7 @@ void BX_CPU_C::long_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16
   Bit32u dword2 = GET32H(desctmp1);
   Bit32u dword3 = GET32L(desctmp2);
 
-  parse_descriptor(dword1, dword2, &gate_descriptor);
+  parse_descriptor(dword1, dword2, &gate_descriptor);//解析描述符 20231101_2226 进展到此
 
   if ((gate_descriptor.valid==0) || gate_descriptor.segment)
   {
@@ -275,7 +275,7 @@ void BX_CPU_C::long_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16
 }
 #endif
 
-void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16u error_code)
+void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16u error_code)//80286准保护模式
 {
   bx_descriptor_t gate_descriptor, cs_descriptor;
   bx_selector_t cs_selector;
@@ -722,7 +722,7 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
   }
 }
 
-void BX_CPU_C::real_mode_int(Bit8u vector, bool push_error, Bit16u error_code)
+void BX_CPU_C::real_mode_int(Bit8u vector, bool push_error, Bit16u error_code)//8086实模式中断处理过程
 {
   if ((vector*4+3) > BX_CPU_THIS_PTR idtr.limit) {
     BX_ERROR(("interrupt(real mode) vector > idtr.limit"));
@@ -753,7 +753,7 @@ void BX_CPU_C::real_mode_int(Bit8u vector, bool push_error, Bit16u error_code)
   BX_CPU_THIS_PTR clear_RF();
 }
 
-void BX_CPU_C::interrupt(Bit8u vector, unsigned type, bool push_error, Bit16u error_code)
+void BX_CPU_C::interrupt(Bit8u vector, unsigned type, bool push_error, Bit16u error_code)//中断处理过程
 {
 #if BX_DEBUGGER
   BX_CPU_THIS_PTR show_flag |= Flag_intsig;
@@ -771,14 +771,14 @@ void BX_CPU_C::interrupt(Bit8u vector, unsigned type, bool push_error, Bit16u er
 
   bool soft_int = false;
   switch(type) {
-    case BX_SOFTWARE_INTERRUPT:
-    case BX_SOFTWARE_EXCEPTION:
+    case BX_SOFTWARE_INTERRUPT://软件中断
+    case BX_SOFTWARE_EXCEPTION://软件异常
       soft_int = true;
       break;
-    case BX_PRIVILEGED_SOFTWARE_INTERRUPT:
-    case BX_EXTERNAL_INTERRUPT:
-    case BX_NMI:
-    case BX_HARDWARE_EXCEPTION:
+    case BX_PRIVILEGED_SOFTWARE_INTERRUPT://优先软件中断
+    case BX_EXTERNAL_INTERRUPT://外部中断
+    case BX_NMI://NMI(Non Maskable Interrupt)不可屏蔽中断
+    case BX_HARDWARE_EXCEPTION://硬件异常
       break;
 
     default:
@@ -801,7 +801,7 @@ void BX_CPU_C::interrupt(Bit8u vector, unsigned type, bool push_error, Bit16u er
 
 #if BX_SUPPORT_X86_64
   if (long_mode()) {
-    long_mode_int(vector, soft_int, push_error, error_code);
+    long_mode_int(vector, soft_int, push_error, error_code);//x86长模式中断处理过程, "长"估计是指 位数 长 于 32位 的 即 32位的80386+(保护模式) 或64位(保护模式), 那 "短" 自然是16位的实模式8086或16位80286准保护模式
   }
   else
 #endif
@@ -810,10 +810,10 @@ void BX_CPU_C::interrupt(Bit8u vector, unsigned type, bool push_error, Bit16u er
     if (type != BX_SOFTWARE_INTERRUPT || !v8086_mode() || !v86_redirect_interrupt(vector))
     {
       if(real_mode()) {
-        real_mode_int(vector, push_error, error_code);
+        real_mode_int(vector, push_error, error_code);//8086实模式中断处理过程
       }
       else {
-        protected_mode_int(vector, soft_int, push_error, error_code);
+        protected_mode_int(vector, soft_int, push_error, error_code);//80286准保护模式
       }
     }
   }
