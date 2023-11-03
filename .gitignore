@@ -1,113 +1,113 @@
-# General
-*.o
-*.lo
-*.a
-*.la
-*.orig
-*.rej
-obj-debug/
-obj-release/
-.vscode
-bochs-msvc-src.zip
+# General 
+*.o 
+*.lo 
+*.a 
+*.la 
+*.orig 
+*.rej 
+obj-debug/ 
+obj-release/ 
+.vscode 
+bochs-msvc-src.zip 
+ 
+# /bochs/ 
+/bochs/bochs 
+/bochs/bochs.exe 
+/bochs/bximage 
+/bochs/bximage.exe 
+/bochs/bxcommit 
+/bochs/bxcommit.exe 
+/bochs/bxhub 
+/bochs/bxhub.exe 
+/bochs/bxversion.h 
+/bochs/bxversion.rc 
+/bochs/config.h 
+/bochs/config.log 
+/bochs/config.status 
+/bochs/bochsout.txt 
+/bochs/config.cache 
+/bochs/.conf.my 
+/bochs/niclist.exe 
+/bochs/parport.out 
+/bochs/ltdlconf.h 
+/bochs/libtool 
+/bochs/.bochs.out 
+/bochs/vs2019 
+ 
+# /bochs/bios/ 
+ 
+# /bochs/build/linux/ 
+/bochs/build/linux/DOC-linux.html 
+/bochs/build/linux/bochs-dlx 
+ 
+# /bochs/build/macosx/ 
+/bochs/build/macosx/Info.plist 
+ 
+# /bochs/build/win32/nsis/ 
+/bochs/build/win32/nsis/bochs.nsi 
+ 
+# /bochs/bx_debug/ 
+ 
+# /bochs/cpu/ 
+ 
+# /bochs/disasm/ 
+ 
+# /bochs/doc/docbook/ 
+ 
+# /bochs/doc/docbook/development/ 
+/bochs/doc/docbook/development/*.html 
+ 
+# /bochs/doc/docbook/documentation/ 
+/bochs/doc/docbook/documentation/*.html 
+ 
+# /bochs/doc/docbook/user/ 
+/bochs/doc/docbook/user/*.html 
+ 
+# /bochs/gui/ 
+/bochs/gui/.libs/ 
+ 
+# /bochs/host/linux/pcidev/ 
+ 
+# /bochs/instrument/stubs/ 
+ 
+# /bochs/iodev/ 
+/bochs/iodev/.libs/ 
+ 
+# /bochs/memory/ 
+ 
+# /bochs/misc/ 
+ 
+# /bocks/cpu/avx/ 
+ 
+# /bochs/cpu/cpudb/ 
+ 
+# /bochs/cpu/fpu/ 
+ 
+# /bochs/iodev/display/ 
+/bochs/iodev/display/.libs/ 
+ 
+# /bochs/iodev/hdimage/ 
+/bochs/iodev/hdimage/.libs/ 
+ 
+# /bochs/iodev/network/ 
+/bochs/iodev/network/.libs/ 
+ 
+# /bochs/iodev/sound/ 
+/bochs/iodev/sound/.libs/ 
+ 
+# /bochs/iodev/usb/ 
+/bochs/iodev/usb/.libs/ 
+ 
+# /sfsite/ 
+/sfsite/doc 
+/sfsite/guestos 
+/sfsite/screenshot 
+/sfsite/techspec 
+/sfsite/tmp 
+/sfsite/xcf 
+/sfsite/.glimpse* 
 
-# /bochs/
-/bochs/bochs
-/bochs/bochs.exe
-/bochs/bximage
-/bochs/bximage.exe
-/bochs/bxcommit
-/bochs/bxcommit.exe
-/bochs/bxhub
-/bochs/bxhub.exe
-# /bochs/bxversion.h
-# /bochs/bxversion.rc
-# /bochs/config.h
-/bochs/config.log
-# /bochs/config.status
-/bochs/bochsout.txt
-/bochs/config.cache
-/bochs/.conf.my
-/bochs/niclist.exe
-/bochs/parport.out
-# /bochs/ltdlconf.h
-# /bochs/libtool
-/bochs/.bochs.out
-/bochs/vs2019
-
-# /bochs/bios/
-
-# /bochs/build/linux/
-/bochs/build/linux/DOC-linux.html
-# /bochs/build/linux/bochs-dlx
-
-# /bochs/build/macosx/
-# /bochs/build/macosx/Info.plist
-
-# /bochs/build/win32/nsis/
-# /bochs/build/win32/nsis/bochs.nsi
-
-# /bochs/bx_debug/
-
-# /bochs/cpu/
-
-# /bochs/disasm/
-
-# /bochs/doc/docbook/
-
-# /bochs/doc/docbook/development/
-/bochs/doc/docbook/development/*.html
-
-# /bochs/doc/docbook/documentation/
-/bochs/doc/docbook/documentation/*.html
-
-# /bochs/doc/docbook/user/
-/bochs/doc/docbook/user/*.html
-
-# /bochs/gui/
-/bochs/gui/.libs/
-
-# /bochs/host/linux/pcidev/
-
-# /bochs/instrument/stubs/
-
-# /bochs/iodev/
-/bochs/iodev/.libs/
-
-# /bochs/memory/
-
-# /bochs/misc/
-
-# /bocks/cpu/avx/
-
-# /bochs/cpu/cpudb/
-
-# /bochs/cpu/fpu/
-
-# /bochs/iodev/display/
-/bochs/iodev/display/.libs/
-
-# /bochs/iodev/hdimage/
-/bochs/iodev/hdimage/.libs/
-
-# /bochs/iodev/network/
-/bochs/iodev/network/.libs/
-
-# /bochs/iodev/sound/
-/bochs/iodev/sound/.libs/
-
-# /bochs/iodev/usb/
-/bochs/iodev/usb/.libs/
-
-# /sfsite/
-/sfsite/doc
-/sfsite/guestos
-/sfsite/screenshot
-/sfsite/techspec
-/sfsite/tmp
-/sfsite/xcf
-/sfsite/.glimpse*
-
-*.bin
-*.list.txt
-
-*.img
+*.bin 
+*.list.txt 
+ 
+*.img 

@@ -1,5 +1,0 @@
-clean
-dist-clean
-make_cmos_image.o
-all
-make_cmos_image

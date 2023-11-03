@@ -1,6 +1,0 @@
-clean
-dist-clean
-misc_mem.o
-all
-libmemory.a
-memory.o

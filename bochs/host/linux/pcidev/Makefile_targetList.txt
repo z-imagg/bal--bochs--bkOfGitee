@@ -1,8 +1,0 @@
-pcidev.
-all-kernel24
-clean
-dist-clean
-all
-devices
-install
-all-kernel26

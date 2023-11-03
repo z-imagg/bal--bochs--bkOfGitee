@@ -1,4 +1,0 @@
-clean
-dist-clean
-instrument.o
-libinstrument.a
