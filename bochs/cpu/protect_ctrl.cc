@@ -855,6 +855,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGDT_Ms(bxInstruction_c *i)//模拟 指令
 
   BX_CPU_THIS_PTR gdtr.limit = limit_16;
   BX_CPU_THIS_PTR gdtr.base = base_32;
+  BX_INFO(("记录日志,LGDT_Ms模拟指令LGDT;参数{eaddr:[0x%x],base_32:[0x%x], limit_16:[0x%x]};", eaddr,base_32, limit_16));
 
   BX_NEXT_INSTR(i);
 }
