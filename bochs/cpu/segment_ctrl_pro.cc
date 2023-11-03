@@ -154,7 +154,7 @@ BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
       
       int segIdx= seg-BX_CPU_THIS_PTR sregs; //即 seg - this->sregs
       /*enum BxSegregs{ES#0,CS#1,SS#2,DS#3,FS#4,GS#5,6S#6,NULL#7};*/
-      BX_INFO(("记录日志,load_seg_reg;segIdx#%d'ES#0,CS#1,SS#2,DS#3,FS#4,GS#5,6S#6,NULL#7';new_value#0x%x,selector#0x%x,descriptor#0x%x;",  segIdx,new_value, selector,descriptor));
+      // BX_INFO(("记录日志,load_seg_reg;segIdx#%d'ES#0,CS#1,SS#2,DS#3,FS#4,GS#5,6S#6,NULL#7';new_value#0x%x,selector#0x%x,descriptor#0x%x;",  segIdx,new_value, selector,descriptor));
 
       return;
     }
