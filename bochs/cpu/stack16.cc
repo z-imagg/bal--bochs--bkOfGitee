@@ -31,7 +31,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::PUSH_EwR(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::PUSH_EwM(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::PUSH_EwM(bxInstruction_c *i)//模拟指令PUSH
 {
   bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
   Bit16u op1_16 = read_virtual_word(i->seg(), eaddr);
@@ -75,7 +75,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::POP_EwR(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::POP_EwM(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::POP_EwM(bxInstruction_c *i)//模拟指令POP
 {
   RSP_SPECULATIVE;
 

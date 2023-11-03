@@ -151,6 +151,8 @@ BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
       seg->selector    = selector;
       seg->cache       = descriptor;
       seg->cache.valid = SegValidCache;
+      
+      BX_INFO(("记录日志,load_seg_reg,参数new_value#0x%x,selector#0x%x,descriptor#0x%x;", new_value, selector,descriptor));
 
       return;
     }
@@ -419,7 +421,7 @@ bool BX_CPU_C::set_segment_ar_data(bx_segment_reg_t *seg, bool valid,
   return d->valid;
 }
 
-void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
+void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)//解析(保护模式中的)描述符
 {
   Bit8u AR_byte;
   Bit32u limit;
@@ -431,7 +433,7 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
   temp->type     = (AR_byte & 0xf);
   temp->valid    = 0; /* start out invalid */
 
-  if (temp->segment) { /* data/code segment descriptors */
+  if (temp->segment) { /* data/code segment descriptors 代码段/数据段 描述符*/
     limit = (dword1 & 0xffff) | (dword2 & 0x000F0000);
 
     temp->u.segment.base       = (dword1 >> 16) | ((dword2 & 0xFF) << 16);
@@ -450,11 +452,11 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
 
     temp->valid    = 1;
   }
-  else { // system & gate segment descriptors
+  else { // system & gate segment descriptors 系统段描述符/门段描述符
     switch (temp->type) {
-      case BX_286_CALL_GATE:
-      case BX_286_INTERRUPT_GATE:
-      case BX_286_TRAP_GATE:
+      case BX_286_CALL_GATE://80286调用门
+      case BX_286_INTERRUPT_GATE://80286中断门
+      case BX_286_TRAP_GATE://80286陷阱门
         // param count only used for call gate
         temp->u.gate.param_count   = dword2 & 0x1f;
         temp->u.gate.dest_selector = dword1 >> 16;
@@ -462,9 +464,9 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
         temp->valid = 1;
         break;
 
-      case BX_386_CALL_GATE:
-      case BX_386_INTERRUPT_GATE:
-      case BX_386_TRAP_GATE:
+      case BX_386_CALL_GATE://80386调用门
+      case BX_386_INTERRUPT_GATE://80386中断门
+      case BX_386_TRAP_GATE://80386陷阱门
         // param count only used for call gate
         temp->u.gate.param_count   = dword2 & 0x1f;
         temp->u.gate.dest_selector = dword1 >> 16;
@@ -473,12 +475,12 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
         temp->valid = 1;
         break;
 
-      case BX_TASK_GATE:
+      case BX_TASK_GATE://任务门
         temp->u.taskgate.tss_selector = dword1 >> 16;
         temp->valid = 1;
         break;
 
-      case BX_SYS_SEGMENT_LDT:
+      case BX_SYS_SEGMENT_LDT://系统段LDT
       case BX_SYS_SEGMENT_AVAIL_286_TSS:
       case BX_SYS_SEGMENT_BUSY_286_TSS:
       case BX_SYS_SEGMENT_AVAIL_386_TSS:

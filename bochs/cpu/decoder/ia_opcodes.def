@@ -22,23 +22,23 @@
 /////////////////////////////////////////////////////////////////////////
 
 /* bx_define_opcode is a macro with the following fields:
-( *   - Opcode name
- *   - Opcode execution function (/m form)
- *   - Opcode execution function (/r form)
+( *   - Opcode name 操作码名
+ *   - Opcode execution function (/m form) 模拟 该 操作码 的函数(/m内存样式)
+ *   - Opcode execution function (/r form) 模拟 该 操作码 的函数(/r寄存器样式)
  *   - x86 ISA extensions that enable this instruction
- *   - source for instruction destination register
- *   - source for instruction src1 register
- *   - source for instruction src2 register
- *   - source for instruction src3 register
+ *   - source for instruction destination register 指令的目的寄存器
+ *   - source for instruction src1 register 指令的源寄存器1
+ *   - source for instruction src2 register 指令的源寄存器2
+ *   - source for instruction src3 register 指令的源寄存器3
  *   - special attributes (PREPARE_SSE, PREPARE_AVX and etc)
  *
  * in case of complex /m form instruction (load+op) /m form execution function
  * directly calls the /r form.
  */
 
-/* Codes for Addressing Method:
+/* Codes for Addressing Method 寻址方式 编码: 
  * ---------------------------
- * A  - Direct address. The instruction has no ModR/M byte; the address
+ * A  - Direct address 直接地址. The instruction has no ModR/M byte; the address
  *      of the operand is encoded in the instruction; and no base register,
  *      index register, or scaling factor can be applied.
  * C  - The reg field of the ModR/M byte selects a control register.
@@ -81,7 +81,7 @@
  */
 
 /*
- * Codes for Operand Type:
+ * Codes for Operand Type 操作类别 编码:
  * ----------------------
  * b  - Byte, regardless of operand-size attribute.
  * w  - Word, regardless of operand-size attribute.

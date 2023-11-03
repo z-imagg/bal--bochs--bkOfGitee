@@ -1123,7 +1123,7 @@ void bx_dbg_info_segment_regs_command(void)
       global_sreg.base, (unsigned) global_sreg.limit);
 }
 
-void bx_dbg_info_registers_command(int which_regs_mask)
+void bx_dbg_info_registers_command(int which_regs_mask)//bochsdbg源码中 对命令reg的处理代过程
 {
   bx_address reg;
 
@@ -1148,8 +1148,8 @@ void bx_dbg_info_registers_command(int which_regs_mask)
     dbg_printf("esi: 0x%08x %d\n", (unsigned) reg, (int) reg);
     reg = BX_CPU(dbg_cpu)->get_reg32(BX_32BIT_REG_EDI);
     dbg_printf("edi: 0x%08x %d\n", (unsigned) reg, (int) reg);
-    reg = bx_dbg_get_eip();
-    dbg_printf("eip: 0x%08x\n", (unsigned) reg);
+    reg = bx_dbg_get_eip();//变量reg 即函数bx_dbg_get_eip()的返回值 就是bochs源码对eip的表示
+    dbg_printf("eip: 0x%08x\n", (unsigned) reg);//展示"eip:xxx"的代码
 #else
     reg = BX_CPU(dbg_cpu)->get_reg64(BX_64BIT_REG_RAX);
     dbg_printf("rax: %08x_%08x\n", GET32H(reg), GET32L(reg));
@@ -1184,7 +1184,7 @@ void bx_dbg_info_registers_command(int which_regs_mask)
     reg = BX_CPU(dbg_cpu)->get_reg64(BX_64BIT_REG_R15);
     dbg_printf("r15: %08x_%08x\n", GET32H(reg), GET32L(reg));
     reg = bx_dbg_get_rip();
-    dbg_printf("rip: %08x_%08x\n", GET32H(reg), GET32L(reg));
+    dbg_printf("rip: %08x_%08x\n", GET32H(reg), GET32L(reg));//展示"rip:xxx"的代码
 #if BX_SUPPORT_CET
     if (BX_CPU(dbg_cpu)->is_cpu_extension_supported(BX_ISA_CET)) {
       reg = BX_CPU(dbg_cpu)->get_ssp();
@@ -4008,7 +4008,7 @@ Bit16u bx_dbg_get_ip(void)
   return BX_CPU(dbg_cpu)->get_ip();
 }
 
-Bit32u bx_dbg_get_eip(void)
+Bit32u bx_dbg_get_eip(void)//函数bx_dbg_get_eip()的返回值 就是bochs源码对eip的表示
 {
   return BX_CPU(dbg_cpu)->get_eip();
 }
