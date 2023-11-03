@@ -468,6 +468,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
   BX_CPU_THIS_PTR ldtr.cache = descriptor;
   BX_CPU_THIS_PTR ldtr.cache.valid = SegValidCache;
 
+  BX_INFO(("记录日志,LLDT_Ew模拟指令LLDT;参数{raw_selector:[0x%x],selector:[0x%x],descriptor:[0x%x]};", raw_selector,selector,descriptor));
+
   BX_NEXT_INSTR(i);
 }
 
