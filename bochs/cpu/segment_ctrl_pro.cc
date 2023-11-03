@@ -152,7 +152,7 @@ BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
       seg->cache       = descriptor;
       seg->cache.valid = SegValidCache;
       
-      int segIdx= seg-sregs;
+      int segIdx= seg-BX_CPU_THIS_PTR sregs;
       char* segName=BxSegregsName[segIdx];
       BX_INFO(("记录日志,load_seg_reg;segIdx#%d,segName#%s;new_value#0x%x,selector#0x%x,descriptor#0x%x;",  segIdx,segName,new_value, selector,descriptor));
 
