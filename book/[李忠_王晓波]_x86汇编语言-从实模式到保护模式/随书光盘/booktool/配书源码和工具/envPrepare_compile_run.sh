@@ -48,12 +48,10 @@ dd if=./c08.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img  co
 #3B.  链接bxrc中文目录为英文目录
 
 #windows下:
-mkdir F:\bxrc-book-x86FromRealToProtectMode\cdrom\
-mklink /D F:\bxrc-book-x86FromRealToProtectMode\cdrom\booktool\ F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具
+mklink /D F:\crk\bxrc-book-x86FromRealToProtectMode__cdrom__booktool__srcAndTool F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具
 
 #linux下:
-#TODO
-
+ln -s "/crk/bochs/book/[李忠_王晓波]_x86汇编语言-从实模式到保护模式/随书光盘/booktool/配书源码和工具/" /crk/bxrc-book-x86FromRealToProtectMode__cdrom__booktool__srcAndTool
 
 #3. bochs启动该软盘(以c08为例)
 bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
