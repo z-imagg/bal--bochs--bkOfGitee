@@ -54,8 +54,43 @@ mklink /D F:\crk\bxrc-book-x86FromRealToProtectMode__cdrom__booktool__srcAndTool
 ln -s "/crk/bochs/book/[李忠_王晓波]_x86汇编语言-从实模式到保护模式/随书光盘/booktool/配书源码和工具/" /crk/bxrc-book-x86FromRealToProtectMode__cdrom__booktool__srcAndTool
 
 #3. bochs启动该软盘(以c08为例)
+#windows下:
 bochs -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 #.bxrc文件中 的硬盘镜像路径 是windows下的路径:  "F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img",
+
+#Linux Mint 21.1 Vera 桌面环境 下:
+#  实测ssh客户端MobaXterm下 运行 能正常运行(正常弹出gui窗口)
+/crk/bochs/bochs/bochs -q  -f /crk/bxrc-book-x86FromRealToProtectMode__cdrom__booktool__srcAndTool/c08/HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc-linux.bxrc
+#有报错说 声音控制SNDCTL 崩溃PANIC, 不影响, 输入cont 继续运行, 即正常运行
+'''
+00000000000p[SNDCTL] >>PANIC<< Could not open wave output device
+========================================================================
+Event type: PANIC
+Device: [SNDCTL]
+Message: Could not open wave output device
+
+A PANIC has occurred.  Do you want to:
+  cont       - continue execution
+  alwayscont - continue execution, and don"t ask again.
+               This affects only PANIC events from device [SNDCTL]
+  die        - stop execution now
+  abort      - dump core
+Choose one of the actions above: [die] cont
+
+'''
+
+#有输出日志
+'''
+00000320298i[CPU0  ] 记录日志,LGDT_Ms模拟指令LGDT;参数eaddr#0x9ad1,base_32#0xf9ad7,limit_16#0x30;
+00000320312i[CPU0  ] 记录日志,load_seg_reg,参数new_value#0x18,selector#0x30018,descriptor#0x0;
+00000320312i[CPU0  ] 记录日志,load_seg_reg,参数new_value#0x18,selector#0x30018,descriptor#0x50;
+...
+00002250684i[CPU0  ] 记录日志,load_seg_reg,参数new_value#0x28,selector#0x50028,descriptor#0x0;
+00002250684i[CPU0  ] 记录日志,load_seg_reg,参数new_value#0x28,selector#0x50028,descriptor#0x50;
+00002250684i[CPU0  ] 记录日志,load_seg_reg,参数new_value#0x28,selector#0x50028,descriptor#0x51;
+00002250684i[CPU0  ] 记录日志,load_seg_reg,参数new_value#0x28,selector#0x50028,descriptor#0x51;
+'''
+
 
 #4. bochsdbg启动该软盘 (调试模式启动)(以c08为例)
 bochsdbg -f HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
