@@ -8,8 +8,10 @@ which_config=plugins
 
 CC="gcc"
 CXX="c++"
-CFLAGS="-Wall -O3 -fomit-frame-pointer -pipe"    # for speed
-#CFLAGS="-Wall -g -pipe"                         # for development
+#CFLAGS="-Wall -O3 -fomit-frame-pointer -pipe"    # for speed
+CFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g2   -pipe"                         # for development
+#带调试信息(变量名称和行号、局部变量),  当出现问题方便排查:
+# CXXFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g2"
 CXXFLAGS="$CFLAGS"
 
 export CC
