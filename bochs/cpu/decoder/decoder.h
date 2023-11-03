@@ -47,6 +47,7 @@ enum BxSegregs {
   // NULL now has to fit in 3 bits.
   BX_SEG_REG_NULL = 7
 };
+char[8][3] BxSegregsName={"ES","CS","SS","DS","FS","GS","6S","NL"};
 
 #define BX_NULL_SEG_REG(seg) ((seg) == BX_SEG_REG_NULL)
 

@@ -152,18 +152,9 @@ BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
       seg->cache       = descriptor;
       seg->cache.valid = SegValidCache;
       
-      bool isSS= (seg==&BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS]);
-      bool isDS= (seg==&BX_CPU_THIS_PTR sregs[BX_SEG_REG_DS]);
-      bool isES= (seg==&BX_CPU_THIS_PTR sregs[BX_SEG_REG_ES]);
-      bool isFS= (seg==&BX_CPU_THIS_PTR sregs[BX_SEG_REG_FS]);
-      bool isGS= (seg==&BX_CPU_THIS_PTR sregs[BX_SEG_REG_GS]);
-      BX_INFO(("记录日志,load_seg_reg;isSS#%d,isDS#%d,isES#%d,isFS#%d,isGS#%d;new_value#0x%x,selector#0x%x,descriptor#0x%x;", 
-  isSS,
-  isDS,
-  isES,
-  isFS,
-  isGS,
-  new_value, selector,descriptor));
+      int segIdx= seg-sregs;
+      char* segName=BxSegregsName[segIdx];
+      BX_INFO(("记录日志,load_seg_reg;segIdx#%d,segName#%s;new_value#0x%x,selector#0x%x,descriptor#0x%x;",  segIdx,segName,new_value, selector,descriptor));
 
       return;
     }
