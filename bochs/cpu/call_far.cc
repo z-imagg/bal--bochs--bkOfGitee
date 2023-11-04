@@ -146,7 +146,10 @@ BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
     }
     track_indirect(CPL);
 #endif
-  //csv日志格式: ...记录日志;<函数分类>;<函数名>;<名1>:<值2>,...,<名k>:<值k>;
+  /*csv日志格式: 
+      ...记录日志;<函数分类>;<函数名>;<此行在区>;<此行内容>;<名1>:<值2>,...,<名k>:<值k>;
+      前4列"<函数分类>;<函数名>;<此行在区>;<此行内容>" 唯一确定 后面的 <名1><名2>...<名k>
+  */
     //普通调用
     // BX_INFO(("记录日志;未分类;call_protected;此行在区:普通调用,此行内容:branch_far,RIP_origin:0x%lx;cs_raw:0x%lx,disp:0x%lx,cs_selector.index:0x%x,cs_descriptor.segment.base:0x%x;",  RIP_origin,cs_raw, disp,cs_selector.index,cs_descriptor.u.segment.base));
     return;
