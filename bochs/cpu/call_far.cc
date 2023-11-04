@@ -29,6 +29,7 @@
   void BX_CPP_AttrRegparmN(3)
 BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
 {
+  Bit64u RIP_origin=RIP;
   bx_selector_t cs_selector;
   Bit32u dword1, dword2;
   bx_descriptor_t cs_descriptor;
@@ -51,7 +52,7 @@ BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
     exception(BX_GP_EXCEPTION, cs_raw & 0xfffc);
   }
 
-  if (cs_descriptor.segment)   // normal segment
+  if (cs_descriptor.segment)   // normal segment 普通段
   {
     check_cs(&cs_descriptor, cs_raw, BX_SELECTOR_RPL(cs_raw), CPL);
 
@@ -146,9 +147,11 @@ BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
     track_indirect(CPL);
 #endif
 
+    //普通调用
+    BX_INFO(("记录日志,call_protected#普通调用;RIP_origin#0x%x;cs_raw#0x%x,disp#0x%x,cs_selector.index#0x%x,cs_descriptor.segment.base#0x%x;",  RIP_origin,cs_raw, disp,cs_selector.index,cs_descriptor.segment.base));
     return;
   }
-  else { // gate & special segment
+  else { // gate & special segment 门、特殊段
     bx_descriptor_t  gate_descriptor = cs_descriptor;
     bx_selector_t    gate_selector = cs_selector;
 
@@ -178,6 +181,7 @@ BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
       }
 
       call_gate64(&gate_selector);
+      // BX_INFO(("记录日志,call_protected#门、特殊段#call_gate64;RIP_origin#0x%x;cs_raw#0x%x,disp#0x%x,gate_descriptor.u.gate.dest_selector#0x%x,gate_descriptor.type#0x%x;",  RIP_origin,cs_raw, disp,gate_descriptor.u.gate.dest_selector,gate_descriptor.type ));
       return;
     }
 #endif
@@ -204,10 +208,13 @@ BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
         // SWITCH_TASKS _without_ nesting to TSS
         task_switch(i, &gate_selector, &gate_descriptor,
           BX_TASK_FROM_CALL, dword1, dword2);
+        BX_INFO(("记录日志,call_protected#门、特殊段#task_switch;RIP_origin#0x%x;cs_raw#0x%x,disp#0x%x,gate_selector.index#0x%x,gate_descriptor.u.gate.dest_selector#0x%x,gate_descriptor.type#0x%x;",  RIP_origin,cs_raw, disp, gate_selector.index, gate_descriptor.u.gate.dest_selector,gate_descriptor.type ));
+
         return;
 
       case BX_TASK_GATE:
         task_gate(i, &gate_selector, &gate_descriptor, BX_TASK_FROM_CALL);
+        BX_INFO(("记录日志,call_protected#门、特殊段#task_gate;RIP_origin#0x%x;cs_raw#0x%x,disp#0x%x,gate_selector.index#0x%x,gate_descriptor.u.taskgate.tss_selector#0x%x,gate_descriptor.type#0x%x;",  RIP_origin,cs_raw, disp,gate_selector.index,gate_descriptor.u.taskgate.tss_selector,gate_descriptor.type ));
         return;
 
       case BX_286_CALL_GATE:
@@ -218,6 +225,7 @@ BX_CPU_C::call_protected(bxInstruction_c *i, Bit16u cs_raw, bx_address disp)
           exception(BX_NP_EXCEPTION, cs_raw & 0xfffc);
         }
         call_gate(&gate_descriptor);
+        BX_INFO(("记录日志,call_protected#门、特殊段#call_gate;RIP_origin#0x%x;cs_raw#0x%x,disp#0x%x,gate_selector.index#0x%x,gate_descriptor.u.gate.dest_selector#0x%x,gate_descriptor.type#0x%x;",  RIP_origin,cs_raw, disp,gate_selector.index,gate_descriptor.u.gate.dest_selector,gate_descriptor.type ));
         return;
 
       default: // can't get here
