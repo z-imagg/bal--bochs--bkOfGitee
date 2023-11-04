@@ -20,16 +20,16 @@ dd if=/dev/zero of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img bs=
 
 #阅读 "[李忠_王晓波]_x86汇编语言-从实模式到保护模式.pdf/13.6 代码的编译、运行和调试" 获知, 各 .bin文件写入的目的扇区号 如下:
 
-#c11_mbr.bin写入0号扇区
-dd if=./c11_mbr.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=0
+#c13_mbr.bin 写入0号扇区
+dd if=./c13_mbr.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=0
 
-#c13_core.bin写入1号扇区
+#c13_core.bin 写入1号扇区
 dd if=./c13_core.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=1
 
-#c13.bin写入50号扇区
+#c13.bin 写入50号扇区
 dd if=./c13.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=50
 
-#diskdata.txt写入100号扇区
-dd if=./c13.bin of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=100
+#diskdata.txt 写入100号扇区
+dd if=./diskdata.txt of=./HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB.img conv=notrunc seek=100
 
-read -p  "按回车退出$me"
+# read -p  "按回车退出$me"
