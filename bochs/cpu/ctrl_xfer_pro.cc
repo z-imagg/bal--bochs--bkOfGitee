@@ -96,7 +96,7 @@ BX_CPU_C::load_cs(int load_cs__caller, bx_selector_t *selector, bx_descriptor_t 
   BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.rpl = cpl;
   BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].cache.valid  = SegValidCache;
 
-  BX_INFO(("记录日志,load_cs;caller#%d,selector.value#0x%x,selector.ti#%d;", load_cs__caller, selector->value, selector->ti ));
+  BX_INFO(("记录日志;未分类;load_cs;caller#%d,selector.value:0x%x,selector.ti#%d;", load_cs__caller, selector->value, selector->ti ));
 
 #if BX_SUPPORT_X86_64
   if (long_mode()) {
