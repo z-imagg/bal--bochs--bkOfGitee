@@ -81,7 +81,7 @@ const Bit64u BX_PHY_ADDRESS_RESERVED_BITS = (~BX_PHY_ADDRESS_MASK);
 #define EDI (BX_CPU_THIS_PTR gen_reg[7].dword.erx)
 
 // access to 32 bit instruction pointer
-#define EIP (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx)
+#define EIP (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx)////
 
 #define TMP32 (BX_CPU_THIS_PTR gen_reg[BX_TMP_REGISTER].dword.erx)
 
@@ -4790,8 +4790,14 @@ public: // for now...
   BX_SMF bool set_segment_ar_data(bx_segment_reg_t *seg, bool valid, Bit16u raw_selector,
                          bx_address base, Bit32u limit_scaled, Bit16u ar_data);
   BX_SMF void    check_cs(bx_descriptor_t *descriptor, Bit16u cs_raw, Bit8u check_rpl, Bit8u check_cpl);
+enum {
+  BX_Load_cs_Caller__call_gate = 1,
+  BX_Load_cs_Caller__branch_far = 2,
+  BX_Load_cs_Caller__protected_mode_int__BX_386_TRAP_GATE__1    = 3,
+  BX_Load_cs_Caller__protected_mode_int__BX_386_TRAP_GATE__2    = 4
+};
   // the basic assumption of the code that load_cs and load_ss cannot fail !
-  BX_SMF void    load_cs(bx_selector_t *selector, bx_descriptor_t *descriptor, Bit8u cpl) BX_CPP_AttrRegparmN(3);
+  BX_SMF void    load_cs(int load_cs__caller, bx_selector_t *selector, bx_descriptor_t *descriptor, Bit8u cpl) BX_CPP_AttrRegparmN(3);
   BX_SMF void    load_ss(bx_selector_t *selector, bx_descriptor_t *descriptor, Bit8u cpl) BX_CPP_AttrRegparmN(3);
   BX_SMF void    touch_segment(bx_selector_t *selector, bx_descriptor_t *descriptor) BX_CPP_AttrRegparmN(2);
   BX_SMF void    fetch_raw_descriptor(const bx_selector_t *selector,
