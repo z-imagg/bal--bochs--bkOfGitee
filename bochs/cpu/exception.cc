@@ -277,6 +277,7 @@ void BX_CPU_C::long_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16
 
 void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, Bit16u error_code)//80286准保护模式
 {
+  Bit32u EIPorigin=EIP;
   bx_descriptor_t gate_descriptor, cs_descriptor;
   bx_selector_t cs_selector;
 
@@ -372,6 +373,8 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
     // switch tasks with nesting to TSS
     task_switch(0, &tss_selector, &tss_descriptor,
                     BX_TASK_FROM_INT, dword1, dword2, push_error, error_code);
+    BX_INFO(("记录日志;未分类;protected_mode_int;此行在区gate_descriptor.type=%d;此行内容task_switch;gate_descriptor.type:%d,vector:0x%x,soft_int:0x%x,push_error:0x%x,error_code:0x%x,tss_selector.index:0x%x,tss_descriptor.u.taskgate.tss_selector:0x%x,tss_descriptor.type:0x%x;",gate_descriptor.type, gate_descriptor.type, vector,soft_int, push_error, error_code, tss_selector.index, tss_descriptor.u.taskgate.tss_selector,tss_descriptor.type ));
+
     return;
 
   case BX_286_INTERRUPT_GATE:
@@ -714,6 +717,9 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
     BX_CPU_THIS_PTR clear_NT();
     BX_CPU_THIS_PTR clear_VM();
     BX_CPU_THIS_PTR clear_RF();
+
+    BX_INFO(("记录日志;未分类;protected_mode_int;此行在区gate_descriptor.type=%d;此行内容load_cs、load_ss、EIP=gate_dest_offset;gate_descriptor.type:%d,EIPorigin:0x%lx,vector:0x%x,soft_int:0x%x,push_error:0x%x,error_code:0x%x,cs_selector.index:0x%x,cs_descriptor.u.gate.dest_selector:0x%x,cs_descriptor.u.gate.dest_offset:0x%x,cs_descriptor.type:0x%x,EIP:0x%lx;", gate_descriptor.type, gate_descriptor.type, EIPorigin, vector,soft_int, push_error, error_code, cs_selector.index,cs_descriptor.u.gate.dest_selector,cs_descriptor.u.gate.dest_offset,cs_descriptor.type,EIP ));
+
     return;
   }
   default:
