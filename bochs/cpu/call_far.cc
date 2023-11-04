@@ -455,7 +455,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::call_gate(bx_descriptor_t *gate_descriptor
     /* load CS descriptor */
     /* set CPL to stack segment DPL */
     /* set RPL of CS to CPL */
-    load_cs(&cs_selector, &cs_descriptor, cs_descriptor.dpl);
+    load_cs(BX_Load_cs_Caller__call_gate,&cs_selector, &cs_descriptor, cs_descriptor.dpl);//caller: call_gate
 
     EIP = new_EIP;
 
