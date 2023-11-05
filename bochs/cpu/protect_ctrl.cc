@@ -469,7 +469,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
   BX_CPU_THIS_PTR ldtr.cache = descriptor;
   BX_CPU_THIS_PTR ldtr.cache.valid = SegValidCache;
 
-  BX_INFO(("记录日志;模拟指令LLDT;LLDT_Ew;此行在区;此行内容;raw_selector:0x%x,selector:0x%x,descriptor:0x%x;", raw_selector,selector,descriptor));
+  Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
+  Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
+  BX_INFO(("记录日志;模拟指令LLDT;LLDT_Ew;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,raw_selector:0x%x,selector:0x%x,descriptor:0x%x;", BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP, raw_selector,selector,descriptor));
 
   BX_NEXT_INSTR(i);
 }
@@ -513,7 +515,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     raw_selector = read_virtual_word(i->seg(), eaddr);
-  BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;eaddr:0x%x;", eaddr));
+  // BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;EIP:0x%x,eaddr:0x%x;", EIP, eaddr));
 
   }
 
@@ -591,8 +593,10 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     dword2 |= 0x0200; /* set busy bit */
     system_write_dword(BX_CPU_THIS_PTR gdtr.base + selector.index*8 + 4, dword2);
   }
-  
-  BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;raw_selector:0x%x,selector:0x%x,descriptor:0x%x;", raw_selector, selector, descriptor));
+
+  Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
+  Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
+  BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,raw_selector:0x%x,selector:0x%x,descriptor:0x%x;",BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP, raw_selector, selector, descriptor));
 
 
   BX_NEXT_INSTR(i);
@@ -863,7 +867,10 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGDT_Ms(bxInstruction_c *i)//模拟 指令
 
   BX_CPU_THIS_PTR gdtr.limit = limit_16;
   BX_CPU_THIS_PTR gdtr.base = base_32;
-  BX_INFO(("记录日志;模拟指令LGDT;LGDT_Ms;此行在区;此行内容;eaddr:0x%x,base_32:0x%x,limit_16:0x%x;", eaddr,base_32, limit_16));
+  
+  Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
+  Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
+  BX_INFO(("记录日志;模拟指令LGDT;LGDT_Ms;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,eaddr:0x%x,base_32:0x%x,limit_16:0x%x;",BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP,eaddr,base_32, limit_16));
 
 
   BX_NEXT_INSTR(i);
