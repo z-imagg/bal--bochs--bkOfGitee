@@ -513,7 +513,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     raw_selector = read_virtual_word(i->seg(), eaddr);
-  BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;eaddr:0x%x;", eaddr));
+  // BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;EIP:0x%x,eaddr:0x%x;", EIP, eaddr));
 
   }
 
