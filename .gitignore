@@ -110,4 +110,5 @@ bochs-msvc-src.zip
 *.bin 
 *.list.txt 
  
-*.img 
+
+HD_*.img
