@@ -1,0 +1,2 @@
+hdc-0.11.img制作参考？:
+https://gitcode.net/crk/bochs/-/wikis/0.11
