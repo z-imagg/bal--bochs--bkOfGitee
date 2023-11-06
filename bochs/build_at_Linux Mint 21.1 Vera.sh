@@ -30,6 +30,20 @@ cd /crk/bochs/bochs/
 sh .conf.linux
 make
 
+#编译bochs过程跟踪:
+## 跟踪configure脚本做了什么
+## 打开fish终端
+#fish
+#strace -f  ./.conf.linux &| tee cfg.linux.log
+#    grep execve cfg.linux.log
+#    grep open cfg.linux.log
+#make -nB all &| tee make.dryRun.log
+#    grep c++ make.dryRun.log
+
+#vim下过滤举例
+#vim cfg.linux.log
+#  :%!grep execve cfg.linux.log
+
 
 /crk/bochs/bochs/bochs --help
 """
