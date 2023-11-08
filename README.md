@@ -15,6 +15,19 @@ make
 ### 用bear钩住make 以生成 compile_commands.json
 
 > 上面编译过程的make换成```bear -- make``` 可以生成 compile_commands.json
+####  bear安装 @ 'Ubuntu 23.04'
+```shell
+sudo apt install  bear -y
+'bear 3.1.0-1'
+
+bear --version
+#bear 3.1.0
+man bear
+'SYNOPSIS
+       bear [options] -- [build command]'
+
+```
+
 
 ### vscode借助compile_commands.json成为正常C++  IDE
 > 用vscode打开项目：```code /crk/bochs/bochs/ &``` ， 
