@@ -1,0 +1,22 @@
+#根据: https://gitcode.net/crk/xv6-x86/-/blob/%E8%AF%95/clangPlugin%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0id/%E7%BB%93%E6%9E%9C/%E5%90%88/study/make_-nB_qemu.log
+# 中的 最后一句话:  
+#qemu-system-i386 -serial mon:stdio -drive file=fs.img,index=1,media=disk,format=raw -drive file=xv6.img,index=0,media=disk,format=raw -smp 2 -m 512 
+#可知:  bios(的rom固件) ------> xv6.img  ------> fs.img
+#因此参照 本文件 参照 F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
+# 并作出对应xv6-x86改动 后结果如下:
+
+romimage: file=$OSLAB_PATH/bochs/BIOS-bochs-latest
+megs: 16
+vgaromimage: file=$OSLAB_PATH/bochs/vgabios.bin
+floppya: 1_44="xv6.img", status=inserted
+#不确定xv6.img是否能当作1.44M软盘
+ata0-master: type=disk, path="fs.img", mode=flat, cylinders=204, heads=16, spt=38
+#尺寸待填写
+boot: a
+log: $OSLAB_PATH/bochsout.txt
+keyboard: type=mf, serial_delay=200, paste_delay=100000
+cpu: count=1, ips=4000000
+mouse: enabled=0
+private_colormap: enabled=0
+fullscreen: enabled=0
+screenmode: name="sample"
