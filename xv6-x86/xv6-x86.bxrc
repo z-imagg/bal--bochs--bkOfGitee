@@ -5,18 +5,32 @@
 #因此参照 本文件 参照 F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 # 并作出对应xv6-x86改动 后结果如下:
 
-romimage: file=$OSLAB_PATH/bochs/BIOS-bochs-latest
+#romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
+romimage: file=/crk/oslab/bochs/BIOS-bochs-latest
 megs: 16
-vgaromimage: file=$OSLAB_PATH/bochs/vgabios.bin
-floppya: 1_44="xv6.img", status=inserted
+#vgaromimage: file=/crk/bochs/bochs/bios/vgabios-cirrus.bin-1.13.0
+vgaromimage: file=/crk/oslab/bochs/vgabios.bin
+#floppya: 1_44="/crk/xv6-x86/xv6.img", status=inserted
 #不确定xv6.img是否能当作1.44M软盘
-ata0-master: type=disk, path="fs.img", mode=flat, cylinders=204, heads=16, spt=38
+ata0-master: type=disk, path="/crk/xv6-x86/xv6.img", mode=flat, cylinders=78, heads=8, spt=16
+ata0-slave: type=disk, path="/crk/xv6-x86/fs.img", mode=flat, cylinders=7, heads=8, spt=16
 #尺寸待填写
-boot: a
-log: $OSLAB_PATH/bochsout.txt
+boot: disk
+log: bochsout.txt
 keyboard: type=mf, serial_delay=200, paste_delay=100000
 cpu: count=1, ips=4000000
 mouse: enabled=0
 private_colormap: enabled=0
 fullscreen: enabled=0
 screenmode: name="sample"
+
+
+#cp -v  /asus/crk/xv6-x86/*.img /crk/xv6-x86/
+#'/asus/crk/xv6-x86/fs.img' -> '/crk/xv6-x86/fs.img'
+#'/asus/crk/xv6-x86/xv6.img' -> '/crk/xv6-x86/xv6.img'
+
+#问题1: 非正常结束bochs后，注意删除*.img同目录下的*.img.lock，否则下次bochs拒绝使用*.img 会报错说该img不能启动
+
+
+# /crk/oslab/bochs/bochs-gdb -f  /crk/bochs/xv6-x86/xv6-x86.bxrc
+#问题2: 循环重启: 打印出"Booting from Hard Disk..."后重启又到 打印出它又重启
