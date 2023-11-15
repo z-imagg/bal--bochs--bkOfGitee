@@ -9,8 +9,8 @@ romimage: file=/media/z/f/crk/oslab/bochs/BIOS-bochs-latest
 megs: 512
 vgaromimage: file=/media/z/f/crk/oslab/bochs/vgabios.bin
 #初步估计xv6(fs.img,xv6.img)需要用gcc 32位 编译
-ata0-master: type=disk, path="/media/z/f/crk/xv6-x86/xv6.img", mode=flat, cylinders=78, heads=8, spt=16
-ata0-slave: type=disk, path="/media/z/f/crk/xv6-x86/fs.img", mode=flat, cylinders=7, heads=8, spt=16
+ata0-master: type=disk, path="/crk/bochs/xv6-x86/xv6.img", mode=flat, cylinders=78, heads=8, spt=16
+ata0-slave: type=disk, path="/crk/bochs/xv6-x86/fs.img", mode=flat, cylinders=7, heads=8, spt=16
 #尺寸待填写
 boot: disk
 log: bochsout.txt
