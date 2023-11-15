@@ -11,6 +11,7 @@ obj-release/
 bochs-msvc-src.zip 
  
 # /bochs/ 
+/bochs/Makefile 
 /bochs/bochs 
 /bochs/bochs.exe 
 /bochs/bximage 
@@ -35,6 +36,7 @@ bochs-msvc-src.zip
 /bochs/vs2019 
  
 # /bochs/bios/ 
+/bochs/bios/Makefile 
  
 # /bochs/build/linux/ 
 /bochs/build/linux/DOC-linux.html 
@@ -44,15 +46,20 @@ bochs-msvc-src.zip
 /bochs/build/macosx/Info.plist 
  
 # /bochs/build/win32/nsis/ 
+/bochs/build/win32/nsis/Makefile 
 /bochs/build/win32/nsis/bochs.nsi 
  
 # /bochs/bx_debug/ 
+/bochs/bx_debug/Makefile 
  
 # /bochs/cpu/ 
+/bochs/cpu/Makefile 
  
 # /bochs/disasm/ 
+/bochs/disasm/Makefile 
  
 # /bochs/doc/docbook/ 
+/bochs/doc/docbook/Makefile 
  
 # /bochs/doc/docbook/development/ 
 /bochs/doc/docbook/development/*.html 
@@ -64,38 +71,52 @@ bochs-msvc-src.zip
 /bochs/doc/docbook/user/*.html 
  
 # /bochs/gui/ 
+/bochs/gui/Makefile 
 /bochs/gui/.libs/ 
  
 # /bochs/host/linux/pcidev/ 
+/bochs/host/linux/pcidev/Makefile 
  
 # /bochs/instrument/stubs/ 
+/bochs/instrument/stubs/Makefile 
  
 # /bochs/iodev/ 
+/bochs/iodev/Makefile 
 /bochs/iodev/.libs/ 
  
 # /bochs/memory/ 
+/bochs/memory/Makefile 
  
 # /bochs/misc/ 
+/bochs/misc/Makefile 
  
 # /bocks/cpu/avx/ 
+/bochs/cpu/avx/Makefile 
  
 # /bochs/cpu/cpudb/ 
+/bochs/cpu/cpudb/Makefile 
  
 # /bochs/cpu/fpu/ 
+/bochs/cpu/fpu/Makefile 
  
 # /bochs/iodev/display/ 
+/bochs/iodev/display/Makefile 
 /bochs/iodev/display/.libs/ 
  
 # /bochs/iodev/hdimage/ 
+/bochs/iodev/hdimage/Makefile 
 /bochs/iodev/hdimage/.libs/ 
  
 # /bochs/iodev/network/ 
+/bochs/iodev/network/Makefile 
 /bochs/iodev/network/.libs/ 
  
 # /bochs/iodev/sound/ 
+/bochs/iodev/sound/Makefile 
 /bochs/iodev/sound/.libs/ 
  
 # /bochs/iodev/usb/ 
+/bochs/iodev/usb/Makefile 
 /bochs/iodev/usb/.libs/ 
  
 # /sfsite/ 
@@ -106,6 +127,7 @@ bochs-msvc-src.zip
 /sfsite/tmp 
 /sfsite/xcf 
 /sfsite/.glimpse* 
+
 
 *.bin 
 *.list.txt 
