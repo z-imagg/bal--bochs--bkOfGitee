@@ -5,9 +5,53 @@
 #因此参照 本文件 参照 F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 # 并作出对应xv6-x86改动 后结果如下:
 
-romimage: file=/media/z/f/crk/oslab/bochs/BIOS-bochs-latest
+#黑屏:
+# romimage: file=/crk/bochs/bochs/bios/bios.bin-1.13.0
+# romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
+
+#vgaromimage: file=/crk/bochs/bochs/bios/vgabios-cirrus.bin-1.13.0
+
+
+
+#开源的seabios:
+# https://www.seabios.org/downloads/
+# https://www.seabios.org/downloads/seabios-1.16.2.tar.gz
+#大致编译了，启动黑屏:
+# romimage: file=/crk/bochs/bochs/bios/seabios-1.16.2/out/bios.bin
+# vgaromimage: file=/crk/bochs/bochs/bios/seabios-1.16.2/out/vgabios.bin
+#编译过程:
+#cd /crk/bochs/bochs/bios/
+#wget https://www.seabios.org/downloads/seabios-1.16.2.tar.gz
+#md5sum seabios-1.16.2.tar.gz
+# ef52bf37a78e78a082688a244300ab86  seabios-1.16.2.tar.gz
+#tar -zxvf seabios-1.16.2.tar.gz
+# cd seabios-1.16.2
+#pwd #== /crk/bochs/bochs/bios/seabios-1.16.2
+#make menuconfig
+# VGA ROM  --> VGA Hardware Type  --> QEMU/Bochs VBE SVGA
+#make #编译生成文件:
+# romimage: file=/crk/bochs/bochs/bios/seabios-1.16.2/out/bios.bin
+# vgaromimage: file=/crk/bochs/bochs/bios/seabios-1.16.2/out/vgabios.bin
+
+#不黑屏，启动失败，有报错的:
+# romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-legacy
+# vgaromimage: file=/crk/bochs/bochs/bios/VGABIOS-lgpl-latest
+#报错文字:
+#Booting from Hard Disk...
+#lapicid 0: panic : Expect to run on an SMP
+#8010399d 80103666 0 0 0 0 0 0 0 0 
+
+
+#正常启动的:
+romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
+vgaromimage: file=/crk/bochs/bochs/bios/VGABIOS-lgpl-latest
+
+
+#正常启动的(别人git仓库中的)(https://gitcode.net/crk/oslab.git):
+# romimage: file=/media/z/f/crk/oslab/bochs/BIOS-bochs-latest
+# vgaromimage: file=/media/z/f/crk/oslab/bochs/vgabios.bin
+
 megs: 512
-vgaromimage: file=/media/z/f/crk/oslab/bochs/vgabios.bin
 #初步估计xv6(fs.img,xv6.img)需要用gcc 32位 编译
 ata0-master: type=disk, path="/crk/bochs/xv6-x86/xv6.img", mode=flat, cylinders=78, heads=8, spt=16
 ata0-slave: type=disk, path="/crk/bochs/xv6-x86/fs.img", mode=flat, cylinders=7, heads=8, spt=16
