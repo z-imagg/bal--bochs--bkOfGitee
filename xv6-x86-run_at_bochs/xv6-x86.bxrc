@@ -5,15 +5,12 @@
 #因此参照 本文件 参照 F:\crk\bochs\book\[李忠_王晓波]_x86汇编语言-从实模式到保护模式\随书光盘\booktool\配书源码和工具\c08\HD__20Cylinder_16Header_63SectorsPerTrack__9dot84MB__bochsrc.bxrc
 # 并作出对应xv6-x86改动 后结果如下:
 
-#romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
-romimage: file=/crk/oslab/bochs/BIOS-bochs-latest
+romimage: file=/media/z/f/crk/oslab/bochs/BIOS-bochs-latest
 megs: 512
-#vgaromimage: file=/crk/bochs/bochs/bios/vgabios-cirrus.bin-1.13.0
-vgaromimage: file=/crk/oslab/bochs/vgabios.bin
-#floppya: 1_44="/crk/xv6-x86/xv6.img", status=inserted
-#不确定xv6.img是否能当作1.44M软盘
-ata0-master: type=disk, path="/crk/xv6-x86/xv6.img", mode=flat, cylinders=78, heads=8, spt=16
-ata0-slave: type=disk, path="/crk/xv6-x86/fs.img", mode=flat, cylinders=7, heads=8, spt=16
+vgaromimage: file=/media/z/f/crk/oslab/bochs/vgabios.bin
+#初步估计xv6(fs.img,xv6.img)需要用gcc 32位 编译
+ata0-master: type=disk, path="/media/z/f/crk/xv6-x86/xv6.img", mode=flat, cylinders=78, heads=8, spt=16
+ata0-slave: type=disk, path="/media/z/f/crk/xv6-x86/fs.img", mode=flat, cylinders=7, heads=8, spt=16
 #尺寸待填写
 boot: disk
 log: bochsout.txt
