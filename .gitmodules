@@ -1,0 +1,3 @@
+[submodule "xv6-x86"]
+	path = xv6-x86
+	url = https://prgrmz07:EuFdhtNYeyD1k1ncD6F9@gitcode.net/crk/xv6-x86.git
