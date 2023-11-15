@@ -7,7 +7,7 @@
 
 #romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
 romimage: file=/crk/oslab/bochs/BIOS-bochs-latest
-megs: 16
+megs: 512
 #vgaromimage: file=/crk/bochs/bochs/bios/vgabios-cirrus.bin-1.13.0
 vgaromimage: file=/crk/oslab/bochs/vgabios.bin
 #floppya: 1_44="/crk/xv6-x86/xv6.img", status=inserted
@@ -32,5 +32,31 @@ screenmode: name="sample"
 #问题1: 非正常结束bochs后，注意删除*.img同目录下的*.img.lock，否则下次bochs拒绝使用*.img 会报错说该img不能启动
 
 
-# /crk/oslab/bochs/bochs-gdb -f  /crk/bochs/xv6-x86/xv6-x86.bxrc
-#问题2: 循环重启: 打印出"Booting from Hard Disk..."后重启又到 打印出它又重启
+# /crk/bochs/bochs/bochs -f  /crk/bochs/xv6-x86/xv6-x86.bxrc
+#内存从16M调大到512M， 且使用bochs2.7 ，则正常启动
+
+#/crk/bochs/bochs/bochs --help
+#                     Bochs x86 Emulator 2.7.svn
+#               Built from SVN snapshot after release 2.7
+#                  Compiled on Nov 14 2023 at 21:46:00
+
+####################################
+
+#即使内存调大到512M，若使用bochs-gdb 2.6.10, 则启动后报错 "unexpected trap 119 from cpu 0 eip 801041bf (cr2=0x0)
+#lapicid 0: panic : trap
+#8010629f 80105f5a 8010343a 8010359f 0 0 0 0 0 0 "
+
+# /crk/oslab/bochs/bochs-gdb   -f  /crk/bochs/xv6-x86/xv6-x86.bxrc
+
+#/crk/oslab/bochs/bochs-gdb  --help
+#                       Bochs x86 Emulator 2.6.10
+#              Built from SVN snapshot on December 1, 2019
+#                  Compiled on Mar 23 2020 at 12:51:39
+
+
+# /crk/oslab/bochs/bochs-dbg   -f  /crk/bochs/xv6-x86/xv6-x86.bxrc
+
+#/crk/oslab/bochs/bochs-dbg   --help
+#                       Bochs x86 Emulator 2.6.10
+#              Built from SVN snapshot on December 1, 2019
+#                  Compiled on Mar 23 2020 at 12:23:20
