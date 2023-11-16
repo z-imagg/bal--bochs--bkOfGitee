@@ -2,6 +2,7 @@
 
 #编译xv6 产生xv6.img、fs.img
 cd /crk/bochs/xv6-x86/ && \
+dos2unix sign.pl && \
 make clean && \
 make img && \
 rm -frv *.img.lock
