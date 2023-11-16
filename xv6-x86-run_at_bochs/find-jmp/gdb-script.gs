@@ -12,6 +12,9 @@ set follow-fork-mode child
 set breakpoint pending on
 
 
+#感兴趣的 距离为9以内的跳转(因为funcId的汇编写的是向高地址跳)
+set $IntrstDist=9
+
 ###############
 #/crk/bochs/bochs/cpu/ctrl_xfer16.cc
 python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_EwR").line 
@@ -24,7 +27,7 @@ commands
 silent
 
 set $jmp_distance=new_IP - IP
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer16.cc:BX_CPU_C::JMP_EwR, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
@@ -36,7 +39,7 @@ end
 
 
 ##############
-/crk/bochs/bochs/cpu/ctrl_xfer16.cc
+# /crk/bochs/bochs/cpu/ctrl_xfer16.cc
 python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_Jw").line 
 python gdb.execute("set $LineNum=%s"%(pyLineNum))
 print $LineNum
@@ -47,7 +50,7 @@ commands
 silent
 
 set $jmp_distance=new_IP - IP
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer16.cc:BX_CPU_C::JMP_Jw, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
@@ -70,7 +73,7 @@ commands
 silent
 
 set $jmp_distance = i->Id()
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_Jd, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
@@ -106,7 +109,7 @@ commands
 silent
 
 set $jmp_distance=disp32
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_Ap, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
@@ -138,7 +141,7 @@ silent
 #不要写成this->, 要写成BX_CPU_THIS-> . 因为bochs代码中很少写this , 都是用宏代替,所以调试信息中没有符号this
 
 set $jmp_distance=new_EIP-EIP
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_EdR, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
@@ -160,7 +163,7 @@ commands
 silent
 
 set $jmp_distance=new_RIP-RIP
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer64.cc:BX_CPU_C::JMP_Jq, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
@@ -183,7 +186,7 @@ commands
 silent
 
 set $jmp_distance=op1_64-RIP
-if $jmp_distance <= 10
+if $jmp_distance >=0 && $jmp_distance <= $IntrstDist
 	printf "ctrl_xfer64.cc:BX_CPU_C::JMP_EqR, jmp_distance:%d \n",$jmp_distance
 end
 #if 结束
