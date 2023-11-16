@@ -62,22 +62,28 @@ set breakpoint pending on
 # #commands结束
 
 
-# ###############
-# #/crk/bochs/bochs/cpu/ctrl_xfer32.cc
-# break ctrl_xfer32.cc:BX_CPU_C::JMP_Jd
-# commands
-# next
+###############
+#/crk/bochs/bochs/cpu/ctrl_xfer32.cc
 
-# set $jmp_distance=new_EIP - EIP
-# if $jmp_distance <= 10
-# 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_Jd, jmp_distance:%d \n",$jmp_distance
-# end
-# #if 结束
+python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_Jd").line 
+python gdb.execute("set $LineNum=%s"%(pyLineNum))
+print $LineNum
+set $LineNum=$LineNum+3
+break ctrl_xfer32.cc:$LineNum
+commands
+# silent
 
-# continue
+set $jmp_distance = i->Id()
+if $jmp_distance <= 10
+	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_Jd, jmp_distance:%d \n",$jmp_distance
+end
+#if 结束
 
-# end
-# ###############
+continue
+
+end
+#对该断点的处理过程结束
+###############
 
 #/crk/bochs/bochs/cpu/ctrl_xfer32.cc
 #gdb函数名断点(break 函数名) 的处理过程内 , 想要停止在该函数的第N行源码处 :
@@ -104,9 +110,9 @@ commands
 # silent
 
 set $jmp_distance=disp32
-# if $jmp_distance <= 10
+if $jmp_distance <= 10
 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_Ap, jmp_distance:%d \n",$jmp_distance
-# end
+end
 #if 结束
 
 continue
@@ -116,21 +122,33 @@ end
 ###############
 
 
-# #/crk/bochs/bochs/cpu/ctrl_xfer32.cc
-# break ctrl_xfer32.cc:BX_CPU_C::JMP_EdR
-# commands
-# next
+#/crk/bochs/bochs/cpu/ctrl_xfer32.cc
 
-# set $jmp_distance=new_EIP-EIP
-# if $jmp_distance <= 10
-# 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_EdR, jmp_distance:%d \n",$jmp_distance
-# end
-# #if 结束
+python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_EdR").line 
+python gdb.execute("set $LineNum=%s"%(pyLineNum))
+print $LineNum
+set $LineNum=$LineNum+3
+break ctrl_xfer32.cc:$LineNum
+commands
+# silent
 
-# continue
+#根据 /crk/bochs/bochs/cpu/cpu.h:84 的宏定义:  
+#   #define EIP (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx)
+#知, 可如下获取EIP: 
+set $_EIP=BX_CPU_THIS->gen_reg[BX_32BIT_REG_EIP].dword.erx
+#不要写成this->, 要写成BX_CPU_THIS-> . 因为bochs代码中很少写this , 都是用宏代替,所以调试信息中没有符号this
+#   并且 调试级别只有-g3 才带有宏定义, 注意 调试级别-g2 无宏定义
 
-# end
-# ###############
+set $jmp_distance=new_EIP-$_EIP
+if $jmp_distance <= 10
+	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_EdR, jmp_distance:%d \n",$jmp_distance
+end
+#if 结束
+
+continue
+
+end
+###############
 
 
 # #/crk/bochs/bochs/cpu/ctrl_xfer64.cc
