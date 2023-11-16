@@ -1,4 +1,17 @@
 
+
+set logging file find-jmp-gdb.log
+set logging on
+
+set print pretty on
+set pagination off
+
+set follow-exec-mode new
+set follow-fork-mode child
+
+set breakpoint pending on
+
+
 ###############
 #/crk/bochs/bochs/cpu/ctrl_xfer16.cc
 break ctrl_xfer16.cc:BX_CPU_C::JMP_EwR
