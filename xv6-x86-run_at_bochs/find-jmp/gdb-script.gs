@@ -12,54 +12,50 @@ set follow-fork-mode child
 set breakpoint pending on
 
 
-# ###############
-# #/crk/bochs/bochs/cpu/ctrl_xfer16.cc
-# break ctrl_xfer16.cc:BX_CPU_C::JMP_EwR
-# commands
-# next
-
-# set $jmp_distance=new_IP - IP
-# if $jmp_distance <= 10
-# 	printf "ctrl_xfer16.cc:BX_CPU_C::JMP_EwR, jmp_distance:%d \n",$jmp_distance
-# end
-# #if 结束
-
-# continue
-
-# end
-# #commands结束
-
-
 ###############
 #/crk/bochs/bochs/cpu/ctrl_xfer16.cc
-# break ctrl_xfer16.cc:BX_CPU_C::JMP_Jw
-# python gdb.execute("set $L=\"aaa\"")
-# python gdb.execute("info functions  -q -n BX_CPU_C::JMP_Jw")
-# python gdb.lookup_symbol("BX_CPU_C::JMP_Jw")
+python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_EwR").line 
+python gdb.execute("set $LineNum=%s"%(pyLineNum))
+print $LineNum
+set $LineNum=$LineNum+3
 
-#python print (gdb.lookup_symbol("BX_CPU_C::JMP_Jw") )
-#(<gdb.Symbol object at 0x7f7ff4268f30>, False)
-# python print (gdb.lookup_symbol("BX_CPU_C::JMP_Jw")[0].line )
-#273
+break ctrl_xfer16.cc:$LineNum
+commands
+silent
 
-# python pyLineNum = gdb.lookup_symbol("BX_CPU_C::JMP_Jw")[0].line 
-# python gdb.execute("set $LineNum=%s"%(pyLineNum))
-# set $LineNum=$LineNum+3
-# break ctrl_xfer16.cc:$LineNum
-# # break ctrl_xfer16.cc:276
-# commands
-# next
+set $jmp_distance=new_IP - IP
+if $jmp_distance <= 10
+	printf "ctrl_xfer16.cc:BX_CPU_C::JMP_EwR, jmp_distance:%d \n",$jmp_distance
+end
+#if 结束
 
-# set $jmp_distance=new_IP - IP
-# if $jmp_distance <= 10
-# 	printf "ctrl_xfer16.cc:BX_CPU_C::JMP_Jw, jmp_distance:%d \n",$jmp_distance
-# end
-# #if 结束
+continue
 
-# continue
+end
+#commands结束
 
-# end
-# #commands结束
+
+##############
+/crk/bochs/bochs/cpu/ctrl_xfer16.cc
+python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_Jw").line 
+python gdb.execute("set $LineNum=%s"%(pyLineNum))
+print $LineNum
+set $LineNum=$LineNum+3
+
+break ctrl_xfer16.cc:$LineNum
+commands
+silent
+
+set $jmp_distance=new_IP - IP
+if $jmp_distance <= 10
+	printf "ctrl_xfer16.cc:BX_CPU_C::JMP_Jw, jmp_distance:%d \n",$jmp_distance
+end
+#if 结束
+
+continue
+
+end
+#commands结束
 
 
 ###############
@@ -71,7 +67,7 @@ print $LineNum
 set $LineNum=$LineNum+3
 break ctrl_xfer32.cc:$LineNum
 commands
-# silent
+silent
 
 set $jmp_distance = i->Id()
 if $jmp_distance <= 10
@@ -107,7 +103,7 @@ set $LineNum=$LineNum+12
 break ctrl_xfer32.cc:$LineNum
 #4. 对该断点的处理过程如下:
 commands
-# silent
+silent
 
 set $jmp_distance=disp32
 if $jmp_distance <= 10
@@ -130,7 +126,7 @@ print $LineNum
 set $LineNum=$LineNum+3
 break ctrl_xfer32.cc:$LineNum
 commands
-# silent
+silent
 
 #根据 /crk/bochs/bochs/cpu/cpu.h:84 的宏定义:  
 #   #define EIP (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx)
@@ -153,37 +149,48 @@ end
 ###############
 
 
-# #/crk/bochs/bochs/cpu/ctrl_xfer64.cc
-# break ctrl_xfer64.cc:BX_CPU_C::JMP_Jq
-# commands
-# next
+#/crk/bochs/bochs/cpu/ctrl_xfer64.cc
+python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_Jq").line 
+python gdb.execute("set $LineNum=%s"%(pyLineNum))
+print $LineNum
+set $LineNum=$LineNum+3
+break ctrl_xfer64.cc:$LineNum
 
-# set $jmp_distance=new_RIP-RIP
-# if $jmp_distance <= 10
-# 	printf "ctrl_xfer64.cc:BX_CPU_C::JMP_Jq, jmp_distance:%d \n",$jmp_distance
-# end
-# #if 结束
+commands
+silent
 
-# continue
+set $jmp_distance=new_RIP-RIP
+if $jmp_distance <= 10
+	printf "ctrl_xfer64.cc:BX_CPU_C::JMP_Jq, jmp_distance:%d \n",$jmp_distance
+end
+#if 结束
 
-# end
-# ###############
+continue
+
+end
+###############
 
 
-# #/crk/bochs/bochs/cpu/ctrl_xfer64.cc
-# break ctrl_xfer64.cc:BX_CPU_C::JMP_EqR
-# commands
-# next
+#/crk/bochs/bochs/cpu/ctrl_xfer64.cc
+python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_EqR").line 
+python gdb.execute("set $LineNum=%s"%(pyLineNum))
+print $LineNum
+set $LineNum=$LineNum+3
+break ctrl_xfer64.cc:$LineNum
 
-# set $jmp_distance=op1_64-RIP
-# if $jmp_distance <= 10
-# 	printf "ctrl_xfer64.cc:BX_CPU_C::JMP_EqR, jmp_distance:%d \n",$jmp_distance
-# end
-# #if 结束
 
-# continue
+commands
+silent
 
-# end
-# ###############
+set $jmp_distance=op1_64-RIP
+if $jmp_distance <= 10
+	printf "ctrl_xfer64.cc:BX_CPU_C::JMP_EqR, jmp_distance:%d \n",$jmp_distance
+end
+#if 结束
+
+continue
+
+end
+###############
 
 run
