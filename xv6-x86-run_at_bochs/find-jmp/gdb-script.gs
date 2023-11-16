@@ -134,12 +134,14 @@ commands
 
 #根据 /crk/bochs/bochs/cpu/cpu.h:84 的宏定义:  
 #   #define EIP (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx)
-#知, 可如下获取EIP: 
-set $_EIP=BX_CPU_THIS->gen_reg[BX_32BIT_REG_EIP].dword.erx
-#不要写成this->, 要写成BX_CPU_THIS-> . 因为bochs代码中很少写this , 都是用宏代替,所以调试信息中没有符号this
-#   并且 调试级别只有-g3 才带有宏定义, 注意 调试级别-g2 无宏定义
+#知,  EIP 是宏 
+#  编译时只有用调试级别-g3才会带有宏定义, 
+#  编译时若使用调试级别-g2(不带宏定义), 则无法使用宏名
+#  -g3 == -g2 + 宏定义
 
-set $jmp_distance=new_EIP-$_EIP
+#不要写成this->, 要写成BX_CPU_THIS-> . 因为bochs代码中很少写this , 都是用宏代替,所以调试信息中没有符号this
+
+set $jmp_distance=new_EIP-EIP
 if $jmp_distance <= 10
 	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_EdR, jmp_distance:%d \n",$jmp_distance
 end
