@@ -9,7 +9,9 @@ rm -frv *.img.lock
 
 #编译bochs 产生可执行文件 /crk/bochs/bochs/bochs 
 cd /crk/bochs/bochs/ && \
-sh .conf.linux
+dos2unix .conf.linux  configure && \
+make all-clean && \
+sh .conf.linux && \
 make all-clean && \
 make && \
-/crk/bochs/bochs/bochs -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.bxrc 
+test "$RUN_BOCHS" != "false" && /crk/bochs/bochs/bochs -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.bxrc 

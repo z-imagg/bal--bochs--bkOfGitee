@@ -35,19 +35,16 @@ case $which_config in
   normal)
 
     #######################################################################
-    # configuration 1 for release binary RPMs
-    # Include a few standard options, speed optimizations, X11 only.
+    #
+    #此配置编译出的 /crk/bochs/bochs/bochs  就是 bochs-dbg 即 bochs调试器 即 https://gitcode.net/crk/oslab/-/blob/master/bochs/bochs-dbg 即 https://gitee.com/cn-guoziyang/oslab/blob/master/bochs/bochs-dbg
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
-                --enable-all-optimizations \
-                --enable-cpu-level=6 \
+                --disable-debugger \
                 --enable-x86-64 \
-                --enable-vmx=2 \
-                --enable-svm \
-                --enable-avx \
-                --enable-evex \
-                --enable-cet \
+                --disable-all-optimizations \
+                --disable-handlers-chaining \
+                --enable-static \
                 --enable-pci \
                 --enable-clgd54xx \
                 --enable-voodoo \
