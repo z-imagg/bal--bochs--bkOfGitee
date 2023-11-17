@@ -1,4 +1,5 @@
 
+set history save on
 
 set logging file find-jmp-gdb.log
 set logging on

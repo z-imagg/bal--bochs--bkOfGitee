@@ -1,6 +1,7 @@
 #  gdb -x /crk/bochs/xv6-x86-run_at_bochs/getFuncIdOnBochsSrc/gdb-script-getFuncId.gs --args /crk/bochs/bochs/bochs  -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.bxrc
 
 
+set history save on
 
 set logging file getFuncId.log
 set logging on
