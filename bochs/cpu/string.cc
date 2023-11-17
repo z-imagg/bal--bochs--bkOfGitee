@@ -46,7 +46,20 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::REP_MOVSB_YbXb(bxInstruction_c *i)
     BX_CPU_THIS_PTR repeat(i, &BX_CPU_C::MOVSB16_YbXb);
   }
 
-  BX_NEXT_INSTR(i);
+//{展开宏调用开始
+//人工展开宏调用"BX_NEXT_INSTR(i);", 获得如下代码. 目的是为了gdb调试能停在取下一条指令的地方.
+//#define BX_NEXT_INSTR(i) 
+{
+  BX_COMMIT_INSTRUCTION(i);
+  if (BX_CPU_THIS_PTR async_event){
+    return;
+  }
+  ++i;//这里可能是取下一条指令的地方.(假设当前指令 是 funcId汇编中 jmp指令,则 下一条指令 是标记or指令, 再下一条指令or的操作数是funcId数值)
+  BX_EXECUTE_INSTRUCTION(i);
+}
+//展开宏调用结束}
+
+  
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::REP_MOVSW_YwXw(bxInstruction_c *i)
