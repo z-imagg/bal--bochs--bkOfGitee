@@ -9,6 +9,7 @@ rm -frv *.img.lock
 
 #编译bochs 产生可执行文件 /crk/bochs/bochs/bochs 
 cd /crk/bochs/bochs/ && \
+dos2unix .conf.linux  configure && \
 make all-clean && \
 sh .conf.linux && \
 make all-clean && \
