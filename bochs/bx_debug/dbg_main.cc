@@ -1367,7 +1367,7 @@ void bx_dbg_vmexitbp_command()
 }
 
 bool bx_dbg_read_linear(unsigned which_cpu, bx_address laddr, unsigned len, Bit8u *buf)
-{
+{//读取 从 地址laddr(类似eip) 开始的 len个字节 到目的变量 buf中.  由此可知 形如 read_linear 的名字 就是 读取 地址(类似eip) 处的内容的.
   unsigned remainsInPage;
   bx_phy_address paddr;
   unsigned read_len;
@@ -3020,7 +3020,7 @@ void bx_dbg_disassemble_current(const char *format)
 }
 
 void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
-{
+{//bochs源码中函数 bx_dbg_disassemble_command 的 参数from ==  xv6-x86 执行时的 eip值
   int numlines = INT_MAX;
 
   if (from > to) {
@@ -3046,13 +3046,13 @@ void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
       dis_size = 64;
   }
 
-  do {
+  do {//反编译循环. 循环体 一次只反编译一条指令.
     numlines--;
 
-    if (! bx_dbg_read_linear(dbg_cpu, from, 16, bx_disasm_ibuf)) break;
+    if (! bx_dbg_read_linear(dbg_cpu, from, 16, bx_disasm_ibuf)) break;//从地址from(类似eip)处读取16*2个字节到全局变量bx_disasm_ibuf中, x86 cpu 一条指令短于16*2个字节, 故此相当于读取一条指令到全局变量bx_disasm_ibuf中. 全局变量bx_disasm_ibuf长为32个字节.
 
     unsigned ilen = bx_dbg_disasm_wrapper(dis_size==32, dis_size==64,
-       0/*(bx_address)(-1)*/, from/*(bx_address)(-1)*/, bx_disasm_ibuf, bx_disasm_tbuf);
+       0/*(bx_address)(-1)*/, from/*(bx_address)(-1)*/, bx_disasm_ibuf, bx_disasm_tbuf);//反编译一条指令bx_disasm_ibuf 到 文本全局变量 bx_disasm_tbuf 中. 感觉此时不需要 传 地址from(类似eip)
 
     const char *Sym=bx_dbg_disasm_symbolic_address(from, 0);
 
@@ -3064,7 +3064,7 @@ void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
       dbg_printf("%02x", (unsigned) bx_disasm_ibuf[j]);
     dbg_printf("\n");
 
-    from += ilen;
+    from += ilen;//继续下次循环体. ilen应该是指令长度.
   } while ((from < to) && numlines > 0);
 }
 
@@ -4435,7 +4435,7 @@ void bx_dbg_step_over_command()
 }
 
 unsigned bx_dbg_disasm_wrapper(bool is_32, bool is_64, bx_address cs_base, bx_address ip, const Bit8u *instr, char *disbuf, int disasm_style)
-{
+{//函数bx_dbg_disasm_wrapper入参ip == 函数bx_dbg_disassemble_command入参from
   BxDisasmStyle new_disasm_style;
 
   if (disasm_style == BX_DISASM_INTEL || disasm_style == BX_DISASM_GAS)

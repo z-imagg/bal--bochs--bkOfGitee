@@ -10,14 +10,8 @@ gdb  --args /crk/bochs/bochs/bochs  -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.b
 
 ```shell
 
-(gdb) break disasm
-Breakpoint 1 at 0x2d1d4c: disasm. (2 locations)
-(gdb) info breakpoints 
-Num     Type           Disp Enb Address            What
-1       breakpoint     keep y   <MULTIPLE>         
-1.1                         y   0x00000000002d1d4c in disasm(char*, bxInstruction_c const*, unsigned long, unsigned long, BxDisasmStyle) at decoder/disasm.cc:803
-1.2                         y   0x00000000002d2063 in disasm(unsigned char const*, bool, bool, char*, bxInstruction_c*, unsigned long, unsigned long, BxDisasmStyle)  at decoder/disasm.cc:887
-#这俩个是同一个函数
+(gdb) break fetchDecode32
+
 
 (gdb) run
 
@@ -117,29 +111,31 @@ bx_dbg_read_linear: physical memory read error (phy=0x0000f000ff57, lin=0x000000
 0000000000100057: (                    ): mov ebx, 0x8010b554       ; bb54b51080
 
 #触发了gdb断点
-Breakpoint 1.2, disasm (opcode=0x55555719eb80 <bx_disasm_ibuf> "\301\340\004\215pP\3515\377\377\377\203\354\004\215^", is_32=true, is_64=false, 
-    disbufptr=0x55555719eba0 <bx_disasm_tbuf> "lea eax, ds:[edx+edx*4]", i=0x7fffffffc6b0, cs_base=0, rip=1050114, style=BX_DISASM_INTEL) at decoder/disasm.cc:887
-887	  if (is_64)
+-----TODO######
 
 #gdb调试器命令行, 打印bochs源码的调用栈
 (gdb) bt
-#0  disasm (opcode=0x55555719eb80 <bx_disasm_ibuf> "\301\340\004\215pP\3515\377\377\377\203\354\004\215^", is_32=true, is_64=false,  disbufptr=0x55555719eba0 <bx_disasm_tbuf> "lea eax, ds:[edx+edx*4]", i=0x7fffffffc6b0, cs_base=0, rip=1050114, style=BX_DISASM_INTEL) at decoder/disasm.cc:887
-#1  0x00005555557a1b7d in bx_dbg_disasm_wrapper (is_32=true, is_64=false, cs_base=0, ip=1050114,   instr=0x55555719eb80 <bx_disasm_ibuf> "\301\340\004\215pP\3515\377\377\377\203\354\004\215^", disbuf=0x55555719eba0 <bx_disasm_tbuf> "lea eax, ds:[edx+edx*4]", disasm_style=-1)  at dbg_main.cc:4449
-#2  0x000055555579ea91 in bx_dbg_disassemble_command (format=0x5555578810c0 "/300000", from=1050114, to=18446744073709551615) at dbg_main.cc:3054
-#3  0x000055555579e979 in bx_dbg_disassemble_current (format=0x5555578810c0 "/300000") at dbg_main.cc:3019
-#4  0x00005555557aa031 in bxparse () at /crk/bochs/bochs/bx_debug/parser.y:998
-#5  0x000055555579717e in bx_dbg_interpret_line (cmd=0x55555719a600 <tmp_buf> "u /300000\n") at dbg_main.cc:300
-#6  0x00005555557973d2 in bx_dbg_user_input_loop () at dbg_main.cc:353
-#7  0x00005555557970f7 in bx_dbg_main () at dbg_main.cc:286
-#8  0x000055555563a072 in bx_begin_simulation (argc=3, argv=0x7fffffffdf38) at main.cc:1037
-#9  0x000055555584a2fe in bx_real_sim_c::begin_simulation (this=0x5555571b7100, argc=3, argv=0x7fffffffdf38) at siminterface.cc:887
-#10 0x000055555585b0dc in bx_text_config_interface (menu=2) at textconfig.cc:465
-#11 0x000055555585b440 in bx_text_config_interface (menu=0) at textconfig.cc:509
-#12 0x000055555585e434 in text_ci_callback (userdata=0x0, command=CI_START) at textconfig.cc:1116
-#13 0x000055555584a2af in bx_real_sim_c::configuration_interface (this=0x5555571b7100, ignore=0x555555886b37 "textconfig", command=CI_START) at siminterface.cc:880
-#14 0x00005555556388d4 in bxmain () at main.cc:335
-#15 0x0000555555638970 in main (argc=3, argv=0x7fffffffdf38) at main.cc:551
-
+#0  fetchDecode32 (iptr=0x55555719eb80 <bx_disasm_ibuf> "\215pP\3515\377\377\377\203\354\004\215^\260\215\264", is_32=true, i=0x7fffffffc6b0, remainingInPage=16)
+    at decoder/fetchdecode32.cc:2375
+#1  0x000055555582609f in disasm (opcode=0x55555719eb80 <bx_disasm_ibuf> "\215pP\3515\377\377\377\203\354\004\215^\260\215\264", is_32=true, is_64=false, 
+    disbufptr=0x55555719eba0 <bx_disasm_tbuf> "shl eax, 0x04", i=0x7fffffffc6b0, cs_base=0, rip=1050117, style=BX_DISASM_INTEL) at decoder/disasm.cc:891
+#2  0x00005555557a1b7d in bx_dbg_disasm_wrapper (is_32=true, is_64=false, cs_base=0, ip=1050117, 
+    instr=0x55555719eb80 <bx_disasm_ibuf> "\215pP\3515\377\377\377\203\354\004\215^\260\215\264", disbuf=0x55555719eba0 <bx_disasm_tbuf> "shl eax, 0x04", disasm_style=-1)
+    at dbg_main.cc:4449
+#3  0x000055555579ea91 in bx_dbg_disassemble_command (format=0x5555578810c0 "/300000", from=1050117, to=18446744073709551615) at dbg_main.cc:3054
+#4  0x000055555579e979 in bx_dbg_disassemble_current (format=0x5555578810c0 "/300000") at dbg_main.cc:3019
+#5  0x00005555557aa031 in bxparse () at /crk/bochs/bochs/bx_debug/parser.y:998
+#6  0x000055555579717e in bx_dbg_interpret_line (cmd=0x55555719a600 <tmp_buf> "u /300000\n") at dbg_main.cc:300
+#7  0x00005555557973d2 in bx_dbg_user_input_loop () at dbg_main.cc:353
+#8  0x00005555557970f7 in bx_dbg_main () at dbg_main.cc:286
+#9  0x000055555563a072 in bx_begin_simulation (argc=3, argv=0x7fffffffdf38) at main.cc:1037
+#10 0x000055555584a2fe in bx_real_sim_c::begin_simulation (this=0x5555571b7100, argc=3, argv=0x7fffffffdf38) at siminterface.cc:887
+#11 0x000055555585b0dc in bx_text_config_interface (menu=2) at textconfig.cc:465
+#12 0x000055555585b440 in bx_text_config_interface (menu=0) at textconfig.cc:509
+#13 0x000055555585e434 in text_ci_callback (userdata=0x0, command=CI_START) at textconfig.cc:1116
+#14 0x000055555584a2af in bx_real_sim_c::configuration_interface (this=0x5555571b7100, ignore=0x555555886b37 "textconfig", command=CI_START) at siminterface.cc:880
+#15 0x00005555556388d4 in bxmain () at main.cc:335
+#16 0x0000555555638970 in main (argc=3, argv=0x7fffffffdf38) at main.cc:551
 
 
 ```

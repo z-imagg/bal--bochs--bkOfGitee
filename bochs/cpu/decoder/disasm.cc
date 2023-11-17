@@ -880,7 +880,7 @@ char* disasm(char *disbufptr, const bxInstruction_c *i, bx_address cs_base, bx_a
 }
 
 char* disasm(const Bit8u *opcode, bool is_32, bool is_64, char *disbufptr, bxInstruction_c *i, bx_address cs_base, bx_address rip, BxDisasmStyle style)
-{//gdb断点
+{//gdb断点   , 函数disasm入参rip == 函数bx_dbg_disasm_wrapper入参ip == 函数bx_dbg_disassemble_command入参from
   int ret;
 
 #if BX_SUPPORT_X86_64
