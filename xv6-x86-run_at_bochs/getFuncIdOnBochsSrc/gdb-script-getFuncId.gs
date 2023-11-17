@@ -23,19 +23,6 @@ python pyLineNum = gdb.lookup_global_symbol("BX_CPU_C::JMP_Jd").line
 python gdb.execute("set $LineNum=%s"%(pyLineNum))
 print $LineNum
 set $LineNum=$LineNum+3
-break ctrl_xfer32.cc:$LineNum
-commands
-# silent
-
-set $jmp_distance = i->Id()
-if $jmp_distance == 9
-	printf "ctrl_xfer32.cc:BX_CPU_C::JMP_Jd, jmp_distance:%d \n",$jmp_distance
-end
-#if 结束
-
-# continue
-
-end
-#对该断点的处理过程结束
+break ctrl_xfer32.cc:$LineNum if  i->Id() == 9
 
 run
