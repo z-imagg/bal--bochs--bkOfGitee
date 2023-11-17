@@ -3020,7 +3020,7 @@ void bx_dbg_disassemble_current(const char *format)
 }
 
 void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
-{//bochs源码中函数 bx_dbg_disassemble_command 的 参数from ==  xv6-x86 执行时的 eip值
+{
   int numlines = INT_MAX;
 
   if (from > to) {
@@ -3046,13 +3046,13 @@ void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
       dis_size = 64;
   }
 
-  do {//反编译循环. 循环体 一次只反编译一条指令.
+  do {//反编译循环. 循环体 一次只反编译一条指令. 本段注释, 否定了 固有想法 即 "一定形如arrByte[EIP]的样式来获取下一条指令和下下一条指令", 也否定了 fetch32Decode 也不能 用来 获取下一条指令和下下一条指令;  但又间接的发现了 名如*read_linear的函数们 是 可以 获取下一条指令和下下一条指令
     numlines--;
 
-    if (! bx_dbg_read_linear(dbg_cpu, from, 16, bx_disasm_ibuf)) break;//从地址from(类似eip)处读取16*2个字节到全局变量bx_disasm_ibuf中, x86 cpu 一条指令短于16*2个字节, 故此相当于读取一条指令到全局变量bx_disasm_ibuf中. 全局变量bx_disasm_ibuf长为32个字节.
+    if (! bx_dbg_read_linear(dbg_cpu, from, 16, bx_disasm_ibuf)) break;//从地址from(类似eip)处读取16*2个字节到全局变量bx_disasm_ibuf中, x86 cpu 一条指令短于16*2个字节, 故此相当于读取一条指令到全局变量bx_disasm_ibuf中. 每次只读取了 若干个指令 覆盖地放到 只有32个字节的 全局变量bx_disasm_ibuf 中.       因此 不存在一个 大容量字节数组arrByte 存放了 当前指令附近的足够多的指令们, 故而 不可能 能写出 形如arrByte[EIP]的简单样式 来获取到下一条指令.  但是 本行的 read_linear 意思 显然是 读_线性地址, 猜想作者用词风格 可能是有 大量 名字形如 *read_linear 的函数 . 搜索 *read_linear, 确实有很多这样的函数.  由此 在 funcId汇编的jmp指令处 , 要 拿到下一条指令和下下一条指令 (即 拿到 or标记指令和存放funcId的or指令)    是需要调用函数  *read_linear 的.
 
     unsigned ilen = bx_dbg_disasm_wrapper(dis_size==32, dis_size==64,
-       0/*(bx_address)(-1)*/, from/*(bx_address)(-1)*/, bx_disasm_ibuf, bx_disasm_tbuf);//反编译一条指令bx_disasm_ibuf 到 文本全局变量 bx_disasm_tbuf 中. 感觉此时不需要 传 地址from(类似eip)
+       0/*(bx_address)(-1)*/, from/*(bx_address)(-1)*/, bx_disasm_ibuf, bx_disasm_tbuf);//反编译一条指令bx_disasm_ibuf 到 文本全局变量 bx_disasm_tbuf 中. 感觉此时不需要 传 地址from(类似eip). 本行最终调用了fetchDecode32来取指令的. 因此 大胆猜测  fetchDecode32 只是用来 翻译   刚已取到的 并 放在全局变量bx_disasm_ibuf 中的 指令.  所以 fetchDecode32 只是 Decode 并没有fetch的作用,  即 fetchDecode32 并不能 用来  拿到下一条指令和下下一条指令. 
 
     const char *Sym=bx_dbg_disasm_symbolic_address(from, 0);
 
@@ -4435,7 +4435,7 @@ void bx_dbg_step_over_command()
 }
 
 unsigned bx_dbg_disasm_wrapper(bool is_32, bool is_64, bx_address cs_base, bx_address ip, const Bit8u *instr, char *disbuf, int disasm_style)
-{//函数bx_dbg_disasm_wrapper入参ip == 函数bx_dbg_disassemble_command入参from
+{
   BxDisasmStyle new_disasm_style;
 
   if (disasm_style == BX_DISASM_INTEL || disasm_style == BX_DISASM_GAS)

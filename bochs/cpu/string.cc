@@ -47,8 +47,6 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::REP_MOVSB_YbXb(bxInstruction_c *i)
   }
 
   BX_NEXT_INSTR(i);
-
-  
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::REP_MOVSW_YwXw(bxInstruction_c *i)
