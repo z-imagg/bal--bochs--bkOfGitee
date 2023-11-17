@@ -40,10 +40,10 @@ case $which_config in
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
-                --enable-debugger \
+                --disable-debugger \
                 --enable-x86-64 \
                 --disable-all-optimizations \
-                --enable-handlers-chaining \
+                --disable-handlers-chaining \
                 --enable-static \
                 --enable-pci \
                 --enable-clgd54xx \
