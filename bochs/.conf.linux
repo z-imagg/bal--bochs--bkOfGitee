@@ -40,7 +40,7 @@ case $which_config in
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
-                --enable-debugger \
+                --disable-debugger \
                 --enable-x86-64 \
                 --disable-all-optimizations \
                 --disable-handlers-chaining \

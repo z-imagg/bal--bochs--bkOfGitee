@@ -3,7 +3,7 @@
 
 set history save on
 
-set logging file getFuncId.log
+set logging file getFuncIdOnBochsSrc.log
 set logging on
 
 set print pretty on
@@ -43,8 +43,4 @@ end
 
 run
 
-#bochs调试器 运行后 , 
-#在bochs调试器命令行下 , 输入 continue, 即 如下
-#<bochs:1>  continue
-#bochs调试器才会继续运行xv6-x86
 
