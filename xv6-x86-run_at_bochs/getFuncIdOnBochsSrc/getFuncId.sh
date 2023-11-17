@@ -2,7 +2,7 @@
 
 #make_xv6_bochs_run=false ./getFuncId.sh
 
-dos2unix /crk/bochs/xv6-x86-run_at_bochs/run.sh
+dos2unix /crk/bochs/xv6-x86-run_at_bochs/make_xv6_bochs_run.sh
 test "$make_xv6_bochs_run" != "false" &&  RUN_BOCHS=false /crk/bochs/xv6-x86-run_at_bochs/make_xv6_bochs_run.sh
 
 rm -fv /crk/bochs/xv6-x86/*.img.lock
