@@ -11,5 +11,6 @@ rm -frv *.img.lock
 cd /crk/bochs/bochs/ && \
 make all-clean && \
 sh .conf.linux && \
+make all-clean && \
 make && \
 test "$RUN_BOCHS" != "false" && /crk/bochs/bochs/bochs -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.bxrc 
