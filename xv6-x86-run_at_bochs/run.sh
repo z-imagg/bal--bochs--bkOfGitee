@@ -12,4 +12,4 @@ cd /crk/bochs/bochs/ && \
 sh .conf.linux
 make all-clean && \
 make && \
-/crk/bochs/bochs/bochs -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.bxrc 
+test "$RUN_BOCHS" != "false" && /crk/bochs/bochs/bochs -f /crk/bochs/xv6-x86-run_at_bochs/xv6-x86.bxrc 
