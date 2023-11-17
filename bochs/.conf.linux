@@ -40,15 +40,11 @@ case $which_config in
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
-                --enable-all-optimizations \
                 --enable-debugger \
-                --enable-cpu-level=6 \
                 --enable-x86-64 \
-                --enable-vmx=2 \
-                --enable-svm \
-                --enable-avx \
-                --enable-evex \
-                --enable-cet \
+                --disable-all-optimizations \
+                --enable-handlers-chaining \
+                --enable-static \
                 --enable-pci \
                 --enable-clgd54xx \
                 --enable-voodoo \
