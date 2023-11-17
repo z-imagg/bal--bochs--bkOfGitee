@@ -40,7 +40,7 @@ case $which_config in
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
-                --enable-all-optimizations \
+                --disable-all-optimizations \
                 --enable-cpu-level=6 \
                 --enable-x86-64 \
                 --enable-vmx=2 \
