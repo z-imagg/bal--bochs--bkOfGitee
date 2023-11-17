@@ -25,4 +25,26 @@ print $LineNum
 set $LineNum=$LineNum+3
 break ctrl_xfer32.cc:$LineNum if  i->Id() == 9
 
+commands
+silent
+
+set $or1_instr_appendByte=BX_CPU_THIS->read_linear_dword (i->seg(),EIP)
+set $or2_instr_appendWord=BX_CPU_THIS->read_linear_qword (i->seg(),EIP+3)
+
+set $or1_instr = $or1_instr_appendByte & 0x00FFFFFF
+set $or2_instr = $or2_instr_appendWord & 0x0000ffFFffFFffFF
+printf "EIP=0x%x,or1=0x%x,or2=0x%lx,or2_instr_appendWord=0x%lx\n",EIP,$or1_instr,$or2_instr,$or2_instr_appendWord
+
+continue
+
+end
+#commands结束
+
+
 run
+
+#bochs调试器 运行后 , 
+#在bochs调试器命令行下 , 输入 continue, 即 如下
+#<bochs:1>  continue
+#bochs调试器才会继续运行xv6-x86
+
