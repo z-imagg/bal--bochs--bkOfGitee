@@ -270,8 +270,62 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL32_Ep(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
+void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
+
+  //取得 当前指令 紧挨着的 4个字节
+  Bit32u or1_instr_appendByte=BX_CPU_THIS->read_linear_dword (instr->seg(),EIP);
+  //取得 当前指令地址+3字节 紧挨着的 8个字节
+  Bit64u or2_instr_appendWord=BX_CPU_THIS->read_linear_qword (instr->seg(),EIP+3);
+
+  //funcId汇编 含有三条指令: 短jmp, 标记or1, 存funcId的or2
+  
+  //当前正在执行指令 一条jmp指令,但不确定该jmp后的两条指令  是否为 or1 or2.
+  
+  //取得 当前指令 紧挨着的 3个字节(称为 疑似or1), 待判定 其  是否为 funcId汇编 中的 标记or1 指令
+  Bit32u or1_instr = or1_instr_appendByte & 0x00FFFFFF;
+  
+  //取得 当前指令+3字节 紧挨着的 8个字节 中的 6个字节(称为 疑似or2), 待判定 其  是否为 funcId汇编 中的 存funcId的or2 指令
+  Bit64u or2_instr = or2_instr_appendWord & 0x0000ffFFffFFffFF;
+
+  // 存 疑似or2的 操作码
+  Bit64u or2_instr_opcode = or2_instr &     0x000000000000ffFF;
+
+
+  // 标记or1 常量
+  const Bit32u FuncIdAsm_Or1Instr =  0xffcf83;
+  // or2操作码 常量
+  const Bit32u FuncIdAsm_Or2Instr_Opcode =  0xcf81;
+
+  // 若 疑似or1 不是 or1 , 则结束处理
+  if(FuncIdAsm_Or1Instr!=or1_instr){
+    return;
+  }
+
+  // 若 疑似or2的 操作码 不是 or2操作码 , 则结束处理
+  if(FuncIdAsm_Or2Instr_Opcode!=or2_instr_opcode){
+    return;
+  }
+
+  //or2指令 中提取 funcId , 请 参考: https://gitcode.net/crk/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
+
+  Bit32u fId = or2_instr & 0x0000ffFFffFF0000;
+
+  //fId:0x78563412, 则funcId:0x12345678
+  Bit32u funcId = 
+  (fId & 0x000000FF)<<(8*3)
+  +
+  (fId & 0x0000FF00)<<(8*2)
+  +
+  (fId & 0x00FF0000)<<(8*1)
+  +(fId & 0xFF000000)
+  ;
+
+  BX_INFO(("记录funcId:%d;", funcId);
+
+}
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
 {
+  logXv6X86FuncId(i);
   Bit32u new_EIP = EIP + (Bit32s) i->Id();
   branch_near32(new_EIP);
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_JMP, PREV_RIP, new_EIP);
