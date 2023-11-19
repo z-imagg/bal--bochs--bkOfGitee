@@ -318,7 +318,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 //  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
 //   ;
 
-  BX_INFO( ("记录,or1:0x%x,or2:0x%lx,or1_instr:0x%x,or2_instr:0x%lx,or2_instr_opcode:0x%x,#,fId:0x%x,funcId:0x%x,%d;", or1_instr_appendByte, or2_instr_appendWord, or1_instr,or2_instr,or2_instr_opcode, fId,funcId,funcId) );
+  BX_INFO( ("记录funcId:%d,0x%x;",  funcId,funcId) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
