@@ -308,17 +308,17 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 
   //or2指令 中提取 funcId , 请 参考: https://gitcode.net/crk/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
 
-  Bit32u fId = or2_instr & 0x0000ffFFffFF0000;
+  Bit64u fId = (or2_instr & 0x0000ffFFffFF0000)>>(8*2);
 
   //fId:0x78563412, 则funcId:0x12345678
-  Bit32u funcId = 
-   ( (fId & 0x000000FF)>>(8*0)<<(8*3) )  //外层圆括号不可以丢掉, 否则运算符优先级不是预期的.
- + ( (fId & 0x0000FF00)>>(8*1)<<(8*2) )
- + ( (fId & 0x00FF0000)>>(8*2)<<(8*1) )
- + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
-  ;
+  Bit32u funcId = fId;
+//    ( (fId & 0x000000FF)>>(8*0)<<(8*3) )  //外层圆括号不可以丢掉, 否则运算符优先级不是预期的.
+//  + ( (fId & 0x0000FF00)>>(8*1)<<(8*2) )
+//  + ( (fId & 0x00FF0000)>>(8*2)<<(8*1) )
+//  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
+//   ;
 
-  BX_INFO( ("记录,fId:0x%x,funcId:%d;", fId,funcId) );
+  BX_INFO( ("记录,or1:0x%x,or2:0x%lx,or1_instr:0x%x,or2_instr:0x%lx,or2_instr_opcode:0x%x,#,fId:0x%x,funcId:0x%x,%d;", or1_instr_appendByte, or2_instr_appendWord, or1_instr,or2_instr,or2_instr_opcode, fId,funcId,funcId) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
