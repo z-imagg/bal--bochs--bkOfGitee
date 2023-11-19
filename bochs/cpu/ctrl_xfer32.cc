@@ -312,15 +312,13 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 
   //fId:0x78563412, 则funcId:0x12345678
   Bit32u funcId = 
-  (fId & 0x000000FF)<<(8*3)
-  +
-  (fId & 0x0000FF00)<<(8*2)
-  +
-  (fId & 0x00FF0000)<<(8*1)
-  +(fId & 0xFF000000)
+   ( (fId & 0x000000FF)>>(8*0)<<(8*3) )  //外层圆括号不可以丢掉, 否则运算符优先级不是预期的.
+ + ( (fId & 0x0000FF00)>>(8*1)<<(8*2) )
+ + ( (fId & 0x00FF0000)>>(8*2)<<(8*1) )
+ + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
   ;
 
-  BX_INFO( ("记录funcId:%d;", funcId) );
+  BX_INFO( ("记录,fId:0x%x,funcId:%d;", fId,funcId) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
