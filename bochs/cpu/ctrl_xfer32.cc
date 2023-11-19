@@ -320,7 +320,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
   +(fId & 0xFF000000)
   ;
 
-  BX_INFO(("记录funcId:%d;", funcId);
+  BX_INFO( ("记录funcId:%d;", funcId) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
