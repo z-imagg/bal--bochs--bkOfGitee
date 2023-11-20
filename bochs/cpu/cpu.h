@@ -1489,6 +1489,7 @@ public: // for now...
   BX_SMF void OUT_IbEAX(bxInstruction_c *) BX_CPP_AttrRegparmN(1);
   BX_SMF void CALL_Jw(bxInstruction_c *) BX_CPP_AttrRegparmN(1);
   BX_SMF void CALL_Jd(bxInstruction_c *) BX_CPP_AttrRegparmN(1);
+  BX_SMF void logXv6X86FuncId(bxInstruction_c *instr);
   BX_SMF void JMP_Jd(bxInstruction_c *) BX_CPP_AttrRegparmN(1);
   BX_SMF void JMP_Jw(bxInstruction_c *) BX_CPP_AttrRegparmN(1);
   BX_SMF void JMP_Ap(bxInstruction_c *) BX_CPP_AttrRegparmN(1);
