@@ -619,7 +619,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指�
   RSP_SPECULATIVE;
 
   if (protected_mode()) {
-    iret_protected(i);
+    iret_protected(i);//iret_protected只被 指令模拟函数 IRET32 调用过一次，因此iret_protected中的三种情况可以分别记录一条日志
   }
   else {
     if (v8086_mode()) {

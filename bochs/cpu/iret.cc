@@ -54,7 +54,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // switch tasks (without nesting) to TSS specified by back link selector
     task_switch(i, &link_selector, &tss_descriptor,
                 BX_TASK_FROM_IRET, dword1, dword2);
-    //日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
+    //记录一条日志, 日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
     return;
   }
 
@@ -114,7 +114,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL; 同权级中断返回; "));
     /* load CS-cache with new code segment descriptor */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-    //日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
+    //记录一条日志, 日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
     if (i->os32L()) {
@@ -179,7 +179,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     /* load the CS-cache with CS descriptor */
     /* set CPL to the RPL of the return CS selector */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-    //日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
+    //开始一条日志, 日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
     // IF only changed if (prev_CPL <= EFLAGS.IOPL)
     // VIF, VIP, IOPL only changed if prev_CPL == 0
     // VM unaffected
@@ -187,7 +187,8 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // load SS:eSP from stack
     // load the SS-cache with SS descriptor
     load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
-    //日志行的字段们： 栈选择子 ss_selector、栈段描述符 ss_descriptor
+    //继续日志行，日志行的字段们： 栈选择子 ss_selector、栈段描述符 ss_descriptor
+    //结束日志行.
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
     else
