@@ -36,21 +36,8 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   bx_address return_RIP, return_RSP, temp_RSP;
   Bit32u dword1, dword2;
 
-  /* + 6+N*2: SS      | +12+N*4:     SS | +24+N*8      SS */
-  /* + 4+N*2: SP      | + 8+N*4:    ESP | +16+N*8     RSP */
-  /*          parm N  | +        parm N | +        parm N */
-  /*          parm 3  | +        parm 3 | +        parm 3 */
-  /*          parm 2  | +        parm 2 | +        parm 2 */
-  /* + 4:     parm 1  | + 8:     parm 1 | +16:     parm 1 */
-  /* + 2:     CS      | + 4:         CS | + 8:         CS */
-  /* + 0:     IP      | + 0:        EIP | + 0:        RIP */
-
-
-  {
     if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b) temp_RSP = ESP;
     else temp_RSP = SP;
-  }
-
 
   if (i->os32L()) {
     raw_cs_selector = (Bit16u) stack_read_dword(temp_RSP + 4);
@@ -63,7 +50,6 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     stack_param_offset = 4;
   }
 
-
   parse_selector(raw_cs_selector, &cs_selector);
 
   // selector index must be within its descriptor table limits,
@@ -73,7 +59,6 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   // descriptor AR byte must indicate code segment, else #GP(selector)
   parse_descriptor(dword1, dword2, &cs_descriptor);
 
-
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
 
@@ -81,17 +66,12 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   // RETURN TO SAME PRIVILEGE LEVEL 则返回同PL权限级
   if (cs_selector.rpl == CPL)
   {
-    BX_DEBUG(("return_protected: return to SAME PRIVILEGE LEVEL"));
-
     branch_far(&cs_selector, &cs_descriptor, return_RIP, CPL);//返回同PL权限级
 
-
-    {
       if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b)
         RSP = ESP + stack_param_offset + pop_bytes;
       else
          SP += stack_param_offset + pop_bytes;
-    }
   }
   /* RETURN TO OUTER PRIVILEGE LEVEL 否则返回到不同的PL权限级, 从栈中 切换栈SS:SP 并 切换CS:IP */
   else {
@@ -104,9 +84,6 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     /* + 2:     CS      | + 4:         CS | + 8:         CS */
     /* + 0:     IP      | + 0:        EIP | + 0:        RIP */
 
-    BX_DEBUG(("return_protected: return to OUTER PRIVILEGE LEVEL"));
-
-
     if (i->os32L()) {
       raw_ss_selector = stack_read_word(temp_RSP + 12 + pop_bytes);
       return_RSP      = stack_read_dword(temp_RSP + 8 + pop_bytes);
@@ -116,24 +93,11 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
       return_RSP      = stack_read_word(temp_RSP + 4 + pop_bytes);
     }
 
-    /* selector index must be within its descriptor table limits,
-     * else #GP(selector) */
     parse_selector(raw_ss_selector, &ss_selector);//解析选择子
 
-    if ((raw_ss_selector & 0xfffc) == 0) {
-
-      {
-        BX_ERROR(("return_protected: SS selector null"));
-        exception(BX_GP_EXCEPTION, 0);
-      }
-    }
-    else {
       fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);//选择子(数组下标) 转为 描述符(该数组内该下标中的元素)
       parse_descriptor(dword1, dword2, &ss_descriptor);//解析描述符
-    }
-
-
-
+    
     branch_far(&cs_selector, &cs_descriptor, return_RIP, cs_selector.rpl);//返回不同PL权限级
 
     if ((raw_ss_selector & 0xfffc) != 0) {
@@ -142,14 +106,10 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
       load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
     }
 
-    {
       if (ss_descriptor.u.segment.d_b)
         RSP = (Bit32u)(return_RSP + pop_bytes);
       else
         SP  = (Bit16u)(return_RSP + pop_bytes);
-    }
-
-
 
     /* check ES, DS, FS, GS for validity */
     validate_seg_regs();
