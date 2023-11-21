@@ -35,13 +35,13 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   bx_descriptor_t cs_descriptor, ss_descriptor;
 
   if (BX_CPU_THIS_PTR get_NT())   /* NT = 1: RETURN FROM NESTED TASK */
-  {
+  {//情况1. IRET: 嵌套任务返回
     /* what's the deal with NT & VM ? */
     Bit16u raw_link_selector;
     bx_selector_t   link_selector;
     bx_descriptor_t tss_descriptor;
 
-    BX_DEBUG(("IRET: nested task return"));
+    BX_DEBUG(("IRET: nested task return; IRET: 嵌套任务返回;"));
     // examine back link selector in TSS addressed by current TR
     raw_link_selector = system_read_word(BX_CPU_THIS_PTR tr.cache.u.segment.base);
     // must specify global, else #TS(new TSS selector)
@@ -54,6 +54,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // switch tasks (without nesting) to TSS specified by back link selector
     task_switch(i, &link_selector, &tss_descriptor,
                 BX_TASK_FROM_IRET, dword1, dword2);
+    //日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
     return;
   }
 
@@ -109,10 +110,11 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
 
-  if (cs_selector.rpl == CPL) {
-    BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL"));
+  if (cs_selector.rpl == CPL) {//情况2. 同权级中断返回
+    BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL; 同权级中断返回; "));
     /* load CS-cache with new code segment descriptor */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
+    //日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
     if (i->os32L()) {
@@ -140,8 +142,8 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     else
        SP += top_nbytes_same;
   }
-  else {
-    BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL"));
+  else {//情况3. 外权级中断返回
+    BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL; 外权级中断返回;"));
     /* examine return SS selector and associated descriptor */
     if (i->os32L()) {
       raw_ss_selector = stack_read_word(temp_ESP + 16);
@@ -177,6 +179,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     /* load the CS-cache with CS descriptor */
     /* set CPL to the RPL of the return CS selector */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
+    //日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
     // IF only changed if (prev_CPL <= EFLAGS.IOPL)
     // VIF, VIP, IOPL only changed if prev_CPL == 0
     // VM unaffected
@@ -184,6 +187,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // load SS:eSP from stack
     // load the SS-cache with SS descriptor
     load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
+    //日志行的字段们： 栈选择子 ss_selector、栈段描述符 ss_descriptor
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
     else
