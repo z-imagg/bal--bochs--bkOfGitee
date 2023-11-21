@@ -133,3 +133,6 @@ bochs-msvc-src.zip
 *.list.txt 
  
 *.img 
+
+.gdb_history
+*.log
