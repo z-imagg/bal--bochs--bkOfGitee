@@ -34,8 +34,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   Bit32u dword1, dword2;
   bx_descriptor_t cs_descriptor, ss_descriptor;
 
-
-
   if (BX_CPU_THIS_PTR get_NT())   /* NT = 1: RETURN FROM NESTED TASK */
   {
     /* what's the deal with NT & VM ? */
@@ -44,20 +42,15 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     bx_descriptor_t tss_descriptor;
 
     BX_DEBUG(("IRET: nested task return"));
-
     // examine back link selector in TSS addressed by current TR
     raw_link_selector = system_read_word(BX_CPU_THIS_PTR tr.cache.u.segment.base);
-
     // must specify global, else #TS(new TSS selector)
     parse_selector(raw_link_selector, &link_selector);
-
     // index must be within GDT limits, else #TS(new TSS selector)
     fetch_raw_descriptor(&link_selector, &dword1, &dword2, BX_TS_EXCEPTION);
-
     // AR byte must specify TSS, else #TS(new TSS selector)
     // new TSS must be busy, else #TS(new TSS selector)
     parse_descriptor(dword1, dword2, &tss_descriptor);
-
     // switch tasks (without nesting) to TSS specified by back link selector
     task_switch(i, &link_selector, &tss_descriptor,
                 BX_TASK_FROM_IRET, dword1, dword2);
@@ -67,7 +60,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   /* NT = 0: INTERRUPT RETURN ON STACK -or STACK_RETURN_TO_V86 */
   unsigned top_nbytes_same;
   Bit32u new_eip = 0, new_esp, temp_ESP, new_eflags = 0;
-
   /* 16bit opsize  |   32bit opsize
    * ==============================
    * SS     eSP+8  |   SS     eSP+16
@@ -77,7 +69,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
    * CS     eSP+2  |   CS     eSP+4
    * IP     eSP+0  |   EIP    eSP+0
    */
-
   if (i->os32L()) {
     top_nbytes_same = 12;
   }
@@ -111,25 +102,17 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   }
 
   parse_selector(raw_cs_selector, &cs_selector);
-
-
   // selector index must be within descriptor table limits,
   // else #GP(return selector)
   fetch_raw_descriptor(&cs_selector, &dword1, &dword2, BX_GP_EXCEPTION);
   parse_descriptor(dword1, dword2, &cs_descriptor);
-
-
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
 
   if (cs_selector.rpl == CPL) {
-
     BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL"));
-
-
     /* load CS-cache with new code segment descriptor */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
     if (i->os32L()) {
@@ -141,7 +124,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
         changeMask |= EFlagsIFMask;
       if (CPL == 0)
         changeMask |= EFlagsVIPMask | EFlagsVIFMask | EFlagsIOPLMask;
-
       // IF only changed if (CPL <= EFLAGS.IOPL)
       // VIF, VIP, IOPL only changed if CPL == 0
       // VM unaffected
@@ -159,18 +141,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
        SP += top_nbytes_same;
   }
   else {
-
     BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL"));
-
-    /* 16bit opsize  |   32bit opsize
-     * ==============================
-     * SS     eSP+8  |   SS     eSP+16
-     * SP     eSP+6  |   ESP    eSP+12
-     * FLAGS  eSP+4  |   EFLAGS eSP+8
-     * CS     eSP+2  |   CS     eSP+4
-     * IP     eSP+0  |   EIP    eSP+0
-     */
-
     /* examine return SS selector and associated descriptor */
     if (i->os32L()) {
       raw_ss_selector = stack_read_word(temp_ESP + 16);
@@ -179,18 +150,11 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
       raw_ss_selector = stack_read_word(temp_ESP + 8);
     }
 
-    
-
     parse_selector(raw_ss_selector, &ss_selector);
-
-    
-
     /* selector index must be within its descriptor table limits,
      * else #GP(SS selector) */
     fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);
-
     parse_descriptor(dword1, dword2, &ss_descriptor);
-
     if (i->os32L()) {
       new_esp = stack_read_dword(temp_ESP + 12);
     }
@@ -213,12 +177,10 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     /* load the CS-cache with CS descriptor */
     /* set CPL to the RPL of the return CS selector */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-
     // IF only changed if (prev_CPL <= EFLAGS.IOPL)
     // VIF, VIP, IOPL only changed if prev_CPL == 0
     // VM unaffected
     writeEFlags(new_eflags, changeMask);
-
     // load SS:eSP from stack
     // load the SS-cache with SS descriptor
     load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
