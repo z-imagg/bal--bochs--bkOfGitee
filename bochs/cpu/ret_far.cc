@@ -22,6 +22,8 @@
 ////////////////////////////////////////////////////////////////////////
 
 #define NEED_CPU_REG_SHORTCUTS 1
+#include <string>
+#include <fmt/core.h>
 #include "bochs.h"
 #include "cpu.h"
 #define LOG_THIS BX_CPU_THIS_PTR
@@ -87,6 +89,11 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
 
   // descriptor AR byte must indicate code segment, else #GP(selector)
   parse_descriptor(dword1, dword2, &cs_descriptor);
+//需要打印: cs_selector、cs_descriptor、return_RIP ； 其中 cs_selector、cs_descriptor 需转为  json_text
+  std::string cs_selector_json_text=BX_CPU_THIS->selector_json_text(&cs_selector);
+  std::string cs_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&cs_descriptor);
+  std::string ss_selector_json_text;
+  std::string ss_descriptor_json_text;
 
   // return selector RPL must be >= CPL, else #GP(return selector)
   if (cs_selector.rpl < CPL) {
@@ -174,6 +181,9 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     else {
       fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);
       parse_descriptor(dword1, dword2, &ss_descriptor);
+      //需要打印:  ss_selector、ss_descriptor ;  ss_selector、ss_descriptor 需要转为 json_text
+      ss_selector_json_text=BX_CPU_THIS->selector_json_text(&ss_selector);
+      ss_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&ss_descriptor);
 
       /* selector RPL must = RPL of the return CS selector,
        * else #GP(selector) */
@@ -261,6 +271,18 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     /* check ES, DS, FS, GS for validity */
     validate_seg_regs();
   }
+
+  //branch_far1 和 branch_far2 只有一个会执行
+  std::string line_text= fmt::format(
+  "{};{};{};{};{}",
+  cs_selector_json_text,
+  cs_descriptor_json_text,
+  return_RIP,
+  ss_selector_json_text,
+  ss_descriptor_json_text
+  );
+   
+  BX_INFO(("log_return_protected:%s",line_text)); //打印日志
 }
 
 #if BX_SUPPORT_CET

@@ -21,7 +21,7 @@
 
 #ifndef BX_CPU_H
 #define BX_CPU_H
-
+#include <string>
 #include <setjmp.h>
 
 #include "bx_debug/debug.h"
@@ -4766,6 +4766,7 @@ public: // for now...
 #endif
   BX_SMF void validate_seg_reg(unsigned seg);
   BX_SMF void validate_seg_regs(void);
+  BX_SMF std::string selector_json_text(bx_selector_t *selector);//仿照parse_selector写出描述符转json字符串
   BX_SMF void stack_return_to_v86(Bit32u new_eip, Bit32u raw_cs_selector, Bit32u flags32);
   BX_SMF void iret16_stack_return_from_v86(bxInstruction_c *);
   BX_SMF void iret32_stack_return_from_v86(bxInstruction_c *);
@@ -4790,6 +4791,7 @@ public: // for now...
   BX_SMF Bit32u  get_descriptor_h(const bx_descriptor_t *) BX_CPP_AttrRegparmN(1);
   BX_SMF bool set_segment_ar_data(bx_segment_reg_t *seg, bool valid, Bit16u raw_selector,
                          bx_address base, Bit32u limit_scaled, Bit16u ar_data);
+  BX_SMF std::string descriptor_json_text(bx_descriptor_t *desc);//仿照parse_descriptor写出descriptor转json文本
   BX_SMF void    check_cs(bx_descriptor_t *descriptor, Bit16u cs_raw, Bit8u check_rpl, Bit8u check_cpl);
 enum {
   BX_Load_cs_Caller__call_gate = 1,
