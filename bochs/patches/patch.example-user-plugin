@@ -79,7 +79,7 @@ diff -urN ../bochs/user_plugins/Makefile.in ./user_plugins/Makefile.in
 +@SET_MAKE@
 +
 +CXX = @CXX@
-+CXXFLAGS = $(BX_INCDIRS) @CXXFLAGS@ @GUI_CXXFLAGS@
++CXXFLAGS = -I/pubx/fmt/include/ $(BX_INCDIRS) @CXXFLAGS@ @GUI_CXXFLAGS@
 +
 +LDFLAGS = @LDFLAGS@
 +LIBS = @LIBS@
