@@ -275,7 +275,16 @@ void BX_CPU_C::validate_seg_regs(void)
   validate_seg_reg(BX_SEG_REG_FS);
   validate_seg_reg(BX_SEG_REG_GS);
 }
-
+void BX_CPU_C::print_selector(bx_selector_t *selector)//仿照parse_selector写出打印描述符
+{
+  BX_INFO((
+    "0x%x,0x%x,0x%x,0x%x", 
+    selector->value,
+    selector->index,
+    selector->ti,
+    selector->rpl
+    ));
+}
 void parse_selector(Bit16u raw_selector, bx_selector_t *selector)
 {
   selector->value = raw_selector;
@@ -423,6 +432,89 @@ bool BX_CPU_C::set_segment_ar_data(bx_segment_reg_t *seg, bool valid,
   return d->valid;
 }
 
+//仿照parse_descriptor写出printDescriptor
+void BX_CPU_C::printDescriptor(bx_descriptor_t *desc)//打印(保护模式中的)描述符
+{
+
+  if (desc->segment) { /* data/code segment descriptors 代码段/数据段 描述符*/
+
+    BX_INFO(("代码段|数据段,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x",  
+    desc->u.segment.base,
+    desc->u.segment.limit_scaled,
+    desc->u.segment.avl,
+    desc->u.segment.g,
+    desc->u.segment.d_b,
+    desc->valid
+    ));
+
+  }
+
+  else { // system & gate segment descriptors 系统段描述符/门段描述符
+    switch (desc->type) {
+      case BX_286_CALL_GATE://80286调用门
+      case BX_286_INTERRUPT_GATE://80286中断门
+      case BX_286_TRAP_GATE://80286陷阱门
+        // param count only used for call gate
+        
+        BX_INFO(("BX_286_CALL_GATE|BX_286_INTERRUPT_GATE|BX_286_TRAP_GATE,0x%x,0x%x,0x%x,0x%x",  
+        desc->u.gate.param_count,
+        desc->u.gate.dest_selector,  
+        desc->u.gate.dest_offset,
+        desc->valid
+        ));
+
+        break;
+
+      case BX_386_CALL_GATE://80386调用门
+      case BX_386_INTERRUPT_GATE://80386中断门
+      case BX_386_TRAP_GATE://80386陷阱门
+        // param count only used for call gate
+
+        BX_INFO(("BX_386_CALL_GATE|BX_386_INTERRUPT_GATE|BX_386_TRAP_GATE,0x%x,0x%x,0x%x,0x%x",  
+        desc->u.gate.param_count,
+        desc->u.gate.dest_selector,
+        desc->u.gate.dest_offset,       
+        desc->valid 
+        ));
+                
+        break;
+
+      case BX_TASK_GATE://任务门
+
+        BX_INFO(("BX_TASK_GATE,0x%x,0x%x",  
+        desc->u.taskgate.tss_selector ,
+        desc->valid
+        ));
+
+        break;
+
+      case BX_SYS_SEGMENT_LDT://系统段LDT
+      case BX_SYS_SEGMENT_AVAIL_286_TSS:
+      case BX_SYS_SEGMENT_BUSY_286_TSS:
+      case BX_SYS_SEGMENT_AVAIL_386_TSS:
+      case BX_SYS_SEGMENT_BUSY_386_TSS:
+        
+
+        BX_INFO(("BX_SYS_SEGMENT_LDT|BX_SYS_SEGMENT_AVAIL_286_TSS|BX_SYS_SEGMENT_BUSY_286_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x",  
+        desc->u.segment.base,
+        desc->u.segment.g,
+        desc->u.segment.d_b,
+        desc->u.segment.avl, 
+        desc->u.segment.limit_scaled,
+        desc->valid 
+        ));
+
+        break;
+
+      default: // reserved
+        BX_INFO(("BX_TASK_GATE,0x%x",  
+        desc->valid 
+        ));
+
+        break;
+    }
+  }
+}
 void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)//解析(保护模式中的)描述符
 {
   Bit8u AR_byte;

@@ -35,96 +35,46 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   Bit32u stack_param_offset;
   bx_address return_RIP, return_RSP, temp_RSP;
   Bit32u dword1, dword2;
+  // str cs_selector_json_text,cs_descriptor_json_text,ss_selector_json_text,ss_descriptor_json_text;
 
-  /* + 6+N*2: SS      | +12+N*4:     SS | +24+N*8      SS */
-  /* + 4+N*2: SP      | + 8+N*4:    ESP | +16+N*8     RSP */
-  /*          parm N  | +        parm N | +        parm N */
-  /*          parm 3  | +        parm 3 | +        parm 3 */
-  /*          parm 2  | +        parm 2 | +        parm 2 */
-  /* + 4:     parm 1  | + 8:     parm 1 | +16:     parm 1 */
-  /* + 2:     CS      | + 4:         CS | + 8:         CS */
-  /* + 0:     IP      | + 0:        EIP | + 0:        RIP */
-
-#if BX_SUPPORT_X86_64
-  if (long64_mode()) temp_RSP = RSP;
-  else
-#endif
-  {
     if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b) temp_RSP = ESP;
     else temp_RSP = SP;
+
+  if (i->os32L()) {//若是32位
+    raw_cs_selector = (Bit16u) stack_read_dword(temp_RSP + 4);//从栈中取 新代码段选择子CS
+    return_RIP      =          stack_read_dword(temp_RSP);//从栈中取  返回地址EIP(该代码段内的偏移量)
+    stack_param_offset = 8;//参数从栈偏移8开始
+  }
+  else {//否则为64为
+    raw_cs_selector = stack_read_word(temp_RSP + 2);//从栈中取 新代码段选择子CS
+    return_RIP      = stack_read_word(temp_RSP);//从栈中取  返回地址RIP(该代码段内的偏移量)
+    stack_param_offset = 4;//参数从栈偏移4开始
   }
 
-#if BX_SUPPORT_X86_64
-  if (i->os64L()) {
-    raw_cs_selector = (Bit16u) stack_read_qword(temp_RSP + 8);
-    return_RIP      =          stack_read_qword(temp_RSP);
-    stack_param_offset = 16;
-  }
-  else
-#endif
-  if (i->os32L()) {
-    raw_cs_selector = (Bit16u) stack_read_dword(temp_RSP + 4);
-    return_RIP      =          stack_read_dword(temp_RSP);
-    stack_param_offset = 8;
-  }
-  else {
-    raw_cs_selector = stack_read_word(temp_RSP + 2);
-    return_RIP      = stack_read_word(temp_RSP);
-    stack_param_offset = 4;
-  }
+  parse_selector(raw_cs_selector, &cs_selector);//解析出 新代码段选择子CS cs_selector
 
-  // selector must be non-null else #GP(0)
-  if ((raw_cs_selector & 0xfffc) == 0) {
-    BX_ERROR(("return_protected: CS selector null"));
-    exception(BX_GP_EXCEPTION, 0);
-  }
+  // 以 下标 取 元素 : 以 数组下标 获取 数组中该下标内的元素
+  fetch_raw_descriptor(&cs_selector, &dword1, &dword2, BX_GP_EXCEPTION);//以 下标 取 元素: 以 新代码段选择子CS cs_selector 取 新代码段描述符 
 
-  parse_selector(raw_cs_selector, &cs_selector);
-
-  // selector index must be within its descriptor table limits,
-  // else #GP(selector)
-  fetch_raw_descriptor(&cs_selector, &dword1, &dword2, BX_GP_EXCEPTION);
-
-  // descriptor AR byte must indicate code segment, else #GP(selector)
-  parse_descriptor(dword1, dword2, &cs_descriptor);
-
-  // return selector RPL must be >= CPL, else #GP(return selector)
-  if (cs_selector.rpl < CPL) {
-    BX_ERROR(("return_protected: CS.rpl < CPL"));
-    exception(BX_GP_EXCEPTION, raw_cs_selector & 0xfffc);
-  }
+  parse_descriptor(dword1, dword2, &cs_descriptor);//解析出 新代码段描述符cs_descriptor
+//转 cs_selector、cs_descriptor 为json_text, 且需要打印return_RIP
+// cs_selector_json_text=BX_CPU_THIS->print_selector(&cs_selector);
+// cs_descriptor_json_text=BX_CPU_THIS->printDescriptor(&cs_descriptor);
 
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
 
-  // if return selector RPL == CPL then
-  // RETURN TO SAME PRIVILEGE LEVEL
-  if (cs_selector.rpl == CPL)
+  if (cs_selector.rpl == CPL)//若同PL权限级
   {
-    BX_DEBUG(("return_protected: return to SAME PRIVILEGE LEVEL"));
-
-#if BX_SUPPORT_CET
-    if (ShadowStackEnabled(CPL)) {
-      SSP = shadow_stack_restore(raw_cs_selector, cs_descriptor, return_RIP);
-    }
-#endif
-
-    branch_far(&cs_selector, &cs_descriptor, return_RIP, CPL);
-
-#if BX_SUPPORT_X86_64
-    if (long64_mode())
-      RSP += stack_param_offset + pop_bytes;
-    else
-#endif
-    {
+    branch_far(&cs_selector, &cs_descriptor, return_RIP, CPL);//跳转到 该新代码段(代码段描述符cs_descriptor) 内的 偏移量return_RIP 即可. 
+    //即 将 新代码段描述符cs_descriptor 装载入 代码段描述符寄存器, 并 跳转到 该新代码段内 偏移量return_RIP 处.
       if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b)
-        RSP = ESP + stack_param_offset + pop_bytes;
+        RSP = ESP + stack_param_offset + pop_bytes;//新栈为当前栈跳过若干字节
       else
-         SP += stack_param_offset + pop_bytes;
-    }
+         SP += stack_param_offset + pop_bytes;//新栈为当前栈跳过若干字节
   }
-  /* RETURN TO OUTER PRIVILEGE LEVEL */
-  else {
+  /* RETURN TO OUTER PRIVILEGE LEVEL 否则返回到不同的PL权限级, 从栈中 切换栈SS:SP 并 切换CS:IP */
+  else {//否则,不同PL权限级
     /* + 6+N*2: SS      | +12+N*4:     SS | +24+N*8      SS */
     /* + 4+N*2: SP      | + 8+N*4:    ESP | +16+N*8     RSP */
     /*          parm N  | +        parm N | +        parm N */
@@ -134,133 +84,44 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     /* + 2:     CS      | + 4:         CS | + 8:         CS */
     /* + 0:     IP      | + 0:        EIP | + 0:        RIP */
 
-    BX_DEBUG(("return_protected: return to OUTER PRIVILEGE LEVEL"));
-
-#if BX_SUPPORT_X86_64
-    if (i->os64L()) {
-      raw_ss_selector = stack_read_word(temp_RSP + 24 + pop_bytes);
-      return_RSP      = stack_read_qword(temp_RSP + 16 + pop_bytes);
-    }
-    else
-#endif
     if (i->os32L()) {
-      raw_ss_selector = stack_read_word(temp_RSP + 12 + pop_bytes);
-      return_RSP      = stack_read_dword(temp_RSP + 8 + pop_bytes);
+      raw_ss_selector = stack_read_word(temp_RSP + 12 + pop_bytes);//从 当前栈 中 取 新栈段选择子ss
+      return_RSP      = stack_read_dword(temp_RSP + 8 + pop_bytes);//从 当前栈 中 取 新ESP
     }
     else {
-      raw_ss_selector = stack_read_word(temp_RSP + 6 + pop_bytes);
-      return_RSP      = stack_read_word(temp_RSP + 4 + pop_bytes);
+      raw_ss_selector = stack_read_word(temp_RSP + 6 + pop_bytes);//从 当前栈 中 取 新栈段选择子ss
+      return_RSP      = stack_read_word(temp_RSP + 4 + pop_bytes);//从 当前栈 中 取 新RSP
     }
 
-    /* selector index must be within its descriptor table limits,
-     * else #GP(selector) */
-    parse_selector(raw_ss_selector, &ss_selector);
+    parse_selector(raw_ss_selector, &ss_selector);//解析出 新栈段选择子ss ss_selector
 
-    if ((raw_ss_selector & 0xfffc) == 0) {
-#if BX_SUPPORT_X86_64
-      if (long_mode()) {
-        if (! IS_LONG64_SEGMENT(cs_descriptor) || (cs_selector.rpl == 3)) {
-          BX_ERROR(("return_protected: SS selector null"));
-          exception(BX_GP_EXCEPTION, 0);
-        }
-      }
-      else // not in long or compatibility mode
-#endif
-      {
-        BX_ERROR(("return_protected: SS selector null"));
-        exception(BX_GP_EXCEPTION, 0);
-      }
-    }
-    else {
-      fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);
-      parse_descriptor(dword1, dword2, &ss_descriptor);
+      fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);//以 下标 取 元素: 以 新栈段选择子ss ss_selector 取 新栈段描述符
+      parse_descriptor(dword1, dword2, &ss_descriptor);//解析出 新栈段描述符ss_descriptor
+    //转  ss_selector、ss_descriptor 为 json_text
+// ss_selector_json_text=BX_CPU_THIS->print_selector(&ss_selector);
+// ss_descriptor_json_text=BX_CPU_THIS->printDescriptor(&ss_descriptor);
 
-      /* selector RPL must = RPL of the return CS selector,
-       * else #GP(selector) */
-      if (ss_selector.rpl != cs_selector.rpl) {
-        BX_ERROR(("return_protected: ss.rpl != cs.rpl"));
-        exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-
-      /* descriptor AR byte must indicate a writable data segment,
-       * else #GP(selector) */
-      if (ss_descriptor.valid==0 || ss_descriptor.segment==0 ||
-           IS_CODE_SEGMENT(ss_descriptor.type) ||
-          !IS_DATA_SEGMENT_WRITEABLE(ss_descriptor.type))
-      {
-        BX_ERROR(("return_protected: SS.AR byte not writable data"));
-        exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-
-      /* descriptor dpl must = RPL of the return CS selector,
-       * else #GP(selector) */
-      if (ss_descriptor.dpl != cs_selector.rpl) {
-        BX_ERROR(("return_protected: SS.dpl != cs.rpl"));
-        exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-
-      /* segment must be present else #SS(selector) */
-      if (! IS_PRESENT(ss_descriptor)) {
-        BX_ERROR(("return_protected: ss.present == 0"));
-        exception(BX_SS_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-    }
-
-#if BX_SUPPORT_CET
-    unsigned prev_cpl = CPL;
-    bx_address new_SSP = BX_CPU_THIS_PTR msr.ia32_pl_ssp[3];
-    if (ShadowStackEnabled(CPL)) {
-      if (SSP & 0x7) {
-        BX_ERROR(("return_protected: SSP is not 8-byte aligned"));
-        exception(BX_CP_EXCEPTION, BX_CP_FAR_RET_IRET);
-      }
-      if (cs_selector.rpl != 3) {
-        new_SSP = shadow_stack_restore(raw_cs_selector, cs_descriptor, return_RIP);
-      }
-    }
-#endif
-
-    branch_far(&cs_selector, &cs_descriptor, return_RIP, cs_selector.rpl);
+    branch_far(&cs_selector, &cs_descriptor, return_RIP, cs_selector.rpl);//跳转到 该新代码段(新代码段描述符cs_descriptor) 内的 偏移量return_RIP. 
+    //即 将 新代码段描述符cs_descriptor 装载入 代码段描述符寄存器, 并 跳转到 该新代码段内 偏移量return_RIP 处.
 
     if ((raw_ss_selector & 0xfffc) != 0) {
       // load SS:RSP from stack
       // load the SS-cache with SS descriptor
-      load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
-    }
-#if BX_SUPPORT_X86_64
-    else {
-      // we are in 64-bit mode (checked above)
-      load_null_selector(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS], raw_ss_selector);
+      load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);//将 新栈段描述符ss_descriptor 装载入 栈段描述符寄存器
     }
 
-    if (long64_mode())
-      RSP = return_RSP + pop_bytes;
-    else
-#endif
-    {
       if (ss_descriptor.u.segment.d_b)
-        RSP = (Bit32u)(return_RSP + pop_bytes);
+        RSP = (Bit32u)(return_RSP + pop_bytes);//新栈与当前栈无关
       else
-        SP  = (Bit16u)(return_RSP + pop_bytes);
-    }
-
-#if BX_SUPPORT_CET
-    bx_address old_SSP = SSP;
-    if (ShadowStackEnabled(CPL)) {
-      if (!long64_mode() && GET32H(new_SSP) != 0) {
-        BX_ERROR(("return_protected: 64-bit SSP in legacy mode"));
-        exception(BX_GP_EXCEPTION, 0);
-      }
-      SSP = new_SSP;
-    }
-    if (ShadowStackEnabled(prev_cpl)) {
-      shadow_stack_atomic_clear_busy(old_SSP, prev_cpl);
-    }
-#endif
+        SP  = (Bit16u)(return_RSP + pop_bytes);//新栈与当前栈无关
 
     /* check ES, DS, FS, GS for validity */
     validate_seg_regs();
   }
+  //branch_far1 和 branch_far2 只有一个会执行
+  //line_text="%s,%s,%s,%s,%s" % (cs_selector_text,cs_descriptor_text,return_RIP,ss_selector_text,ss_descriptor_text)
+  //打印日志: BX_INFO(("%s",line_text));
+
 }
 
 #if BX_SUPPORT_CET
