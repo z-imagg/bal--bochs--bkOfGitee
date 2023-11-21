@@ -94,6 +94,9 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     task_switch(i, &link_selector, &tss_descriptor,
                 BX_TASK_FROM_IRET, dword1, dword2);
     //记录一条日志, 日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
+    std::string link_selector_json_text=BX_CPU_THIS -> selector_json_text(&link_selector);
+    std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&tss_descriptor);
+    BX_INFO(("iret_protected__情况1_IRET_嵌套任务返回;link_selector=%s;tss_descriptor=%s",link_selector_json_text,tss_descriptor_json_text));
     return;
   }
 
@@ -178,6 +181,9 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     /* load CS-cache with new code segment descriptor */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
     //记录一条日志, 日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
+    std::string cs_selector_json_text=BX_CPU_THIS -> selector_json_text(&cs_selector);
+    std::string cs_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&cs_descriptor);
+    BX_INFO(("iret_protected__情况2_同权级中断返回;cs_selector=%s;cs_descriptor=%s;new_eip=%d",cs_selector_json_text,cs_descriptor_json_text,new_eip));
 
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
@@ -313,7 +319,9 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     /* load the CS-cache with CS descriptor */
     /* set CPL to the RPL of the return CS selector */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-    //记录一条日志, 日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
+    //开始一条日志, 日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
+    std::string cs_selector_json_text=BX_CPU_THIS -> selector_json_text(&cs_selector);
+    std::string cs_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&cs_descriptor);
 
     // IF only changed if (prev_CPL <= EFLAGS.IOPL)
     // VIF, VIP, IOPL only changed if prev_CPL == 0
@@ -323,7 +331,11 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // load SS:eSP from stack
     // load the SS-cache with SS descriptor
     load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
-    //继续维持上条日志行， 日志行的字段们： 栈选择子 ss_selector、栈段描述符 ss_descriptor
+    //继续日志行，日志行的字段们： 栈选择子 ss_selector 、栈段描述符 ss_descriptor.
+    std::string ss_selector_json_text=BX_CPU_THIS -> selector_json_text(&ss_selector);
+    std::string ss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&ss_descriptor);
+    //结束日志行.
+    BX_INFO(("iret_protected__情况2_同权级中断返回;cs_selector=%s;cs_descriptor=%s;new_eip=%d;ss_selector=%s;ss_descriptor=%s",cs_selector_json_text,cs_descriptor_json_text,new_eip,ss_selector_json_text,ss_descriptor_json_text));
 
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
