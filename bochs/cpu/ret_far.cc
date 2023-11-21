@@ -45,23 +45,13 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   /* + 2:     CS      | + 4:         CS | + 8:         CS */
   /* + 0:     IP      | + 0:        EIP | + 0:        RIP */
 
-#if BX_SUPPORT_X86_64
-  if (long64_mode()) temp_RSP = RSP;
-  else
-#endif
+
   {
     if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b) temp_RSP = ESP;
     else temp_RSP = SP;
   }
 
-#if BX_SUPPORT_X86_64
-  if (i->os64L()) {
-    raw_cs_selector = (Bit16u) stack_read_qword(temp_RSP + 8);
-    return_RIP      =          stack_read_qword(temp_RSP);
-    stack_param_offset = 16;
-  }
-  else
-#endif
+
   if (i->os32L()) {
     raw_cs_selector = (Bit16u) stack_read_dword(temp_RSP + 4);
     return_RIP      =          stack_read_dword(temp_RSP);
@@ -73,11 +63,6 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     stack_param_offset = 4;
   }
 
-  // selector must be non-null else #GP(0)
-  if ((raw_cs_selector & 0xfffc) == 0) {
-    BX_ERROR(("return_protected: CS selector null"));
-    exception(BX_GP_EXCEPTION, 0);
-  }
 
   parse_selector(raw_cs_selector, &cs_selector);
 
@@ -88,11 +73,6 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   // descriptor AR byte must indicate code segment, else #GP(selector)
   parse_descriptor(dword1, dword2, &cs_descriptor);
 
-  // return selector RPL must be >= CPL, else #GP(return selector)
-  if (cs_selector.rpl < CPL) {
-    BX_ERROR(("return_protected: CS.rpl < CPL"));
-    exception(BX_GP_EXCEPTION, raw_cs_selector & 0xfffc);
-  }
 
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
@@ -103,19 +83,9 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   {
     BX_DEBUG(("return_protected: return to SAME PRIVILEGE LEVEL"));
 
-#if BX_SUPPORT_CET
-    if (ShadowStackEnabled(CPL)) {
-      SSP = shadow_stack_restore(raw_cs_selector, cs_descriptor, return_RIP);
-    }
-#endif
-
     branch_far(&cs_selector, &cs_descriptor, return_RIP, CPL);//返回同PL权限级
 
-#if BX_SUPPORT_X86_64
-    if (long64_mode())
-      RSP += stack_param_offset + pop_bytes;
-    else
-#endif
+
     {
       if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b)
         RSP = ESP + stack_param_offset + pop_bytes;
@@ -136,13 +106,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
 
     BX_DEBUG(("return_protected: return to OUTER PRIVILEGE LEVEL"));
 
-#if BX_SUPPORT_X86_64
-    if (i->os64L()) {
-      raw_ss_selector = stack_read_word(temp_RSP + 24 + pop_bytes);
-      return_RSP      = stack_read_qword(temp_RSP + 16 + pop_bytes);
-    }
-    else
-#endif
+
     if (i->os32L()) {
       raw_ss_selector = stack_read_word(temp_RSP + 12 + pop_bytes);
       return_RSP      = stack_read_dword(temp_RSP + 8 + pop_bytes);
@@ -157,15 +121,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     parse_selector(raw_ss_selector, &ss_selector);//解析选择子
 
     if ((raw_ss_selector & 0xfffc) == 0) {
-#if BX_SUPPORT_X86_64
-      if (long_mode()) {
-        if (! IS_LONG64_SEGMENT(cs_descriptor) || (cs_selector.rpl == 3)) {
-          BX_ERROR(("return_protected: SS selector null"));
-          exception(BX_GP_EXCEPTION, 0);
-        }
-      }
-      else // not in long or compatibility mode
-#endif
+
       {
         BX_ERROR(("return_protected: SS selector null"));
         exception(BX_GP_EXCEPTION, 0);
@@ -174,51 +130,9 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     else {
       fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);//选择子(数组下标) 转为 描述符(该数组内该下标中的元素)
       parse_descriptor(dword1, dword2, &ss_descriptor);//解析描述符
-
-      /* selector RPL must = RPL of the return CS selector,
-       * else #GP(selector) */
-      if (ss_selector.rpl != cs_selector.rpl) {
-        BX_ERROR(("return_protected: ss.rpl != cs.rpl"));
-        exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-
-      /* descriptor AR byte must indicate a writable data segment,
-       * else #GP(selector) */
-      if (ss_descriptor.valid==0 || ss_descriptor.segment==0 ||
-           IS_CODE_SEGMENT(ss_descriptor.type) ||
-          !IS_DATA_SEGMENT_WRITEABLE(ss_descriptor.type))
-      {
-        BX_ERROR(("return_protected: SS.AR byte not writable data"));
-        exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-
-      /* descriptor dpl must = RPL of the return CS selector,
-       * else #GP(selector) */
-      if (ss_descriptor.dpl != cs_selector.rpl) {
-        BX_ERROR(("return_protected: SS.dpl != cs.rpl"));
-        exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
-
-      /* segment must be present else #SS(selector) */
-      if (! IS_PRESENT(ss_descriptor)) {
-        BX_ERROR(("return_protected: ss.present == 0"));
-        exception(BX_SS_EXCEPTION, raw_ss_selector & 0xfffc);
-      }
     }
 
-#if BX_SUPPORT_CET
-    unsigned prev_cpl = CPL;
-    bx_address new_SSP = BX_CPU_THIS_PTR msr.ia32_pl_ssp[3];
-    if (ShadowStackEnabled(CPL)) {
-      if (SSP & 0x7) {
-        BX_ERROR(("return_protected: SSP is not 8-byte aligned"));
-        exception(BX_CP_EXCEPTION, BX_CP_FAR_RET_IRET);
-      }
-      if (cs_selector.rpl != 3) {
-        new_SSP = shadow_stack_restore(raw_cs_selector, cs_descriptor, return_RIP);
-      }
-    }
-#endif
+
 
     branch_far(&cs_selector, &cs_descriptor, return_RIP, cs_selector.rpl);//返回不同PL权限级
 
@@ -227,16 +141,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
       // load the SS-cache with SS descriptor
       load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
     }
-#if BX_SUPPORT_X86_64
-    else {
-      // we are in 64-bit mode (checked above)
-      load_null_selector(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS], raw_ss_selector);
-    }
 
-    if (long64_mode())
-      RSP = return_RSP + pop_bytes;
-    else
-#endif
     {
       if (ss_descriptor.u.segment.d_b)
         RSP = (Bit32u)(return_RSP + pop_bytes);
@@ -244,19 +149,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
         SP  = (Bit16u)(return_RSP + pop_bytes);
     }
 
-#if BX_SUPPORT_CET
-    bx_address old_SSP = SSP;
-    if (ShadowStackEnabled(CPL)) {
-      if (!long64_mode() && GET32H(new_SSP) != 0) {
-        BX_ERROR(("return_protected: 64-bit SSP in legacy mode"));
-        exception(BX_GP_EXCEPTION, 0);
-      }
-      SSP = new_SSP;
-    }
-    if (ShadowStackEnabled(prev_cpl)) {
-      shadow_stack_atomic_clear_busy(old_SSP, prev_cpl);
-    }
-#endif
+
 
     /* check ES, DS, FS, GS for validity */
     validate_seg_regs();
