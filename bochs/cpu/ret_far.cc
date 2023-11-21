@@ -35,6 +35,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   Bit32u stack_param_offset;
   bx_address return_RIP, return_RSP, temp_RSP;
   Bit32u dword1, dword2;
+  // str cs_selector_json_text,cs_descriptor_json_text,ss_selector_json_text,ss_descriptor_json_text;
 
     if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b) temp_RSP = ESP;
     else temp_RSP = SP;
@@ -56,6 +57,9 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   fetch_raw_descriptor(&cs_selector, &dword1, &dword2, BX_GP_EXCEPTION);//以 下标 取 元素: 以 新代码段选择子CS cs_selector 取 新代码段描述符 
 
   parse_descriptor(dword1, dword2, &cs_descriptor);//解析出 新代码段描述符cs_descriptor
+//转 cs_selector、cs_descriptor 为json_text, 且需要打印return_RIP
+// cs_selector_json_text=BX_CPU_THIS->print_selector(&cs_selector);
+// cs_descriptor_json_text=BX_CPU_THIS->printDescriptor(&cs_descriptor);
 
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
@@ -64,7 +68,6 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   {
     branch_far(&cs_selector, &cs_descriptor, return_RIP, CPL);//跳转到 该新代码段(代码段描述符cs_descriptor) 内的 偏移量return_RIP 即可. 
     //即 将 新代码段描述符cs_descriptor 装载入 代码段描述符寄存器, 并 跳转到 该新代码段内 偏移量return_RIP 处.
-
       if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b)
         RSP = ESP + stack_param_offset + pop_bytes;//新栈为当前栈跳过若干字节
       else
@@ -94,7 +97,10 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
 
       fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);//以 下标 取 元素: 以 新栈段选择子ss ss_selector 取 新栈段描述符
       parse_descriptor(dword1, dword2, &ss_descriptor);//解析出 新栈段描述符ss_descriptor
-    
+    //转  ss_selector、ss_descriptor 为 json_text
+// ss_selector_json_text=BX_CPU_THIS->print_selector(&ss_selector);
+// ss_descriptor_json_text=BX_CPU_THIS->printDescriptor(&ss_descriptor);
+
     branch_far(&cs_selector, &cs_descriptor, return_RIP, cs_selector.rpl);//跳转到 该新代码段(新代码段描述符cs_descriptor) 内的 偏移量return_RIP. 
     //即 将 新代码段描述符cs_descriptor 装载入 代码段描述符寄存器, 并 跳转到 该新代码段内 偏移量return_RIP 处.
 
@@ -113,7 +119,9 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
     validate_seg_regs();
   }
   //branch_far1 和 branch_far2 只有一个会执行
-  //日志 return_RIP
+  //line_text="%s,%s,%s,%s,%s" % (cs_selector_text,cs_descriptor_text,return_RIP,ss_selector_text,ss_descriptor_text)
+  //打印日志: BX_INFO(("%s",line_text));
+
 }
 
 #if BX_SUPPORT_CET
