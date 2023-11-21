@@ -42,7 +42,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
 #endif
 
   if (BX_CPU_THIS_PTR get_NT())   /* NT = 1: RETURN FROM NESTED TASK */
-  {
+  {//情况1. IRET: 嵌套任务返回
     /* what's the deal with NT & VM ? */
     Bit16u raw_link_selector;
     bx_selector_t   link_selector;
@@ -51,7 +51,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     if (BX_CPU_THIS_PTR get_VM())
       BX_PANIC(("iret_protected: VM sholdn't be set here !"));
 
-    BX_DEBUG(("IRET: nested task return"));
+    BX_DEBUG(("IRET: nested task return; IRET: 嵌套任务返回;"));
 
     if (BX_CPU_THIS_PTR tr.cache.valid==0)
       BX_PANIC(("IRET: TR not valid"));
@@ -93,6 +93,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // switch tasks (without nesting) to TSS specified by back link selector
     task_switch(i, &link_selector, &tss_descriptor,
                 BX_TASK_FROM_IRET, dword1, dword2);
+    //记录一条日志, 日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
     return;
   }
 
@@ -164,9 +165,9 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
 
-  if (cs_selector.rpl == CPL) {
+  if (cs_selector.rpl == CPL) {//情况2. 同权级中断返回
 
-    BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL"));
+    BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL; 同权级中断返回; "));
 
 #if BX_SUPPORT_CET
     if (ShadowStackEnabled(CPL)) {
@@ -176,6 +177,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
 
     /* load CS-cache with new code segment descriptor */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
+    //记录一条日志, 日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
 
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
@@ -207,9 +209,9 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     else
        SP += top_nbytes_same;
   }
-  else {
+  else {//情况3. 外权级中断返回
 
-    BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL"));
+    BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL; 外权级中断返回;"));
 
     /* 16bit opsize  |   32bit opsize
      * ==============================
@@ -311,6 +313,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     /* load the CS-cache with CS descriptor */
     /* set CPL to the RPL of the return CS selector */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
+    //记录一条日志, 日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
 
     // IF only changed if (prev_CPL <= EFLAGS.IOPL)
     // VIF, VIP, IOPL only changed if prev_CPL == 0
@@ -320,6 +323,8 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // load SS:eSP from stack
     // load the SS-cache with SS descriptor
     load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
+    //继续维持上条日志行， 日志行的字段们： 栈选择子 ss_selector、栈段描述符 ss_descriptor
+
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
     else
