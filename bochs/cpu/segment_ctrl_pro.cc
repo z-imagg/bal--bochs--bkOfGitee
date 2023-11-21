@@ -275,7 +275,16 @@ void BX_CPU_C::validate_seg_regs(void)
   validate_seg_reg(BX_SEG_REG_FS);
   validate_seg_reg(BX_SEG_REG_GS);
 }
-
+void BX_CPU_C::print_selector(bx_selector_t *selector)//仿照parse_selector写出打印描述符
+{
+  BX_INFO((
+    "0x%x,0x%x,0x%x,0x%x", 
+    selector->value,
+    selector->index,
+    selector->ti,
+    selector->rpl
+    ));
+}
 void parse_selector(Bit16u raw_selector, bx_selector_t *selector)
 {
   selector->value = raw_selector;
