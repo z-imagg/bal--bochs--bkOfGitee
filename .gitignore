@@ -7,7 +7,7 @@
 *.rej 
 obj-debug/ 
 obj-release/ 
-.vscode 
+# .vscode 
 bochs-msvc-src.zip 
  
 # /bochs/ 
