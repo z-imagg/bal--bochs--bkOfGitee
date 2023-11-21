@@ -43,16 +43,13 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     bx_selector_t   link_selector;
     bx_descriptor_t tss_descriptor;
 
-
     BX_DEBUG(("IRET: nested task return"));
-
 
     // examine back link selector in TSS addressed by current TR
     raw_link_selector = system_read_word(BX_CPU_THIS_PTR tr.cache.u.segment.base);
 
     // must specify global, else #TS(new TSS selector)
     parse_selector(raw_link_selector, &link_selector);
-
 
     // index must be within GDT limits, else #TS(new TSS selector)
     fetch_raw_descriptor(&link_selector, &dword1, &dword2, BX_TS_EXCEPTION);
@@ -204,9 +201,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // ID,VIP,VIF,AC,VM,RF,x,NT,IOPL,OF,DF,IF,TF,SF,ZF,x,AF,x,PF,x,CF
     Bit32u changeMask = EFlagsOSZAPCMask | EFlagsTFMask |
                             EFlagsDFMask | EFlagsNTMask | EFlagsRFMask;
-#if BX_CPU_LEVEL >= 4
-    changeMask |= (EFlagsIDMask | EFlagsACMask);  // ID/AC
-#endif
     if (CPL <= BX_CPU_THIS_PTR get_IOPL())
       changeMask |= EFlagsIFMask;
     if (CPL == 0)
