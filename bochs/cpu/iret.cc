@@ -34,72 +34,33 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   Bit32u dword1, dword2;
   bx_descriptor_t cs_descriptor, ss_descriptor;
 
-#if BX_SUPPORT_X86_64
-  if (long_mode()) {
-    long_iret(i);
-    return;
-  }
-#endif
-
   if (BX_CPU_THIS_PTR get_NT())   /* NT = 1: RETURN FROM NESTED TASK */
-  {
+  {//情况1. IRET: 嵌套任务返回
     /* what's the deal with NT & VM ? */
     Bit16u raw_link_selector;
     bx_selector_t   link_selector;
     bx_descriptor_t tss_descriptor;
 
-    if (BX_CPU_THIS_PTR get_VM())
-      BX_PANIC(("iret_protected: VM sholdn't be set here !"));
-
-    BX_DEBUG(("IRET: nested task return"));
-
-    if (BX_CPU_THIS_PTR tr.cache.valid==0)
-      BX_PANIC(("IRET: TR not valid"));
-
+    BX_DEBUG(("IRET: nested task return; IRET: 嵌套任务返回;"));
     // examine back link selector in TSS addressed by current TR
     raw_link_selector = system_read_word(BX_CPU_THIS_PTR tr.cache.u.segment.base);
-
     // must specify global, else #TS(new TSS selector)
     parse_selector(raw_link_selector, &link_selector);
-
-    if (link_selector.ti) {
-      BX_ERROR(("iret: link selector.ti=1"));
-      exception(BX_TS_EXCEPTION, raw_link_selector & 0xfffc);
-    }
-
     // index must be within GDT limits, else #TS(new TSS selector)
     fetch_raw_descriptor(&link_selector, &dword1, &dword2, BX_TS_EXCEPTION);
-
     // AR byte must specify TSS, else #TS(new TSS selector)
     // new TSS must be busy, else #TS(new TSS selector)
     parse_descriptor(dword1, dword2, &tss_descriptor);
-    if (tss_descriptor.valid==0 || tss_descriptor.segment) {
-      BX_ERROR(("iret: TSS selector points to bad TSS"));
-      exception(BX_TS_EXCEPTION, raw_link_selector & 0xfffc);
-    }
-    if (tss_descriptor.type != BX_SYS_SEGMENT_BUSY_286_TSS &&
-        tss_descriptor.type != BX_SYS_SEGMENT_BUSY_386_TSS)
-    {
-      BX_ERROR(("iret: TSS selector points to bad TSS"));
-      exception(BX_TS_EXCEPTION, raw_link_selector & 0xfffc);
-    }
-
-    // TSS must be present, else #NP(new TSS selector)
-    if (! IS_PRESENT(tss_descriptor)) {
-      BX_ERROR(("iret: task descriptor.p == 0"));
-      exception(BX_NP_EXCEPTION, raw_link_selector & 0xfffc);
-    }
-
     // switch tasks (without nesting) to TSS specified by back link selector
     task_switch(i, &link_selector, &tss_descriptor,
                 BX_TASK_FROM_IRET, dword1, dword2);
+    //记录一条日志, 日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
     return;
   }
 
   /* NT = 0: INTERRUPT RETURN ON STACK -or STACK_RETURN_TO_V86 */
   unsigned top_nbytes_same;
   Bit32u new_eip = 0, new_esp, temp_ESP, new_eflags = 0;
-
   /* 16bit opsize  |   32bit opsize
    * ==============================
    * SS     eSP+8  |   SS     eSP+16
@@ -109,7 +70,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
    * CS     eSP+2  |   CS     eSP+4
    * IP     eSP+0  |   EIP    eSP+0
    */
-
   if (i->os32L()) {
     top_nbytes_same = 12;
   }
@@ -143,54 +103,29 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
   }
 
   parse_selector(raw_cs_selector, &cs_selector);
-
-  // return CS selector must be non-null, else #GP(0)
-  if ((raw_cs_selector & 0xfffc) == 0) {
-    BX_ERROR(("iret: return CS selector null"));
-    exception(BX_GP_EXCEPTION, 0);
-  }
-
   // selector index must be within descriptor table limits,
   // else #GP(return selector)
   fetch_raw_descriptor(&cs_selector, &dword1, &dword2, BX_GP_EXCEPTION);
   parse_descriptor(dword1, dword2, &cs_descriptor);
-
-  // return CS selector RPL must be >= CPL, else #GP(return selector)
-  if (cs_selector.rpl < CPL) {
-    BX_ERROR(("iret: return selector RPL < CPL"));
-    exception(BX_GP_EXCEPTION, raw_cs_selector & 0xfffc);
-  }
-
   // check code-segment descriptor
   check_cs(&cs_descriptor, raw_cs_selector, 0, cs_selector.rpl);
 
-  if (cs_selector.rpl == CPL) {
-
-    BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL"));
-
-#if BX_SUPPORT_CET
-    if (ShadowStackEnabled(CPL)) {
-      SSP = shadow_stack_restore(raw_cs_selector, cs_descriptor, new_eip);
-    }
-#endif
-
+  if (cs_selector.rpl == CPL) {//情况2. 同权级中断返回
+    BX_DEBUG(("INTERRUPT RETURN TO SAME PRIVILEGE LEVEL; 同权级中断返回; "));
     /* load CS-cache with new code segment descriptor */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-
+    //记录一条日志, 日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
     if (i->os32L()) {
       // ID,VIP,VIF,AC,VM,RF,x,NT,IOPL,OF,DF,IF,TF,SF,ZF,x,AF,x,PF,x,CF
       Bit32u changeMask = EFlagsOSZAPCMask | EFlagsTFMask |
                               EFlagsDFMask | EFlagsNTMask | EFlagsRFMask;
-#if BX_CPU_LEVEL >= 4
-      changeMask |= (EFlagsIDMask | EFlagsACMask);  // ID/AC
-#endif
+
       if (CPL <= BX_CPU_THIS_PTR get_IOPL())
         changeMask |= EFlagsIFMask;
       if (CPL == 0)
         changeMask |= EFlagsVIPMask | EFlagsVIFMask | EFlagsIOPLMask;
-
       // IF only changed if (CPL <= EFLAGS.IOPL)
       // VIF, VIP, IOPL only changed if CPL == 0
       // VM unaffected
@@ -207,19 +142,8 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     else
        SP += top_nbytes_same;
   }
-  else {
-
-    BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL"));
-
-    /* 16bit opsize  |   32bit opsize
-     * ==============================
-     * SS     eSP+8  |   SS     eSP+16
-     * SP     eSP+6  |   ESP    eSP+12
-     * FLAGS  eSP+4  |   EFLAGS eSP+8
-     * CS     eSP+2  |   CS     eSP+4
-     * IP     eSP+0  |   EIP    eSP+0
-     */
-
+  else {//情况3. 外权级中断返回
+    BX_DEBUG(("INTERRUPT RETURN TO OUTER PRIVILEGE LEVEL; 外权级中断返回;"));
     /* examine return SS selector and associated descriptor */
     if (i->os32L()) {
       raw_ss_selector = stack_read_word(temp_ESP + 16);
@@ -228,50 +152,11 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
       raw_ss_selector = stack_read_word(temp_ESP + 8);
     }
 
-    /* selector must be non-null, else #GP(0) */
-    if ((raw_ss_selector & 0xfffc) == 0) {
-      BX_ERROR(("iret: SS selector null"));
-      exception(BX_GP_EXCEPTION, 0);
-    }
-
     parse_selector(raw_ss_selector, &ss_selector);
-
-    /* selector RPL must = RPL of return CS selector,
-     * else #GP(SS selector) */
-    if (ss_selector.rpl != cs_selector.rpl) {
-      BX_ERROR(("iret: SS.rpl != CS.rpl"));
-      exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-    }
-
     /* selector index must be within its descriptor table limits,
      * else #GP(SS selector) */
     fetch_raw_descriptor(&ss_selector, &dword1, &dword2, BX_GP_EXCEPTION);
-
     parse_descriptor(dword1, dword2, &ss_descriptor);
-
-    /* AR byte must indicate a writable data segment,
-     * else #GP(SS selector) */
-    if (ss_descriptor.valid==0 || ss_descriptor.segment==0 ||
-         IS_CODE_SEGMENT(ss_descriptor.type) ||
-        !IS_DATA_SEGMENT_WRITEABLE(ss_descriptor.type))
-    {
-      BX_ERROR(("iret: SS AR byte not writable or code segment"));
-      exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-    }
-
-    /* stack segment DPL must equal the RPL of the return CS selector,
-     * else #GP(SS selector) */
-    if (ss_descriptor.dpl != cs_selector.rpl) {
-      BX_ERROR(("iret: SS.dpl != CS selector RPL"));
-      exception(BX_GP_EXCEPTION, raw_ss_selector & 0xfffc);
-    }
-
-    /* SS must be present, else #NP(SS selector) */
-    if (! IS_PRESENT(ss_descriptor)) {
-      BX_ERROR(("iret: SS not present!"));
-      exception(BX_NP_EXCEPTION, raw_ss_selector & 0xfffc);
-    }
-
     if (i->os32L()) {
       new_esp = stack_read_dword(temp_ESP + 12);
     }
@@ -282,9 +167,6 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     // ID,VIP,VIF,AC,VM,RF,x,NT,IOPL,OF,DF,IF,TF,SF,ZF,x,AF,x,PF,x,CF
     Bit32u changeMask = EFlagsOSZAPCMask | EFlagsTFMask |
                             EFlagsDFMask | EFlagsNTMask | EFlagsRFMask;
-#if BX_CPU_LEVEL >= 4
-    changeMask |= (EFlagsIDMask | EFlagsACMask);  // ID/AC
-#endif
     if (CPL <= BX_CPU_THIS_PTR get_IOPL())
       changeMask |= EFlagsIFMask;
     if (CPL == 0)
@@ -293,51 +175,24 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     if (! i->os32L()) // 16 bit
       changeMask &= 0xffff;
 
-#if BX_SUPPORT_CET
-    unsigned prev_cpl = CPL;
-    bx_address new_SSP = BX_CPU_THIS_PTR msr.ia32_pl_ssp[3];
-    if (ShadowStackEnabled(CPL)) {
-      if (SSP & 0x7) {
-        BX_ERROR(("iret_protected: SSP is not 8-byte aligned"));
-        exception(BX_CP_EXCEPTION, BX_CP_FAR_RET_IRET);
-      }
-      if (cs_selector.rpl != 3) {
-        new_SSP = shadow_stack_restore(raw_cs_selector, cs_descriptor, new_eip);
-      }
-    }
-#endif
-
     /* load CS:EIP from stack */
     /* load the CS-cache with CS descriptor */
     /* set CPL to the RPL of the return CS selector */
     branch_far(&cs_selector, &cs_descriptor, new_eip, cs_selector.rpl);
-
+    //开始一条日志, 日志行的字段们： cs选择子 cs_selector、代码段描述符cs_descriptor、新eip new_eip
     // IF only changed if (prev_CPL <= EFLAGS.IOPL)
     // VIF, VIP, IOPL only changed if prev_CPL == 0
     // VM unaffected
     writeEFlags(new_eflags, changeMask);
-
     // load SS:eSP from stack
     // load the SS-cache with SS descriptor
     load_ss(&ss_selector, &ss_descriptor, cs_selector.rpl);
+    //继续日志行，日志行的字段们： 栈选择子 ss_selector、栈段描述符 ss_descriptor
+    //结束日志行.
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
     else
       SP  = new_esp;
-
-#if BX_SUPPORT_CET
-    bx_address old_SSP = SSP;
-    if (ShadowStackEnabled(CPL)) {
-      if (GET32H(new_SSP) != 0) {
-        BX_ERROR(("iret_protected: 64-bit SSP in legacy mode"));
-        exception(BX_GP_EXCEPTION, 0);
-      }
-      SSP = new_SSP;
-    }
-    if (ShadowStackEnabled(prev_cpl)) {
-      shadow_stack_atomic_clear_busy(old_SSP, prev_cpl);
-    }
-#endif
 
     validate_seg_regs();
   }
