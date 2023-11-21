@@ -183,7 +183,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     //记录一条日志, 日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
     std::string cs_selector_json_text=BX_CPU_THIS -> selector_json_text(&cs_selector);
     std::string cs_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&cs_descriptor);
-    BX_INFO(("iret_protected__情况2_同权级中断返回;cs_selector=%s;cs_descriptor=%s;new_eip=%d",cs_selector_json_text.c_str(),cs_descriptor_json_text.c_str(),new_eip));
+    BX_INFO(("iret_protected__情况2_同权级中断返回;cs_selector=%s;cs_descriptor=%s;new_eip=0x%x",cs_selector_json_text.c_str(),cs_descriptor_json_text.c_str(),new_eip));
 
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
@@ -335,7 +335,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     std::string ss_selector_json_text=BX_CPU_THIS -> selector_json_text(&ss_selector);
     std::string ss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&ss_descriptor);
     //结束日志行.
-    BX_INFO(("iret_protected__情况2_同权级中断返回;cs_selector=%s;cs_descriptor=%s;new_eip=%d;ss_selector=%s;ss_descriptor=%s",cs_selector_json_text.c_str(),cs_descriptor_json_text.c_str(),new_eip,ss_selector_json_text.c_str(),ss_descriptor_json_text.c_str()));
+    BX_INFO(("iret_protected__情况2_同权级中断返回;cs_selector=%s;cs_descriptor=%s;new_eip=0x%x;ss_selector=%s;ss_descriptor=%s",cs_selector_json_text.c_str(),cs_descriptor_json_text.c_str(),new_eip,ss_selector_json_text.c_str(),ss_descriptor_json_text.c_str()));
 
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
