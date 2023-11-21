@@ -107,7 +107,7 @@ void BX_CPU_C::jmp_far32(bxInstruction_c *i, Bit16u cs_raw, Bit32u disp32)
                       BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value, EIP);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RET指令
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
@@ -146,7 +146,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET指令
 {
   invalidate_prefetch_q();
 
@@ -585,7 +585,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP32_Ep(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指令
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
