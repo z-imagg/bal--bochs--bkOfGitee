@@ -24,6 +24,9 @@
 #define NEED_CPU_REG_SHORTCUTS 1
 #include "bochs.h"
 #include "cpu.h"
+#include <fmt/core.h>
+#include <string>
+
 #define LOG_THIS BX_CPU_THIS_PTR
 
   void BX_CPP_AttrRegparmN(2)
@@ -75,7 +78,8 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
 
   // selector must be non-null else #GP(0)
   if ((raw_cs_selector & 0xfffc) == 0) {
-    BX_ERROR(("return_protected: CS selector null"));
+    std::string msg=fmt::format("return_protected: CS selector null {}", "aaa");
+    BX_ERROR((msg.c_str()));
     exception(BX_GP_EXCEPTION, 0);
   }
 
