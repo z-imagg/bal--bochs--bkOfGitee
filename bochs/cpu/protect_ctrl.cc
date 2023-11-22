@@ -485,7 +485,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
-{//LTR指令:load加载(修改) 任务状态寄存器TR
+{//LTR指令 ( 修改(load加载) 任务状态寄存器TR ). 指令模拟函数LTR_Ew（即修改TR） 已加日志 
   bx_descriptor_t descriptor;
   bx_selector_t selector;
   Bit16u raw_selector;
@@ -607,7 +607,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
 
   Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
-  BX_INFO(("记录日志;模拟指令LTR(修改 任务状态寄存器TR);LTR_Ew;此行在区;此行内容;tss_selector_json_text=%s,tss_descriptor_json_text=%s,cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,raw_selector:0x%x,selector:0x%x,descriptor:0x%x;",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), cpu_mode,_CS_selector_value, _CS_selector_index, EIP, raw_selector, selector, descriptor));
+  BX_INFO(("记录日志;模拟指令LTR(修改 任务状态寄存器TR);LTR_Ew;此行在区;此行内容;tss_selector_json_text=%s,tss_descriptor_json_text=%s,cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x;",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), cpu_mode,_CS_selector_value, _CS_selector_index, EIP));
 
 
   BX_NEXT_INSTR(i);
