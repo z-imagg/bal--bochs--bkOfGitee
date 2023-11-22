@@ -387,7 +387,7 @@ const Bit64u BX_SVM_CR_WRITE_MASK = (BX_CONST64(1) << 63);
 #endif
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指令 MOV
-{//CR0
+{//指令模拟函数MOV_CR0Rd（即修改CR0） 已加日志
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -416,11 +416,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指�
   }
 #endif
 
+  BX_INFO(("指令模拟函数MOV_CR0Rd日志,修改CRO为0x%x",val_32));
+
   BX_NEXT_TRACE(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
-{//CR2
+{//指令模拟函数MOV_CR2Rd（即修改CR2） 已加日志
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -440,11 +442,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
 
   BX_CPU_THIS_PTR cr2 = BX_READ_32BIT_REG(i->src());
 
+  BX_INFO(("指令模拟函数MOV_CR2Rd日志,修改CR2为0x%x",cr2));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
-{//CR3
+{//指令模拟函数MOV_CR3Rd（即修改CR3） 已加日志
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -485,11 +489,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR3, val_32);
 
+  BX_INFO(("指令模拟函数MOV_CR3Rd日志,修改CR3为0x%x",val_32));
+
   BX_NEXT_TRACE(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
-{//CR4
+{//指令模拟函数MOV_CR4Rd（即修改CR4） 已加日志
 #if BX_CPU_LEVEL >= 5
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
@@ -510,11 +516,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR4, val_32);
 #endif
 
+  BX_INFO(("指令模拟函数MOV_CR4Rd日志,修改CR4为0x%x",val_32));
+
   BX_NEXT_TRACE(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
-{//CR0
+{//指令模拟函数MOV_RdCR0（即读取CR0） 已加日志
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -543,11 +551,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
+  BX_INFO(("指令模拟函数MOV_RdCR0日志,读取CR0（0x%x）到寄存器%d",val_32,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
-{//CR2
+{//指令模拟函数MOV_RdCR2（即读取CR2） 已加日志
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -563,11 +573,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), (Bit32u) BX_CPU_THIS_PTR cr2);
 
+  BX_INFO(("指令模拟函数MOV_RdCR2日志,读取CR2（0x%x）到寄存器%d",(Bit32u) BX_CPU_THIS_PTR cr2,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
-{//CR3
+{//指令模拟函数MOV_RdCR3（即读取CR3） 已加日志
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -590,11 +602,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
+  BX_INFO(("指令模拟函数MOV_RdCR3日志,读取CR3（0x%x）到寄存器%d",val_32,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
-{//CR4
+{//指令模拟函数MOV_RdCR4（即读取CR4） 已加日志
 #if BX_CPU_LEVEL >= 5
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
@@ -614,12 +628,14 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 #endif
 
+  BX_INFO(("指令模拟函数MOV_RdCR4日志,读取CR4（0x%x）到寄存器%d",val_32,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 #if BX_SUPPORT_X86_64
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rq(bxInstruction_c *i)
-{//CR0
+{//64位指令模拟函数MOV_CR0Rq（即修改CR0） 已加日志
   if (CPL!=0) {
     BX_ERROR(("%s: #GP(0) if CPL is not 0", i->getIaOpcodeNameShort()));
     exception(BX_GP_EXCEPTION, 0);
@@ -644,11 +660,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rq(bxInstruction_c *i)
     WriteCR8(i, val_64);
   }
 
+  BX_INFO(("64位指令模拟函数MOV_CR0Rq日志,修改CRO为0x%lx",val_64));
+
   BX_NEXT_TRACE(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rq(bxInstruction_c *i)
-{//CR2
+{//64位指令模拟函数MOV_CR2Rq（即修改CR2） 已加日志. ( MOV_CR2Rq : CR2 <-- Rq )
   if (i->dst() != 2) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -672,11 +690,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rq(bxInstruction_c *i)
 
   BX_CPU_THIS_PTR cr2 = BX_READ_64BIT_REG(i->src());
 
+  BX_INFO(("64位指令模拟函数MOV_CR2Rq日志,修改CR2为0x%lx",BX_CPU_THIS_PTR cr2));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rq(bxInstruction_c *i)
-{//CR3
+{//64位指令模拟函数MOV_CR3Rq（即修改CR3） 已加日志. ( MOV_CR3Rq : CR3 <-- Rq )
   if (i->dst() != 3) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -718,11 +738,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rq(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR3, val_64);
 
+  BX_INFO(("64位指令模拟函数MOV_CR3Rq日志,修改CR3为0x%lx",val_64));
+
   BX_NEXT_TRACE(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rq(bxInstruction_c *i)
-{//CR4
+{//64位指令模拟函数MOV_CR4Rq（即修改CR4） 已加日志. ( MOV_CR4Rq : CR4 <-- Rq )
   if (i->dst() != 4) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -745,11 +767,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rq(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR4, (Bit32u) val_64);
 
+  BX_INFO(("64位指令模拟函数MOV_CR4Rq日志,修改CR4为0x%lx",val_64));
+
   BX_NEXT_TRACE(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR0(bxInstruction_c *i)
-{//CR0
+{//64位指令模拟函数MOV_RqCR0（即读取CR0） 已加日志. ( MOV_RqCR0 : Rq <-- CR0 )
   if (CPL!=0) {
     BX_ERROR(("%s: #GP(0) if CPL is not 0", i->getIaOpcodeNameShort()));
     exception(BX_GP_EXCEPTION, 0);
@@ -775,11 +799,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR0(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), val_64);
 
+  BX_INFO(("64位指令模拟函数MOV_RqCR0日志,读取CR0（0x%x）到寄存器%d",val_64,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR2(bxInstruction_c *i)
-{//CR2
+{//64位指令模拟函数MOV_RqCR2（即读取CR2） 已加日志. ( MOV_RqCR2 : Rq <-- CR2 )
   if (i->src() != 2) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -799,11 +825,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR2(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), BX_CPU_THIS_PTR cr2);
 
+  BX_INFO(("64位指令模拟函数MOV_RqCR2日志,读取CR2（0x%x）到寄存器%d",val_64,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR3(bxInstruction_c *i)
-{//CR3
+{//64位指令模拟函数MOV_RqCR3（即读取CR3） 已加日志. ( MOV_RqCR3 : Rq <-- CR3 )
   if (i->src() != 3) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -828,11 +856,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR3(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), BX_CPU_THIS_PTR cr3);
 
+  BX_INFO(("64位指令模拟函数MOV_RqCR3日志,读取CR3（0x%x）到寄存器%d",BX_CPU_THIS_PTR cr3,i->dst()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR4(bxInstruction_c *i)
-{//CR4
+{//64位指令模拟函数MOV_RqCR4（即读取CR4） 已加日志. ( MOV_RqCR4 : Rq <-- CR4 )
   if (i->src() != 4) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -853,6 +883,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR4(bxInstruction_c *i)
   Bit64u val_64 = read_CR4(); /* correctly handle VMX */
 
   BX_WRITE_64BIT_REG(i->dst(), val_64);
+
+  BX_INFO(("64位指令模拟函数MOV_RqCR4日志,读取CR4（0x%x）到寄存器%d",val_64,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
