@@ -463,6 +463,9 @@ void BX_CPU_C::task_switch(bxInstruction_c *i, bx_selector_t *tss_selector,
   BX_CPU_THIS_PTR tr.selector = *tss_selector;//修改tr.selector即 TR指向的TSS选择子
   BX_CPU_THIS_PTR tr.cache    = *tss_descriptor;//修改tr.cache即 TR指向的TSS描述符 （TR指向的TSS选择子   指向此TSS描述符）
   BX_CPU_THIS_PTR tr.cache.type |= 2; // mark TSS in TR as busy
+  std::string tss_selector_json_text=BX_CPU_THIS -> selector_json_text(tss_selector);
+  std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(tss_descriptor);
+  BX_INFO(("记录日志_task_switch;tss_selector_json_text=%s;tss_descriptor_json_text=%s",tss_selector_json_text,tss_descriptor_json_text));
 
   // Step 9: Set TS flag in the CR0 image stored in the new task TSS.
   BX_CPU_THIS_PTR cr0.set_TS(1);
@@ -597,14 +600,14 @@ void BX_CPU_C::task_switch(bxInstruction_c *i, bx_selector_t *tss_selector,
     // NULL LDT selector is OK, leave cache invalid
   }
 
-  if (v8086_mode()) {
+  if (v8086_mode()) {//v8086模式
     // load seg regs as 8086 registers
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS], raw_ss_selector);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_DS], raw_ds_selector);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_ES], raw_es_selector);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_FS], raw_fs_selector);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_GS], raw_gs_selector);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], raw_cs_selector);
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS], raw_ss_selector);//忽略v8086模式下各寄存器修改
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_DS], raw_ds_selector);//忽略v8086模式下各寄存器修改
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_ES], raw_es_selector);//忽略v8086模式下各寄存器修改
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_FS], raw_fs_selector);//忽略v8086模式下各寄存器修改
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_GS], raw_gs_selector);//忽略v8086模式下各寄存器修改
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], raw_cs_selector);//忽略v8086模式下各寄存器修改
     // CPL is set from CS selector
   }
   else {
