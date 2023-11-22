@@ -442,7 +442,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
 
   BX_CPU_THIS_PTR cr2 = BX_READ_32BIT_REG(i->src());
 
-  BX_INFO(("指令模拟函数MOV_CR2Rd日志,修改CR2为0x%x",cr2));
+  BX_INFO(("指令模拟函数MOV_CR2Rd日志,修改CR2为0x%x",(BX_CPU_THIS_PTR cr2) ));
 
   BX_NEXT_INSTR(i);
 }
@@ -825,7 +825,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR2(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), BX_CPU_THIS_PTR cr2);
 
-  BX_INFO(("64位指令模拟函数MOV_RqCR2日志,读取CR2（0x%x）到寄存器%d",val_64,i->dst()));
+  BX_INFO(("64位指令模拟函数MOV_RqCR2日志,读取CR2（0x%x）到寄存器%d",(BX_CPU_THIS_PTR cr2),i->dst()));
 
   BX_NEXT_INSTR(i);
 }

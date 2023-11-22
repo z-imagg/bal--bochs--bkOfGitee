@@ -478,8 +478,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
   Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
   std::string ldtr_selector_json_text=BX_CPU_THIS->selector_json_text(&(BX_CPU_THIS_PTR ldtr.selector));
-  std::string ldtr_selector_json_text=BX_CPU_THIS->descriptor_json_text(&(BX_CPU_THIS_PTR ldtr.cache));
-  BX_INFO(("记录日志;模拟指令LLDT;LLDT_Ew;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,ldtr_selector_json_text:0x%x, ,ldtr_selector_json_text:0x%x;", BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_selector_json_text.c_str()));
+  std::string ldtr_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&(BX_CPU_THIS_PTR ldtr.cache));
+  BX_INFO(("记录日志;模拟指令LLDT;LLDT_Ew;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,ldtr_selector_json_text:0x%x, ,ldtr_descriptor_json_text:0x%x;", (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
 
   BX_NEXT_INSTR(i);
 }
@@ -607,7 +607,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
 
   Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
-  BX_INFO(("记录日志;模拟指令LTR(修改 任务状态寄存器TR);LTR_Ew;此行在区;此行内容;tss_selector_json_text=%s,tss_descriptor_json_text=%s,cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x;",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), cpu_mode,_CS_selector_value, _CS_selector_index, EIP));
+  BX_INFO(("记录日志;模拟指令LTR(修改 任务状态寄存器TR);LTR_Ew;此行在区;此行内容;tss_selector_json_text=%s,tss_descriptor_json_text=%s,cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x;",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP));
 
 
   BX_NEXT_INSTR(i);
