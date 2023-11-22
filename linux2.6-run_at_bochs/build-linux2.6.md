@@ -1,7 +1,16 @@
 #0. 编译环境
 ```shell
+sudo docker pull ubuntu:14.04.6
+sudo docker start .... 
+sudo docker exec -it ubuntu-1404-i386-a bash
+#打开docker版ubuntu14.04.6的bash
+```
+
+> 以下命令都是在docker版ubuntu14.04.6的bash下执行的
+
+```shell
 cat /etc/issue
-#Ubuntu 16.04.6 LTS \n \l
+#Ubuntu 14.04.6 LTS \n \l
 
 uname -a
 #Linux xx 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
@@ -38,12 +47,30 @@ grep  linux-2.6.39.4.tar.gz  sha256sums.asc | sha256sum --check  -
 ```
 
 #2. linux2.6内核编译过程
+
 ```
 tar -zxvf linux-2.6.39.4.tar.gz
 cd linux-2.6.39.4
 
 make menuconfig
 # Exit ---> 保存
+
+make
+
+make all
+
+make bzImage
+
+make vmlinux
+
+#正常编译
+```
+
+>指定ARCH
+```
+make ARCH=i386 menuconfig   
+make ARCH=i386      
+
 ```
 
 
@@ -186,3 +213,54 @@ g++ --version
 #g++ (Ubuntu 4.9.4-2ubuntu1~16.04) 4.9.4
 
 ```
+
+
+## E4. make时报错:arch/x86/kernel/ptrace.c:1366:17: error: conflicting types for ‘syscall_trace_enter’
+```text
+  CC      arch/x86/kernel/ptrace.o
+arch/x86/kernel/ptrace.c:1366:17: error: conflicting types for ‘syscall_trace_enter’
+ asmregparm long syscall_trace_enter(struct pt_regs *regs)
+                 ^
+In file included from /crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/vm86.h:130:0,
+                 from /crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/processor.h:10,
+                 from /crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/thread_info.h:22,
+                 from include/linux/thread_info.h:53,
+                 from include/linux/preempt.h:9,
+                 from include/linux/spinlock.h:50,
+                 from include/linux/seqlock.h:29,
+                 from include/linux/time.h:8,
+                 from include/linux/timex.h:56,
+                 from include/linux/sched.h:57,
+                 from arch/x86/kernel/ptrace.c:8:
+/crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/ptrace.h:146:13: note: previous declaration of ‘syscall_trace_enter’ was here
+ extern long syscall_trace_enter(struct pt_regs *);
+             ^
+arch/x86/kernel/ptrace.c:1411:17: error: conflicting types for ‘syscall_trace_leave’
+ asmregparm void syscall_trace_leave(struct pt_regs *regs)
+                 ^
+In file included from /crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/vm86.h:130:0,
+                 from /crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/processor.h:10,
+                 from /crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/thread_info.h:22,
+                 from include/linux/thread_info.h:53,
+                 from include/linux/preempt.h:9,
+                 from include/linux/spinlock.h:50,
+                 from include/linux/seqlock.h:29,
+                 from include/linux/time.h:8,
+                 from include/linux/timex.h:56,
+                 from include/linux/sched.h:57,
+                 from arch/x86/kernel/ptrace.c:8:
+/crk/bochs/linux2.6-run_at_bochs/linux-2.6.39.4/arch/x86/include/asm/ptrace.h:147:13: note: previous declaration of ‘syscall_trace_leave’ was here
+ extern void syscall_trace_leave(struct pt_regs *);
+             ^
+scripts/Makefile.build:283: recipe for target 'arch/x86/kernel/ptrace.o' failed
+make[2]: *** [arch/x86/kernel/ptrace.o] Error 1
+scripts/Makefile.build:419: recipe for target 'arch/x86/kernel' failed
+make[1]: *** [arch/x86/kernel] Error 2
+Makefile:919: recipe for target 'arch/x86' failed
+make: *** [arch/x86] Error 2
+
+```
+
+### 解决方法：打算放弃真机ubuntu16.04 ，而改用docker下的ubuntu14.04
+> 因为 ubuntu16.04自带gcc-5, 
+> 而   ubuntu14.04自带gcc-4.8

@@ -136,3 +136,9 @@ bochs-msvc-src.zip
 
 .gdb_history
 *.log
+
+linux-2.6.39.4
+
+linux2.6-run_at_bochs/linux-2.6.39.4.tar.gz
+
+linux2.6-run_at_bochs/sha256sums.asc
