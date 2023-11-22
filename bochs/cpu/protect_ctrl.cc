@@ -324,7 +324,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::SLDT_Ew(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
-{//str指令:save保存 任务状态寄存器TR
+{//str指令(save保存 任务状态寄存器TR). 指令模拟函数STR_Ew（即TR保存） 已加日志 
   if (! protected_mode()) {
     BX_ERROR(("STR: not recognized in real or virtual-8086 mode"));
     exception(BX_UD_EXCEPTION, 0);
@@ -353,15 +353,21 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
   if (i->modC0()) {
     if (i->os32L()) {
       BX_WRITE_32BIT_REGZ(i->dst(), val16);
+      //记录日志:
+      BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到32位寄存器0x%d " ,val16,i->dst()));
     }
     else {
       BX_WRITE_16BIT_REG(i->dst(), val16);
+      //记录日志:
+      BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到16位寄存器0x%d " ,val16,i->dst()));
     }
   }
   else {
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     write_virtual_word(i->seg(), eaddr, val16);
+    //记录日志:
+    BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到 内存地址（段选择子0x%d,偏移量0x%x）处的字 " ,val16, i->seg(), eaddr));
   }
 
   BX_NEXT_INSTR(i);
