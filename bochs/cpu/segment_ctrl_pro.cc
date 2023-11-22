@@ -28,7 +28,7 @@
 
   void BX_CPP_AttrRegparmN(2)
 BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
-{
+{//段寄存器变更 加日志点 已标记
   if (protected_mode())
   {
     if (seg == &BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS])

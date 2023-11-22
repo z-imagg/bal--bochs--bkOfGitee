@@ -446,7 +446,7 @@ bx_define_opcode(BX_IA_JZ_Jbd, "jz", "jz", NULL, &BX_CPU_C::JZ_Jd, 0, OP_Jbd, OP
 
 bx_define_opcode(BX_IA_SAHF, "sahf", "sahf", NULL, &BX_CPU_C::SAHF, 0, OP_NONE, OP_NONE, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LAHF, "lahf", "lahf", NULL, &BX_CPU_C::LAHF, 0, OP_NONE, OP_NONE, OP_NONE, OP_NONE, 0)
-
+//段寄存器
 bx_define_opcode(BX_IA_LDS_GdMp, "lds", "ldsl", &BX_CPU_C::LDS_GdMp, &BX_CPU_C::BxError, 0, OP_Gd, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LDS_GwMp, "lds", "ldsw", &BX_CPU_C::LDS_GwMp, &BX_CPU_C::BxError, 0, OP_Gw, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LES_GdMp, "les", "lesl", &BX_CPU_C::LES_GdMp, &BX_CPU_C::BxError, 0, OP_Gd, OP_M, OP_NONE, OP_NONE, 0)
@@ -465,7 +465,7 @@ bx_define_opcode(BX_IA_LSL_GdEw, "lsl", "lsll", &BX_CPU_C::LSL_GvEw, &BX_CPU_C::
 bx_define_opcode(BX_IA_LEA_GdM, "lea", "leal", &BX_CPU_C::LEA_GdM, &BX_CPU_C::BxError, 0, OP_Gd, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LEA_GwM, "lea", "leaw", &BX_CPU_C::LEA_GwM, &BX_CPU_C::BxError, 0, OP_Gw, OP_M, OP_NONE, OP_NONE, 0)
 
-// IDT/GDT/LDTR/TR access - keep NNN for VMX
+// IDT/GDT/LDTR/TR access - keep NNN for VMX； 操纵 全局描述符表GDT、 局部描述符表LDT 、任务状态寄存器TR(任务状态段TSS所占内存区域的地址) 等 的指令. TR==Task Register, TSS==Task State Segment
 bx_define_opcode(BX_IA_SIDT_Ms, "sidt", "sidt", &BX_CPU_C::SIDT_Ms, &BX_CPU_C::BxError, 0, OP_M, BX_SRC_NNN, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LIDT_Ms, "lidt", "lidt", &BX_CPU_C::LIDT_Ms, &BX_CPU_C::BxError, 0, BX_SRC_NNN, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_SGDT_Ms, "sgdt", "sgdt", &BX_CPU_C::SGDT_Ms, &BX_CPU_C::BxError, 0, OP_M, BX_SRC_NNN, OP_NONE, OP_NONE, 0)

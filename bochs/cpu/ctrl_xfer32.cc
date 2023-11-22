@@ -181,6 +181,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET
       ESP += imm16;
     else
        SP += imm16;
+
+    //记录一行日志, EIP、cs_raw
+    BX_INFO(( "记录日志_指令模拟函数RETfar32_Iw;EIP=0x%x;cs_raw=0x%x", EIP, cs_raw ));
   }
 
   RSP_COMMIT;
@@ -556,6 +559,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Ap(bxInstruction_c *i)
   cs_raw = i->Iw2();
 
   jmp_far32(i, cs_raw, disp32);
+  //指令JMP_Ap模拟函数, 记录一条日志
 
   BX_NEXT_TRACE(i);
 }
@@ -582,6 +586,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP32_Ep(bxInstruction_c *i)
   Bit16u cs_raw = read_virtual_word (i->seg(), (eaddr+4) & i->asize_mask());
 
   jmp_far32(i, cs_raw, op1_32);
+  //记录一条日志
 
   BX_NEXT_TRACE(i);
 }
@@ -640,6 +645,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指�
       load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);
       EIP = eip;
       writeEFlags(eflags32, 0x00257fd5); // VIF, VIP, VM unchanged
+      
+      //记录一行日志, EIP、cs_raw
+      BX_INFO(( "记录日志_指令模拟函数IRET32;EIP=0x%x;cs_raw=0x%x", EIP, cs_raw ));
     }
   }
 

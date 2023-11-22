@@ -747,7 +747,7 @@ void BX_CPU_C::real_mode_int(Bit8u vector, bool push_error, Bit16u error_code)//
   }
 
   Bit16u cs_selector = system_read_word(BX_CPU_THIS_PTR idtr.base + 4 * vector + 2);
-  load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_selector);
+  load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_selector);//忽略此CS修改
   EIP = new_ip;
 
   /* INT affects the following flags: I,T */
