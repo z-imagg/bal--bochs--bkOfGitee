@@ -130,7 +130,7 @@ void BX_CPU_C::stack_return_to_v86(Bit32u new_eip, Bit32u raw_cs_selector, Bit32
 #endif
 
 void BX_CPU_C::iret16_stack_return_from_v86(bxInstruction_c *i)
-{
+{//v86模式
   if ((BX_CPU_THIS_PTR get_IOPL() < 3) && (BX_CR4_VME_ENABLED == 0)) {
     // trap to virtual 8086 monitor
     BX_DEBUG(("IRET in vm86 with IOPL != 3, VME = 0"));
@@ -153,7 +153,7 @@ void BX_CPU_C::iret16_stack_return_from_v86(bxInstruction_c *i)
       exception(BX_GP_EXCEPTION, 0);
     }
 
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);//忽略v8086模式下各寄存器修改
     EIP = (Bit32u) ip;
 
     // IF, IOPL unchanged, EFLAGS.VIF = TMP_FLAGS.IF
@@ -167,7 +167,7 @@ void BX_CPU_C::iret16_stack_return_from_v86(bxInstruction_c *i)
   }
 #endif
 
-  load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);
+  load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);//忽略v8086模式下各寄存器修改
   EIP = (Bit32u) ip;
   write_flags(flags16, /*IOPL*/ 0, /*IF*/ 1);
 }
@@ -194,7 +194,7 @@ void BX_CPU_C::iret32_stack_return_from_v86(bxInstruction_c *i)
   cs_raw  = pop_32();
   flags32 = pop_32();
 
-  load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], (Bit16u) cs_raw);
+  load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], (Bit16u) cs_raw);//忽略v8086模式下各寄存器修改
   EIP = eip;
   // VIF, VIP, VM, IOPL unchanged
   writeEFlags(flags32, change_mask);
@@ -242,7 +242,7 @@ int BX_CPU_C::v86_redirect_interrupt(Bit8u vector)
       push_16(old_CS);
       push_16(old_IP);
 
-      load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], (Bit16u) temp_CS);
+      load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], (Bit16u) temp_CS);//忽略v8086模式下各寄存器修改
       EIP = temp_IP;
 
       BX_CPU_THIS_PTR clear_TF();

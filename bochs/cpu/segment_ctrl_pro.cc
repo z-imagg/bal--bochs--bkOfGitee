@@ -20,13 +20,15 @@
 /////////////////////////////////////////////////////////////////////////
 
 #define NEED_CPU_REG_SHORTCUTS 1
+#include <string>
+#include <fmt/core.h>
 #include "bochs.h"
 #include "cpu.h"
 #define LOG_THIS BX_CPU_THIS_PTR
 
   void BX_CPP_AttrRegparmN(2)
 BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
-{
+{//段寄存器变更 加日志点 已标记
   if (protected_mode())
   {
     if (seg == &BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS])
@@ -151,6 +153,10 @@ BX_CPU_C::load_seg_reg(bx_segment_reg_t *seg, Bit16u new_value)
       seg->selector    = selector;
       seg->cache       = descriptor;
       seg->cache.valid = SegValidCache;
+      
+      int segIdx= seg-BX_CPU_THIS_PTR sregs; //即 seg - this->sregs
+      /*segIdx定义: enum BxSegregs{ES#0,CS#1,SS#2,DS#3,FS#4,GS#5,6S#6,NULL#7};*/  
+      // BX_INFO(("记录日志;load_seg_reg;segIdx:%d;new_value:0x%x,selector:0x%x,descriptor:0x%x;",  segIdx,new_value, selector,descriptor));
 
       return;
     }
@@ -271,7 +277,18 @@ void BX_CPU_C::validate_seg_regs(void)
   validate_seg_reg(BX_SEG_REG_FS);
   validate_seg_reg(BX_SEG_REG_GS);
 }
-
+std::string BX_CPU_C::selector_json_text(bx_selector_t *selector)//仿照parse_selector写出描述符转json文本
+{
+  //libfmt syntax ref: https://fmt.dev/latest/syntax.html
+  std::string json_text=fmt::format(
+  "{{\"selector_value\":\"0x{:X}\", \"selector_index\":\"0x{:X}\", \"selector_ti\":\"0x{:X}\", \"selector_rpl\":\"0x{:X}\"}}", 
+  selector->value,
+  selector->index,
+  selector->ti,
+  selector->rpl
+  );
+  return json_text;
+}
 void parse_selector(Bit16u raw_selector, bx_selector_t *selector)
 {
   selector->value = raw_selector;
@@ -419,7 +436,90 @@ bool BX_CPU_C::set_segment_ar_data(bx_segment_reg_t *seg, bool valid,
   return d->valid;
 }
 
-void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
+
+//仿照parse_descriptor写出descriptor转json文本
+std::string BX_CPU_C::descriptor_json_text(bx_descriptor_t *desc)//(保护模式中的)描述符转json文本
+{
+
+  if (desc->segment) { /* data/code segment descriptors 代码段/数据段 描述符*/
+    return fmt::format(
+    "{{\"descTypNam\" : \"代码段|数据段\", \"descSegBase\" : \"0x{:X}\", \"descSegLim\" : \"0x{:X}\", \"descSegAvl\" : \"0x{:X}\", \"descSegG\" : \"0x{:X}\", \"descSegDb\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}",  
+    desc->u.segment.base,
+    desc->u.segment.limit_scaled,
+    desc->u.segment.avl,
+    desc->u.segment.g,
+    desc->u.segment.d_b,
+    desc->valid
+    );
+  }
+
+  else { // system & gate segment descriptors 系统段描述符/门段描述符
+    switch (desc->type) {
+      case BX_286_CALL_GATE://80286调用门
+      case BX_286_INTERRUPT_GATE://80286中断门
+      case BX_286_TRAP_GATE://80286陷阱门
+        // param count only used for call gate
+        
+        return fmt::format(
+        "{{\"descTypNam\" : \"BX_286_CALL_GATE|BX_286_INTERRUPT_GATE|BX_286_TRAP_GATE\", \"descGatParmCnt\" : \"0x{:X}\", \"descGatDestSel\" : \"0x{:X}\", \"descDestOffset\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
+        desc->u.gate.param_count,
+        desc->u.gate.dest_selector,  
+        desc->u.gate.dest_offset,
+        desc->valid
+        );
+        // break;
+
+      case BX_386_CALL_GATE://80386调用门
+      case BX_386_INTERRUPT_GATE://80386中断门
+      case BX_386_TRAP_GATE://80386陷阱门
+        // param count only used for call gate
+
+        return fmt::format(
+        "{{\"descTypNam\" : \"BX_386_CALL_GATE|BX_386_INTERRUPT_GATE|BX_386_TRAP_GATE\", \"descGatParmCnt\" : \"0x{:X}\", \"descGatDestSel\" : \"0x{:X}\", \"descDestOffset\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
+        desc->u.gate.param_count,
+        desc->u.gate.dest_selector,
+        desc->u.gate.dest_offset,       
+        desc->valid 
+        );
+        // break;
+
+      case BX_TASK_GATE://任务门
+
+        return fmt::format(
+        "{{\"descTypNam\" : \"BX_TASK_GATE\", \"descTskGatTssSel\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
+        desc->u.taskgate.tss_selector ,
+        desc->valid
+        );
+        // break;
+
+      case BX_SYS_SEGMENT_LDT://系统段LDT
+      case BX_SYS_SEGMENT_AVAIL_286_TSS:
+      case BX_SYS_SEGMENT_BUSY_286_TSS:
+      case BX_SYS_SEGMENT_AVAIL_386_TSS:
+      case BX_SYS_SEGMENT_BUSY_386_TSS:
+        
+        return fmt::format(
+        "{{\"descTypNam\" : \"BX_SYS_SEGMENT_LDT|BX_SYS_SEGMENT_AVAIL_286_TSS|BX_SYS_SEGMENT_BUSY_286_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS\", \"descSegBase\" : \"0x{:X}\", \"descSegLim\" : \"0x{:X}\", \"descSegAvl\" : \"0x{:X}\", \"descSegG\" : \"0x{:X}\", \"descSegDb\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
+        desc->u.segment.base,
+        desc->u.segment.limit_scaled,
+        desc->u.segment.avl, 
+        desc->u.segment.g,
+        desc->u.segment.d_b,
+        desc->valid 
+        );
+        // break;
+
+      default: // reserved
+        return fmt::format(
+        "{{\"descTypNam\" : \"default\",  \"descValid\" : \"0x{:X}\"}}", 
+        desc->valid 
+        );
+        // break;
+    }//end_of_switch
+  }//end_of_else
+}//end_of_function
+
+void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)//解析(保护模式中的)描述符
 {
   Bit8u AR_byte;
   Bit32u limit;
@@ -431,7 +531,7 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
   temp->type     = (AR_byte & 0xf);
   temp->valid    = 0; /* start out invalid */
 
-  if (temp->segment) { /* data/code segment descriptors */
+  if (temp->segment) { /* data/code segment descriptors 代码段/数据段 描述符*/
     limit = (dword1 & 0xffff) | (dword2 & 0x000F0000);
 
     temp->u.segment.base       = (dword1 >> 16) | ((dword2 & 0xFF) << 16);
@@ -450,11 +550,11 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
 
     temp->valid    = 1;
   }
-  else { // system & gate segment descriptors
+  else { // system & gate segment descriptors 系统段描述符/门段描述符
     switch (temp->type) {
-      case BX_286_CALL_GATE:
-      case BX_286_INTERRUPT_GATE:
-      case BX_286_TRAP_GATE:
+      case BX_286_CALL_GATE://80286调用门
+      case BX_286_INTERRUPT_GATE://80286中断门
+      case BX_286_TRAP_GATE://80286陷阱门
         // param count only used for call gate
         temp->u.gate.param_count   = dword2 & 0x1f;
         temp->u.gate.dest_selector = dword1 >> 16;
@@ -462,9 +562,9 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
         temp->valid = 1;
         break;
 
-      case BX_386_CALL_GATE:
-      case BX_386_INTERRUPT_GATE:
-      case BX_386_TRAP_GATE:
+      case BX_386_CALL_GATE://80386调用门
+      case BX_386_INTERRUPT_GATE://80386中断门
+      case BX_386_TRAP_GATE://80386陷阱门
         // param count only used for call gate
         temp->u.gate.param_count   = dword2 & 0x1f;
         temp->u.gate.dest_selector = dword1 >> 16;
@@ -473,12 +573,12 @@ void parse_descriptor(Bit32u dword1, Bit32u dword2, bx_descriptor_t *temp)
         temp->valid = 1;
         break;
 
-      case BX_TASK_GATE:
+      case BX_TASK_GATE://任务门
         temp->u.taskgate.tss_selector = dword1 >> 16;
         temp->valid = 1;
         break;
 
-      case BX_SYS_SEGMENT_LDT:
+      case BX_SYS_SEGMENT_LDT://系统段LDT
       case BX_SYS_SEGMENT_AVAIL_286_TSS:
       case BX_SYS_SEGMENT_BUSY_286_TSS:
       case BX_SYS_SEGMENT_AVAIL_386_TSS:

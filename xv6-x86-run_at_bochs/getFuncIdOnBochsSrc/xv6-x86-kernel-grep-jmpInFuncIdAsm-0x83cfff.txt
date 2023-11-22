@@ -1,0 +1,1862 @@
+80100047:	eb 09                	jmp    80100052 <binit+0x12>
+80100049:	83 cf ff             	or     $0xffffffff,%edi
+8010004c:	81 cf 20 bf 02 00    	or     $0x2bf20,%edi
+80100052:	68 a0 7c 10 80       	push   $0x80107ca0
+80100057:	bb 54 b5 10 80       	mov    $0x8010b554,%ebx
+--
+801000df:	eb 09                	jmp    801000ea <bread+0x1a>
+801000e1:	83 cf ff             	or     $0xffffffff,%edi
+801000e4:	81 cf 22 bf 02 00    	or     $0x2bf22,%edi
+801000ea:	eb 09                	jmp    801000f5 <bread+0x25>
+801000ec:	83 cf ff             	or     $0xffffffff,%edi
+801000ef:	81 cf 21 bf 02 00    	or     $0x2bf21,%edi
+801000f5:	68 20 b5 10 80       	push   $0x8010b520
+801000fa:	e8 71 4d 00 00       	call   80104e70 <acquire>
+--
+801001da:	eb 09                	jmp    801001e5 <bwrite+0x15>
+801001dc:	83 cf ff             	or     $0xffffffff,%edi
+801001df:	81 cf 23 bf 02 00    	or     $0x2bf23,%edi
+801001e5:	8d 43 0c             	lea    0xc(%ebx),%eax
+801001e8:	50                   	push   %eax
+--
+80100228:	eb 09                	jmp    80100233 <brelse+0x13>
+8010022a:	83 cf ff             	or     $0xffffffff,%edi
+8010022d:	81 cf 24 bf 02 00    	or     $0x2bf24,%edi
+80100233:	83 ec 0c             	sub    $0xc,%esp
+80100236:	8d 73 0c             	lea    0xc(%ebx),%esi
+--
+801002cf:	eb 09                	jmp    801002da <consoleread+0x1a>
+801002d1:	83 cf ff             	or     $0xffffffff,%edi
+801002d4:	81 cf 36 e6 02 00    	or     $0x2e636,%edi
+801002da:	ff 75 08             	push   0x8(%ebp)
+801002dd:	89 df                	mov    %ebx,%edi
+--
+801003d8:	eb 09                	jmp    801003e3 <panic+0x13>
+801003da:	83 cf ff             	or     $0xffffffff,%edi
+801003dd:	81 cf 33 e6 02 00    	or     $0x2e633,%edi
+801003e3:	eb 09                	jmp    801003ee <panic+0x1e>
+801003e5:	83 cf ff             	or     $0xffffffff,%edi
+801003e8:	81 cf bb 8f 06 00    	or     $0x68fbb,%edi
+801003ee:	fa                   	cli
+801003ef:	c7 05 54 ff 10 80 00 	movl   $0x0,0x8010ff54
+--
+80100470:	eb 09                	jmp    8010047b <consputc+0xb>
+80100472:	83 cf ff             	or     $0xffffffff,%edi
+80100475:	81 cf 30 e6 02 00    	or     $0x2e630,%edi
+8010047b:	8b 15 58 ff 10 80    	mov    0x8010ff58,%edx
+80100481:	85 d2                	test   %edx,%edx
+--
+80100485:	eb 09                	jmp    80100490 <consputc+0x20>
+80100487:	83 cf ff             	or     $0xffffffff,%edi
+8010048a:	81 cf bb 8f 06 00    	or     $0x68fbb,%edi
+80100490:	fa                   	cli
+80100491:	eb fe                	jmp    80100491 <consputc+0x21>
+--
+801004ba:	eb 09                	jmp    801004c5 <consputc+0x55>
+801004bc:	83 cf ff             	or     $0xffffffff,%edi
+801004bf:	81 cf 34 e6 02 00    	or     $0x2e634,%edi
+801004c5:	eb 09                	jmp    801004d0 <consputc+0x60>
+801004c7:	83 cf ff             	or     $0xffffffff,%edi
+801004ca:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801004d0:	bf d4 03 00 00       	mov    $0x3d4,%edi
+801004d5:	b8 0e 00 00 00       	mov    $0xe,%eax
+--
+801004dd:	eb 09                	jmp    801004e8 <consputc+0x78>
+801004df:	83 cf ff             	or     $0xffffffff,%edi
+801004e2:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+801004e8:	be d5 03 00 00       	mov    $0x3d5,%esi
+801004ed:	89 f2                	mov    %esi,%edx
+--
+801004f6:	eb 09                	jmp    80100501 <consputc+0x91>
+801004f8:	83 cf ff             	or     $0xffffffff,%edi
+801004fb:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80100501:	b8 0f 00 00 00       	mov    $0xf,%eax
+80100506:	89 fa                	mov    %edi,%edx
+--
+80100509:	eb 09                	jmp    80100514 <consputc+0xa4>
+8010050b:	83 cf ff             	or     $0xffffffff,%edi
+8010050e:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80100514:	89 f2                	mov    %esi,%edx
+80100516:	ec                   	in     (%dx),%al
+--
+80100569:	eb 09                	jmp    80100574 <consputc+0x104>
+8010056b:	83 cf ff             	or     $0xffffffff,%edi
+8010056e:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80100574:	bb d4 03 00 00       	mov    $0x3d4,%ebx
+80100579:	b8 0e 00 00 00       	mov    $0xe,%eax
+--
+80100581:	eb 09                	jmp    8010058c <consputc+0x11c>
+80100583:	83 cf ff             	or     $0xffffffff,%edi
+80100586:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010058c:	b9 d5 03 00 00       	mov    $0x3d5,%ecx
+80100591:	89 f8                	mov    %edi,%eax
+--
+80100596:	eb 09                	jmp    801005a1 <consputc+0x131>
+80100598:	83 cf ff             	or     $0xffffffff,%edi
+8010059b:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801005a1:	b8 0f 00 00 00       	mov    $0xf,%eax
+801005a6:	89 da                	mov    %ebx,%edx
+--
+801005a9:	eb 09                	jmp    801005b4 <consputc+0x144>
+801005ab:	83 cf ff             	or     $0xffffffff,%edi
+801005ae:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801005b4:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+801005b8:	89 ca                	mov    %ecx,%edx
+--
+8010068d:	eb 09                	jmp    80100698 <printint+0x18>
+8010068f:	83 cf ff             	or     $0xffffffff,%edi
+80100692:	81 cf 31 e6 02 00    	or     $0x2e631,%edi
+80100698:	85 c9                	test   %ecx,%ecx
+8010069a:	74 04                	je     801006a0 <printint+0x20>
+--
+8010071c:	eb 09                	jmp    80100727 <consolewrite+0x17>
+8010071e:	83 cf ff             	or     $0xffffffff,%edi
+80100721:	81 cf 37 e6 02 00    	or     $0x2e637,%edi
+80100727:	ff 75 08             	push   0x8(%ebp)
+8010072a:	e8 f1 12 00 00       	call   80101a20 <iunlock>
+--
+80100789:	eb 09                	jmp    80100794 <cprintf+0x14>
+8010078b:	83 cf ff             	or     $0xffffffff,%edi
+8010078e:	81 cf 32 e6 02 00    	or     $0x2e632,%edi
+80100794:	8b 3d 54 ff 10 80    	mov    0x8010ff54,%edi
+8010079a:	8b 75 08             	mov    0x8(%ebp),%esi
+--
+8010097c:	eb 09                	jmp    80100987 <consoleintr+0x17>
+8010097e:	83 cf ff             	or     $0xffffffff,%edi
+80100981:	81 cf 35 e6 02 00    	or     $0x2e635,%edi
+80100987:	68 20 ff 10 80       	push   $0x8010ff20
+8010098c:	31 f6                	xor    %esi,%esi
+--
+80100b46:	eb 09                	jmp    80100b51 <consoleinit+0x11>
+80100b48:	83 cf ff             	or     $0xffffffff,%edi
+80100b4b:	81 cf 38 e6 02 00    	or     $0x2e638,%edi
+80100b51:	68 08 7d 10 80       	push   $0x80107d08
+80100b56:	68 20 ff 10 80       	push   $0x8010ff20
+--
+80100b9c:	eb 09                	jmp    80100ba7 <exec+0x17>
+80100b9e:	83 cf ff             	or     $0xffffffff,%edi
+80100ba1:	81 cf 40 0d 03 00    	or     $0x30d40,%edi
+80100ba7:	e8 e4 34 00 00       	call   80104090 <myproc>
+80100bac:	89 85 ec fe ff ff    	mov    %eax,-0x114(%ebp)
+--
+80100f26:	eb 09                	jmp    80100f31 <fileinit+0x11>
+80100f28:	83 cf ff             	or     $0xffffffff,%edi
+80100f2b:	81 cf 50 34 03 00    	or     $0x33450,%edi
+80100f31:	68 2d 7d 10 80       	push   $0x80107d2d
+80100f36:	68 60 ff 10 80       	push   $0x8010ff60
+--
+80100f57:	eb 09                	jmp    80100f62 <filealloc+0x12>
+80100f59:	83 cf ff             	or     $0xffffffff,%edi
+80100f5c:	81 cf 51 34 03 00    	or     $0x33451,%edi
+80100f62:	68 60 ff 10 80       	push   $0x8010ff60
+80100f67:	bb 94 ff 10 80       	mov    $0x8010ff94,%ebx
+--
+80100fda:	eb 09                	jmp    80100fe5 <filedup+0x15>
+80100fdc:	83 cf ff             	or     $0xffffffff,%edi
+80100fdf:	81 cf 52 34 03 00    	or     $0x33452,%edi
+80100fe5:	68 60 ff 10 80       	push   $0x8010ff60
+80100fea:	e8 81 3e 00 00       	call   80104e70 <acquire>
+--
+8010102c:	eb 09                	jmp    80101037 <fileclose+0x17>
+8010102e:	83 cf ff             	or     $0xffffffff,%edi
+80101031:	81 cf 53 34 03 00    	or     $0x33453,%edi
+80101037:	68 60 ff 10 80       	push   $0x8010ff60
+8010103c:	e8 2f 3e 00 00       	call   80104e70 <acquire>
+--
+8010110a:	eb 09                	jmp    80101115 <filestat+0x15>
+8010110c:	83 cf ff             	or     $0xffffffff,%edi
+8010110f:	81 cf 54 34 03 00    	or     $0x33454,%edi
+80101115:	83 3b 02             	cmpl   $0x2,(%ebx)
+80101118:	75 2e                	jne    80101148 <filestat+0x48>
+--
+80101172:	eb 09                	jmp    8010117d <fileread+0x1d>
+80101174:	83 cf ff             	or     $0xffffffff,%edi
+80101177:	81 cf 55 34 03 00    	or     $0x33455,%edi
+8010117d:	80 7b 08 00          	cmpb   $0x0,0x8(%ebx)
+80101181:	74 65                	je     801011e8 <fileread+0x88>
+--
+80101218:	eb 09                	jmp    80101223 <filewrite+0x23>
+8010121a:	83 cf ff             	or     $0xffffffff,%edi
+8010121d:	81 cf 56 34 03 00    	or     $0x33456,%edi
+80101223:	80 7b 09 00          	cmpb   $0x0,0x9(%ebx)
+80101227:	0f 84 b8 00 00 00    	je     801012e5 <filewrite+0xe5>
+--
+80101327:	eb 09                	jmp    80101332 <bfree+0x12>
+80101329:	83 cf ff             	or     $0xffffffff,%edi
+8010132c:	81 cf 64 5b 03 00    	or     $0x35b64,%edi
+80101332:	83 ec 08             	sub    $0x8,%esp
+80101335:	c1 ea 0c             	shr    $0xc,%edx
+--
+801013ac:	eb 09                	jmp    801013b7 <balloc+0x17>
+801013ae:	83 cf ff             	or     $0xffffffff,%edi
+801013b1:	81 cf 63 5b 03 00    	or     $0x35b63,%edi
+801013b7:	8b 0d b4 25 11 80    	mov    0x801125b4,%ecx
+801013bd:	85 c9                	test   %ecx,%ecx
+--
+8010147a:	eb 09                	jmp    80101485 <balloc+0xe5>
+8010147c:	83 cf ff             	or     $0xffffffff,%edi
+8010147f:	81 cf 62 5b 03 00    	or     $0x35b62,%edi
+80101485:	58                   	pop    %eax
+80101486:	5a                   	pop    %edx
+--
+801014ce:	eb 09                	jmp    801014d9 <iget+0x19>
+801014d0:	83 cf ff             	or     $0xffffffff,%edi
+801014d3:	81 cf 66 5b 03 00    	or     $0x35b66,%edi
+801014d9:	68 60 09 11 80       	push   $0x80110960
+801014de:	31 ff                	xor    %edi,%edi
+--
+801015cb:	eb 09                	jmp    801015d6 <bmap+0x16>
+801015cd:	83 cf ff             	or     $0xffffffff,%edi
+801015d0:	81 cf 6e 5b 03 00    	or     $0x35b6e,%edi
+801015d6:	83 fa 0b             	cmp    $0xb,%edx
+801015d9:	0f 86 81 00 00 00    	jbe    80101660 <bmap+0xa0>
+--
+80101698:	eb 09                	jmp    801016a3 <readsb+0x13>
+8010169a:	83 cf ff             	or     $0xffffffff,%edi
+8010169d:	81 cf 61 5b 03 00    	or     $0x35b61,%edi
+801016a3:	83 ec 08             	sub    $0x8,%esp
+801016a6:	6a 01                	push   $0x1
+--
+801016e7:	eb 09                	jmp    801016f2 <iinit+0x12>
+801016e9:	83 cf ff             	or     $0xffffffff,%edi
+801016ec:	81 cf 65 5b 03 00    	or     $0x35b65,%edi
+801016f2:	68 ab 7d 10 80       	push   $0x80107dab
+801016f7:	bb a0 09 11 80       	mov    $0x801109a0,%ebx
+--
+8010172f:	eb 09                	jmp    8010173a <iinit+0x5a>
+80101731:	83 cf ff             	or     $0xffffffff,%edi
+80101734:	81 cf 61 5b 03 00    	or     $0x35b61,%edi
+8010173a:	83 ec 08             	sub    $0x8,%esp
+8010173d:	6a 01                	push   $0x1
+--
+801017b2:	eb 09                	jmp    801017bd <ialloc+0x1d>
+801017b4:	83 cf ff             	or     $0xffffffff,%edi
+801017b7:	81 cf 67 5b 03 00    	or     $0x35b67,%edi
+801017bd:	83 3d bc 25 11 80 01 	cmpl   $0x1,0x801125bc
+801017c4:	0f 86 8e 00 00 00    	jbe    80101858 <ialloc+0xb8>
+--
+80101878:	eb 09                	jmp    80101883 <iupdate+0x13>
+8010187a:	83 cf ff             	or     $0xffffffff,%edi
+8010187d:	81 cf 68 5b 03 00    	or     $0x35b68,%edi
+80101883:	8b 43 04             	mov    0x4(%ebx),%eax
+80101886:	83 ec 08             	sub    $0x8,%esp
+--
+8010190a:	eb 09                	jmp    80101915 <idup+0x15>
+8010190c:	83 cf ff             	or     $0xffffffff,%edi
+8010190f:	81 cf 69 5b 03 00    	or     $0x35b69,%edi
+80101915:	68 60 09 11 80       	push   $0x80110960
+8010191a:	e8 51 35 00 00       	call   80104e70 <acquire>
+--
+80101948:	eb 09                	jmp    80101953 <ilock+0x13>
+8010194a:	83 cf ff             	or     $0xffffffff,%edi
+8010194d:	81 cf 6a 5b 03 00    	or     $0x35b6a,%edi
+80101953:	85 db                	test   %ebx,%ebx
+80101955:	0f 84 b4 00 00 00    	je     80101a0f <ilock+0xcf>
+--
+80101a28:	eb 09                	jmp    80101a33 <iunlock+0x13>
+80101a2a:	83 cf ff             	or     $0xffffffff,%edi
+80101a2d:	81 cf 6b 5b 03 00    	or     $0x35b6b,%edi
+80101a33:	85 db                	test   %ebx,%ebx
+80101a35:	74 28                	je     80101a5f <iunlock+0x3f>
+--
+80101a7c:	eb 09                	jmp    80101a87 <iput+0x17>
+80101a7e:	83 cf ff             	or     $0xffffffff,%edi
+80101a81:	81 cf 6c 5b 03 00    	or     $0x35b6c,%edi
+80101a87:	8d 7b 0c             	lea    0xc(%ebx),%edi
+80101a8a:	57                   	push   %edi
+--
+80101af4:	eb 09                	jmp    80101aff <iput+0x8f>
+80101af6:	83 cf ff             	or     $0xffffffff,%edi
+80101af9:	81 cf 60 5b 03 00    	or     $0x35b60,%edi
+80101aff:	8d 8b 8c 00 00 00    	lea    0x8c(%ebx),%ecx
+80101b05:	89 7d e4             	mov    %edi,-0x1c(%ebp)
+--
+80101bea:	eb 09                	jmp    80101bf5 <iunlockput+0x15>
+80101bec:	83 cf ff             	or     $0xffffffff,%edi
+80101bef:	81 cf 6d 5b 03 00    	or     $0x35b6d,%edi
+80101bf5:	53                   	push   %ebx
+80101bf6:	e8 25 fe ff ff       	call   80101a20 <iunlock>
+--
+80101c19:	eb 09                	jmp    80101c24 <stati+0x14>
+80101c1b:	83 cf ff             	or     $0xffffffff,%edi
+80101c1e:	81 cf 6f 5b 03 00    	or     $0x35b6f,%edi
+80101c24:	8b 0a                	mov    (%edx),%ecx
+80101c26:	89 48 04             	mov    %ecx,0x4(%eax)
+--
+80101c6b:	eb 09                	jmp    80101c76 <readi+0x26>
+80101c6d:	83 cf ff             	or     $0xffffffff,%edi
+80101c70:	81 cf 70 5b 03 00    	or     $0x35b70,%edi
+80101c76:	66 83 7e 50 03       	cmpw   $0x3,0x50(%esi)
+80101c7b:	0f 84 af 00 00 00    	je     80101d30 <readi+0xe0>
+--
+80101d7b:	eb 09                	jmp    80101d86 <writei+0x26>
+80101d7d:	83 cf ff             	or     $0xffffffff,%edi
+80101d80:	81 cf 71 5b 03 00    	or     $0x35b71,%edi
+80101d86:	66 83 78 50 03       	cmpw   $0x3,0x50(%eax)
+80101d8b:	0f 84 bf 00 00 00    	je     80101e50 <writei+0xf0>
+--
+80101e96:	eb 09                	jmp    80101ea1 <namecmp+0x11>
+80101e98:	83 cf ff             	or     $0xffffffff,%edi
+80101e9b:	81 cf 72 5b 03 00    	or     $0x35b72,%edi
+80101ea1:	6a 0e                	push   $0xe
+80101ea3:	ff 75 0c             	push   0xc(%ebp)
+--
+80101ebc:	eb 09                	jmp    80101ec7 <dirlookup+0x17>
+80101ebe:	83 cf ff             	or     $0xffffffff,%edi
+80101ec1:	81 cf 73 5b 03 00    	or     $0x35b73,%edi
+80101ec7:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
+80101ecc:	0f 85 8a 00 00 00    	jne    80101f5c <dirlookup+0xac>
+--
+80101ef9:	eb 09                	jmp    80101f04 <dirlookup+0x54>
+80101efb:	83 cf ff             	or     $0xffffffff,%edi
+80101efe:	81 cf 72 5b 03 00    	or     $0x35b72,%edi
+80101f04:	83 ec 04             	sub    $0x4,%esp
+80101f07:	8d 45 da             	lea    -0x26(%ebp),%eax
+--
+80101f80:	eb 09                	jmp    80101f8b <namex+0x1b>
+80101f82:	83 cf ff             	or     $0xffffffff,%edi
+80101f85:	81 cf 76 5b 03 00    	or     $0x35b76,%edi
+80101f8b:	80 38 2f             	cmpb   $0x2f,(%eax)
+80101f8e:	0f 84 a0 01 00 00    	je     80102134 <namex+0x1c4>
+--
+80101f9c:	eb 09                	jmp    80101fa7 <namex+0x37>
+80101f9e:	83 cf ff             	or     $0xffffffff,%edi
+80101fa1:	81 cf 69 5b 03 00    	or     $0x35b69,%edi
+80101fa7:	83 ec 0c             	sub    $0xc,%esp
+80101faa:	68 60 09 11 80       	push   $0x80110960
+--
+80101fd0:	eb 09                	jmp    80101fdb <namex+0x6b>
+80101fd2:	83 cf ff             	or     $0xffffffff,%edi
+80101fd5:	81 cf 75 5b 03 00    	or     $0x35b75,%edi
+80101fdb:	0f b6 03             	movzbl (%ebx),%eax
+80101fde:	3c 2f                	cmp    $0x2f,%al
+--
+80102095:	eb 09                	jmp    801020a0 <namex+0x130>
+80102097:	83 cf ff             	or     $0xffffffff,%edi
+8010209a:	81 cf 6d 5b 03 00    	or     $0x35b6d,%edi
+801020a0:	83 ec 0c             	sub    $0xc,%esp
+801020a3:	56                   	push   %esi
+--
+80102109:	eb 09                	jmp    80102114 <namex+0x1a4>
+8010210b:	83 cf ff             	or     $0xffffffff,%edi
+8010210e:	81 cf 6d 5b 03 00    	or     $0x35b6d,%edi
+80102114:	83 ec 0c             	sub    $0xc,%esp
+80102117:	56                   	push   %esi
+--
+8010217c:	eb 09                	jmp    80102187 <dirlink+0x17>
+8010217e:	83 cf ff             	or     $0xffffffff,%edi
+80102181:	81 cf 74 5b 03 00    	or     $0x35b74,%edi
+80102187:	6a 00                	push   $0x0
+80102189:	ff 75 0c             	push   0xc(%ebp)
+--
+80102246:	eb 09                	jmp    80102251 <namei+0x11>
+80102248:	83 cf ff             	or     $0xffffffff,%edi
+8010224b:	81 cf 77 5b 03 00    	or     $0x35b77,%edi
+80102251:	8b 45 08             	mov    0x8(%ebp),%eax
+80102254:	8d 4d ea             	lea    -0x16(%ebp),%ecx
+--
+80102263:	eb 09                	jmp    8010226e <nameiparent+0xe>
+80102265:	83 cf ff             	or     $0xffffffff,%edi
+80102268:	81 cf 78 5b 03 00    	or     $0x35b78,%edi
+8010226e:	8b 4d 0c             	mov    0xc(%ebp),%ecx
+80102271:	8b 45 08             	mov    0x8(%ebp),%eax
+--
+80102289:	eb 09                	jmp    80102294 <idestart+0x14>
+8010228b:	83 cf ff             	or     $0xffffffff,%edi
+8010228e:	81 cf 70 82 03 00    	or     $0x38270,%edi
+80102294:	85 c0                	test   %eax,%eax
+80102296:	0f 84 27 01 00 00    	je     801023c3 <idestart+0x143>
+--
+801022ad:	eb 09                	jmp    801022b8 <idestart+0x38>
+801022af:	83 cf ff             	or     $0xffffffff,%edi
+801022b2:	81 cf 71 82 03 00    	or     $0x38271,%edi
+801022b8:	b9 f7 01 00 00       	mov    $0x1f7,%ecx
+801022bd:	8d 76 00             	lea    0x0(%esi),%esi
+801022c0:	eb 09                	jmp    801022cb <idestart+0x4b>
+801022c2:	83 cf ff             	or     $0xffffffff,%edi
+801022c5:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+801022cb:	89 ca                	mov    %ecx,%edx
+801022cd:	ec                   	in     (%dx),%al
+--
+801022d5:	eb 09                	jmp    801022e0 <idestart+0x60>
+801022d7:	83 cf ff             	or     $0xffffffff,%edi
+801022da:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801022e0:	31 ff                	xor    %edi,%edi
+801022e2:	ba f6 03 00 00       	mov    $0x3f6,%edx
+--
+801022ea:	eb 09                	jmp    801022f5 <idestart+0x75>
+801022ec:	83 cf ff             	or     $0xffffffff,%edi
+801022ef:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801022f5:	b8 01 00 00 00       	mov    $0x1,%eax
+801022fa:	ba f2 01 00 00       	mov    $0x1f2,%edx
+--
+80102300:	eb 09                	jmp    8010230b <idestart+0x8b>
+80102302:	83 cf ff             	or     $0xffffffff,%edi
+80102305:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010230b:	ba f3 01 00 00       	mov    $0x1f3,%edx
+80102310:	89 f0                	mov    %esi,%eax
+--
+80102313:	eb 09                	jmp    8010231e <idestart+0x9e>
+80102315:	83 cf ff             	or     $0xffffffff,%edi
+80102318:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010231e:	89 f0                	mov    %esi,%eax
+80102320:	ba f4 01 00 00       	mov    $0x1f4,%edx
+--
+80102329:	eb 09                	jmp    80102334 <idestart+0xb4>
+8010232b:	83 cf ff             	or     $0xffffffff,%edi
+8010232e:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102334:	ba f5 01 00 00       	mov    $0x1f5,%edx
+80102339:	89 f8                	mov    %edi,%eax
+--
+8010233c:	eb 09                	jmp    80102347 <idestart+0xc7>
+8010233e:	83 cf ff             	or     $0xffffffff,%edi
+80102341:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102347:	0f b6 43 04          	movzbl 0x4(%ebx),%eax
+8010234b:	ba f6 01 00 00       	mov    $0x1f6,%edx
+--
+8010235f:	eb 09                	jmp    8010236a <idestart+0xea>
+80102361:	83 cf ff             	or     $0xffffffff,%edi
+80102364:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010236a:	b8 20 00 00 00       	mov    $0x20,%eax
+8010236f:	89 ca                	mov    %ecx,%edx
+--
+80102380:	eb 09                	jmp    8010238b <idestart+0x10b>
+80102382:	83 cf ff             	or     $0xffffffff,%edi
+80102385:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010238b:	b8 30 00 00 00       	mov    $0x30,%eax
+80102390:	89 ca                	mov    %ecx,%edx
+--
+80102393:	eb 09                	jmp    8010239e <idestart+0x11e>
+80102395:	83 cf ff             	or     $0xffffffff,%edi
+80102398:	81 cf b4 8f 06 00    	or     $0x68fb4,%edi
+8010239e:	b9 80 00 00 00       	mov    $0x80,%ecx
+801023a3:	8d 73 5c             	lea    0x5c(%ebx),%esi
+--
+801023d6:	eb 09                	jmp    801023e1 <ideinit+0x11>
+801023d8:	83 cf ff             	or     $0xffffffff,%edi
+801023db:	81 cf 72 82 03 00    	or     $0x38272,%edi
+801023e1:	68 86 7e 10 80       	push   $0x80107e86
+801023e6:	68 00 26 11 80       	push   $0x80112600
+--
+80102402:	eb 09                	jmp    8010240d <ideinit+0x3d>
+80102404:	83 cf ff             	or     $0xffffffff,%edi
+80102407:	81 cf 71 82 03 00    	or     $0x38271,%edi
+8010240d:	b9 f7 01 00 00       	mov    $0x1f7,%ecx
+80102412:	83 c4 10             	add    $0x10,%esp
+--
+80102418:	eb 09                	jmp    80102423 <ideinit+0x53>
+8010241a:	83 cf ff             	or     $0xffffffff,%edi
+8010241d:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102423:	89 ca                	mov    %ecx,%edx
+80102425:	ec                   	in     (%dx),%al
+--
+8010242d:	eb 09                	jmp    80102438 <ideinit+0x68>
+8010242f:	83 cf ff             	or     $0xffffffff,%edi
+80102432:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102438:	b8 f0 ff ff ff       	mov    $0xfffffff0,%eax
+8010243d:	ba f6 01 00 00       	mov    $0x1f6,%edx
+--
+80102443:	eb 09                	jmp    8010244e <ideinit+0x7e>
+80102445:	83 cf ff             	or     $0xffffffff,%edi
+80102448:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+8010244e:	89 ca                	mov    %ecx,%edx
+80102450:	ec                   	in     (%dx),%al
+--
+80102465:	eb 09                	jmp    80102470 <ideinit+0xa0>
+80102467:	83 cf ff             	or     $0xffffffff,%edi
+8010246a:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102470:	ec                   	in     (%dx),%al
+80102471:	84 c0                	test   %al,%al
+--
+8010247f:	eb 09                	jmp    8010248a <ideinit+0xba>
+80102481:	83 cf ff             	or     $0xffffffff,%edi
+80102484:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010248a:	b8 e0 ff ff ff       	mov    $0xffffffe0,%eax
+8010248f:	ba f6 01 00 00       	mov    $0x1f6,%edx
+--
+801024a9:	eb 09                	jmp    801024b4 <ideintr+0x14>
+801024ab:	83 cf ff             	or     $0xffffffff,%edi
+801024ae:	81 cf 73 82 03 00    	or     $0x38273,%edi
+801024b4:	68 00 26 11 80       	push   $0x80112600
+801024b9:	e8 b2 29 00 00       	call   80104e70 <acquire>
+--
+80102518:	eb 09                	jmp    80102523 <ideintr+0x83>
+8010251a:	83 cf ff             	or     $0xffffffff,%edi
+8010251d:	81 cf 71 82 03 00    	or     $0x38271,%edi
+80102523:	bf f7 01 00 00       	mov    $0x1f7,%edi
+80102528:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+--
+80102530:	eb 09                	jmp    8010253b <ideintr+0x9b>
+80102532:	83 cf ff             	or     $0xffffffff,%edi
+80102535:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+8010253b:	89 fa                	mov    %edi,%edx
+8010253d:	ec                   	in     (%dx),%al
+--
+8010254e:	eb 09                	jmp    80102559 <ideintr+0xb9>
+80102550:	83 cf ff             	or     $0xffffffff,%edi
+80102553:	81 cf b1 8f 06 00    	or     $0x68fb1,%edi
+80102559:	b9 80 00 00 00       	mov    $0x80,%ecx
+8010255e:	8d 7b 5c             	lea    0x5c(%ebx),%edi
+--
+8010257a:	eb 09                	jmp    80102585 <iderw+0x15>
+8010257c:	83 cf ff             	or     $0xffffffff,%edi
+8010257f:	81 cf 74 82 03 00    	or     $0x38274,%edi
+80102585:	8d 43 0c             	lea    0xc(%ebx),%eax
+80102588:	50                   	push   %eax
+--
+80102675:	eb 09                	jmp    80102680 <ioapicinit+0x10>
+80102677:	83 cf ff             	or     $0xffffffff,%edi
+8010267a:	81 cf 82 a9 03 00    	or     $0x3a982,%edi
+80102680:	c7 05 34 26 11 80 00 	movl   $0xfec00000,0x80112634
+80102687:	00 c0 fe 
+8010268a:	eb 09                	jmp    80102695 <ioapicinit+0x25>
+8010268c:	83 cf ff             	or     $0xffffffff,%edi
+8010268f:	81 cf 80 a9 03 00    	or     $0x3a980,%edi
+80102695:	c7 05 00 00 c0 fe 01 	movl   $0x1,0xfec00000
+8010269c:	00 00 00 
+--
+801026b0:	eb 09                	jmp    801026bb <ioapicinit+0x4b>
+801026b2:	83 cf ff             	or     $0xffffffff,%edi
+801026b5:	81 cf 80 a9 03 00    	or     $0x3a980,%edi
+801026bb:	c7 02 00 00 00 00    	movl   $0x0,(%edx)
+801026c1:	8b 1d 34 26 11 80    	mov    0x80112634,%ebx
+--
+80102701:	eb 09                	jmp    8010270c <ioapicinit+0x9c>
+80102703:	83 cf ff             	or     $0xffffffff,%edi
+80102706:	81 cf 81 a9 03 00    	or     $0x3a981,%edi
+8010270c:	89 13                	mov    %edx,(%ebx)
+8010270e:	8b 1d 34 26 11 80    	mov    0x80112634,%ebx
+--
+80102717:	eb 09                	jmp    80102722 <ioapicinit+0xb2>
+80102719:	83 cf ff             	or     $0xffffffff,%edi
+8010271c:	81 cf 81 a9 03 00    	or     $0x3a981,%edi
+80102722:	8d 4a 01             	lea    0x1(%edx),%ecx
+80102725:	83 c0 01             	add    $0x1,%eax
+--
+80102756:	eb 09                	jmp    80102761 <ioapicenable+0x11>
+80102758:	83 cf ff             	or     $0xffffffff,%edi
+8010275b:	81 cf 83 a9 03 00    	or     $0x3a983,%edi
+80102761:	8d 50 20             	lea    0x20(%eax),%edx
+80102764:	8d 44 00 10          	lea    0x10(%eax,%eax,1),%eax
+80102768:	eb 09                	jmp    80102773 <ioapicenable+0x23>
+8010276a:	83 cf ff             	or     $0xffffffff,%edi
+8010276d:	81 cf 81 a9 03 00    	or     $0x3a981,%edi
+80102773:	8b 0d 34 26 11 80    	mov    0x80112634,%ecx
+80102779:	89 01                	mov    %eax,(%ecx)
+--
+8010278a:	eb 09                	jmp    80102795 <ioapicenable+0x45>
+8010278c:	83 cf ff             	or     $0xffffffff,%edi
+8010278f:	81 cf 81 a9 03 00    	or     $0x3a981,%edi
+80102795:	83 c0 01             	add    $0x1,%eax
+80102798:	89 01                	mov    %eax,(%ecx)
+--
+801027ba:	eb 09                	jmp    801027c5 <kfree+0x15>
+801027bc:	83 cf ff             	or     $0xffffffff,%edi
+801027bf:	81 cf 93 d0 03 00    	or     $0x3d093,%edi
+801027c5:	f7 c3 ff 0f 00 00    	test   $0xfff,%ebx
+801027cb:	75 7b                	jne    80102848 <kfree+0x98>
+--
+80102868:	eb 09                	jmp    80102873 <freerange+0x13>
+8010286a:	83 cf ff             	or     $0xffffffff,%edi
+8010286d:	81 cf 90 d0 03 00    	or     $0x3d090,%edi
+80102873:	8b 45 08             	mov    0x8(%ebp),%eax
+80102876:	8d 98 ff 0f 00 00    	lea    0xfff(%eax),%ebx
+--
+801028c8:	eb 09                	jmp    801028d3 <kinit2+0x13>
+801028ca:	83 cf ff             	or     $0xffffffff,%edi
+801028cd:	81 cf 92 d0 03 00    	or     $0x3d092,%edi
+801028d3:	eb 09                	jmp    801028de <kinit2+0x1e>
+801028d5:	83 cf ff             	or     $0xffffffff,%edi
+801028d8:	81 cf 90 d0 03 00    	or     $0x3d090,%edi
+801028de:	8b 45 08             	mov    0x8(%ebp),%eax
+801028e1:	8d 98 ff 0f 00 00    	lea    0xfff(%eax),%ebx
+--
+80102938:	eb 09                	jmp    80102943 <kinit1+0x13>
+8010293a:	83 cf ff             	or     $0xffffffff,%edi
+8010293d:	81 cf 91 d0 03 00    	or     $0x3d091,%edi
+80102943:	83 ec 08             	sub    $0x8,%esp
+80102946:	68 0c 7f 10 80       	push   $0x80107f0c
+--
+8010295f:	eb 09                	jmp    8010296a <kinit1+0x3a>
+80102961:	83 cf ff             	or     $0xffffffff,%edi
+80102964:	81 cf 90 d0 03 00    	or     $0x3d090,%edi
+8010296a:	8b 45 08             	mov    0x8(%ebp),%eax
+8010296d:	83 c4 10             	add    $0x10,%esp
+--
+801029c7:	eb 09                	jmp    801029d2 <kalloc+0x12>
+801029c9:	83 cf ff             	or     $0xffffffff,%edi
+801029cc:	81 cf 94 d0 03 00    	or     $0x3d094,%edi
+801029d2:	a1 74 26 11 80       	mov    0x80112674,%eax
+801029d7:	85 c0                	test   %eax,%eax
+--
+80102a40:	eb 09                	jmp    80102a4b <kbdgetc+0xb>
+80102a42:	83 cf ff             	or     $0xffffffff,%edi
+80102a45:	81 cf a0 f7 03 00    	or     $0x3f7a0,%edi
+80102a4b:	eb 09                	jmp    80102a56 <kbdgetc+0x16>
+80102a4d:	83 cf ff             	or     $0xffffffff,%edi
+80102a50:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102a56:	ba 64 00 00 00       	mov    $0x64,%edx
+80102a5b:	ec                   	in     (%dx),%al
+--
+80102a68:	eb 09                	jmp    80102a73 <kbdgetc+0x33>
+80102a6a:	83 cf ff             	or     $0xffffffff,%edi
+80102a6d:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102a73:	ba 60 00 00 00       	mov    $0x60,%edx
+80102a78:	ec                   	in     (%dx),%al
+--
+80102b46:	eb 09                	jmp    80102b51 <kbdintr+0x11>
+80102b48:	83 cf ff             	or     $0xffffffff,%edi
+80102b4b:	81 cf a1 f7 03 00    	or     $0x3f7a1,%edi
+80102b51:	68 40 2a 10 80       	push   $0x80102a40
+80102b56:	e8 15 de ff ff       	call   80100970 <consoleintr>
+--
+80102b67:	eb 09                	jmp    80102b72 <fill_rtcdate+0x12>
+80102b69:	83 cf ff             	or     $0xffffffff,%edi
+80102b6c:	81 cf b6 1e 04 00    	or     $0x41eb6,%edi
+80102b72:	eb 09                	jmp    80102b7d <fill_rtcdate+0x1d>
+80102b74:	83 cf ff             	or     $0xffffffff,%edi
+80102b77:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102b7d:	eb 09                	jmp    80102b88 <fill_rtcdate+0x28>
+80102b7f:	83 cf ff             	or     $0xffffffff,%edi
+80102b82:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102b88:	be 70 00 00 00       	mov    $0x70,%esi
+80102b8d:	31 c0                	xor    %eax,%eax
+--
+80102b92:	eb 09                	jmp    80102b9d <fill_rtcdate+0x3d>
+80102b94:	83 cf ff             	or     $0xffffffff,%edi
+80102b97:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102b9d:	bb 71 00 00 00       	mov    $0x71,%ebx
+80102ba2:	89 da                	mov    %ebx,%edx
+--
+80102baa:	eb 09                	jmp    80102bb5 <fill_rtcdate+0x55>
+80102bac:	83 cf ff             	or     $0xffffffff,%edi
+80102baf:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102bb5:	eb 09                	jmp    80102bc0 <fill_rtcdate+0x60>
+80102bb7:	83 cf ff             	or     $0xffffffff,%edi
+80102bba:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102bc0:	b8 02 00 00 00       	mov    $0x2,%eax
+80102bc5:	89 f2                	mov    %esi,%edx
+--
+80102bc8:	eb 09                	jmp    80102bd3 <fill_rtcdate+0x73>
+80102bca:	83 cf ff             	or     $0xffffffff,%edi
+80102bcd:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102bd3:	89 da                	mov    %ebx,%edx
+80102bd5:	ec                   	in     (%dx),%al
+--
+80102bdc:	eb 09                	jmp    80102be7 <fill_rtcdate+0x87>
+80102bde:	83 cf ff             	or     $0xffffffff,%edi
+80102be1:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102be7:	eb 09                	jmp    80102bf2 <fill_rtcdate+0x92>
+80102be9:	83 cf ff             	or     $0xffffffff,%edi
+80102bec:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102bf2:	b8 04 00 00 00       	mov    $0x4,%eax
+80102bf7:	89 f2                	mov    %esi,%edx
+--
+80102bfa:	eb 09                	jmp    80102c05 <fill_rtcdate+0xa5>
+80102bfc:	83 cf ff             	or     $0xffffffff,%edi
+80102bff:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102c05:	89 da                	mov    %ebx,%edx
+80102c07:	ec                   	in     (%dx),%al
+--
+80102c0e:	eb 09                	jmp    80102c19 <fill_rtcdate+0xb9>
+80102c10:	83 cf ff             	or     $0xffffffff,%edi
+80102c13:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102c19:	eb 09                	jmp    80102c24 <fill_rtcdate+0xc4>
+80102c1b:	83 cf ff             	or     $0xffffffff,%edi
+80102c1e:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102c24:	b8 07 00 00 00       	mov    $0x7,%eax
+80102c29:	89 f2                	mov    %esi,%edx
+--
+80102c2c:	eb 09                	jmp    80102c37 <fill_rtcdate+0xd7>
+80102c2e:	83 cf ff             	or     $0xffffffff,%edi
+80102c31:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102c37:	89 da                	mov    %ebx,%edx
+80102c39:	ec                   	in     (%dx),%al
+--
+80102c40:	eb 09                	jmp    80102c4b <fill_rtcdate+0xeb>
+80102c42:	83 cf ff             	or     $0xffffffff,%edi
+80102c45:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102c4b:	eb 09                	jmp    80102c56 <fill_rtcdate+0xf6>
+80102c4d:	83 cf ff             	or     $0xffffffff,%edi
+80102c50:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102c56:	b8 08 00 00 00       	mov    $0x8,%eax
+80102c5b:	89 f2                	mov    %esi,%edx
+--
+80102c5e:	eb 09                	jmp    80102c69 <fill_rtcdate+0x109>
+80102c60:	83 cf ff             	or     $0xffffffff,%edi
+80102c63:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102c69:	89 da                	mov    %ebx,%edx
+80102c6b:	ec                   	in     (%dx),%al
+--
+80102c72:	eb 09                	jmp    80102c7d <fill_rtcdate+0x11d>
+80102c74:	83 cf ff             	or     $0xffffffff,%edi
+80102c77:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102c7d:	eb 09                	jmp    80102c88 <fill_rtcdate+0x128>
+80102c7f:	83 cf ff             	or     $0xffffffff,%edi
+80102c82:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102c88:	b8 09 00 00 00       	mov    $0x9,%eax
+80102c8d:	89 f2                	mov    %esi,%edx
+--
+80102c90:	eb 09                	jmp    80102c9b <fill_rtcdate+0x13b>
+80102c92:	83 cf ff             	or     $0xffffffff,%edi
+80102c95:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102c9b:	89 da                	mov    %ebx,%edx
+80102c9d:	ec                   	in     (%dx),%al
+--
+80102cb0:	eb 09                	jmp    80102cbb <lapicinit+0xb>
+80102cb2:	83 cf ff             	or     $0xffffffff,%edi
+80102cb5:	81 cf b1 1e 04 00    	or     $0x41eb1,%edi
+80102cbb:	a1 80 26 11 80       	mov    0x80112680,%eax
+80102cc0:	85 c0                	test   %eax,%eax
+--
+80102cc8:	eb 09                	jmp    80102cd3 <lapicinit+0x23>
+80102cca:	83 cf ff             	or     $0xffffffff,%edi
+80102ccd:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102cd3:	c7 80 f0 00 00 00 3f 	movl   $0x13f,0xf0(%eax)
+80102cda:	01 00 00 
+--
+80102ce0:	eb 09                	jmp    80102ceb <lapicinit+0x3b>
+80102ce2:	83 cf ff             	or     $0xffffffff,%edi
+80102ce5:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102ceb:	c7 80 e0 03 00 00 0b 	movl   $0xb,0x3e0(%eax)
+80102cf2:	00 00 00 
+--
+80102cf8:	eb 09                	jmp    80102d03 <lapicinit+0x53>
+80102cfa:	83 cf ff             	or     $0xffffffff,%edi
+80102cfd:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102d03:	c7 80 20 03 00 00 20 	movl   $0x20020,0x320(%eax)
+80102d0a:	00 02 00 
+--
+80102d10:	eb 09                	jmp    80102d1b <lapicinit+0x6b>
+80102d12:	83 cf ff             	or     $0xffffffff,%edi
+80102d15:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102d1b:	c7 80 80 03 00 00 80 	movl   $0x989680,0x380(%eax)
+80102d22:	96 98 00 
+--
+80102d28:	eb 09                	jmp    80102d33 <lapicinit+0x83>
+80102d2a:	83 cf ff             	or     $0xffffffff,%edi
+80102d2d:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102d33:	c7 80 50 03 00 00 00 	movl   $0x10000,0x350(%eax)
+80102d3a:	00 01 00 
+--
+80102d40:	eb 09                	jmp    80102d4b <lapicinit+0x9b>
+80102d42:	83 cf ff             	or     $0xffffffff,%edi
+80102d45:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102d4b:	c7 80 60 03 00 00 00 	movl   $0x10000,0x360(%eax)
+80102d52:	00 01 00 
+--
+80102d6a:	eb 09                	jmp    80102d75 <lapicinit+0xc5>
+80102d6c:	83 cf ff             	or     $0xffffffff,%edi
+80102d6f:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102d75:	c7 80 70 03 00 00 33 	movl   $0x33,0x370(%eax)
+80102d7c:	00 00 00 
+--
+80102d82:	eb 09                	jmp    80102d8d <lapicinit+0xdd>
+80102d84:	83 cf ff             	or     $0xffffffff,%edi
+80102d87:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102d8d:	c7 80 80 02 00 00 00 	movl   $0x0,0x280(%eax)
+80102d94:	00 00 00 
+--
+80102d9a:	eb 09                	jmp    80102da5 <lapicinit+0xf5>
+80102d9c:	83 cf ff             	or     $0xffffffff,%edi
+80102d9f:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102da5:	c7 80 80 02 00 00 00 	movl   $0x0,0x280(%eax)
+80102dac:	00 00 00 
+--
+80102db2:	eb 09                	jmp    80102dbd <lapicinit+0x10d>
+80102db4:	83 cf ff             	or     $0xffffffff,%edi
+80102db7:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102dbd:	c7 80 b0 00 00 00 00 	movl   $0x0,0xb0(%eax)
+80102dc4:	00 00 00 
+--
+80102dca:	eb 09                	jmp    80102dd5 <lapicinit+0x125>
+80102dcc:	83 cf ff             	or     $0xffffffff,%edi
+80102dcf:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102dd5:	c7 80 10 03 00 00 00 	movl   $0x0,0x310(%eax)
+80102ddc:	00 00 00 
+--
+80102de2:	eb 09                	jmp    80102ded <lapicinit+0x13d>
+80102de4:	83 cf ff             	or     $0xffffffff,%edi
+80102de7:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102ded:	c7 80 00 03 00 00 00 	movl   $0x88500,0x300(%eax)
+80102df4:	85 08 00 
+--
+80102e0b:	eb 09                	jmp    80102e16 <lapicinit+0x166>
+80102e0d:	83 cf ff             	or     $0xffffffff,%edi
+80102e10:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102e16:	c7 80 80 00 00 00 00 	movl   $0x0,0x80(%eax)
+80102e1d:	00 00 00 
+--
+80102e28:	eb 09                	jmp    80102e33 <lapicinit+0x183>
+80102e2a:	83 cf ff             	or     $0xffffffff,%edi
+80102e2d:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102e33:	c7 80 40 03 00 00 00 	movl   $0x10000,0x340(%eax)
+80102e3a:	00 01 00 
+--
+80102e50:	eb 09                	jmp    80102e5b <lapicid+0xb>
+80102e52:	83 cf ff             	or     $0xffffffff,%edi
+80102e55:	81 cf b2 1e 04 00    	or     $0x41eb2,%edi
+80102e5b:	a1 80 26 11 80       	mov    0x80112680,%eax
+80102e60:	85 c0                	test   %eax,%eax
+--
+80102e80:	eb 09                	jmp    80102e8b <lapiceoi+0xb>
+80102e82:	83 cf ff             	or     $0xffffffff,%edi
+80102e85:	81 cf b3 1e 04 00    	or     $0x41eb3,%edi
+80102e8b:	a1 80 26 11 80       	mov    0x80112680,%eax
+80102e90:	85 c0                	test   %eax,%eax
+--
+80102e94:	eb 09                	jmp    80102e9f <lapiceoi+0x1f>
+80102e96:	83 cf ff             	or     $0xffffffff,%edi
+80102e99:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102e9f:	c7 80 b0 00 00 00 00 	movl   $0x0,0xb0(%eax)
+80102ea6:	00 00 00 
+--
+80102ecb:	eb 09                	jmp    80102ed6 <lapicstartap+0x16>
+80102ecd:	83 cf ff             	or     $0xffffffff,%edi
+80102ed0:	81 cf b4 1e 04 00    	or     $0x41eb4,%edi
+80102ed6:	eb 09                	jmp    80102ee1 <lapicstartap+0x21>
+80102ed8:	83 cf ff             	or     $0xffffffff,%edi
+80102edb:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102ee1:	b8 0f 00 00 00       	mov    $0xf,%eax
+80102ee6:	ba 70 00 00 00       	mov    $0x70,%edx
+--
+80102eec:	eb 09                	jmp    80102ef7 <lapicstartap+0x37>
+80102eee:	83 cf ff             	or     $0xffffffff,%edi
+80102ef1:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102ef7:	b8 0a 00 00 00       	mov    $0xa,%eax
+80102efc:	ba 71 00 00 00       	mov    $0x71,%edx
+--
+80102f15:	eb 09                	jmp    80102f20 <lapicstartap+0x60>
+80102f17:	83 cf ff             	or     $0xffffffff,%edi
+80102f1a:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102f20:	a1 80 26 11 80       	mov    0x80112680,%eax
+80102f25:	c1 e3 18             	shl    $0x18,%ebx
+--
+80102f31:	eb 09                	jmp    80102f3c <lapicstartap+0x7c>
+80102f33:	83 cf ff             	or     $0xffffffff,%edi
+80102f36:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102f3c:	c7 80 00 03 00 00 00 	movl   $0xc500,0x300(%eax)
+80102f43:	c5 00 00 
+--
+80102f49:	eb 09                	jmp    80102f54 <lapicstartap+0x94>
+80102f4b:	83 cf ff             	or     $0xffffffff,%edi
+80102f4e:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102f54:	c7 80 00 03 00 00 00 	movl   $0x8500,0x300(%eax)
+80102f5b:	85 00 00 
+--
+80102f6c:	eb 09                	jmp    80102f77 <lapicstartap+0xb7>
+80102f6e:	83 cf ff             	or     $0xffffffff,%edi
+80102f71:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102f77:	89 98 10 03 00 00    	mov    %ebx,0x310(%eax)
+80102f7d:	8b 70 20             	mov    0x20(%eax),%esi
+80102f80:	eb 09                	jmp    80102f8b <lapicstartap+0xcb>
+80102f82:	83 cf ff             	or     $0xffffffff,%edi
+80102f85:	81 cf b0 1e 04 00    	or     $0x41eb0,%edi
+80102f8b:	89 88 00 03 00 00    	mov    %ecx,0x300(%eax)
+80102f91:	8b 70 20             	mov    0x20(%eax),%esi
+--
+80102fb9:	eb 09                	jmp    80102fc4 <cmostime+0x14>
+80102fbb:	83 cf ff             	or     $0xffffffff,%edi
+80102fbe:	81 cf b7 1e 04 00    	or     $0x41eb7,%edi
+80102fc4:	eb 09                	jmp    80102fcf <cmostime+0x1f>
+80102fc6:	83 cf ff             	or     $0xffffffff,%edi
+80102fc9:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80102fcf:	eb 09                	jmp    80102fda <cmostime+0x2a>
+80102fd1:	83 cf ff             	or     $0xffffffff,%edi
+80102fd4:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80102fda:	b8 0b 00 00 00       	mov    $0xb,%eax
+80102fdf:	ba 70 00 00 00       	mov    $0x70,%edx
+--
+80102fe5:	eb 09                	jmp    80102ff0 <cmostime+0x40>
+80102fe7:	83 cf ff             	or     $0xffffffff,%edi
+80102fea:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80102ff0:	ba 71 00 00 00       	mov    $0x71,%edx
+80102ff5:	ec                   	in     (%dx),%al
+--
+80103017:	eb 09                	jmp    80103022 <cmostime+0x72>
+80103019:	83 cf ff             	or     $0xffffffff,%edi
+8010301c:	81 cf b5 1e 04 00    	or     $0x41eb5,%edi
+80103022:	eb 09                	jmp    8010302d <cmostime+0x7d>
+80103024:	83 cf ff             	or     $0xffffffff,%edi
+80103027:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010302d:	ba 70 00 00 00       	mov    $0x70,%edx
+80103032:	89 f8                	mov    %edi,%eax
+--
+80103035:	eb 09                	jmp    80103040 <cmostime+0x90>
+80103037:	83 cf ff             	or     $0xffffffff,%edi
+8010303a:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80103040:	ba 71 00 00 00       	mov    $0x71,%edx
+80103045:	ec                   	in     (%dx),%al
+--
+80103120:	eb 09                	jmp    8010312b <install_trans+0xb>
+80103122:	83 cf ff             	or     $0xffffffff,%edi
+80103125:	81 cf c3 45 04 00    	or     $0x445c3,%edi
+8010312b:	8b 0d e8 26 11 80    	mov    0x801126e8,%ecx
+80103131:	85 c9                	test   %ecx,%ecx
+--
+801031d7:	eb 09                	jmp    801031e2 <write_head+0x12>
+801031d9:	83 cf ff             	or     $0xffffffff,%edi
+801031dc:	81 cf c5 45 04 00    	or     $0x445c5,%edi
+801031e2:	ff 35 d4 26 11 80    	push   0x801126d4
+801031e8:	ff 35 e4 26 11 80    	push   0x801126e4
+--
+8010324a:	eb 09                	jmp    80103255 <initlog+0x15>
+8010324c:	83 cf ff             	or     $0xffffffff,%edi
+8010324f:	81 cf c2 45 04 00    	or     $0x445c2,%edi
+80103255:	68 40 81 10 80       	push   $0x80108140
+8010325a:	68 a0 26 11 80       	push   $0x801126a0
+--
+80103287:	eb 09                	jmp    80103292 <initlog+0x52>
+80103289:	83 cf ff             	or     $0xffffffff,%edi
+8010328c:	81 cf c0 45 04 00    	or     $0x445c0,%edi
+80103292:	eb 09                	jmp    8010329d <initlog+0x5d>
+80103294:	83 cf ff             	or     $0xffffffff,%edi
+80103297:	81 cf c4 45 04 00    	or     $0x445c4,%edi
+8010329d:	59                   	pop    %ecx
+8010329e:	5a                   	pop    %edx
+--
+80103306:	eb 09                	jmp    80103311 <begin_op+0x11>
+80103308:	83 cf ff             	or     $0xffffffff,%edi
+8010330b:	81 cf c6 45 04 00    	or     $0x445c6,%edi
+80103311:	68 a0 26 11 80       	push   $0x801126a0
+80103316:	e8 55 1b 00 00       	call   80104e70 <acquire>
+--
+80103379:	eb 09                	jmp    80103384 <end_op+0x14>
+8010337b:	83 cf ff             	or     $0xffffffff,%edi
+8010337e:	81 cf c7 45 04 00    	or     $0x445c7,%edi
+80103384:	68 a0 26 11 80       	push   $0x801126a0
+80103389:	e8 e2 1a 00 00       	call   80104e70 <acquire>
+--
+801033c8:	eb 09                	jmp    801033d3 <end_op+0x63>
+801033ca:	83 cf ff             	or     $0xffffffff,%edi
+801033cd:	81 cf c1 45 04 00    	or     $0x445c1,%edi
+801033d3:	8b 0d e8 26 11 80    	mov    0x801126e8,%ecx
+801033d9:	83 c4 10             	add    $0x10,%esp
+--
+80103448:	eb 09                	jmp    80103453 <end_op+0xe3>
+8010344a:	83 cf ff             	or     $0xffffffff,%edi
+8010344d:	81 cf c8 45 04 00    	or     $0x445c8,%edi
+80103453:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80103457:	90                   	nop
+--
+801034fa:	eb 09                	jmp    80103505 <log_write+0x15>
+801034fc:	83 cf ff             	or     $0xffffffff,%edi
+801034ff:	81 cf c9 45 04 00    	or     $0x445c9,%edi
+80103505:	8b 15 e8 26 11 80    	mov    0x801126e8,%edx
+8010350b:	83 fa 1d             	cmp    $0x1d,%edx
+--
+801035b7:	eb 09                	jmp    801035c2 <mpmain+0x12>
+801035b9:	83 cf ff             	or     $0xffffffff,%edi
+801035bc:	81 cf d1 6c 04 00    	or     $0x46cd1,%edi
+801035c2:	e8 99 0a 00 00       	call   80104060 <cpuid>
+801035c7:	89 c3                	mov    %eax,%ebx
+--
+80103606:	eb 09                	jmp    80103611 <mpenter+0x11>
+80103608:	83 cf ff             	or     $0xffffffff,%edi
+8010360b:	81 cf d3 6c 04 00    	or     $0x46cd3,%edi
+80103611:	e8 9a 3d 00 00       	call   801073b0 <switchkvm>
+80103616:	e8 f5 3c 00 00       	call   80107310 <seginit>
+--
+8010363f:	eb 09                	jmp    8010364a <main+0x1a>
+80103641:	83 cf ff             	or     $0xffffffff,%edi
+80103644:	81 cf d2 6c 04 00    	or     $0x46cd2,%edi
+8010364a:	83 ec 08             	sub    $0x8,%esp
+8010364d:	68 00 00 40 80       	push   $0x80400000
+--
+8010369d:	eb 09                	jmp    801036a8 <main+0x78>
+8010369f:	83 cf ff             	or     $0xffffffff,%edi
+801036a2:	81 cf d0 6c 04 00    	or     $0x46cd0,%edi
+801036a8:	83 c4 0c             	add    $0xc,%esp
+801036ab:	68 8a 00 00 00       	push   $0x8a
+--
+80103779:	eb 09                	jmp    80103784 <mpsearch1+0x14>
+8010377b:	83 cf ff             	or     $0xffffffff,%edi
+8010377e:	81 cf e1 93 04 00    	or     $0x493e1,%edi
+80103784:	8d b0 00 00 00 80    	lea    -0x80000000(%eax),%esi
+8010378a:	8d 1c 16             	lea    (%esi,%edx,1),%ebx
+--
+801037b8:	eb 09                	jmp    801037c3 <mpsearch1+0x53>
+801037ba:	83 cf ff             	or     $0xffffffff,%edi
+801037bd:	81 cf e0 93 04 00    	or     $0x493e0,%edi
+801037c3:	89 f2                	mov    %esi,%edx
+801037c5:	8d 76 00             	lea    0x0(%esi),%esi
+--
+80103809:	eb 09                	jmp    80103814 <mpinit+0x14>
+8010380b:	83 cf ff             	or     $0xffffffff,%edi
+8010380e:	81 cf e4 93 04 00    	or     $0x493e4,%edi
+80103814:	eb 09                	jmp    8010381f <mpinit+0x1f>
+80103816:	83 cf ff             	or     $0xffffffff,%edi
+80103819:	81 cf e3 93 04 00    	or     $0x493e3,%edi
+8010381f:	eb 09                	jmp    8010382a <mpinit+0x2a>
+80103821:	83 cf ff             	or     $0xffffffff,%edi
+80103824:	81 cf e2 93 04 00    	or     $0x493e2,%edi
+8010382a:	0f b6 05 0f 04 00 80 	movzbl 0x8000040f,%eax
+80103831:	0f b6 15 0e 04 00 80 	movzbl 0x8000040e,%edx
+--
+801038bd:	eb 09                	jmp    801038c8 <mpinit+0xc8>
+801038bf:	83 cf ff             	or     $0xffffffff,%edi
+801038c2:	81 cf e0 93 04 00    	or     $0x493e0,%edi
+801038c8:	66 85 d2             	test   %dx,%dx
+801038cb:	74 2e                	je     801038fb <mpinit+0xfb>
+--
+80103952:	eb 09                	jmp    8010395d <mpinit+0x15d>
+80103954:	83 cf ff             	or     $0xffffffff,%edi
+80103957:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010395d:	b8 70 00 00 00       	mov    $0x70,%eax
+80103962:	ba 22 00 00 00       	mov    $0x22,%edx
+--
+80103968:	eb 09                	jmp    80103973 <mpinit+0x173>
+8010396a:	83 cf ff             	or     $0xffffffff,%edi
+8010396d:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80103973:	ba 23 00 00 00       	mov    $0x23,%edx
+80103978:	ec                   	in     (%dx),%al
+80103979:	eb 09                	jmp    80103984 <mpinit+0x184>
+8010397b:	83 cf ff             	or     $0xffffffff,%edi
+8010397e:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80103984:	83 c8 01             	or     $0x1,%eax
+80103987:	ee                   	out    %al,(%dx)
+--
+801039f8:	eb 09                	jmp    80103a03 <mpinit+0x203>
+801039fa:	83 cf ff             	or     $0xffffffff,%edi
+801039fd:	81 cf e1 93 04 00    	or     $0x493e1,%edi
+80103a03:	bb 00 00 0f 80       	mov    $0x800f0000,%ebx
+80103a08:	eb 14                	jmp    80103a1e <mpinit+0x21e>
+--
+80103a38:	eb 09                	jmp    80103a43 <mpinit+0x243>
+80103a3a:	83 cf ff             	or     $0xffffffff,%edi
+80103a3d:	81 cf e0 93 04 00    	or     $0x493e0,%edi
+80103a43:	89 da                	mov    %ebx,%edx
+80103a45:	8d 76 00             	lea    0x0(%esi),%esi
+--
+80103a70:	eb 09                	jmp    80103a7b <picinit+0xb>
+80103a72:	83 cf ff             	or     $0xffffffff,%edi
+80103a75:	81 cf f0 ba 04 00    	or     $0x4baf0,%edi
+80103a7b:	eb 09                	jmp    80103a86 <picinit+0x16>
+80103a7d:	83 cf ff             	or     $0xffffffff,%edi
+80103a80:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80103a86:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80103a8b:	ba 21 00 00 00       	mov    $0x21,%edx
+--
+80103a91:	eb 09                	jmp    80103a9c <picinit+0x2c>
+80103a93:	83 cf ff             	or     $0xffffffff,%edi
+80103a96:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80103a9c:	ba a1 00 00 00       	mov    $0xa1,%edx
+80103aa1:	ee                   	out    %al,(%dx)
+--
+80103abf:	eb 09                	jmp    80103aca <pipealloc+0x1a>
+80103ac1:	83 cf ff             	or     $0xffffffff,%edi
+80103ac4:	81 cf 00 e2 04 00    	or     $0x4e200,%edi
+80103aca:	c7 07 00 00 00 00    	movl   $0x0,(%edi)
+80103ad0:	c7 06 00 00 00 00    	movl   $0x0,(%esi)
+--
+80103bbb:	eb 09                	jmp    80103bc6 <pipeclose+0x16>
+80103bbd:	83 cf ff             	or     $0xffffffff,%edi
+80103bc0:	81 cf 01 e2 04 00    	or     $0x4e201,%edi
+80103bc6:	83 ec 0c             	sub    $0xc,%esp
+80103bc9:	53                   	push   %ebx
+--
+80103c6f:	eb 09                	jmp    80103c7a <pipewrite+0x1a>
+80103c71:	83 cf ff             	or     $0xffffffff,%edi
+80103c74:	81 cf 02 e2 04 00    	or     $0x4e202,%edi
+80103c7a:	53                   	push   %ebx
+80103c7b:	e8 f0 11 00 00       	call   80104e70 <acquire>
+--
+80103d9f:	eb 09                	jmp    80103daa <piperead+0x1a>
+80103da1:	83 cf ff             	or     $0xffffffff,%edi
+80103da4:	81 cf 03 e2 04 00    	or     $0x4e203,%edi
+80103daa:	56                   	push   %esi
+80103dab:	8d 9e 34 02 00 00    	lea    0x234(%esi),%ebx
+--
+80103e87:	eb 09                	jmp    80103e92 <allocproc+0x12>
+80103e89:	83 cf ff             	or     $0xffffffff,%edi
+80103e8c:	81 cf 16 09 05 00    	or     $0x50916,%edi
+80103e92:	68 20 2d 11 80       	push   $0x80112d20
+80103e97:	bb 54 2d 11 80       	mov    $0x80112d54,%ebx
+--
+80103f66:	eb 09                	jmp    80103f71 <forkret+0x11>
+80103f68:	83 cf ff             	or     $0xffffffff,%edi
+80103f6b:	81 cf 10 09 05 00    	or     $0x50910,%edi
+80103f71:	68 20 2d 11 80       	push   $0x80112d20
+80103f76:	e8 75 0e 00 00       	call   80104df0 <release>
+--
+80103fc6:	eb 09                	jmp    80103fd1 <pinit+0x11>
+80103fc8:	83 cf ff             	or     $0xffffffff,%edi
+80103fcb:	81 cf 12 09 05 00    	or     $0x50912,%edi
+80103fd1:	68 e0 81 10 80       	push   $0x801081e0
+80103fd6:	68 20 2d 11 80       	push   $0x80112d20
+--
+80103ff5:	eb 09                	jmp    80104000 <mycpu+0x10>
+80103ff7:	83 cf ff             	or     $0xffffffff,%edi
+80103ffa:	81 cf 14 09 05 00    	or     $0x50914,%edi
+80104000:	9c                   	pushf
+80104001:	58                   	pop    %eax
+--
+80104066:	eb 09                	jmp    80104071 <cpuid+0x11>
+80104068:	83 cf ff             	or     $0xffffffff,%edi
+8010406b:	81 cf 13 09 05 00    	or     $0x50913,%edi
+80104071:	e8 7a ff ff ff       	call   80103ff0 <mycpu>
+80104076:	c9                   	leave
+--
+80104097:	eb 09                	jmp    801040a2 <myproc+0x12>
+80104099:	83 cf ff             	or     $0xffffffff,%edi
+8010409c:	81 cf 15 09 05 00    	or     $0x50915,%edi
+801040a2:	e8 19 0c 00 00       	call   80104cc0 <pushcli>
+801040a7:	e8 44 ff ff ff       	call   80103ff0 <mycpu>
+--
+801040c7:	eb 09                	jmp    801040d2 <userinit+0x12>
+801040c9:	83 cf ff             	or     $0xffffffff,%edi
+801040cc:	81 cf 17 09 05 00    	or     $0x50917,%edi
+801040d2:	e8 a9 fd ff ff       	call   80103e80 <allocproc>
+801040d7:	89 c3                	mov    %eax,%ebx
+--
+801041c8:	eb 09                	jmp    801041d3 <growproc+0x13>
+801041ca:	83 cf ff             	or     $0xffffffff,%edi
+801041cd:	81 cf 18 09 05 00    	or     $0x50918,%edi
+801041d3:	eb 09                	jmp    801041de <growproc+0x1e>
+801041d5:	83 cf ff             	or     $0xffffffff,%edi
+801041d8:	81 cf 15 09 05 00    	or     $0x50915,%edi
+801041de:	e8 dd 0a 00 00       	call   80104cc0 <pushcli>
+801041e3:	e8 08 fe ff ff       	call   80103ff0 <mycpu>
+--
+80104259:	eb 09                	jmp    80104264 <fork+0x14>
+8010425b:	83 cf ff             	or     $0xffffffff,%edi
+8010425e:	81 cf 19 09 05 00    	or     $0x50919,%edi
+80104264:	eb 09                	jmp    8010426f <fork+0x1f>
+80104266:	83 cf ff             	or     $0xffffffff,%edi
+80104269:	81 cf 15 09 05 00    	or     $0x50915,%edi
+8010426f:	e8 4c 0a 00 00       	call   80104cc0 <pushcli>
+80104274:	e8 77 fd ff ff       	call   80103ff0 <mycpu>
+--
+80104389:	eb 09                	jmp    80104394 <scheduler+0x14>
+8010438b:	83 cf ff             	or     $0xffffffff,%edi
+8010438e:	81 cf 1c 09 05 00    	or     $0x5091c,%edi
+80104394:	e8 57 fc ff ff       	call   80103ff0 <mycpu>
+80104399:	c7 80 ac 00 00 00 00 	movl   $0x0,0xac(%eax)
+--
+801043b0:	eb 09                	jmp    801043bb <scheduler+0x3b>
+801043b2:	83 cf ff             	or     $0xffffffff,%edi
+801043b5:	81 cf bc 8f 06 00    	or     $0x68fbc,%edi
+801043bb:	fb                   	sti
+801043bc:	83 ec 0c             	sub    $0xc,%esp
+--
+80104435:	eb 09                	jmp    80104440 <sched+0x10>
+80104437:	83 cf ff             	or     $0xffffffff,%edi
+8010443a:	81 cf 1d 09 05 00    	or     $0x5091d,%edi
+80104440:	eb 09                	jmp    8010444b <sched+0x1b>
+80104442:	83 cf ff             	or     $0xffffffff,%edi
+80104445:	81 cf 15 09 05 00    	or     $0x50915,%edi
+8010444b:	e8 70 08 00 00       	call   80104cc0 <pushcli>
+80104450:	e8 9b fb ff ff       	call   80103ff0 <mycpu>
+--
+80104509:	eb 09                	jmp    80104514 <exit+0x14>
+8010450b:	83 cf ff             	or     $0xffffffff,%edi
+8010450e:	81 cf 1a 09 05 00    	or     $0x5091a,%edi
+80104514:	e8 77 fb ff ff       	call   80104090 <myproc>
+80104519:	39 05 54 4c 11 80    	cmp    %eax,0x80114c54
+--
+8010457a:	eb 09                	jmp    80104585 <exit+0x85>
+8010457c:	83 cf ff             	or     $0xffffffff,%edi
+8010457f:	81 cf 11 09 05 00    	or     $0x50911,%edi
+80104585:	b8 54 2d 11 80       	mov    $0x80112d54,%eax
+8010458a:	83 c4 10             	add    $0x10,%esp
+--
+801045e1:	eb 09                	jmp    801045ec <exit+0xec>
+801045e3:	83 cf ff             	or     $0xffffffff,%edi
+801045e6:	81 cf 11 09 05 00    	or     $0x50911,%edi
+801045ec:	b8 54 2d 11 80       	mov    $0x80112d54,%eax
+801045f1:	eb 0f                	jmp    80104602 <exit+0x102>
+--
+80104645:	eb 09                	jmp    80104650 <wait+0x10>
+80104647:	83 cf ff             	or     $0xffffffff,%edi
+8010464a:	81 cf 1b 09 05 00    	or     $0x5091b,%edi
+80104650:	eb 09                	jmp    8010465b <wait+0x1b>
+80104652:	83 cf ff             	or     $0xffffffff,%edi
+80104655:	81 cf 15 09 05 00    	or     $0x50915,%edi
+8010465b:	e8 60 06 00 00       	call   80104cc0 <pushcli>
+80104660:	e8 8b f9 ff ff       	call   80103ff0 <mycpu>
+--
+801046c9:	eb 09                	jmp    801046d4 <wait+0x94>
+801046cb:	83 cf ff             	or     $0xffffffff,%edi
+801046ce:	81 cf 1f 09 05 00    	or     $0x5091f,%edi
+801046d4:	eb 09                	jmp    801046df <wait+0x9f>
+801046d6:	83 cf ff             	or     $0xffffffff,%edi
+801046d9:	81 cf 15 09 05 00    	or     $0x50915,%edi
+801046df:	e8 dc 05 00 00       	call   80104cc0 <pushcli>
+801046e4:	e8 07 f9 ff ff       	call   80103ff0 <mycpu>
+--
+801047a7:	eb 09                	jmp    801047b2 <yield+0x12>
+801047a9:	83 cf ff             	or     $0xffffffff,%edi
+801047ac:	81 cf 1e 09 05 00    	or     $0x5091e,%edi
+801047b2:	68 20 2d 11 80       	push   $0x80112d20
+801047b7:	e8 b4 06 00 00       	call   80104e70 <acquire>
+801047bc:	eb 09                	jmp    801047c7 <yield+0x27>
+801047be:	83 cf ff             	or     $0xffffffff,%edi
+801047c1:	81 cf 15 09 05 00    	or     $0x50915,%edi
+801047c7:	e8 f4 04 00 00       	call   80104cc0 <pushcli>
+801047cc:	e8 1f f8 ff ff       	call   80103ff0 <mycpu>
+--
+8010480f:	eb 09                	jmp    8010481a <sleep+0x1a>
+80104811:	83 cf ff             	or     $0xffffffff,%edi
+80104814:	81 cf 1f 09 05 00    	or     $0x5091f,%edi
+8010481a:	eb 09                	jmp    80104825 <sleep+0x25>
+8010481c:	83 cf ff             	or     $0xffffffff,%edi
+8010481f:	81 cf 15 09 05 00    	or     $0x50915,%edi
+80104825:	e8 96 04 00 00       	call   80104cc0 <pushcli>
+8010482a:	e8 c1 f7 ff ff       	call   80103ff0 <mycpu>
+--
+801048ea:	eb 09                	jmp    801048f5 <wakeup+0x15>
+801048ec:	83 cf ff             	or     $0xffffffff,%edi
+801048ef:	81 cf 20 09 05 00    	or     $0x50920,%edi
+801048f5:	68 20 2d 11 80       	push   $0x80112d20
+801048fa:	e8 71 05 00 00       	call   80104e70 <acquire>
+801048ff:	eb 09                	jmp    8010490a <wakeup+0x2a>
+80104901:	83 cf ff             	or     $0xffffffff,%edi
+80104904:	81 cf 11 09 05 00    	or     $0x50911,%edi
+8010490a:	b8 54 2d 11 80       	mov    $0x80112d54,%eax
+8010490f:	83 c4 10             	add    $0x10,%esp
+--
+8010495a:	eb 09                	jmp    80104965 <kill+0x15>
+8010495c:	83 cf ff             	or     $0xffffffff,%edi
+8010495f:	81 cf 21 09 05 00    	or     $0x50921,%edi
+80104965:	68 20 2d 11 80       	push   $0x80112d20
+8010496a:	e8 01 05 00 00       	call   80104e70 <acquire>
+--
+801049e9:	eb 09                	jmp    801049f4 <procdump+0x14>
+801049eb:	83 cf ff             	or     $0xffffffff,%edi
+801049ee:	81 cf 22 09 05 00    	or     $0x50922,%edi
+801049f4:	bb c0 2d 11 80       	mov    $0x80112dc0,%ebx
+801049f9:	8d 75 e8             	lea    -0x18(%ebp),%esi
+--
+80104aba:	eb 09                	jmp    80104ac5 <initsleeplock+0x15>
+80104abc:	83 cf ff             	or     $0xffffffff,%edi
+80104abf:	81 cf 20 30 05 00    	or     $0x53020,%edi
+80104ac5:	8d 43 04             	lea    0x4(%ebx),%eax
+80104ac8:	68 04 83 10 80       	push   $0x80108304
+--
+80104af8:	eb 09                	jmp    80104b03 <acquiresleep+0x13>
+80104afa:	83 cf ff             	or     $0xffffffff,%edi
+80104afd:	81 cf 21 30 05 00    	or     $0x53021,%edi
+80104b03:	83 ec 0c             	sub    $0xc,%esp
+80104b06:	8d 73 04             	lea    0x4(%ebx),%esi
+--
+80104b68:	eb 09                	jmp    80104b73 <releasesleep+0x13>
+80104b6a:	83 cf ff             	or     $0xffffffff,%edi
+80104b6d:	81 cf 22 30 05 00    	or     $0x53022,%edi
+80104b73:	83 ec 0c             	sub    $0xc,%esp
+80104b76:	8d 73 04             	lea    0x4(%ebx),%esi
+--
+80104bbc:	eb 09                	jmp    80104bc7 <holdingsleep+0x17>
+80104bbe:	83 cf ff             	or     $0xffffffff,%edi
+80104bc1:	81 cf 23 30 05 00    	or     $0x53023,%edi
+80104bc7:	8d 73 04             	lea    0x4(%ebx),%esi
+80104bca:	31 ff                	xor    %edi,%edi
+--
+80104c16:	eb 09                	jmp    80104c21 <initlock+0x11>
+80104c18:	83 cf ff             	or     $0xffffffff,%edi
+80104c1b:	81 cf 30 57 05 00    	or     $0x55730,%edi
+80104c21:	8b 55 0c             	mov    0xc(%ebp),%edx
+80104c24:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+--
+80104c4a:	eb 09                	jmp    80104c55 <getcallerpcs+0x15>
+80104c4c:	83 cf ff             	or     $0xffffffff,%edi
+80104c4f:	81 cf 33 57 05 00    	or     $0x55733,%edi
+80104c55:	8d 50 f8             	lea    -0x8(%eax),%edx
+80104c58:	05 f8 ff ff 7f       	add    $0x7ffffff8,%eax
+--
+80104cc7:	eb 09                	jmp    80104cd2 <pushcli+0x12>
+80104cc9:	83 cf ff             	or     $0xffffffff,%edi
+80104ccc:	81 cf 35 57 05 00    	or     $0x55735,%edi
+80104cd2:	9c                   	pushf
+80104cd3:	5b                   	pop    %ebx
+80104cd4:	eb 09                	jmp    80104cdf <pushcli+0x1f>
+80104cd6:	83 cf ff             	or     $0xffffffff,%edi
+80104cd9:	81 cf bb 8f 06 00    	or     $0x68fbb,%edi
+80104cdf:	fa                   	cli
+80104ce0:	e8 0b f3 ff ff       	call   80103ff0 <mycpu>
+--
+80104d26:	eb 09                	jmp    80104d31 <popcli+0x11>
+80104d28:	83 cf ff             	or     $0xffffffff,%edi
+80104d2b:	81 cf 36 57 05 00    	or     $0x55736,%edi
+80104d31:	9c                   	pushf
+80104d32:	58                   	pop    %eax
+--
+80104d6f:	eb 09                	jmp    80104d7a <popcli+0x5a>
+80104d71:	83 cf ff             	or     $0xffffffff,%edi
+80104d74:	81 cf bc 8f 06 00    	or     $0x68fbc,%edi
+80104d7a:	fb                   	sti
+80104d7b:	c9                   	leave
+--
+80104da8:	eb 09                	jmp    80104db3 <holding+0x13>
+80104daa:	83 cf ff             	or     $0xffffffff,%edi
+80104dad:	81 cf 34 57 05 00    	or     $0x55734,%edi
+80104db3:	e8 08 ff ff ff       	call   80104cc0 <pushcli>
+80104db8:	8b 06                	mov    (%esi),%eax
+--
+80104df8:	eb 09                	jmp    80104e03 <release+0x13>
+80104dfa:	83 cf ff             	or     $0xffffffff,%edi
+80104dfd:	81 cf 32 57 05 00    	or     $0x55732,%edi
+80104e03:	eb 09                	jmp    80104e0e <release+0x1e>
+80104e05:	83 cf ff             	or     $0xffffffff,%edi
+80104e08:	81 cf 34 57 05 00    	or     $0x55734,%edi
+80104e0e:	e8 ad fe ff ff       	call   80104cc0 <pushcli>
+80104e13:	8b 03                	mov    (%ebx),%eax
+--
+80104e77:	eb 09                	jmp    80104e82 <acquire+0x12>
+80104e79:	83 cf ff             	or     $0xffffffff,%edi
+80104e7c:	81 cf 31 57 05 00    	or     $0x55731,%edi
+80104e82:	e8 39 fe ff ff       	call   80104cc0 <pushcli>
+80104e87:	8b 5d 08             	mov    0x8(%ebp),%ebx
+80104e8a:	eb 09                	jmp    80104e95 <acquire+0x25>
+80104e8c:	83 cf ff             	or     $0xffffffff,%edi
+80104e8f:	81 cf 34 57 05 00    	or     $0x55734,%edi
+80104e95:	e8 26 fe ff ff       	call   80104cc0 <pushcli>
+80104e9a:	8b 03                	mov    (%ebx),%eax
+--
+80104f1a:	eb 09                	jmp    80104f25 <memset+0x15>
+80104f1c:	83 cf ff             	or     $0xffffffff,%edi
+80104f1f:	81 cf 40 7e 05 00    	or     $0x57e40,%edi
+80104f25:	89 d0                	mov    %edx,%eax
+80104f27:	09 c8                	or     %ecx,%eax
+--
+80104f2d:	eb 09                	jmp    80104f38 <memset+0x28>
+80104f2f:	83 cf ff             	or     $0xffffffff,%edi
+80104f32:	81 cf b6 8f 06 00    	or     $0x68fb6,%edi
+80104f38:	0f b6 45 0c          	movzbl 0xc(%ebp),%eax
+80104f3c:	c1 e9 02             	shr    $0x2,%ecx
+--
+80104f58:	eb 09                	jmp    80104f63 <memset+0x53>
+80104f5a:	83 cf ff             	or     $0xffffffff,%edi
+80104f5d:	81 cf b5 8f 06 00    	or     $0x68fb5,%edi
+80104f63:	8b 45 0c             	mov    0xc(%ebp),%eax
+80104f66:	89 d7                	mov    %edx,%edi
+--
+80104f8e:	eb 09                	jmp    80104f99 <memcmp+0x19>
+80104f90:	83 cf ff             	or     $0xffffffff,%edi
+80104f93:	81 cf 41 7e 05 00    	or     $0x57e41,%edi
+80104f99:	85 f6                	test   %esi,%esi
+80104f9b:	74 2b                	je     80104fc8 <memcmp+0x48>
+--
+80104fde:	eb 09                	jmp    80104fe9 <memmove+0x19>
+80104fe0:	83 cf ff             	or     $0xffffffff,%edi
+80104fe3:	81 cf 42 7e 05 00    	or     $0x57e42,%edi
+80104fe9:	39 d6                	cmp    %edx,%esi
+80104feb:	73 2b                	jae    80105018 <memmove+0x48>
+--
+80105040:	eb 09                	jmp    8010504b <memcpy+0xb>
+80105042:	83 cf ff             	or     $0xffffffff,%edi
+80105045:	81 cf 43 7e 05 00    	or     $0x57e43,%edi
+8010504b:	eb 83                	jmp    80104fd0 <memmove>
+8010504d:	8d 76 00             	lea    0x0(%esi),%esi
+--
+8010505d:	eb 09                	jmp    80105068 <strncmp+0x18>
+8010505f:	83 cf ff             	or     $0xffffffff,%edi
+80105062:	81 cf 44 7e 05 00    	or     $0x57e44,%edi
+80105068:	85 d2                	test   %edx,%edx
+8010506a:	75 13                	jne    8010507f <strncmp+0x2f>
+--
+801050ac:	eb 09                	jmp    801050b7 <strncpy+0x17>
+801050ae:	83 cf ff             	or     $0xffffffff,%edi
+801050b1:	81 cf 45 7e 05 00    	or     $0x57e45,%edi
+801050b7:	89 f0                	mov    %esi,%eax
+801050b9:	eb 1a                	jmp    801050d5 <strncpy+0x35>
+--
+8010511e:	eb 09                	jmp    80105129 <safestrcpy+0x19>
+80105120:	83 cf ff             	or     $0xffffffff,%edi
+80105123:	81 cf 46 7e 05 00    	or     $0x57e46,%edi
+80105129:	85 d2                	test   %edx,%edx
+8010512b:	7e 22                	jle    8010514f <safestrcpy+0x3f>
+--
+80105166:	eb 09                	jmp    80105171 <strlen+0x11>
+80105168:	83 cf ff             	or     $0xffffffff,%edi
+8010516b:	81 cf 47 7e 05 00    	or     $0x57e47,%edi
+80105171:	31 c0                	xor    %eax,%eax
+80105173:	80 3a 00             	cmpb   $0x0,(%edx)
+--
+801051aa:	eb 09                	jmp    801051b5 <fetchint+0x15>
+801051ac:	83 cf ff             	or     $0xffffffff,%edi
+801051af:	81 cf 50 a5 05 00    	or     $0x5a550,%edi
+801051b5:	e8 d6 ee ff ff       	call   80104090 <myproc>
+801051ba:	8b 00                	mov    (%eax),%eax
+--
+801051ea:	eb 09                	jmp    801051f5 <fetchstr+0x15>
+801051ec:	83 cf ff             	or     $0xffffffff,%edi
+801051ef:	81 cf 51 a5 05 00    	or     $0x5a551,%edi
+801051f5:	e8 96 ee ff ff       	call   80104090 <myproc>
+801051fa:	3b 18                	cmp    (%eax),%ebx
+--
+80105245:	eb 09                	jmp    80105250 <argint+0x10>
+80105247:	83 cf ff             	or     $0xffffffff,%edi
+8010524a:	81 cf 52 a5 05 00    	or     $0x5a552,%edi
+80105250:	e8 3b ee ff ff       	call   80104090 <myproc>
+80105255:	8b 55 08             	mov    0x8(%ebp),%edx
+--
+80105264:	eb 09                	jmp    8010526f <argint+0x2f>
+80105266:	83 cf ff             	or     $0xffffffff,%edi
+80105269:	81 cf 50 a5 05 00    	or     $0x5a550,%edi
+8010526f:	e8 1c ee ff ff       	call   80104090 <myproc>
+80105274:	8b 00                	mov    (%eax),%eax
+--
+801052ab:	eb 09                	jmp    801052b6 <argptr+0x16>
+801052ad:	83 cf ff             	or     $0xffffffff,%edi
+801052b0:	81 cf 53 a5 05 00    	or     $0x5a553,%edi
+801052b6:	e8 d5 ed ff ff       	call   80104090 <myproc>
+801052bb:	83 ec 08             	sub    $0x8,%esp
+--
+8010530a:	eb 09                	jmp    80105315 <argstr+0x15>
+8010530c:	83 cf ff             	or     $0xffffffff,%edi
+8010530f:	81 cf 54 a5 05 00    	or     $0x5a554,%edi
+80105315:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80105318:	50                   	push   %eax
+--
+80105357:	eb 09                	jmp    80105362 <syscall+0x12>
+80105359:	83 cf ff             	or     $0xffffffff,%edi
+8010535c:	81 cf 55 a5 05 00    	or     $0x5a555,%edi
+80105362:	e8 29 ed ff ff       	call   80104090 <myproc>
+80105367:	89 c3                	mov    %eax,%ebx
+--
+801053d5:	eb 09                	jmp    801053e0 <create+0x20>
+801053d7:	83 cf ff             	or     $0xffffffff,%edi
+801053da:	81 cf 6a cc 05 00    	or     $0x5cc6a,%edi
+801053e0:	8d 7d da             	lea    -0x26(%ebp),%edi
+801053e3:	57                   	push   %edi
+--
+8010555c:	eb 09                	jmp    80105567 <argfd.constprop.0+0x17>
+8010555e:	83 cf ff             	or     $0xffffffff,%edi
+80105561:	81 cf 60 cc 05 00    	or     $0x5cc60,%edi
+80105567:	8d 45 f4             	lea    -0xc(%ebp),%eax
+8010556a:	50                   	push   %eax
+--
+801055b8:	eb 09                	jmp    801055c3 <sys_dup+0x13>
+801055ba:	83 cf ff             	or     $0xffffffff,%edi
+801055bd:	81 cf 62 cc 05 00    	or     $0x5cc62,%edi
+801055c3:	31 c0                	xor    %eax,%eax
+801055c5:	8d 55 f4             	lea    -0xc(%ebp),%edx
+--
+801055d4:	eb 09                	jmp    801055df <sys_dup+0x2f>
+801055d6:	83 cf ff             	or     $0xffffffff,%edi
+801055d9:	81 cf 61 cc 05 00    	or     $0x5cc61,%edi
+801055df:	e8 ac ea ff ff       	call   80104090 <myproc>
+801055e4:	31 db                	xor    %ebx,%ebx
+--
+80105636:	eb 09                	jmp    80105641 <sys_read+0x11>
+80105638:	83 cf ff             	or     $0xffffffff,%edi
+8010563b:	81 cf 63 cc 05 00    	or     $0x5cc63,%edi
+80105641:	31 c0                	xor    %eax,%eax
+80105643:	8d 55 ec             	lea    -0x14(%ebp),%edx
+--
+801056a6:	eb 09                	jmp    801056b1 <sys_write+0x11>
+801056a8:	83 cf ff             	or     $0xffffffff,%edi
+801056ab:	81 cf 64 cc 05 00    	or     $0x5cc64,%edi
+801056b1:	31 c0                	xor    %eax,%eax
+801056b3:	8d 55 ec             	lea    -0x14(%ebp),%edx
+--
+80105716:	eb 09                	jmp    80105721 <sys_close+0x11>
+80105718:	83 cf ff             	or     $0xffffffff,%edi
+8010571b:	81 cf 65 cc 05 00    	or     $0x5cc65,%edi
+80105721:	8d 55 f4             	lea    -0xc(%ebp),%edx
+80105724:	8d 45 f0             	lea    -0x10(%ebp),%eax
+--
+80105766:	eb 09                	jmp    80105771 <sys_fstat+0x11>
+80105768:	83 cf ff             	or     $0xffffffff,%edi
+8010576b:	81 cf 66 cc 05 00    	or     $0x5cc66,%edi
+80105771:	31 c0                	xor    %eax,%eax
+80105773:	8d 55 f0             	lea    -0x10(%ebp),%edx
+--
+801057c9:	eb 09                	jmp    801057d4 <sys_link+0x14>
+801057cb:	83 cf ff             	or     $0xffffffff,%edi
+801057ce:	81 cf 67 cc 05 00    	or     $0x5cc67,%edi
+801057d4:	8d 45 d4             	lea    -0x2c(%ebp),%eax
+801057d7:	50                   	push   %eax
+--
+80105919:	eb 09                	jmp    80105924 <sys_unlink+0x14>
+8010591b:	83 cf ff             	or     $0xffffffff,%edi
+8010591e:	81 cf 69 cc 05 00    	or     $0x5cc69,%edi
+80105924:	8d 45 c0             	lea    -0x40(%ebp),%eax
+80105927:	50                   	push   %eax
+--
+80105a40:	eb 09                	jmp    80105a4b <sys_unlink+0x13b>
+80105a42:	83 cf ff             	or     $0xffffffff,%edi
+80105a45:	81 cf 68 cc 05 00    	or     $0x5cc68,%edi
+80105a4b:	83 7b 58 20          	cmpl   $0x20,0x58(%ebx)
+80105a4f:	76 84                	jbe    801059d5 <sys_unlink+0xc5>
+--
+80105b09:	eb 09                	jmp    80105b14 <sys_open+0x14>
+80105b0b:	83 cf ff             	or     $0xffffffff,%edi
+80105b0e:	81 cf 6b cc 05 00    	or     $0x5cc6b,%edi
+80105b14:	8d 45 e0             	lea    -0x20(%ebp),%eax
+80105b17:	50                   	push   %eax
+--
+80105b8c:	eb 09                	jmp    80105b97 <sys_open+0x97>
+80105b8e:	83 cf ff             	or     $0xffffffff,%edi
+80105b91:	81 cf 61 cc 05 00    	or     $0x5cc61,%edi
+80105b97:	e8 f4 e4 ff ff       	call   80104090 <myproc>
+80105b9c:	31 db                	xor    %ebx,%ebx
+--
+80105c66:	eb 09                	jmp    80105c71 <sys_mkdir+0x11>
+80105c68:	83 cf ff             	or     $0xffffffff,%edi
+80105c6b:	81 cf 6c cc 05 00    	or     $0x5cc6c,%edi
+80105c71:	e8 8a d6 ff ff       	call   80103300 <begin_op>
+80105c76:	83 ec 08             	sub    $0x8,%esp
+--
+80105cd6:	eb 09                	jmp    80105ce1 <sys_mknod+0x11>
+80105cd8:	83 cf ff             	or     $0xffffffff,%edi
+80105cdb:	81 cf 6d cc 05 00    	or     $0x5cc6d,%edi
+80105ce1:	e8 1a d6 ff ff       	call   80103300 <begin_op>
+80105ce6:	83 ec 08             	sub    $0x8,%esp
+--
+80105d78:	eb 09                	jmp    80105d83 <sys_chdir+0x13>
+80105d7a:	83 cf ff             	or     $0xffffffff,%edi
+80105d7d:	81 cf 6e cc 05 00    	or     $0x5cc6e,%edi
+80105d83:	e8 08 e3 ff ff       	call   80104090 <myproc>
+80105d88:	89 c6                	mov    %eax,%esi
+--
+80105e2c:	eb 09                	jmp    80105e37 <sys_exec+0x17>
+80105e2e:	83 cf ff             	or     $0xffffffff,%edi
+80105e31:	81 cf 6f cc 05 00    	or     $0x5cc6f,%edi
+80105e37:	8d 85 5c ff ff ff    	lea    -0xa4(%ebp),%eax
+80105e3d:	50                   	push   %eax
+--
+80105f19:	eb 09                	jmp    80105f24 <sys_pipe+0x14>
+80105f1b:	83 cf ff             	or     $0xffffffff,%edi
+80105f1e:	81 cf 70 cc 05 00    	or     $0x5cc70,%edi
+80105f24:	8d 45 dc             	lea    -0x24(%ebp),%eax
+80105f27:	6a 08                	push   $0x8
+--
+80105f5a:	eb 09                	jmp    80105f65 <sys_pipe+0x55>
+80105f5c:	83 cf ff             	or     $0xffffffff,%edi
+80105f5f:	81 cf 61 cc 05 00    	or     $0x5cc61,%edi
+80105f65:	e8 26 e1 ff ff       	call   80104090 <myproc>
+80105f6a:	31 db                	xor    %ebx,%ebx
+--
+80105f92:	eb 09                	jmp    80105f9d <sys_pipe+0x8d>
+80105f94:	83 cf ff             	or     $0xffffffff,%edi
+80105f97:	81 cf 61 cc 05 00    	or     $0x5cc61,%edi
+80105f9d:	e8 ee e0 ff ff       	call   80104090 <myproc>
+80105fa2:	31 d2                	xor    %edx,%edx
+--
+80106010:	eb 09                	jmp    8010601b <sys_fork+0xb>
+80106012:	83 cf ff             	or     $0xffffffff,%edi
+80106015:	81 cf 70 f3 05 00    	or     $0x5f370,%edi
+8010601b:	e9 30 e2 ff ff       	jmp    80104250 <fork>
+
+--
+80106026:	eb 09                	jmp    80106031 <sys_exit+0x11>
+80106028:	83 cf ff             	or     $0xffffffff,%edi
+8010602b:	81 cf 71 f3 05 00    	or     $0x5f371,%edi
+80106031:	e8 ca e4 ff ff       	call   80104500 <exit>
+80106036:	31 c0                	xor    %eax,%eax
+--
+80106040:	eb 09                	jmp    8010604b <sys_wait+0xb>
+80106042:	83 cf ff             	or     $0xffffffff,%edi
+80106045:	81 cf 72 f3 05 00    	or     $0x5f372,%edi
+8010604b:	e9 f0 e5 ff ff       	jmp    80104640 <wait>
+
+--
+80106056:	eb 09                	jmp    80106061 <sys_kill+0x11>
+80106058:	83 cf ff             	or     $0xffffffff,%edi
+8010605b:	81 cf 73 f3 05 00    	or     $0x5f373,%edi
+80106061:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80106064:	50                   	push   %eax
+--
+80106096:	eb 09                	jmp    801060a1 <sys_getpid+0x11>
+80106098:	83 cf ff             	or     $0xffffffff,%edi
+8010609b:	81 cf 74 f3 05 00    	or     $0x5f374,%edi
+801060a1:	e8 ea df ff ff       	call   80104090 <myproc>
+801060a6:	8b 40 10             	mov    0x10(%eax),%eax
+--
+801060b7:	eb 09                	jmp    801060c2 <sys_sbrk+0x12>
+801060b9:	83 cf ff             	or     $0xffffffff,%edi
+801060bc:	81 cf 75 f3 05 00    	or     $0x5f375,%edi
+801060c2:	8d 45 f4             	lea    -0xc(%ebp),%eax
+801060c5:	50                   	push   %eax
+--
+80106107:	eb 09                	jmp    80106112 <sys_sleep+0x12>
+80106109:	83 cf ff             	or     $0xffffffff,%edi
+8010610c:	81 cf 76 f3 05 00    	or     $0x5f376,%edi
+80106112:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80106115:	50                   	push   %eax
+--
+801061b7:	eb 09                	jmp    801061c2 <sys_uptime+0x12>
+801061b9:	83 cf ff             	or     $0xffffffff,%edi
+801061bc:	81 cf 77 f3 05 00    	or     $0x5f377,%edi
+801061c2:	68 80 4c 11 80       	push   $0x80114c80
+801061c7:	e8 a4 ec ff ff       	call   80104e70 <acquire>
+--
+80106216:	eb 09                	jmp    80106221 <tvinit+0x11>
+80106218:	83 cf ff             	or     $0xffffffff,%edi
+8010621b:	81 cf 80 1a 06 00    	or     $0x61a80,%edi
+80106221:	31 c0                	xor    %eax,%eax
+80106223:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+--
+80106296:	eb 09                	jmp    801062a1 <idtinit+0x11>
+80106298:	83 cf ff             	or     $0xffffffff,%edi
+8010629b:	81 cf 81 1a 06 00    	or     $0x61a81,%edi
+801062a1:	eb 09                	jmp    801062ac <idtinit+0x1c>
+801062a3:	83 cf ff             	or     $0xffffffff,%edi
+801062a6:	81 cf b8 8f 06 00    	or     $0x68fb8,%edi
+801062ac:	b8 ff 07 00 00       	mov    $0x7ff,%eax
+801062b1:	66 89 45 fa          	mov    %ax,-0x6(%ebp)
+--
+801062dc:	eb 09                	jmp    801062e7 <trap+0x17>
+801062de:	83 cf ff             	or     $0xffffffff,%edi
+801062e1:	81 cf 82 1a 06 00    	or     $0x61a82,%edi
+801062e7:	8b 43 30             	mov    0x30(%ebx),%eax
+801062ea:	83 f8 40             	cmp    $0x40,%eax
+--
+80106570:	eb 09                	jmp    8010657b <uartgetc+0xb>
+80106572:	83 cf ff             	or     $0xffffffff,%edi
+80106575:	81 cf 92 41 06 00    	or     $0x64192,%edi
+8010657b:	a1 c0 54 11 80       	mov    0x801154c0,%eax
+80106580:	85 c0                	test   %eax,%eax
+--
+80106584:	eb 09                	jmp    8010658f <uartgetc+0x1f>
+80106586:	83 cf ff             	or     $0xffffffff,%edi
+80106589:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+8010658f:	ba fd 03 00 00       	mov    $0x3fd,%edx
+80106594:	ec                   	in     (%dx),%al
+--
+80106599:	eb 09                	jmp    801065a4 <uartgetc+0x34>
+8010659b:	83 cf ff             	or     $0xffffffff,%edi
+8010659e:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+801065a4:	ba f8 03 00 00       	mov    $0x3f8,%edx
+801065a9:	ec                   	in     (%dx),%al
+--
+801065c0:	eb 09                	jmp    801065cb <uartputc+0xb>
+801065c2:	83 cf ff             	or     $0xffffffff,%edi
+801065c5:	81 cf 91 41 06 00    	or     $0x64191,%edi
+801065cb:	a1 c0 54 11 80       	mov    0x801154c0,%eax
+801065d0:	85 c0                	test   %eax,%eax
+--
+801065d9:	eb 09                	jmp    801065e4 <uartputc+0x24>
+801065db:	83 cf ff             	or     $0xffffffff,%edi
+801065de:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+801065e4:	ba fd 03 00 00       	mov    $0x3fd,%edx
+801065e9:	ec                   	in     (%dx),%al
+--
+80106612:	eb 09                	jmp    8010661d <uartputc+0x5d>
+80106614:	83 cf ff             	or     $0xffffffff,%edi
+80106617:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+8010661d:	89 f2                	mov    %esi,%edx
+8010661f:	ec                   	in     (%dx),%al
+--
+80106624:	eb 09                	jmp    8010662f <uartputc+0x6f>
+80106626:	83 cf ff             	or     $0xffffffff,%edi
+80106629:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010662f:	ba f8 03 00 00       	mov    $0x3f8,%edx
+80106634:	8b 45 08             	mov    0x8(%ebp),%eax
+--
+80106659:	eb 09                	jmp    80106664 <uartinit+0x14>
+8010665b:	83 cf ff             	or     $0xffffffff,%edi
+8010665e:	81 cf 90 41 06 00    	or     $0x64190,%edi
+80106664:	eb 09                	jmp    8010666f <uartinit+0x1f>
+80106666:	83 cf ff             	or     $0xffffffff,%edi
+80106669:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010666f:	31 c9                	xor    %ecx,%ecx
+80106671:	bf fa 03 00 00       	mov    $0x3fa,%edi
+--
+8010667b:	eb 09                	jmp    80106686 <uartinit+0x36>
+8010667d:	83 cf ff             	or     $0xffffffff,%edi
+80106680:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+80106686:	be fb 03 00 00       	mov    $0x3fb,%esi
+8010668b:	b8 80 ff ff ff       	mov    $0xffffff80,%eax
+--
+80106693:	eb 09                	jmp    8010669e <uartinit+0x4e>
+80106695:	83 cf ff             	or     $0xffffffff,%edi
+80106698:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+8010669e:	b8 0c 00 00 00       	mov    $0xc,%eax
+801066a3:	ba f8 03 00 00       	mov    $0x3f8,%edx
+--
+801066a9:	eb 09                	jmp    801066b4 <uartinit+0x64>
+801066ab:	83 cf ff             	or     $0xffffffff,%edi
+801066ae:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801066b4:	bb f9 03 00 00       	mov    $0x3f9,%ebx
+801066b9:	89 c8                	mov    %ecx,%eax
+--
+801066be:	eb 09                	jmp    801066c9 <uartinit+0x79>
+801066c0:	83 cf ff             	or     $0xffffffff,%edi
+801066c3:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801066c9:	b8 03 00 00 00       	mov    $0x3,%eax
+801066ce:	89 f2                	mov    %esi,%edx
+--
+801066d1:	eb 09                	jmp    801066dc <uartinit+0x8c>
+801066d3:	83 cf ff             	or     $0xffffffff,%edi
+801066d6:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801066dc:	ba fc 03 00 00       	mov    $0x3fc,%edx
+801066e1:	89 c8                	mov    %ecx,%eax
+--
+801066e4:	eb 09                	jmp    801066ef <uartinit+0x9f>
+801066e6:	83 cf ff             	or     $0xffffffff,%edi
+801066e9:	81 cf b2 8f 06 00    	or     $0x68fb2,%edi
+801066ef:	b8 01 00 00 00       	mov    $0x1,%eax
+801066f4:	89 da                	mov    %ebx,%edx
+--
+801066f7:	eb 09                	jmp    80106702 <uartinit+0xb2>
+801066f9:	83 cf ff             	or     $0xffffffff,%edi
+801066fc:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80106702:	ba fd 03 00 00       	mov    $0x3fd,%edx
+80106707:	ec                   	in     (%dx),%al
+--
+80106716:	eb 09                	jmp    80106721 <uartinit+0xd1>
+80106718:	83 cf ff             	or     $0xffffffff,%edi
+8010671b:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+80106721:	89 fa                	mov    %edi,%edx
+80106723:	ec                   	in     (%dx),%al
+80106724:	eb 09                	jmp    8010672f <uartinit+0xdf>
+80106726:	83 cf ff             	or     $0xffffffff,%edi
+80106729:	81 cf b0 8f 06 00    	or     $0x68fb0,%edi
+8010672f:	ba f8 03 00 00       	mov    $0x3f8,%edx
+80106734:	ec                   	in     (%dx),%al
+--
+80106776:	eb 09                	jmp    80106781 <uartintr+0x11>
+80106778:	83 cf ff             	or     $0xffffffff,%edi
+8010677b:	81 cf 93 41 06 00    	or     $0x64193,%edi
+80106781:	68 70 65 10 80       	push   $0x80106570
+80106786:	e8 e5 a1 ff ff       	call   80100970 <consoleintr>
+--
+8010721c:	eb 09                	jmp    80107227 <mappages+0x17>
+8010721e:	83 cf ff             	or     $0xffffffff,%edi
+80107221:	81 cf a2 68 06 00    	or     $0x668a2,%edi
+80107227:	8d 44 0a ff          	lea    -0x1(%edx,%ecx,1),%eax
+8010722b:	89 d3                	mov    %edx,%ebx
+--
+80107287:	eb 09                	jmp    80107292 <mappages+0x82>
+80107289:	83 cf ff             	or     $0xffffffff,%edi
+8010728c:	81 cf a1 68 06 00    	or     $0x668a1,%edi
+80107292:	8b 4d e0             	mov    -0x20(%ebp),%ecx
+80107295:	89 d8                	mov    %ebx,%eax
+--
+80107316:	eb 09                	jmp    80107321 <seginit+0x11>
+80107318:	83 cf ff             	or     $0xffffffff,%edi
+8010731b:	81 cf a0 68 06 00    	or     $0x668a0,%edi
+80107321:	e8 3a cd ff ff       	call   80104060 <cpuid>
+80107326:	69 c0 b0 00 00 00    	imul   $0xb0,%eax,%eax
+--
+80107381:	eb 09                	jmp    8010738c <seginit+0x7c>
+80107383:	83 cf ff             	or     $0xffffffff,%edi
+80107386:	81 cf b7 8f 06 00    	or     $0x68fb7,%edi
+8010738c:	ba 2f 00 00 00       	mov    $0x2f,%edx
+80107391:	66 89 55 f2          	mov    %dx,-0xe(%ebp)
+--
+801073b0:	eb 09                	jmp    801073bb <switchkvm+0xb>
+801073b2:	83 cf ff             	or     $0xffffffff,%edi
+801073b5:	81 cf a5 68 06 00    	or     $0x668a5,%edi
+801073bb:	eb 09                	jmp    801073c6 <switchkvm+0x16>
+801073bd:	83 cf ff             	or     $0xffffffff,%edi
+801073c0:	81 cf bd 8f 06 00    	or     $0x68fbd,%edi
+801073c6:	a1 c4 54 11 80       	mov    0x801154c4,%eax
+801073cb:	05 00 00 00 80       	add    $0x80000000,%eax
+--
+801073ec:	eb 09                	jmp    801073f7 <switchuvm+0x17>
+801073ee:	83 cf ff             	or     $0xffffffff,%edi
+801073f1:	81 cf a6 68 06 00    	or     $0x668a6,%edi
+801073f7:	85 f6                	test   %esi,%esi
+801073f9:	0f 84 e1 00 00 00    	je     801074e0 <switchuvm+0x100>
+--
+801074ab:	eb 09                	jmp    801074b6 <switchuvm+0xd6>
+801074ad:	83 cf ff             	or     $0xffffffff,%edi
+801074b0:	81 cf b9 8f 06 00    	or     $0x68fb9,%edi
+801074b6:	b8 28 00 00 00       	mov    $0x28,%eax
+801074bb:	0f 00 d8             	ltr    %ax
+801074be:	eb 09                	jmp    801074c9 <switchuvm+0xe9>
+801074c0:	83 cf ff             	or     $0xffffffff,%edi
+801074c3:	81 cf bd 8f 06 00    	or     $0x68fbd,%edi
+801074c9:	8b 46 04             	mov    0x4(%esi),%eax
+801074cc:	05 00 00 00 80       	add    $0x80000000,%eax
+--
+80107525:	eb 09                	jmp    80107530 <inituvm+0x20>
+80107527:	83 cf ff             	or     $0xffffffff,%edi
+8010752a:	81 cf a7 68 06 00    	or     $0x668a7,%edi
+80107530:	81 fe ff 0f 00 00    	cmp    $0xfff,%esi
+80107536:	77 49                	ja     80107581 <inituvm+0x71>
+--
+8010759c:	eb 09                	jmp    801075a7 <loaduvm+0x17>
+8010759e:	83 cf ff             	or     $0xffffffff,%edi
+801075a1:	81 cf a8 68 06 00    	or     $0x668a8,%edi
+801075a7:	8b 75 0c             	mov    0xc(%ebp),%esi
+801075aa:	81 e6 ff 0f 00 00    	and    $0xfff,%esi
+--
+801075c0:	eb 09                	jmp    801075cb <loaduvm+0x3b>
+801075c2:	83 cf ff             	or     $0xffffffff,%edi
+801075c5:	81 cf a1 68 06 00    	or     $0x668a1,%edi
+801075cb:	8b 45 0c             	mov    0xc(%ebp),%eax
+801075ce:	8b 55 08             	mov    0x8(%ebp),%edx
+--
+8010768f:	eb 09                	jmp    8010769a <deallocuvm+0x1a>
+80107691:	83 cf ff             	or     $0xffffffff,%edi
+80107694:	81 cf aa 68 06 00    	or     $0x668aa,%edi
+8010769a:	89 f0                	mov    %esi,%eax
+8010769c:	39 75 10             	cmp    %esi,0x10(%ebp)
+--
+801076cc:	eb 09                	jmp    801076d7 <deallocuvm+0x57>
+801076ce:	83 cf ff             	or     $0xffffffff,%edi
+801076d1:	81 cf a1 68 06 00    	or     $0x668a1,%edi
+801076d7:	89 d8                	mov    %ebx,%eax
+801076d9:	c1 e8 16             	shr    $0x16,%eax
+--
+8010776c:	eb 09                	jmp    80107777 <allocuvm+0x17>
+8010776e:	83 cf ff             	or     $0xffffffff,%edi
+80107771:	81 cf a9 68 06 00    	or     $0x668a9,%edi
+80107777:	85 f6                	test   %esi,%esi
+80107779:	0f 88 96 00 00 00    	js     80107815 <allocuvm+0xb5>
+--
+8010788c:	eb 09                	jmp    80107897 <freevm+0x17>
+8010788e:	83 cf ff             	or     $0xffffffff,%edi
+80107891:	81 cf ab 68 06 00    	or     $0x668ab,%edi
+80107897:	85 f6                	test   %esi,%esi
+80107899:	74 5e                	je     801078f9 <freevm+0x79>
+--
+80107915:	eb 09                	jmp    80107920 <setupkvm+0x10>
+80107917:	83 cf ff             	or     $0xffffffff,%edi
+8010791a:	81 cf a3 68 06 00    	or     $0x668a3,%edi
+80107920:	e8 9b b0 ff ff       	call   801029c0 <kalloc>
+80107925:	85 c0                	test   %eax,%eax
+--
+801079a6:	eb 09                	jmp    801079b1 <kvmalloc+0x11>
+801079a8:	83 cf ff             	or     $0xffffffff,%edi
+801079ab:	81 cf a4 68 06 00    	or     $0x668a4,%edi
+801079b1:	e8 5a ff ff ff       	call   80107910 <setupkvm>
+801079b6:	a3 c4 54 11 80       	mov    %eax,0x801154c4
+801079bb:	eb 09                	jmp    801079c6 <kvmalloc+0x26>
+801079bd:	83 cf ff             	or     $0xffffffff,%edi
+801079c0:	81 cf a5 68 06 00    	or     $0x668a5,%edi
+801079c6:	eb 09                	jmp    801079d1 <kvmalloc+0x31>
+801079c8:	83 cf ff             	or     $0xffffffff,%edi
+801079cb:	81 cf bd 8f 06 00    	or     $0x68fbd,%edi
+801079d1:	05 00 00 00 80       	add    $0x80000000,%eax
+801079d6:	0f 22 d8             	mov    %eax,%cr3
+--
+801079e9:	eb 09                	jmp    801079f4 <clearpteu+0x14>
+801079eb:	83 cf ff             	or     $0xffffffff,%edi
+801079ee:	81 cf ac 68 06 00    	or     $0x668ac,%edi
+801079f4:	eb 09                	jmp    801079ff <clearpteu+0x1f>
+801079f6:	83 cf ff             	or     $0xffffffff,%edi
+801079f9:	81 cf a1 68 06 00    	or     $0x668a1,%edi
+801079ff:	8b 55 08             	mov    0x8(%ebp),%edx
+80107a02:	89 c1                	mov    %eax,%ecx
+--
+80107a49:	eb 09                	jmp    80107a54 <copyuvm+0x14>
+80107a4b:	83 cf ff             	or     $0xffffffff,%edi
+80107a4e:	81 cf ad 68 06 00    	or     $0x668ad,%edi
+80107a54:	e8 b7 fe ff ff       	call   80107910 <setupkvm>
+80107a59:	89 45 e0             	mov    %eax,-0x20(%ebp)
+--
+80107a78:	eb 09                	jmp    80107a83 <copyuvm+0x43>
+80107a7a:	83 cf ff             	or     $0xffffffff,%edi
+80107a7d:	81 cf a1 68 06 00    	or     $0x668a1,%edi
+80107a83:	8b 4d 08             	mov    0x8(%ebp),%ecx
+80107a86:	89 f0                	mov    %esi,%eax
+--
+80107b86:	eb 09                	jmp    80107b91 <uva2ka+0x11>
+80107b88:	83 cf ff             	or     $0xffffffff,%edi
+80107b8b:	81 cf ae 68 06 00    	or     $0x668ae,%edi
+80107b91:	eb 09                	jmp    80107b9c <uva2ka+0x1c>
+80107b93:	83 cf ff             	or     $0xffffffff,%edi
+80107b96:	81 cf a1 68 06 00    	or     $0x668a1,%edi
+80107b9c:	8b 55 08             	mov    0x8(%ebp),%edx
+80107b9f:	89 c1                	mov    %eax,%ecx
+--
+80107bff:	eb 09                	jmp    80107c0a <copyout+0x1a>
+80107c01:	83 cf ff             	or     $0xffffffff,%edi
+80107c04:	81 cf af 68 06 00    	or     $0x668af,%edi
+80107c0a:	85 f6                	test   %esi,%esi
+80107c0c:	75 35                	jne    80107c43 <copyout+0x53>

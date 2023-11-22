@@ -398,7 +398,7 @@ BX_CPU_C::read_linear_word(unsigned s, bx_address laddr)
 }
 
   Bit32u BX_CPP_AttrRegparmN(2)
-BX_CPU_C::read_linear_dword(unsigned s, bx_address laddr)
+BX_CPU_C::read_linear_dword(unsigned s, bx_address laddr)//给定 段选择子s 和 地址laddr(类似eip) ,读取4个字节 
 {
   Bit32u data;
 
@@ -427,7 +427,7 @@ BX_CPU_C::read_linear_dword(unsigned s, bx_address laddr)
 }
 
   Bit64u BX_CPP_AttrRegparmN(2)
-BX_CPU_C::read_linear_qword(unsigned s, bx_address laddr)
+BX_CPU_C::read_linear_qword(unsigned s, bx_address laddr)//给定 段选择子s 和 地址laddr(类似eip) ,读取8个字节 
 {
   Bit64u data;
 
