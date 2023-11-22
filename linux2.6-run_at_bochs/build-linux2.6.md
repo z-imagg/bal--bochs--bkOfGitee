@@ -57,10 +57,12 @@ grep -Hn  KBUILD_CFLAGS `pwd`/Makefile
 ```
 ### 报错解决:
 > ```-fno-pie``` 是手工添加的, 否则 make 时 报错: ```cc1: error: code model kernel does not support PIC mode```
-```
+
 ## E2. make menuconfig时报错: Install ncurses (ncurses-devel) and try again.
-> ```make menuconfig``` 报错如下:
-```
+
+> ``` make menuconfig``` 报错如下:
+
+```text
   HOSTCC  scripts/basic/fixdep
   HOSTCC  scripts/basic/docproc
   HOSTCC  scripts/kconfig/conf.o
