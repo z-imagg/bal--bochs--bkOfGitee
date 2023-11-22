@@ -28,7 +28,7 @@
 const char *segname[] = { "ES", "CS", "SS", "DS", "FS", "GS" };
 
 void BX_CPP_AttrRegparmN(2) BX_CPU_C::load_segw(bxInstruction_c *i, unsigned seg)
-{//段寄存器
+{//段寄存器变更 加日志点 已标记
   bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
 
   Bit16u segsel = read_virtual_word(i->seg(), (eaddr + 2) & i->asize_mask());
@@ -68,7 +68,7 @@ void BX_CPP_AttrRegparmN(2) BX_CPU_C::load_segq(bxInstruction_c *i, unsigned seg
 // LES/LDS can't be called from long64 mode
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LES_GwMp(bxInstruction_c *i)
 {
-  load_segw(i, BX_SEG_REG_ES);
+  load_segw(i, BX_SEG_REG_ES);//忽略ES修改
 
   BX_NEXT_INSTR(i);
 }
@@ -76,7 +76,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LES_GwMp(bxInstruction_c *i)
 // LES/LDS can't be called from long64 mode
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LES_GdMp(bxInstruction_c *i)
 {
-  load_segd(i, BX_SEG_REG_ES);
+  load_segd(i, BX_SEG_REG_ES);//忽略ES修改
 
   BX_NEXT_INSTR(i);
 }
@@ -84,7 +84,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LES_GdMp(bxInstruction_c *i)
 // LES/LDS can't be called from long64 mode
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LDS_GwMp(bxInstruction_c *i)
 {
-  load_segw(i, BX_SEG_REG_DS);
+  load_segw(i, BX_SEG_REG_DS);//忽略DS修改
 
   BX_NEXT_INSTR(i);
 }
@@ -92,21 +92,21 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LDS_GwMp(bxInstruction_c *i)
 // LES/LDS can't be called from long64 mode
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LDS_GdMp(bxInstruction_c *i)
 {
-  load_segd(i, BX_SEG_REG_DS);
+  load_segd(i, BX_SEG_REG_DS);//忽略DS修改
 
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LFS_GwMp(bxInstruction_c *i)
 {
-  load_segw(i, BX_SEG_REG_FS);
+  load_segw(i, BX_SEG_REG_FS);//忽略FS修改
 
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LFS_GdMp(bxInstruction_c *i)
 {
-  load_segd(i, BX_SEG_REG_FS);
+  load_segd(i, BX_SEG_REG_FS);//忽略FS修改
 
   BX_NEXT_INSTR(i);
 }
@@ -114,7 +114,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LFS_GdMp(bxInstruction_c *i)
 #if BX_SUPPORT_X86_64
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LFS_GqMp(bxInstruction_c *i)
 {
-  load_segq(i, BX_SEG_REG_FS);
+  load_segq(i, BX_SEG_REG_FS);//忽略FS修改
 
   BX_NEXT_INSTR(i);
 }
@@ -122,14 +122,14 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LFS_GqMp(bxInstruction_c *i)
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGS_GwMp(bxInstruction_c *i)
 {
-  load_segw(i, BX_SEG_REG_GS);
+  load_segw(i, BX_SEG_REG_GS);//忽略GS修改
 
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGS_GdMp(bxInstruction_c *i)
 {
-  load_segd(i, BX_SEG_REG_GS);
+  load_segd(i, BX_SEG_REG_GS);//忽略GS修改
 
   BX_NEXT_INSTR(i);
 }
@@ -137,7 +137,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGS_GdMp(bxInstruction_c *i)
 #if BX_SUPPORT_X86_64
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGS_GqMp(bxInstruction_c *i)
 {
-  load_segq(i, BX_SEG_REG_GS);
+  load_segq(i, BX_SEG_REG_GS);//忽略GS修改
 
   BX_NEXT_INSTR(i);
 }
@@ -145,14 +145,14 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGS_GqMp(bxInstruction_c *i)
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LSS_GwMp(bxInstruction_c *i)
 {
-  load_segw(i, BX_SEG_REG_SS);
+  load_segw(i, BX_SEG_REG_SS);//指令LSS_GwMp模拟函数, 修改SS, 记录一条日志
 
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LSS_GdMp(bxInstruction_c *i)
 {
-  load_segd(i, BX_SEG_REG_SS);
+  load_segd(i, BX_SEG_REG_SS);//SS修改，记录一条日志
 
   BX_NEXT_INSTR(i);
 }
@@ -160,7 +160,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LSS_GdMp(bxInstruction_c *i)
 #if BX_SUPPORT_X86_64
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LSS_GqMp(bxInstruction_c *i)
 {
-  load_segq(i, BX_SEG_REG_SS);
+  load_segq(i, BX_SEG_REG_SS);//SS修改，记录一条日志
 
   BX_NEXT_INSTR(i);
 }

@@ -559,6 +559,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Ap(bxInstruction_c *i)
   cs_raw = i->Iw2();
 
   jmp_far32(i, cs_raw, disp32);
+  //指令JMP_Ap模拟函数, 记录一条日志
 
   BX_NEXT_TRACE(i);
 }
@@ -585,6 +586,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP32_Ep(bxInstruction_c *i)
   Bit16u cs_raw = read_virtual_word (i->seg(), (eaddr+4) & i->asize_mask());
 
   jmp_far32(i, cs_raw, op1_32);
+  //记录一条日志
 
   BX_NEXT_TRACE(i);
 }
