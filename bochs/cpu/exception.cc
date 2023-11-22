@@ -629,7 +629,7 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
       // load new CS:eIP values from gate
       // set CPL to new code segment DPL
       // set RPL of CS to CPL
-      load_cs(BX_Load_cs_Caller__protected_mode_int__BX_386_TRAP_GATE__1,&cs_selector, &cs_descriptor, cs_descriptor.dpl);//caller: protected_mode_int__BX_386_TRAP_GATE__1
+      load_cs(&cs_selector, &cs_descriptor, cs_descriptor.dpl);
 
       // load new SS:eSP values from TSS
       load_ss(&ss_selector, &ss_descriptor, cs_descriptor.dpl);
@@ -705,7 +705,7 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
       // load CS:IP from gate
       // load CS descriptor
       // set the RPL field of CS to CPL
-      load_cs(BX_Load_cs_Caller__protected_mode_int__BX_386_TRAP_GATE__2,&cs_selector, &cs_descriptor, CPL);//caller: protected_mode_int__BX_386_TRAP_GATE__2
+      load_cs(&cs_selector, &cs_descriptor, CPL);
     }
 
     EIP = gate_dest_offset;

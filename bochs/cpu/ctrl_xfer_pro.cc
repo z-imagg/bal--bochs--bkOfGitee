@@ -77,7 +77,7 @@ void BX_CPU_C::check_cs(bx_descriptor_t *descriptor, Bit16u cs_raw, Bit8u check_
 }
 
   void BX_CPP_AttrRegparmN(3)
-BX_CPU_C::load_cs(int load_cs__caller, bx_selector_t *selector, bx_descriptor_t *descriptor, Bit8u cpl)
+BX_CPU_C::load_cs(bx_selector_t *selector, bx_descriptor_t *descriptor, Bit8u cpl)
 {
   // Add cpl to the selector value.
   selector->value = (0xfffc & selector->value) | cpl;
@@ -146,7 +146,7 @@ void BX_CPU_C::branch_far(bx_selector_t *selector, bx_descriptor_t *descriptor, 
 
   /* Load CS:IP from destination pointer */
   /* Load CS-cache with new segment descriptor */
-  load_cs(BX_Load_cs_Caller__branch_far,selector, descriptor, cpl);//caller: branch_far
+  load_cs(selector, descriptor, cpl);
 
   /* Change the RIP value */
   RIP = rip;
