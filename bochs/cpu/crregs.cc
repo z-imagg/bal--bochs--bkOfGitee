@@ -387,7 +387,7 @@ const Bit64u BX_SVM_CR_WRITE_MASK = (BX_CONST64(1) << 63);
 #endif
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指令 MOV
-{
+{//CR0
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -420,7 +420,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指�
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
-{
+{//CR2
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -444,7 +444,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
-{
+{//CR3
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -489,7 +489,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
-{
+{//CR4
 #if BX_CPU_LEVEL >= 5
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
@@ -514,7 +514,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
-{
+{//CR0
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -547,7 +547,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
-{
+{//CR2
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -567,7 +567,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
-{
+{//CR3
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
     BX_ERROR(("%s: CPL!=0 not in real mode", i->getIaOpcodeNameShort()));
@@ -594,7 +594,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
-{
+{//CR4
 #if BX_CPU_LEVEL >= 5
   // CPL is always 0 in real mode
   if (/* !real_mode() && */ CPL!=0) {
@@ -619,7 +619,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
 
 #if BX_SUPPORT_X86_64
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rq(bxInstruction_c *i)
-{
+{//CR0
   if (CPL!=0) {
     BX_ERROR(("%s: #GP(0) if CPL is not 0", i->getIaOpcodeNameShort()));
     exception(BX_GP_EXCEPTION, 0);
@@ -648,7 +648,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rq(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rq(bxInstruction_c *i)
-{
+{//CR2
   if (i->dst() != 2) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -676,7 +676,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rq(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rq(bxInstruction_c *i)
-{
+{//CR3
   if (i->dst() != 3) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -722,7 +722,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rq(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rq(bxInstruction_c *i)
-{
+{//CR4
   if (i->dst() != 4) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -749,7 +749,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rq(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR0(bxInstruction_c *i)
-{
+{//CR0
   if (CPL!=0) {
     BX_ERROR(("%s: #GP(0) if CPL is not 0", i->getIaOpcodeNameShort()));
     exception(BX_GP_EXCEPTION, 0);
@@ -779,7 +779,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR0(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR2(bxInstruction_c *i)
-{
+{//CR2
   if (i->src() != 2) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -803,7 +803,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR2(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR3(bxInstruction_c *i)
-{
+{//CR3
   if (i->src() != 3) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);
@@ -832,7 +832,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR3(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR4(bxInstruction_c *i)
-{
+{//CR4
   if (i->src() != 4) {
     BX_ERROR(("%s: #UD - register index out of range", i->getIaOpcodeNameShort()));
     exception(BX_UD_EXCEPTION, 0);

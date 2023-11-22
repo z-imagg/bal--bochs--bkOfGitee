@@ -28,7 +28,7 @@
 const char *segname[] = { "ES", "CS", "SS", "DS", "FS", "GS" };
 
 void BX_CPP_AttrRegparmN(2) BX_CPU_C::load_segw(bxInstruction_c *i, unsigned seg)
-{
+{//段寄存器
   bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
 
   Bit16u segsel = read_virtual_word(i->seg(), (eaddr + 2) & i->asize_mask());

@@ -18,7 +18,7 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA B 02110-1301 USA
 /////////////////////////////////////////////////////////////////////////
-
+//段寄存器
 #define NEED_CPU_REG_SHORTCUTS 1
 #include <string>
 #include <fmt/core.h>

@@ -324,7 +324,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::SLDT_Ew(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
-{
+{//str指令:save保存 任务状态寄存器TR
   if (! protected_mode()) {
     BX_ERROR(("STR: not recognized in real or virtual-8086 mode"));
     exception(BX_UD_EXCEPTION, 0);
@@ -368,7 +368,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
-{
+{//LLDT: 修改(加载Load) 局部描述符表LDT
   /* protected mode */
   bx_descriptor_t  descriptor;
   bx_selector_t    selector;
@@ -477,7 +477,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
-{
+{//LTR指令:load加载(修改) 任务状态寄存器TR
   bx_descriptor_t descriptor;
   bx_selector_t selector;
   Bit16u raw_selector;
