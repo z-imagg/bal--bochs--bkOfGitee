@@ -459,9 +459,9 @@ void BX_CPU_C::task_switch(bxInstruction_c *i, bx_selector_t *tss_selector,
 
   // Step 8: Load the task register with the segment selector and
   //         descriptor for the new task TSS.
-
-  BX_CPU_THIS_PTR tr.selector = *tss_selector;
-  BX_CPU_THIS_PTR tr.cache    = *tss_descriptor;
+//"[李忠_王晓波]_x86汇编语言从实模式到保护模式-次清晰-170MB-375页全.pdf"(https://www.aliyundrive.com/drive/file/resource/655dcb2d8cc9fbe2f8f04275af1226c93436c652) 纸质页面297页，“在任务切换时，处理执行以下操作：” 的 第11步 “用新的TSS选择子和TSS描述符加载任务寄存器TR” 即 使 任务寄存器TR 指向新的TSS选择子和新的TSS描述符。由此可知，任务切换一定会修改tr, 而以下两行正是修改tr
+  BX_CPU_THIS_PTR tr.selector = *tss_selector;//修改tr.selector即 TR指向的TSS选择子
+  BX_CPU_THIS_PTR tr.cache    = *tss_descriptor;//修改tr.cache即 TR指向的TSS描述符 （TR指向的TSS选择子   指向此TSS描述符）
   BX_CPU_THIS_PTR tr.cache.type |= 2; // mark TSS in TR as busy
 
   // Step 9: Set TS flag in the CR0 image stored in the new task TSS.

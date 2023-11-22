@@ -579,9 +579,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     }
   }
 #endif
-
-  BX_CPU_THIS_PTR tr.selector = selector;
-  BX_CPU_THIS_PTR tr.cache    = descriptor;
+//以下两行，疑似任务切换
+  BX_CPU_THIS_PTR tr.selector = selector;//修改tr.selector即 TR指向的TSS选择子
+  BX_CPU_THIS_PTR tr.cache    = descriptor;//修改tr.cache即 TR指向的TSS描述符 （TR指向的TSS选择子   指向此TSS描述符）
   BX_CPU_THIS_PTR tr.cache.valid = SegValidCache;
   // tr.cache.type should not have busy bit, or it would not get
   // through the conditions above.
