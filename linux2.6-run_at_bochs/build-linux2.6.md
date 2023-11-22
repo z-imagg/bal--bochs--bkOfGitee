@@ -80,3 +80,109 @@ make: *** [menuconfig] Error 2
 ```
 ### 报错解决: ```sudo apt install libncurses5```
 
+## E3. make时报错 include/linux/compiler-gcc.h:90:30: fatal error: linux/compiler-gcc5.h: No such file or directory
+### 报错解决: linux kernel 2.6 不能使用gcc5编译 应该使用gcc4.9编译.
+
+#### 原本的gcc5、g++5
+```shell
+gcc --version
+#gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609
+#Copyright (C) 2015 Free Software Foundation, Inc.
+#This is free software; see the source for copying conditions.  There is NO
+#warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+g++ --version
+#g++ (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609
+#Copyright (C) 2015 Free Software Foundation, Inc.
+#This is free software; see the source for copying conditions.  There is NO
+#warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+```
+
+#### 安装gcc4.9
+##### 添加仓库
+```shell
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+
+sudo apt-get update
+
+```
+
+##### 安装gcc-4.9 g++-4.9
+```
+
+sudo apt-get install -y gcc-4.9
+sudo apt-get install -y g++-4.9
+
+```
+
+##### 切换到gcc-4.9 g++-4.9
+
+
+###### debian系 update-alternatives管理命令 用法
+- 查看全部 ```sudo update-alternatives --all```
+- 查看 ```sudo update-alternatives --config cc```
+- 安装 
+```sudo update-alternatives --install /usr/bin/gcc cc /usr/bin/gcc-5 100```
+```sudo update-alternatives --install /usr/bin/gcc cc /usr/bin/gcc-4.9 99```
+- 删除
+```sudo update-alternatives --remove cc /usr/bin/gcc-4.9```
+- 更改
+```sudo update-alternatives --config cc```
+
+
+###### 切换到gcc4.9  g++-4.9 
+
+####### 切换到gcc4.9
+```shell
+#查看全部
+sudo update-alternatives --all
+
+#查看
+sudo update-alternatives --config cc
+
+#删除
+sudo update-alternatives --remove cc /usr/bin/gcc-4.9
+sudo update-alternatives --remove cc /usr/bin/gcc-5
+
+#安装
+sudo update-alternatives --install /usr/bin/gcc cc /usr/bin/gcc-4.9 100
+sudo update-alternatives --install /usr/bin/gcc cc /usr/bin/gcc-5 99
+#优先级 : 100比99 更优先
+
+```
+
+> 实测: 已切换到 gcc-4.9 
+```shell
+gcc --version
+#gcc (Ubuntu 4.9.4-2ubuntu1~16.04) 4.9.4
+
+```
+
+
+####### 切换到g++4.9
+```shell
+#查看全部
+sudo update-alternatives --all
+
+#查看
+sudo update-alternatives --config c++
+
+#删除
+sudo update-alternatives --remove c++ /usr/bin/g++-4.9
+sudo update-alternatives --remove c++ /usr/bin/g++-5
+
+#安装
+sudo update-alternatives --install /usr/bin/g++ c++ /usr/bin/g++-4.9 100
+sudo update-alternatives --install /usr/bin/g++ c++ /usr/bin/g++-5 99
+#优先级 : 100比99 更优先
+
+```
+
+> 实测: 已切换到 g++-4.9
+```shell
+g++ --version
+#g++ (Ubuntu 4.9.4-2ubuntu1~16.04) 4.9.4
+
+```
