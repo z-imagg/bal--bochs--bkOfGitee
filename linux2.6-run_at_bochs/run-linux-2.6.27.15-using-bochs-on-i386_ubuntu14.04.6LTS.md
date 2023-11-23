@@ -32,32 +32,8 @@ bochs --version
 > 第5节内 当前目录都是 ```#pwd==/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15-grub0.97/```
 
 
-> 5.1 - 5.4 用disk-genius完成
-## 5.1 建立磁盘
- 
 
-## 5.2 建立分区
- 
-
-## 5.3 查看分区
- 
-
-
-## 5.4 格式化分区
-
-
-
-## 5.5 挂载分区
-```sudo mount -o loop /dev/loop0 /mnt```
----
-```df -h```
-```text
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/loop1      9.8M     0  9.8M   0% /mnt
-```
----
-
-## 5.6 下载grup0.97并解压
+## 5.1 下载grup0.97并解压
 >参考: https://www.aioboot.com/en/grub-legacy/
 - 下载
 ```shell
@@ -76,15 +52,14 @@ ls grub_0.97/usr/lib/grub/i386-pc/
 #e2fs_stage1_5  fat_stage1_5  jfs_stage1_5  minix_stage1_5  reiserfs_stage1_5  stage1  stage2  stage2_eltorito  xfs_stage1_5
 ```
 
+## 5.2  用disk-genius完成 ：
+-  建立磁盘 
+-  建立分区 
+-  查看分区  
+-  格式化分区 
+-  安装grub0.97到分区
 
-## 5.6 安装grub0.97到分区
-```shell
-sudo mkdir -p /mnt/boot/grub
-
-gSrc=`pwd`/grub_0.97/usr/lib/grub/i386-pc/
-sudo cp -v $gSrc/fat_stage1_5 $gSrc/stage1 $gSrc/stage2 /mnt/boot/grub/
-```
-## 5.7 填写grub的menu.lst
+## 5.3 填写grub的menu.lst
 echo '
 default=0
 timeout=500
@@ -93,28 +68,29 @@ root (hd0,0)
 kernel /kernel.bin
 ' | sudo tee /mnt/boot/grub/menu.lst
 
-## 5.8 卸载分区
+## 5.4 挂载分区
+```
+sudo losetup --offset $((63*512)) /dev/loop0 10M.img
+sudo mount -o loop /dev/loop0 /mnt
+```
+---
+```df -h```
+```text
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop1      9.8M     0  9.8M   0% /mnt
+```
+---
+
+## 5.5 卸载分区
 ```shell
 sudo umount /mnt
 sudo losetup --detach /dev/loop0
 ```
 
-#6. grub0.97引导vmlinux
+#6. bochs启动 grub0.97+vmlinux
 
 
 ```shell
 
 ```
-> 以下参考jeanleo博文[Bochs调试linux内核环境搭建笔记（1）: "grub2+bzImage"-->hd0.img, 并用bochs启动hd0.img](https://www.jeanleo.com/?p=38)
-#5. 用bochs启动grub2
-
-```shell
-
-```
-
-
-#6. grub2引导vmlinux
-
-```shell
-
-```
+ 
