@@ -1,3 +1,6 @@
+**正常编译 linux-2.6.39.4.tar.gz 在 "宿主机x64 ubuntu23.04 中的 docker实例 i386/ubuntu14.04.6LTS : 注意docker实例中依然是x64环境 并非i386环境" 下 **
+
+
 #0. 编译环境
 ```shell
 sudo docker pull ubuntu:14.04.6
@@ -261,6 +264,6 @@ make: *** [arch/x86] Error 2
 
 ```
 
-### 解决方法：打算放弃真机ubuntu16.04 ，而改用docker下的ubuntu14.04
+### 解决方法： 放弃真机ubuntu16.04 ，而改用docker下的ubuntu14.04
 > 因为 ubuntu16.04自带gcc-5, 
 > 而   ubuntu14.04自带gcc-4.8
