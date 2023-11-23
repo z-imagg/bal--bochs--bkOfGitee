@@ -132,7 +132,7 @@ bochs-msvc-src.zip
 *.bin 
 *.list.txt 
  
-*.img 
+#*.img 
 
 .gdb_history
 *.log
