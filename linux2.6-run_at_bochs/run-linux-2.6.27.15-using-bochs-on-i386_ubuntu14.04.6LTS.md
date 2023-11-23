@@ -95,6 +95,43 @@ sudo losetup --detach /dev/loop0
 
 
 ```shell
-
+ export BXSHARE=/usr/share/bochs/
+bochs -f linux-2.6.27.15-grub0.97.bxrc
 ```
  
+ 
+> 报错 ata0-0 disk size doesn't match specified geometry
+
+ ```
+ ========================================================================
+                       Bochs x86 Emulator 2.4.6
+             Build from CVS snapshot, on February 22, 2011
+                   Compiled at Jun  8 2013, 05:16:39
+========================================================================
+00000000000i[     ] LTDL_LIBRARY_PATH not set. using compile time default '/usr/lib/bochs/plugins'
+00000000000i[     ] BXSHARE is set to '/usr/share/bochs/'
+00000000000i[     ] reading configuration from linux-2.6.27.15-grub0.97.bxrc
+00000000000i[     ] lt_dlhandle is 0xab8f630
+00000000000i[PLGIN] loaded plugin libbx_sdl.so
+00000000000i[     ] installing sdl module as the Bochs GUI
+00000000000i[     ] using log file bochsout.txt
+========================================================================
+Event type: PANIC
+Device: [HD   ]
+Message: ata0-0 disk size doesn't match specified geometry
+
+A PANIC has occurred.  Do you want to:
+  cont       - continue execution
+  alwayscont - continue execution, and don't ask again.
+               This affects only PANIC events from device [HD   ]
+  die        - stop execution now
+  abort      - dump core
+  debug      - hand control to gdb
+Choose one of the actions above: [die] 
+ ```
+ 
+ # xxx
+ ```
+ sudo apt install bochs-sdl
+
+ ```
