@@ -42,10 +42,44 @@ cd linux-2.6.27.15
 make menuconfig
 # Exit ---> 保存
 
-make -V
+make -V=1
 
 #正常编译
 ```
+
+#3. 编译产物中的ELF
+
+```
+#pwd==/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15
+find . -not -name "*.o"  -and -not -name "*.h" -and -not -name "*.c" -and -not -name "*.ko" -and -not -name "*.so" -and -not -name "*.dbg"  -exec file {} \; | grep "ELF 32-bit LSB"
+```
+
+```
+./arch/x86/kernel/acpi/realmode/wakeup.elf: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, not stripped
+./arch/x86/boot/setup.elf: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, not stripped
+./arch/x86/boot/tools/build: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=e9a432bc6b360a346e933c76cf1d0e0e9ea10cca, not stripped
+./arch/x86/boot/mkcpustr: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=c03153d63a2a1b7d0bde950fdabea8e4c2795b15, not stripped
+./arch/x86/boot/compressed/vmlinux: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, not stripped
+./arch/x86/boot/compressed/vmlinux.bin: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, BuildID[sha1]=ad17ec6d43fb47c804a50f12afb97a2a5c897345, stripped
+./lib/gen_crc32table: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=50c271e39a66d3825201a212f232473a6e7e93e9, not stripped
+./drivers/md/mktables: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=2188f3b74fdc36a166e3dfa7b72837e0f79d398e, not stripped
+./vmlinux: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, BuildID[sha1]=ad17ec6d43fb47c804a50f12afb97a2a5c897345, not stripped
+./.tmp_vmlinux2: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, BuildID[sha1]=3bb004f74d2e24079f22dd495ca79466106cfb0d, not stripped
+./usr/gen_init_cpio: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=94e9d6158eda74fafbb333d67aab02cea290278f, not stripped
+./.tmp_vmlinux1: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), statically linked, BuildID[sha1]=59c5f92cab26152f6336558bb9a08be8ef12fe93, not stripped
+./scripts/conmakehash: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=b972b1fdedca84f5aec059f2181cc3365537b109, not stripped
+./scripts/kallsyms: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=86c30be94c57ecfd6eb317744822a365ba0aa56f, not stripped
+./scripts/mod/modpost: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=6c132e1f5126bf6b24c5354ff2d4c8b0742e1b77, not stripped
+./scripts/mod/mk_elfconfig: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=4afb84c771b86acd48381a482a97561528637f21, not stripped
+./scripts/genksyms/genksyms: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=6d7bb0091b6365e55e8889e6d65a617dba96bdb0, not stripped
+./scripts/basic/docproc: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=3cf06b3f4268761a4e206ab7d544d569663fe782, not stripped
+./scripts/basic/fixdep: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=e2c9f7116aca8b6190303c6f634bc6a9f8770aeb, not stripped
+./scripts/kconfig/conf: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=6b9ed4d28f7726c63d5994424d43839e73de5e0b, not stripped
+./scripts/kconfig/mconf: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=3de3969885126cbbe70bb26b18fda60b1875a10e, not stripped
+./firmware/ihex2fw: ELF 32-bit LSB  executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=48e7e7912c8dc6c4cb486ad79943f7e2bd8c8f36, not stripped
+
+```
+
 
 
 #解决报错
