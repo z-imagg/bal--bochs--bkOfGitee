@@ -59,7 +59,8 @@ ls grub_0.97/usr/lib/grub/i386-pc/
 -  格式化分区 
 -  安装grub0.97到分区
 
-## 5.3 填写grub的menu.lst
+## 5.3 填写grub的menu.lst、写入linux内核
+```
 echo '
 default=0
 timeout=500
@@ -68,6 +69,9 @@ root (hd0,0)
 kernel /kernel.bin
 ' | sudo tee /mnt/boot/grub/menu.lst
 
+sudo cp /crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/i386/boot/bzImage /mnt/kernel.bin
+
+```
 ## 5.4 挂载分区
 ```
 sudo losetup --offset $((63*512)) /dev/loop0 10M.img
