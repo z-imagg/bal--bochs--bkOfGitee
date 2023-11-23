@@ -105,7 +105,7 @@ make[1]: *** [scripts/kconfig/dochecklxdialog] Error 1
 Makefile:476: recipe for target 'menuconfig' failed
 make: *** [menuconfig] Error 2
 ```
-### 报错解决: ```sudo apt install libncurses5```
+### 报错解决: ```sudo apt install libncurses5-dev```
 
 ## E3. make时报错 include/linux/compiler-gcc.h:90:30: fatal error: linux/compiler-gcc5.h: No such file or directory
 ### 报错解决: linux kernel 2.6 不能使用gcc5编译 应该使用gcc4.9编译.
