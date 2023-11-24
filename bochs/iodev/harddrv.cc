@@ -335,7 +335,7 @@ void bx_hard_drive_c::init(void)
                 BX_PANIC(("ata%d-%d: geometry autodetection failed", channel, device));
               }
               BX_HD_THIS channels[channel].drives[device].hdimage->cylinders = cyl;
-              BX_INFO(("ata%d-%d: autodetect geometry: CHS=%d/%d/%d", channel, device, cyl, heads, spt));
+              BX_INFO(("ata%d-%d: autodetect geometry: CHS=%d/%d/%d", channel, device, cyl, heads, spt,image_mode));
             } else {
               cyl = BX_HD_THIS channels[channel].drives[device].hdimage->cylinders;
               heads = BX_HD_THIS channels[channel].drives[device].hdimage->heads;
@@ -350,7 +350,7 @@ void bx_hard_drive_c::init(void)
             }
           }
         } else if (geometry_detect) {
-          BX_PANIC(("ata%d-%d image doesn't support geometry detection", channel, device));
+          BX_PANIC(("ata%d-%d image doesn't support geometry detection.heads=%d,cyl=%d,spt=%d,disk_size=%d", channel, device,heads,cyl,spt,disk_size));
         }
       } else if (SIM->get_param_enum("type", base)->get() == BX_ATA_DEVICE_CDROM) {
         bx_list_c *cdrom_rt = (bx_list_c*)SIM->get_param(BXPN_MENU_RUNTIME_CDROM);
