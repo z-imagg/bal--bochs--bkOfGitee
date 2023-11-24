@@ -3,14 +3,11 @@ megs: 32
 #vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
 romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
 vgaromimage: file=/crk/bochs/bochs/bios/VGABIOS-lgpl-latest
-ata0-master: type=disk, path="2.88MB.img", cylinders=80, heads=2, spt=36
+# ata0-master: type=disk, path="2.88MB.img", cylinders=80, heads=2, spt=36
+ata0-master: type=disk, path="10MB.img", cylinders=40, heads=16, spt=32
 boot: c
 log: bochsout.txt
 mouse: enabled=0
 cpu: ips=15000000
 clock: sync=both
 #display_library: sdl
-
-#运行:rm -fv *.lock ;  /crk/bochs/bochs/bochs -f linux-2.6.27.15-grub0.97.bxrc
-#查看打印的错误日志的命令: grep error bochsout.txt
-#错误日志： 00000000000e[HD    ] error: ata0-0: specified_geometry_doesn't_fit_on_disk_image: heads=16,cyl=20,spt=63,disk_size=10321920,sect_size=512      @end

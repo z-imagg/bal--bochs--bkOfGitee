@@ -142,3 +142,7 @@ linux-2.6.39.4
 linux2.6-run_at_bochs/linux-2.6.39.4.tar.gz
 
 linux2.6-run_at_bochs/sha256sums.asc
+
+linux2.6-run_at_bochs/linux-2.6.27.15-grub0.97/grub4dos-0.4.4/
+
+linux2.6-run_at_bochs/linux-2.6.27.15-grub0.97/grubinst_1.0.1_bin_win/
