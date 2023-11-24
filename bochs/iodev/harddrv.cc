@@ -355,7 +355,7 @@ void bx_hard_drive_c::init(void)
                      channel, device, cyl, heads, spt, sect_size));
           }
           if (disk_size > BX_HD_THIS channels[channel].drives[device].hdimage->hd_size) {
-            BX_PANIC(("ata%d-%d: specified geometry doesn't fit on disk image", channel, device));
+            BX_PANIC(("ata%d-%d: specified geometry doesn't fit on disk image;heads=%d,cyl=%d,spt=%d,disk_size=%d,sect_size=%d      @end", channel, device,heads,cyl,spt,disk_size,sect_size));
           } else if (disk_size < BX_HD_THIS channels[channel].drives[device].hdimage->hd_size) {
             BX_INFO(("ata%d-%d: extra data outside of CHS address range", channel, device));
           }
