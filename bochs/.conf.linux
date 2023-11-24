@@ -3,13 +3,25 @@
 # .conf.linux
 #
 
-#which_config=normal
-which_config=plugins
+#which_config=normal编译正常 编译产物bochs运行正常
+which_config=normal
+
+#which_config=plugins编译正常 编译产物bochs运行崩溃于 config.cc:362行 config_interface_list[0]是NULL
+#which_config=plugins
 
 CC="gcc"
 CXX="c++"
-CFLAGS="-Wall -O3 -fomit-frame-pointer -pipe"    # for speed
-#CFLAGS="-Wall -g -pipe"                         # for development
+
+
+# CFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g2   -pipe"                         
+#带调试信息(变量名称和行号、局部变量),  当出现问题方便排查:
+# CXXFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g2"
+
+#调试级别-g3 == -g2 + 宏定义,  
+#-ggdb: 带有gdb专用调试信息
+CFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g3 -ggdb   "                         
+
+
 CXXFLAGS="$CFLAGS"
 
 export CC
