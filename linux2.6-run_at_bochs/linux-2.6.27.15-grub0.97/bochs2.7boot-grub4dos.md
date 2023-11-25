@@ -1,9 +1,40 @@
 # 新建10MB.img  （用diskgenius)
 
+## 磁盘映像制作
+
+### diskgenius制作磁盘映像
 1. diskgenius新建10MB.img: 整个磁盘、格式化、不要dos系统
 2. diskgenius调整磁盘参数: 40柱面c、 16磁头h、 32每磁道扇区数s == 10MB
-3. linux-2.6.27.15-grub0.97.bxrc文件中磁盘参数对应调整到 40c 16h 32s
-4. 关闭diskgenius
+
+### linux命令制作磁盘映像
+- 环境```cat /etc/issue #Ubuntu 22.04.3 LTS \n \l```
+- 安装mkdiskimage
+```SHELL
+sudo apt install syslinux-utils -y
+dpkg -S mkdiskimage
+#syslinux-utils: /usr/bin/mkdiskimage
+```
+- mkdiskimage制作磁盘映像
+```shell
+mkdiskimage 10MB.img 40 16 32
+#但是此命令 并没有正确设置磁盘映像文件10MB.img的几何参数为 40C 16H 32C
+
+sfdisk --show-geometry 10MB.img
+#10MB.img: 1 cylinders, 16 heads, 32 sectors/track
+#且用diskgenius查看10MB.img的几何参数，和sfdisk结果一致
+#由此可知，mkdiskimage没有按照要求设置的几何参数
+
+
+parted -s  10MB.img mklabel msdos
+parted -s  10MB.img mkpart primary fat16 2048s 100%
+parted -s  10MB.img set 1 boot on
+
+mkfs.vfat -F 16 -n C 10MB.img
+
+
+```
+## 3. linux-2.6.27.15-grub0.97.bxrc文件中磁盘参数对应调整到 40c 16h 32s
+## 4. 关闭diskgenius
 
 # 将写入 grldr.mbr 写入10MB.img的mbr (用grubinst)
 ```shell
