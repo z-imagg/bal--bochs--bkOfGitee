@@ -3,6 +3,16 @@
 # Please install GRLDR boot strap code to MBR with the bootlace.com
 # utility under DOS/Win9x or Linux.
 
+#file `pwd`/arch/x86/boot/bzImage
+#/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage: x86 boot sector
+#ls -lh  `pwd`/arch/x86/boot/bzImage
+#-rw-rw-r--   2.6M   /crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
+title linux-2.6.27.15
+root (hd0,0)
+kernel /bzImage
+#initrd /initrd
+boot
+
 color blue/green yellow/red white/magenta white/magenta
 timeout 30
 default /default
