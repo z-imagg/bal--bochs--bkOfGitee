@@ -1,6 +1,6 @@
 #0. 安装mkdiskimage命令
-{ apt-file --help 2>/dev/null 1>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
-{ mkdiskimage 2>/dev/null 1>/dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux syslinux-common syslinux-efi syslinux-utils ; echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 HD10MB40C16H32S.img 几何参数不对、且 分区没格式化 )"; }
+# { apt-file --help 2>/dev/null 1>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
+{ mkdiskimage 2>/dev/null 1>/dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils ; echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 HD10MB40C16H32S.img 几何参数不对、且 分区没格式化 )"; }
 
 #1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
 sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv HD10MB40C16H32S.img
@@ -34,9 +34,18 @@ echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Set
 
 win10Host=192.168.1.2
 win10SshPort=3022
-scp  -P $win10SshPort HD10MB40C16H32S.img zzz@$win10Host:/HD10MB40C16H32S.img 
-ssh -p $win10SshPort zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /HD10MB40C16H32S.img && echo 'grubinst.exe ok'"
-scp   -P $win10SshPort  zzz@$win10Host:/HD10MB40C16H32S.img  HD10MB40C16H32S.img
+win10SshPassF=/win10SshPass
+{ test -f /win10SshPass && win10SshPass=`cat $win10SshPassF` ; } || { echo  "必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"; exit 7 ; }
+
+#若无sshpass则安装
+{ sshpass -V 2>/dev/null 1>/dev/null && echo "已经安装sshpass" ; } || { sudo apt install -y sshpass ; echo "sshpass安装完毕"; }
+
+sshpass -p $win10SshPass scp  -P $win10SshPort HD10MB40C16H32S.img zzz@$win10Host:/HD10MB40C16H32S.img 
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /HD10MB40C16H32S.img && echo 'grubinst.exe ok'"
+
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && pacman --noconfirm -S  unzip && unzip -o /grubinst_1.0.1_bin_win.zip -d / "
+
+sshpass -p $win10SshPass scp   -P $win10SshPort  zzz@$win10Host:/HD10MB40C16H32S.img  HD10MB40C16H32S.img
 #注: $win10Host:/ == D:\msys64, 所以请实现复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
 
 echo "执行grubinst.exe后md5sum: $(md5sum HD10MB40C16H32S.img)"
@@ -46,8 +55,9 @@ sudo mount -o loop,offset=$((32*512)) HD10MB40C16H32S.img /mnt/hd_img
 # sudo losetup --offset $((32*512)) /dev/loop15 HD10MB40C16H32S.img
 # sudo mount -o loop /dev/loop15 /mnt/hd_img
 test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip ; }
-md5sum --check  grub4dos-0.4.4.zip.md5sum.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
-unzip -q grub4dos-0.4.4.zip
+md5sum --check  md5sum.grub4dos-0.4.4.zip.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
+unzip -o -q grub4dos-0.4.4.zip
+#unzip --help : -o  overwrite files WITHOUT prompting
 sudo cp -v grub4dos-0.4.4/grldr grub4dos-0.4.4/menu.lst  /mnt/hd_img/
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
