@@ -1,5 +1,11 @@
 #!/bin/sh
 
+{  dos2unix --version 1>/dev/null 2>/dev/null && echo "已经安装dos2unix"; } || {  sudo apt install -y dos2unix && echo "安装dos2unix成功" ; }
+
+_pkgName="libx11-dev"; {  ldconfig  -p | grep libX11 1>/dev/null 2>/dev/null && echo "已经安装$_pkgName"; } || { sudo apt install  -y libx11-dev && echo "成功安装$_pkgName" ; }
+
+
+
 #编译xv6 产生xv6.img、fs.img
 cd /crk/bochs/xv6-x86/ && \
 dos2unix sign.pl && \
