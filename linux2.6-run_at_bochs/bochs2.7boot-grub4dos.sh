@@ -32,10 +32,11 @@ echo "执行grubinst.exe前md5sum: $(md5sum HD10MB40C16H32S.img)"
 #借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
 echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
 
-win10Host=10.0.4.101
-scp  HD10MB40C16H32S.img zzz@$win10Host:/HD10MB40C16H32S.img 
-ssh zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /HD10MB40C16H32S.img && echo 'grubinst.exe ok'"
-scp   zzz@$win10Host:/HD10MB40C16H32S.img  HD10MB40C16H32S.img
+win10Host=192.168.1.2
+win10SshPort=3022
+scp  -P $win10SshPort HD10MB40C16H32S.img zzz@$win10Host:/HD10MB40C16H32S.img 
+ssh -p $win10SshPort zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /HD10MB40C16H32S.img && echo 'grubinst.exe ok'"
+scp   -P $win10SshPort  zzz@$win10Host:/HD10MB40C16H32S.img  HD10MB40C16H32S.img
 #注: $win10Host:/ == D:\msys64, 所以请实现复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
 
 echo "执行grubinst.exe后md5sum: $(md5sum HD10MB40C16H32S.img)"
