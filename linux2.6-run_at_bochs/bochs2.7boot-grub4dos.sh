@@ -1,5 +1,5 @@
 #0. 安装mkdiskimage命令
-{ apt-file >/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
+{ apt-file --help 2>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
 { mkdiskimage > /dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux-utils ; echo "mkdiskimage安装完毕"; }
 
 #1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
