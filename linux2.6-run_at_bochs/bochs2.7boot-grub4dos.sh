@@ -1,6 +1,6 @@
 #0. 安装mkdiskimage命令
 { apt-file --help 2>/dev/null 1>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
-{ mkdiskimage > /dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux-utils ; echo "mkdiskimage安装完毕"; }
+{ mkdiskimage 2>/dev/null 1>/dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux-utils ; echo "mkdiskimage安装完毕"; }
 
 #1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
 sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv HD10MB40C16H32S.img
@@ -46,7 +46,7 @@ sudo mount -o loop,offset=$((32*512)) HD10MB40C16H32S.img /mnt/hd_img
 # sudo mount -o loop /dev/loop15 /mnt/hd_img
 test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip ; }
 md5sum --check  grub4dos-0.4.4.zip.md5sum.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
-unzip grub4dos-0.4.4.zip
+unzip -q grub4dos-0.4.4.zip
 sudo cp -v grub4dos-0.4.4/grldr grub4dos-0.4.4/menu.lst  /mnt/hd_img/
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
