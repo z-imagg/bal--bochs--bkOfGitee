@@ -1,6 +1,6 @@
 #0. 安装mkdiskimage命令
 { apt-file --help 2>/dev/null 1>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
-{ mkdiskimage 2>/dev/null 1>/dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux-utils ; echo "mkdiskimage安装完毕"; }
+{ mkdiskimage 2>/dev/null 1>/dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux syslinux-common syslinux-efi syslinux-utils ; echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 HD10MB40C16H32S.img 几何参数不对、且 分区没格式化 )"; }
 
 #1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
 sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv HD10MB40C16H32S.img
