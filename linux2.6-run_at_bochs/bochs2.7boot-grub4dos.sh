@@ -58,7 +58,21 @@ test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget https://
 md5sum --check  md5sum.grub4dos-0.4.4.zip.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
 unzip -o -q grub4dos-0.4.4.zip
 #unzip --help : -o  overwrite files WITHOUT prompting
-sudo cp -v grub4dos-0.4.4/grldr grub4dos-0.4.4/menu.lst  /mnt/hd_img/
+
+cat << 'EOF' > menu.lst
+title=OS2Bochs
+root (hd0,0)
+kernel /bzImage
+EOF
+
+OutKernelF=linux-2.6.39.4/bzImage
+okMsg1="正常,发现linux内核编译产物:$OutKernelF"
+errMsg2="错误,内核未编译（没发现内核编译产物:$OutKernelF,退出码为8"
+
+sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
+{ test -f $kernelF  && echo $okMsg1 && sudo cp -v $kernelF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
+
+#卸载磁盘映像文件
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
 
