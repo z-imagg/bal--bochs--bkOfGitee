@@ -3,7 +3,7 @@
 { mkdiskimage > /dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install syslinux-utils ; echo "mkdiskimage安装完毕"; }
 
 #1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
-sudo umount /mnt/hd_img ; sudo rm -frv /mnt/hd_img ; rm -fv HD10MB40C16H32S.img
+sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv HD10MB40C16H32S.img
 mkdiskimage HD10MB40C16H32S.img 40 16 32
 #  有可能 此命令 并没有正确设置磁盘映像文件10MB.img的几何参数为 40C 16H 32S
 
