@@ -68,7 +68,7 @@ unzip -o -q grub4dos-0.4.4.zip
 cat << 'EOF' > menu.lst
 title=OS2Bochs
 root (hd0,0)
-kernel /bzImage init=/busybox-i686
+kernel /bzImage
 initrd /initramfs-busybox-i686.cpio
 EOF
 
