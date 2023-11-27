@@ -134,7 +134,7 @@ echo '解决以下报错:
 gcc: _error: elf_i386: No such file or directory
 gcc: _error: unrecognized command line option ‘-m’
 原因: gcc 4.6不再支持linker-style架构（我使用的是gcc 4.8.4）。
-解决: 替换 "-m elf_i386" 为 "-m32": “sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile”  && \
+解决: 替换 "-m elf_i386" 为 "-m32": “sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile”  '  && \
 
 sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile && \
 
