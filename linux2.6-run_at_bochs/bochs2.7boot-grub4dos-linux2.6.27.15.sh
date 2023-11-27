@@ -82,7 +82,7 @@ errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出�
 #复制grldr、menu.lst
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 #复制内核
-{ test -f $kernelF  && echo $okMsg1 && sudo cp -v $kernelF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
+{ test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
 
 #卸载磁盘映像文件
 sudo umount /mnt/hd_img
