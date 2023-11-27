@@ -111,7 +111,7 @@ RT=initramfs && \
 (rm -frv $RT &&   mkdir $RT && \
 cp busybox-i686 init $RT/ &&  cd $RT  && \
 # 创建 initrd
-{ find . | cpio --create --format=newc newc | gzip -9 > $initrdF ; } && \
+{ find . | cpio --create --format=newc   | gzip -9 > $initrdF ; } && \
 cd -) && \
 sudo cp $initrdF /mnt/hd_img/
 
