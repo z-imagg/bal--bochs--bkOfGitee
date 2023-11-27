@@ -82,7 +82,10 @@ errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出�
 
 #复制grldr、menu.lst
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
-#复制内核.  ??bzImage大小为2.6MB, 此大文件放到fat12文件系统中, 冲掉了该分区的文件表,导致复制此文件后,所有文件消失.??
+#复制内核.  ??大文件(3MB)bzImage放到fat12分区中, bochs的bios或mbr界面无grub.??
+#问题现象:  
+# 0. 若复制3MB的bzImage，则bochs的bios或mbr启动界面没进grub.  反之, bochs启动界面bios能进grub.
+# 1. diskgenious下打开.img 内无文件. (提交 de98c29a7bc2e284473c222b1c9a7e4ec82872ec 也有此问题，但bochs正常进入grub菜单)
 # { test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
 
 #卸载磁盘映像文件
