@@ -52,7 +52,7 @@ cmdName=$2
 #如果有gcc命令，才判断gcc版本.
 which gcc && \
 #如果是gcc4.4,则不做任何处理
-gccVer=$(gcc --version 1>/dev/null | head -n 1  | sed 's/([^)]*)//g') && \
+gccVer=$(gcc --version 2>/dev/null | head -n 1  | sed 's/([^)]*)//g') && \
 # gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
 # gcc  4.8.4
 { echo $gccVer | grep "4.4" ; } && \
