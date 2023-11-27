@@ -69,7 +69,7 @@ cat << 'EOF' > menu.lst
 title=OS2Bochs
 root (hd0,0)
 kernel /bzImage init=/busybox-i686
-initrd /initramfs-busybox-i686.cpio.tar.gz
+initrd /initramfs-busybox-i686.cpio
 EOF
 
 #去内核编译机器ubuntu14X86下载已经编译好的内核
@@ -95,8 +95,8 @@ sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 
 #initrd: busybox作为 init ram disk
 test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686
-RT=initramfs && rm -frv $RT &&   mkdir $RT && cp busybox-i686 $RT/ && chmod +x $RT/busybox-i686 &&  cd $RT  &&  { find . | cpio   --create      --format=newc | gzip > ../initramfs-busybox-i686.cpio.tar.gz ; } && cd -
-sudo cp initramfs-busybox-i686.cpio.tar.gz /mnt/hd_img/
+echo busybox-i686   | cpio   --create      --format=newc > initramfs-busybox-i686.cpio 
+sudo cp initramfs-busybox-i686.cpio /mnt/hd_img/
 
 #todo: 或initrd: helloworld.c作为 init ram disk
 #未验证的参考: 
