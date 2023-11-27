@@ -108,7 +108,7 @@ grep  $kernelF  $kernelSumF | sha256sum --check  - &&  \
 echo "已经下载 : kernelFile=$kernelF,kernelSumF=$kernelSumF" ; } || \
 { wget $kernelFUrl --output-document  $kernelF && \
 wget $kernelSumFUrl --output-document $kernelSumF ; \
-} && \ 
+} && \
 
 
 
