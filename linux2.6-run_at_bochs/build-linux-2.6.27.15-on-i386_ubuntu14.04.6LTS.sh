@@ -105,8 +105,10 @@ kernelSumF="sha256sums.asc" && \
 
 { test -f $kernelF && test -f $kernelSumF && \
 grep  $kernelF  $kernelSumF | sha256sum --check  - &&  \
-echo "已经下载 : kernelFile=$kernelF,kernelSumF=$kernelSumF" ; } || \
-{ wget $kernelFUrl --output-document  $kernelF && \
+echo "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF" ; } || \
+{ \
+echo "文件$kernelF不存在或校验和不正确，重新下载" && \
+wget $kernelFUrl --output-document  $kernelF && \
 wget $kernelSumFUrl --output-document $kernelSumF ; \
 } && \
 
