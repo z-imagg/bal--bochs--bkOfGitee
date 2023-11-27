@@ -120,6 +120,7 @@ wget $kernelSumFUrl --output-document $kernelSumF ; \
 #2. linux2.6内核编译过程
 
 #2.1解压内核
+rm -fr $kernelF_ && \
 tar -zxf $kernelF && \
 cd $kernelF_ && \
 
