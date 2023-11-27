@@ -111,8 +111,7 @@ RT=initramfs && \
 (rm -frv $RT &&   mkdir $RT && \
 cp busybox-i686 init $RT/ &&  cd $RT  && \
 # 创建 initrd
-{ find . | cpio --create --format=newc   | gzip -9 > $initrdF ; } && \
-cd -) && \
+{ find . | cpio --create --format=newc   | gzip -9 > $initrdF ; }  ) && \
 sudo cp $initrdF /mnt/hd_img/
 
 #todo: 或initrd: helloworld.c作为 init ram disk
