@@ -66,8 +66,8 @@ dpkg -l | awk '/^ii/ {print $2}' | grep -E '^g\+\+-4\.[0-9]$|^gcc-4\.[0-9]$' | x
 #^ii 只要ii开头的; $2 只要第一列 即 包名列, 后面还有很多列都不要.
 echo " 开始: 安装gcc-4.4、g++-4.4" && \
 sudo apt install -y gcc-4.4 g++-4.4 && \
-{ [ -f /usr/bin/gcc ] || sudo mv /usr/bin/gcc /usr/bin/gcc.old ; } && \
-{ [ -f /usr/bin/g++ ] || sudo mv /usr/bin/g++ /usr/bin/g++.old ; } && \
+{ [ -f /usr/bin/gcc ] && sudo mv /usr/bin/gcc /usr/bin/gcc.old ; } && \
+{ [ -f /usr/bin/g++ ] && sudo mv /usr/bin/g++ /usr/bin/g++.old ; } && \
 gcc_4_4_bin=$(findCmdByDebPkgName gcc-4.4 gcc-4.4) && \
 gpp_4_4_bin=$(findCmdByDebPkgName g++-4.4 g++-4.4) && \
 [  "x" != "x$gcc_4_4_bin" ] &&  sudo ln -s $gcc_4_4_bin /usr/bin/gcc && \
