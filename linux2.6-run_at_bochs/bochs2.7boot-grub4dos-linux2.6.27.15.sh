@@ -68,7 +68,7 @@ unzip -o -q grub4dos-0.4.4.zip
 cat << 'EOF' > menu.lst
 title=OS2Bochs
 root (hd0,0)
-kernel /bzImage init=/busybox-i686
+kernel /bzImage root=/dev/ram0
 initrd /initramfs-busybox-i686.cpio.tar.gz
 EOF
 
@@ -95,8 +95,25 @@ sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 
 #initrd: busybox作为 init ram disk
 test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686
-RT=initramfs && rm -frv $RT &&   mkdir $RT && cp busybox-i686 $RT/ && chmod +x $RT/busybox-i686 &&  cd $RT  &&  { find . | cpio   --create      --format=newc | gzip > ../initramfs-busybox-i686.cpio.tar.gz ; } && cd -
-sudo cp initramfs-busybox-i686.cpio.tar.gz /mnt/hd_img/
+chmod +x busybox-i686
+
+# 创建 init 脚本
+cat > init << 'EOF'
+#!/bin/busybox sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+exec /bin/busybox sh
+EOF
+chmod +x init
+
+initrdF=$(pwd)/initramfs-busybox-i686.cpio.tar.gz
+RT=initramfs && \
+(rm -frv $RT &&   mkdir $RT && \
+cp busybox-i686 init $RT/ &&  cd $RT  && \
+# 创建 initrd
+{ find . | cpio --create --format=newc newc | gzip -9 > $initrdF ; } && \
+cd -) && \
+sudo cp $initrdF /mnt/hd_img/
 
 #todo: 或initrd: helloworld.c作为 init ram disk
 #未验证的参考: 
