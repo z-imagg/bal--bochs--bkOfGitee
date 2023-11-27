@@ -24,7 +24,7 @@ echo "git版本升级完成,已升级到版本($curGitVer)" ; }
 #报错解决/Error2
 
 #命令1 gcc -Wp,-MD,arch/x86/kvm/.svm.o.d  -nostdinc -isystem /usr/lib/gcc/i686-linux-gnu/4.8/include -D__KERNEL__ -Iinclude  -I/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/include -include include/linux/autoconf.h -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -O2 -m32 -msoft-float -mregparm=3 -freg-struct-return -mpreferred-stack-boundary=2 -march=i686 -mtune=generic -ffreestanding -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -Iinclude/asm-x86/mach-default -Wframe-larger-than=1024 -fno-stack-protector -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -Ivirt/kvm -Iarch/x86/kvm -DMODULE -D"KBUILD_STR(s)=#s" -D"KBUILD_BASENAME=KBUILD_STR(svm)"  -D"KBUILD_MODNAME=KBUILD_STR(kvm_amd)" -c -o arch/x86/kvm/.tmp_svm.o arch/x86/kvm/svm.c
-echo 'make -V=1, 报错如下:
+echo 'make V=1, 报错如下:
 
 命令1 gcc ... arch/x86/kvm/svm.c (完整命令在本脚本此行附近注释)
 命令输出
@@ -125,13 +125,15 @@ cd $kernelF_ && \
 
 #解决报错/Error1
 
+# 命令2 gcc -nostdlib -o arch/x86/vdso/vdso32-int80.so.dbg -fPIC -shared  -Wl,--hash-style=sysv -m elf_i386 -Wl,-soname=linux-gate.so.1 -Wl,-T,arch/x86/vdso/vdso32/vdso32.lds arch/x86/vdso/vdso32/note.o arch/x86/vdso/vdso32/int80.o   (完整命令在本脚本此行附近注释)
+
 echo '解决以下报错:
-命令 gcc -nostdlib -o arch/x86/vdso/vdso32-int80.so.dbg -fPIC -shared  -Wl,--hash-style=sysv -m elf_i386 -Wl,-soname=linux-gate.so.1 -Wl,-T,arch/x86/vdso/vdso32/vdso32.lds arch/x86/vdso/vdso32/note.o arch/x86/vdso/vdso32/int80.o 
+命令2 gcc  -o .../vdso32-int80.so.dbg   (完整命令在本脚本此行附近注释)
 报错:
 gcc: _error: elf_i386: No such file or directory
 gcc: _error: unrecognized command line option ‘-m’
 原因: gcc 4.6不再支持linker-style架构（我使用的是gcc 4.8.4）。
-解决: 替换 "-m elf_i386" 为 "-m32": \'sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile\'  && \
+解决: 替换 "-m elf_i386" 为 "-m32": “sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile”  && \
 
 sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile && \
 
