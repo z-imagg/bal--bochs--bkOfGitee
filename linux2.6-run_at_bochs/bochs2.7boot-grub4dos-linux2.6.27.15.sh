@@ -74,7 +74,7 @@ ubuntu14X86PassF=/ubuntu14X86SshPass
 { test -f $ubuntu14X86PassF && ubuntu14X86Pass=`cat $ubuntu14X86PassF` ; } || { echo  "必须有文件ubuntu14X86PassF:$ubuntu14X86PassF , 产生办法 \"echo ubuntu14X86密码比如1234 > $ubuntu14X86PassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为9"; exit 9 ; }
 bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
 bzImageF=bzImage
-sshpass -p $ubuntu14X86Pass scp  -P $ubuntu14X86Port $bzImageF zzz@$ubuntu14X86Host:$bzImageAtUbuntu14X86
+sshpass -p $ubuntu14X86Pass scp  -o StrictHostKeyChecking=no -P $ubuntu14X86Port  z@$ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
 
 okMsg1="正常,发现linux内核编译产物:$bzImageF"
 errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"
