@@ -50,7 +50,10 @@ cmdName=$2
 
 { \
 #如果是gcc4.4,则不做任何处理
-{ gcc --version | grep "4.4" ; } && \
+gccVer=$(gcc --version | head -n 1  | sed 's/([^)]*)//g')
+# gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
+# gcc  4.8.4
+{ echo $gccVer | grep "4.4" ; } && \
 echo "正确,已经是gcc4.4" ; } || \
 { \
 #否则 即不是gcc4.4，则卸载当前gcc 并安装gcc4.4
