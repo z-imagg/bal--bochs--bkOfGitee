@@ -131,7 +131,7 @@ cd $kernelF_ && \
 echo '解决以下报错:
 命令2 gcc  -o .../vdso32-int80.so.dbg   (完整命令在本脚本此行附近注释)
 报错:
-gcc: _error: elf_i386: No such file or directory
+gcc: _error: elf_i386: _No such file or directory
 gcc: _error: unrecognized command line option ‘-m’
 原因: gcc 4.6不再支持linker-style架构（我使用的是gcc 4.8.4）。
 解决: 替换 "-m elf_i386" 为 "-m32": “sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile”  '  && \
