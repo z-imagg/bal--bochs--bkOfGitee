@@ -71,7 +71,7 @@ sudo apt install -y gcc-4.4 g++-4.4 && \
 gcc_4_4_bin=$(findCmdByDebPkgName gcc-4.4 gcc-4.4) && \
 gpp_4_4_bin=$(findCmdByDebPkgName g++-4.4 g++-4.4) && \
 [  "x" != "x$gcc_4_4_bin" ] &&  sudo ln -s $gcc_4_4_bin /usr/bin/gcc && \
-[  "x" != "x$gpp_4_4_bin" ] &&  sudo ln -s $gpp_4_4_bin /usr/bin/gcc && \
+[  "x" != "x$gpp_4_4_bin" ] &&  sudo ln -s $gpp_4_4_bin /usr/bin/g++ && \
 # sudo ln -s /usr/bin/gcc-4.4 /usr/bin/gcc && \
 # sudo ln -s /usr/bin/g++-4.4 /usr/bin/g++ && \
 echo " 完成: 安装gcc-4.4、g++-4.4" && \
