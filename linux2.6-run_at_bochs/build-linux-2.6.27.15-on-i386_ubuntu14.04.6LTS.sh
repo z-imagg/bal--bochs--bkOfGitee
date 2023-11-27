@@ -29,7 +29,7 @@ echo 'make -V=1, 报错如下:
 命令1 gcc ... arch/x86/kvm/svm.c (完整命令在本脚本此行附近注释)
 命令输出
 ...
-命令输出中的报错: include/linux/kvm.h:240:9: error: duplicate member ‘padding’ 
+命令输出中的报错: include/linux/kvm.h:240:9: _error: duplicate member ‘padding’ 
    __u64 padding;
          ^
 ...
@@ -120,7 +120,7 @@ wget $kernelSumFUrl --output-document $kernelSumF ; \
 #2. linux2.6内核编译过程
 
 #2.1解压内核
-tar -zxvf $kernelF && \
+tar -zxf $kernelF && \
 cd $kernelF_ && \
 
 #解决报错/Error1
@@ -128,8 +128,8 @@ cd $kernelF_ && \
 echo '解决以下报错:
 命令 gcc -nostdlib -o arch/x86/vdso/vdso32-int80.so.dbg -fPIC -shared  -Wl,--hash-style=sysv -m elf_i386 -Wl,-soname=linux-gate.so.1 -Wl,-T,arch/x86/vdso/vdso32/vdso32.lds arch/x86/vdso/vdso32/note.o arch/x86/vdso/vdso32/int80.o 
 报错:
-gcc: error: elf_i386: No such file or directory
-gcc: error: unrecognized command line option ‘-m’
+gcc: _error: elf_i386: No such file or directory
+gcc: _error: unrecognized command line option ‘-m’
 原因: gcc 4.6不再支持linker-style架构（我使用的是gcc 4.8.4）。
 解决: 替换 "-m elf_i386" 为 "-m32": \'sed -i  "s/-m elf_i386/-m32/" arch/x86/vdso/Makefile\'  && \
 
@@ -144,7 +144,7 @@ make menuconfig && \
 # 即 不做任何变动
 
 #开始编译
-make -V=1 && \
+make V=1 && \
 
 #正常编译完成
 
