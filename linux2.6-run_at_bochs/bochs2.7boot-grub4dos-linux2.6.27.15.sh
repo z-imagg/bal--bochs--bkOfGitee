@@ -33,7 +33,7 @@ echo "执行grubinst.exe前md5sum: $(md5sum HD10MB40C16H32S.img)"
 echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
 
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
-win10Host=192.168.1.2
+win10Host=192.168.1.13
 win10SshPort=3022
 win10SshPassF=/win10SshPass
 { test -f $win10SshPassF && win10SshPass=`cat $win10SshPassF` ; } || { echo  "必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"; exit 7 ; }
@@ -68,7 +68,7 @@ EOF
 
 #去内核编译机器ubuntu14X86下载已经编译好的内核
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
-ubuntu14X86Host=192.168.1.13
+ubuntu14X86Host=192.168.1.4
 ubuntu14X86Port=3022
 ubuntu14X86PassF=/ubuntu14X86SshPass
 { test -f $ubuntu14X86PassF && ubuntu14X86Pass=`cat $ubuntu14X86PassF` ; } || { echo  "必须有文件ubuntu14X86PassF:$ubuntu14X86PassF , 产生办法 \"echo ubuntu14X86密码比如1234 > $ubuntu14X86PassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为9"; exit 9 ; }
