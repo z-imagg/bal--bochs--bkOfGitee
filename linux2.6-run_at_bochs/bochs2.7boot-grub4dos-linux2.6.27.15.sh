@@ -42,9 +42,10 @@ win10SshPassF=/win10SshPass
 { sshpass -V 2>/dev/null 1>/dev/null && echo "已经安装sshpass" ; } || { sudo apt install -y sshpass ; echo "sshpass安装完毕"; }
 
 sshpass -p $win10SshPass scp  -P $win10SshPort HD10MB40C16H32S.img zzz@$win10Host:/HD10MB40C16H32S.img 
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /HD10MB40C16H32S.img && echo 'grubinst.exe ok'"
 
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && pacman --noconfirm -S  unzip && unzip -o /grubinst_1.0.1_bin_win.zip -d / "
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || { wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && pacman --noconfirm -S  unzip && unzip -o /grubinst_1.0.1_bin_win.zip -d / ; }"
+
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /HD10MB40C16H32S.img && echo 'grubinst.exe ok'"
 
 sshpass -p $win10SshPass scp   -P $win10SshPort  zzz@$win10Host:/HD10MB40C16H32S.img  HD10MB40C16H32S.img
 #注: $win10Host:/ == D:\msys64, 所以请实现复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
@@ -81,10 +82,11 @@ errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出�
 
 #复制grldr、menu.lst
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
-#复制内核
-{ test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
+#复制内核.  ??bzImage大小为2.6MB, 此大文件放到fat12文件系统中, 冲掉了该分区的文件表,导致复制此文件后,所有文件消失.??
+# { test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
 
 #卸载磁盘映像文件
+read -p "即将卸载"
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
 
