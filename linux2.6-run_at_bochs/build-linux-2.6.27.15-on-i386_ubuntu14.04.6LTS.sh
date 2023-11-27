@@ -98,7 +98,7 @@ gcc --version && \
 
 #1. 下载内核源码包并验证签名
 kernelFUrl="https://mirrors.cloud.tencent.com/linux-kernel/v2.6/linux-2.6.27.15.tar.gz" && \
-kernelSumFUrl=https://mirrors.edge.kernel.org/pub/linux/kernel/v2.6/sha256sums.asc && \
+kernelSumFUrl="https://mirrors.cloud.tencent.com/linux-kernel/v2.6/sha256sums.asc" && \
 kernelF="linux-2.6.27.15.tar.gz" && \
 kernelF_="linux-2.6.27.15" && \
 kernelSumF="sha256sums.asc" && \
