@@ -23,9 +23,10 @@ echo "git版本升级完成,已升级到版本($curGitVer)" ; }
 
 #报错解决/Error2
 
+#命令1 gcc -Wp,-MD,arch/x86/kvm/.svm.o.d  -nostdinc -isystem /usr/lib/gcc/i686-linux-gnu/4.8/include -D__KERNEL__ -Iinclude  -I/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/include -include include/linux/autoconf.h -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -O2 -m32 -msoft-float -mregparm=3 -freg-struct-return -mpreferred-stack-boundary=2 -march=i686 -mtune=generic -ffreestanding -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -Iinclude/asm-x86/mach-default -Wframe-larger-than=1024 -fno-stack-protector -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -Ivirt/kvm -Iarch/x86/kvm -DMODULE -D"KBUILD_STR(s)=#s" -D"KBUILD_BASENAME=KBUILD_STR(svm)"  -D"KBUILD_MODNAME=KBUILD_STR(kvm_amd)" -c -o arch/x86/kvm/.tmp_svm.o arch/x86/kvm/svm.c
 echo 'make -V=1, 报错如下:
 
-命令 gcc -Wp,-MD,arch/x86/kvm/.svm.o.d  -nostdinc -isystem /usr/lib/gcc/i686-linux-gnu/4.8/include -D__KERNEL__ -Iinclude  -I/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/include -include include/linux/autoconf.h -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -O2 -m32 -msoft-float -mregparm=3 -freg-struct-return -mpreferred-stack-boundary=2 -march=i686 -mtune=generic -ffreestanding -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -Iinclude/asm-x86/mach-default -Wframe-larger-than=1024 -fno-stack-protector -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -Ivirt/kvm -Iarch/x86/kvm -DMODULE -D"KBUILD_STR(s)=#s" -D"KBUILD_BASENAME=KBUILD_STR(svm)"  -D"KBUILD_MODNAME=KBUILD_STR(kvm_amd)" -c -o arch/x86/kvm/.tmp_svm.o arch/x86/kvm/svm.c
+命令1 gcc ... arch/x86/kvm/svm.c (完整命令在本脚本此行附近注释)
 命令输出
 ...
 命令输出中的报错: include/linux/kvm.h:240:9: error: duplicate member ‘padding’ 
@@ -39,8 +40,8 @@ echo " 卸载gcc-4.8, 安装gcc-4.4"
 
 sudo apt remove gcc-4.8 g++-4.8 gcc g++
 sudo apt install gcc-4.4 g++-4.4
-sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
-sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
+[ -f /usr/bin/gcc ] || sudo ln -s /usr/bin/gcc-4.4 /usr/bin/gcc
+[ -f /usr/bin/g++ ] || sudo ln -s /usr/bin/g++-4.4 /usr/bin/g++
 
 
 
@@ -66,9 +67,9 @@ kernelSumF="sha256sums.asc"
 
 { test -f $kernelF && test -f $kernelSumF && \
 grep  $kernelF  $kernelSumF | sha256sum --check  - &&  \
-echo "已经下载 : kernelFile=$kernelF,kernelSumF=$kernelSumF" ; } \
-|| { wget $kernelFUrl --output-document  $kernelF && \
-wget $kernelSumFUrl --output-document $kernelSumF &&  ; } 
+echo "已经下载 : kernelFile=$kernelF,kernelSumF=$kernelSumF" ; } || \
+{ wget $kernelFUrl --output-document  $kernelF && \
+wget $kernelSumFUrl --output-document $kernelSumF ; } 
 
 
 
