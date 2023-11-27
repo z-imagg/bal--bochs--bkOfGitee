@@ -60,12 +60,12 @@ echo "正确,已经是gcc4.4" ; } || \
 { \
 #否则 即不是gcc4.4，则卸载当前gcc 并安装gcc4.4
 echo " 开始: 卸载gcc-*、g++-*, 安装gcc-4.4、g++-4.4" && \
-dpkg -l | awk '/^ii/ {print $2}' | grep -E '^g\+\+-4\.[0-9]$|^gcc-4\.[0-9]$' | xargs -I% sudo apt remove -y  %
+dpkg -l | awk '/^ii/ {print $2}' | grep -E '^g\+\+-4\.[0-9]$|^gcc-4\.[0-9]$' | xargs -I% sudo apt remove -y  2>/dev/null %
 #gcc-4.4
 #gcc-4.8
 #^ii 只要ii开头的; $2 只要第一列 即 包名列, 后面还有很多列都不要.
 echo " 开始: 安装gcc-4.4、g++-4.4" && \
-sudo apt install -y gcc-4.4 g++-4.4 && \
+sudo apt install -y gcc-4.4 g++-4.4 2>/dev/null && \
 { \
  { [ -f /usr/bin/gcc ] && sudo mv /usr/bin/gcc /usr/bin/gcc.old ; \
    [ -f /usr/bin/g++ ] && sudo mv /usr/bin/g++ /usr/bin/g++.old ; } || \
