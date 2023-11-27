@@ -120,5 +120,6 @@ clock: sync=both
 #display_library: sdl
 EOF
 
+sed -i "s/\$HdImgF/$HdImgF/g" gen-linux-2.6.27.15-grub0.97.bxrc
 
 /crk/bochs/bochs/bochs -f gen-linux-2.6.27.15-grub0.97.bxrc
