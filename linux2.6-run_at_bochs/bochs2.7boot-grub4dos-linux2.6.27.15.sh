@@ -35,7 +35,7 @@ echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Set
 win10Host=192.168.1.2
 win10SshPort=3022
 win10SshPassF=/win10SshPass
-{ test -f /win10SshPass && win10SshPass=`cat $win10SshPassF` ; } || { echo  "必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"; exit 7 ; }
+{ test -f $win10SshPassF && win10SshPass=`cat $win10SshPassF` ; } || { echo  "必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"; exit 7 ; }
 
 #若无sshpass则安装
 { sshpass -V 2>/dev/null 1>/dev/null && echo "已经安装sshpass" ; } || { sudo apt install -y sshpass ; echo "sshpass安装完毕"; }
@@ -65,11 +65,21 @@ root (hd0,0)
 kernel /bzImage
 EOF
 
-OutKernelF=linux-2.6.39.4/bzImage
-okMsg1="正常,发现linux内核编译产物:$OutKernelF"
-errMsg2="错误,内核未编译（没发现内核编译产物:$OutKernelF,退出码为8"
+#去内核编译机器ubuntu14X86下载已经编译好的内核
+ubuntu14X86Host=192.168.1.4
+ubuntu14X86Port=3022
+ubuntu14X86PassF=/ubuntu14X86SshPass
+{ test -f $ubuntu14X86PassF && ubuntu14X86Pass=`cat $ubuntu14X86PassF` ; } || { echo  "必须有文件ubuntu14X86PassF:$ubuntu14X86PassF , 产生办法 \"echo ubuntu14X86密码比如1234 > $ubuntu14X86PassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为9"; exit 9 ; }
+bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
+bzImageF=bzImage
+sshpass -p $ubuntu14X86Pass scp  -P $ubuntu14X86Port $bzImageF zzz@$ubuntu14X86Host:$bzImageAtUbuntu14X86
 
+okMsg1="正常,发现linux内核编译产物:$bzImageF"
+errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"
+
+#复制grldr、menu.lst
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
+#复制内核
 { test -f $kernelF  && echo $okMsg1 && sudo cp -v $kernelF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
 
 #卸载磁盘映像文件
