@@ -68,7 +68,8 @@ unzip -o -q grub4dos-0.4.4.zip
 cat << 'EOF' > menu.lst
 title=OS2Bochs
 root (hd0,0)
-kernel /bzImage
+kernel /bzImage init=/busybox-i686
+initrd /initramfs-busybox-i686.cpio.tar.gz
 EOF
 
 #去内核编译机器ubuntu14X86下载已经编译好的内核
@@ -91,6 +92,16 @@ sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 # 0. 若复制3MB的bzImage，则bochs的bios或mbr启动界面没进grub.  反之, bochs启动界面bios能进grub.
 # 1. diskgenious下打开.img 内无文件. (提交 de98c29a7bc2e284473c222b1c9a7e4ec82872ec 也有此问题，但bochs正常进入grub菜单)
 { test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
+
+#initrd: busybox作为 init ram disk
+test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686
+RT=initramfs && rm -frv $RT &&   mkdir $RT && cp busybox-i686 $RT/ && chmod +x $RT/busybox-i686 &&  cd $RT  &&  { find . | cpio   --create      --format=newc | gzip > ../initramfs-busybox-i686.cpio.tar.gz ; } && cd -
+sudo cp initramfs-busybox-i686.cpio.tar.gz /mnt/hd_img/
+
+#todo: 或initrd: helloworld.c作为 init ram disk
+#未验证的参考: 
+# 1. google搜索"bzImage启动initrd"
+# 2. 编译Linux内核在qemu中启动 : https://www.baifachuan.com/posts/211b427f.html
 
 #卸载磁盘映像文件
 read -p "即将卸载"
