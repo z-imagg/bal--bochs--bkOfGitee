@@ -99,10 +99,10 @@ chmod +x busybox-i686
 
 # 创建 init 脚本
 cat > init << 'EOF'
-#!/busybox-i686 sh
+#!/busybox-i686 ash
 mount -t proc none /proc
 mount -t sysfs none /sys
-exec /busybox-i686
+exec /busybox-i686 ash
 EOF
 chmod +x init
 
