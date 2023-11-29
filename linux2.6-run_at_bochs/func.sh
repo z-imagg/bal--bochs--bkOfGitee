@@ -9,7 +9,9 @@ lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
 
 trimmedLnText=${lnText##+([[:space:]])}
-argText=${trimmedText#false &&}
+# argPrefix="false &&"
+argText=$(echo "$trimmedText" | sed 's/^false &&//')
+
 echo $argText
 
 set +x
