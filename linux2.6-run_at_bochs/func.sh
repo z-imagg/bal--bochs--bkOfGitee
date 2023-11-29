@@ -1,10 +1,13 @@
 
 #测试_get_arg:
-#x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "false &&") ; echo $x
+#debug_me=true; x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "false &&") ; echo $x
 #apt-file --help 2>$dNul 1>$dNul
 
 function _get_arg(){
-set -x
+#if $debug_me is null : debug_me=true
+[ "x"  == "x$debug_me"  ] && debug_me=false
+
+$debug_me && set -x
 
 scriptF=$1
 lnK=$2
@@ -18,7 +21,7 @@ argText=$(echo "$trimmedLnText" | sed 's/^false &&//')
 
 echo $argText
 
-set +x
+{ $debug_me  &&  set +x ;}  ; unset debug_me
 
 }
 
