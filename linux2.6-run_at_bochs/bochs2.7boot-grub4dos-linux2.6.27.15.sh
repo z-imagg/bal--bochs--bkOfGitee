@@ -4,12 +4,12 @@ HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
 set 消息已安装="已安装apt-file(搜索命令对应的.deb安装包)"
 set 消息正常安装="apt-file(搜索命令对应的.deb安装包)安装完毕"
 { \
-#测试 目标命令 是否存在及正常运行
-apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令已安装," && \
-#则 显示已安装消息 并 执行目标命令
+#执行 目标命令
+apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令.返回码 == 正常返回码0 :" && \
+#则 显示正常消息 并 执行 自定义命令
 { echo $消息已安装 && apt-file search mkdiskimage ; } \
-; } \
-|| "否则 (即 目标命令未安装)" 2>/dev/null || \
+; } ; [ $? != 0 ] && \
+#若 目标命令.返回码 != 正常返回码0 :
 { \
 #安装目标命令
 sudo apt install -y apt-file && sudo apt-file update && _="若安装目标命令成功,则显示正常安装消息" && \
