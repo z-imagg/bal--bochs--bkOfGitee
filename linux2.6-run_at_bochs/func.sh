@@ -16,7 +16,7 @@ retF=$4
 # argPrefix="false &&"
 lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
-argText=$(echo "$trimmedLnText" | sed "s/^ *\"${argPrefix}\"//")
+argText=$(echo "$trimmedLnText" | sed "s/^ *'"${argPrefix}"'//")
 
 # argText=$(echo "$lnText" | sed 's/^ *false &&//')
 
