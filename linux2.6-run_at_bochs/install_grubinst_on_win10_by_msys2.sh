@@ -1,5 +1,10 @@
+
 # win10x64主机的 必须的准备:  启动 mingw(msys2)的sshd服务, 请人工参考 https://www.msys2.org/wiki/Setting-up-SSHd/ 
 
+#用bash执行此脚本
+#请在 mingw(msys2) 的 /etc/profile 末尾加上  export ubt22x64Pass=ubuntu22x64用户z的登录密码  并 不要上传该密码到git仓库
+
+set -e
 
 # 4.3 磁盘映像文件 复制到 ubt22x64主机msys2的根目录下
 sshpass -p $ubt22x64Pass scp  -P $ubt22x64Port  $ubt22x64User@$ubt22x64Host:/crk/bochs/linux2.6-run_at_bochs/$HdImgF /$HdImgF && \

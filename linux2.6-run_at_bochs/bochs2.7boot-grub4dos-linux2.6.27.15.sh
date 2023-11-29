@@ -135,8 +135,7 @@ ubt22x64PassF=/ubuntu22x64Pass
 
  
 set IGOW10F=install_grubinst_on_win10_by_msys2.sh
-set IGOW10GenF=install_grubinst_on_win10_by_msys2.sh
-sed  's///g' $IGOW10F > $IGOW10GenF
+set IGOW10GenF=install_grubinst_on_win10_by_msys2.gen.sh
 
 sshpass -p $win10SshPass scp  -P $win10SshPort $IGOW10GenF  zzz@$win10Host:/$IGOW10GenF && \
 sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host 'bash -x /$IGOW10GenF' && \
