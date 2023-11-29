@@ -2,15 +2,16 @@
 # win10x64主机的 必须的准备:  启动 mingw(msys2)的sshd服务, 请人工参考 https://www.msys2.org/wiki/Setting-up-SSHd/ 
 
 #用bash执行此脚本
-#请在 mingw(msys2) 的 /etc/profile 末尾加上  export ubt22x64Pass=ubuntu22x64用户z的登录密码  并 不要上传该密码到git仓库
+#请在 mingw(msys2) 的 ~/init_on_win10_by_msys2.sh 中填入  export ubt22x64Pass=ubuntu22x64用户z的登录密码  并 不要上传该密码到git仓库
 
 #请在win10主机操作系统的本地域名解析文件 c:\windows\system32\drivers\etc\hosts 中添加 :
 # 192.168.1.4 ubt22x64Host
 # 否则此脚本失败
 
-. /etc/profile
-
 set -e
+
+. ~/init_on_win10_by_msys2.sh
+
 
 pacman --noconfirm -S   sshpass
 
