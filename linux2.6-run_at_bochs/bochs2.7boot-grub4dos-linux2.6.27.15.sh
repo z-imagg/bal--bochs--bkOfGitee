@@ -67,13 +67,17 @@ echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)"
 
 #借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
 
-# 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
-echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
-
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
 win10Host=192.168.1.13
 win10SshPort=3022
 win10SshPassF=/win10SshPass
+
+# 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
+set 错误消息="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer， 退出码11"
+#if (...........................){  if(!........................................................)   则 .........................   /*内层if结束*/       }/*外层if结束*/
+     nc -w 3 -zv localhost 22 && {      nc -w 3  -zv $win10Host $win10SshPort ; [ $? != 0  ]  &&       echo $错误消息 && exit 11         ;}
+
+echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
 
 # 4.1 断言 文件/win10SshPass 必须存在
 失败消息="必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"
