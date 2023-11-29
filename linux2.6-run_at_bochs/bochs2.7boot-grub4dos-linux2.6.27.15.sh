@@ -85,7 +85,6 @@ echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)"
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
 ConfigF=config.sh
 source $ConfigF
-win10SshPassF=/win10SshPass
 
 # 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
 set msgErr="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer， 退出码11"
@@ -113,7 +112,7 @@ echo $msgInstOk \
 ; }
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
-
+ 
 IGOW10F=install_grubinst_on_win10_by_msys2.sh
 
 #[ssh | scp ] -o StrictHostKeyChecking=no:
@@ -137,12 +136,7 @@ unzip -o -q grub4dos-0.4.4.zip
 #unzip --help : -o  overwrite files WITHOUT prompting
 
 #7 制作 文件menu.lst
-cat << 'EOF' > menu.lst
-title=OS2Bochs
-root (hd0,0)
-kernel /bzImage root=/dev/ram0
-initrd /initramfs-busybox-i686.cpio.tar.gz
-EOF
+
 
 #8. 复制grldr、menu.lst 到 磁盘映像文件
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
@@ -172,12 +166,6 @@ test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/
 chmod +x busybox-i686
 
 # 11.2 创建 init 脚本
-cat > init << 'EOF'
-#!/busybox-i686 ash
-/busybox-i686 mount -t proc none /proc
-/busybox-i686 mount -t sysfs none /sys
-exec /busybox-i686 ash
-EOF
 chmod +x init
 
 #11.3  执行 cpio_gzip 以 生成 initRamFS
@@ -202,28 +190,7 @@ sudo rm -frv /mnt/hd_img
 
 
 #14. 生成 bxrc文件（引用 磁盘映像文件）
-cat << 'EOF' > gen-linux-2.6.27.15-grub0.97.bxrc
-megs: 32
-
-#romimage: file=/usr/share/bochs/BIOS-bochs-latest
-#vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
-
-romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
-vgaromimage: file=/crk/bochs/bochs/bios/VGABIOS-lgpl-latest
-
-#romimage: file=D:\Bochs-2.6.11\BIOS-bochs-latest
-#vgaromimage: file=D:\Bochs-2.6.11\VGABIOS-lgpl-latest
-
-ata0-master: type=disk, path="$HdImgF", cylinders=40, heads=16, spt=32
-boot: c
-log: bochsout.txt
-mouse: enabled=0
-cpu: ips=15000000
-clock: sync=both
-#display_library: sdl
-EOF
-
-sed -i "s/\$HdImgF/$HdImgF/g" gen-linux-2.6.27.15-grub0.97.bxrc
+sed "s/\$HdImgF/$HdImgF/g" linux-2.6.27.15-grub0.97.bxrc.template > gen-linux-2.6.27.15-grub0.97.bxrc
 
 #15. bochs 执行 bxrc文件( 即 磁盘映像文件 即 grubinst.exe安装产物{grldr.mbr}、grub4dos组件{grldr、menu.lst}、内核bzImage、初始内存文件系统initRamFS{busybox-i686})
 /crk/bochs/bochs/bochs -f gen-linux-2.6.27.15-grub0.97.bxrc
