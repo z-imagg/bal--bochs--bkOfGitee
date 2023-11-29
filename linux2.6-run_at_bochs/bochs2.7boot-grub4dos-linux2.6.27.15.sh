@@ -125,30 +125,22 @@ echo $msgInstOk \
 ; }
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
-sshpass -p $win10SshPass scp  -P $win10SshPort $HdImgF zzz@$win10Host:/$HdImgF && \
 
-# 4.4 win10主机上msys2: 下载 grubinst_1.0.1_bin_win.zip,   安装unzip, 用 unzip 解压 grubinst_1.0.1_bin_win.zip
-cat << 'EOF' > install_grubinst_on_win10_by_msys2.sh
-test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || \
-{ \
-wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && \
-pacman --noconfirm -S  unzip && \
-unzip -o /grubinst_1.0.1_bin_win.zip -d / \
-;}
-EOF
+#登录机器信息参照：linux2.6-run_at_bochs\readme.md
+# - ubuntu22x64: 192.168.1.4:2122; (TPLINK_*)
+ubt22x64Host=192.168.1.4
+ubt22x64User=z
+ubt22x64Port=2122
+ubt22x64PassF=/ubuntu22x64Pass
 
-install_grubinst_on_win10_by_msys2="$(cat install_grubinst_on_win10_by_msys2.sh)" && \
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host $install_grubinst_on_win10_by_msys2 && \
+ 
+set IGOW10F=install_grubinst_on_win10_by_msys2.sh
+set IGOW10GenF=install_grubinst_on_win10_by_msys2.sh
+sed  's///g' $IGOW10F > $IGOW10GenF
 
-# 4.5 win10主机上msys2:  用 grubinst.exe 对 磁盘映像文件 安装 grldr.mbr
-grubInstScript="/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /$HdImgF && echo 'grubinst.exe ok'" && \
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host $grubInstScript && \
+sshpass -p $win10SshPass scp  -P $win10SshPort $IGOW10GenF  zzz@$win10Host:/$IGOW10GenF && \
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host 'bash -x /$IGOW10GenF' && \
 
-#4.6 传回已 安装 grldr.mbr 的 磁盘映像文件
-sshpass -p $win10SshPass scp   -P $win10SshPort  zzz@$win10Host:/$HdImgF  $HdImgF && \
-#注: $win10Host:/ == D:\msys64, 所以请事先复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
-
-echo "执行grubinst.exe后md5sum: $(md5sum $HdImgF)"
 
 #5 挂载 磁盘映像文件
 sudo mkdir /mnt/hd_img
