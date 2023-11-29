@@ -146,7 +146,7 @@ sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 
 bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
 bzImageF=bzImage
-sshpass -p $ubuntu14X86Pass scp -o ConnectTimeout=$SshConnTimeoutSeconds  -o  StrictHostKeyChecking=no -P $ubuntu14X86Port  z@$ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
+sshpass -p $ubuntu14X86Pass scp -o ConnectTimeout=$SshConnTimeoutSeconds  -o  StrictHostKeyChecking=no -P $ubuntu14X86Port  z@ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
 
 okMsg1="正常,发现linux内核编译产物:$bzImageF"
 errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"
