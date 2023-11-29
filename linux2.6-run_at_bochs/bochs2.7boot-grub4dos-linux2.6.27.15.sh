@@ -18,6 +18,7 @@ ifelseif  $CurScriptF $LINENO
   false && sudo apt install -y apt-file && sudo apt-file update
   false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
 
+read -p "断点2"
 
 #1. 安装mkdiskimage命令
 set msgInstalled="已经安装mkdiskimage"
