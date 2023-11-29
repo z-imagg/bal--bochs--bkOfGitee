@@ -133,7 +133,7 @@ ubt22x64User=z
 ubt22x64Port=2122
 
  
-set IGOW10F=install_grubinst_on_win10_by_msys2.sh
+IGOW10F=install_grubinst_on_win10_by_msys2.sh
 
 sshpass -p $win10SshPass scp  -P $win10SshPort $IGOW10F  zzz@$win10Host:/$IGOW10F && \
 sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "ubt22x64Host=$ubt22x64Host ubt22x64User=$ubt22x64User ubt22x64Port=$ubt22x64Port HdImgF=$HdImgF bash -x /$IGOW10F" && \
