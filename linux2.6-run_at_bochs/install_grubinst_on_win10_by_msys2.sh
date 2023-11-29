@@ -16,7 +16,8 @@ cat  init_on_win10_by_msys2.sh
 set -e
 
 . ~/init_on_win10_by_msys2.sh
-
+pwd
+cd /
 
 pacman --noconfirm -S   sshpass
 
