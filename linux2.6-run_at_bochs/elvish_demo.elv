@@ -16,19 +16,17 @@
 
 fn ifElseIf {
     |condition1Fn act1Fn condition2Fn act2Fn|
-    if ($condition1Fn) {  # evish中函数调用语法: (fn) 即 fn() 即 调用函数fn
-        ($act1Fn)
+    if $condition1Fn {
+        $act1Fn
         return
-    } 
-    
-    if ($condition2Fn) {
-        ($act2Fn)
+    }  elif $condition2Fn {  #elseIf参考: https://elv.sh/ref/language.html#and-or-coalesce
+        $act2Fn
         return
     }
 }
 
-# ifElseIf {} {} {} {} #语法错误
-# ifElseIf {;} {;} {;} {;} #语法正确, 正常执行
+ifElseIf {} {} {} {} #语法错误
+ifElseIf {;} {;} {;} {;} #语法正确, 正常执行
 
-#正常执行
+
 ifElseIf { mkdiskimage 2>/dev/null 1>/dev/null }  { echo "已经安装mkdiskimage" ; }   { sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils } { echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )" }
