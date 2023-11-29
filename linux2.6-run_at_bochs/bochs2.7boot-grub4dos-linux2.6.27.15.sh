@@ -12,7 +12,7 @@ apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令已安装," && \
 || "否则 (即 目标命令未安装)" 2>/dev/null || \
 { \
 #安装目标命令
-sudo apt install -y apt-file && sudo apt-file update && _="#若安装目标命令成功,则显示正常安装消息" && \
+sudo apt install -y apt-file && sudo apt-file update && _="若安装目标命令成功,则显示正常安装消息" && \
 echo $消息正常安装 \
 ; }
 
@@ -30,17 +30,18 @@ mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && _="若 mkdiskimage已经�
 || "否则 (即 mkdiskimage未安装)" 2>/dev/null || \
 { \
 #安装mkdiskimage
-sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils && _="#若安装mkdiskimage成功,则显示正常安装消息" && \
+sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils && _="若安装mkdiskimage成功,则显示正常安装消息" && \
 echo $msg_正常安装_mkdiskimage \
 ; }
 
-#1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
+#2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
 sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF
 PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S)
-#  有可能 此命令 并没有正确设置磁盘映像文件10MB.img的几何参数为 200C 16H 32S
+#  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以正常使用，但是mkdiskimage 并没有正确设置磁盘映像文件10MB.img的几何参数为 200C 16H 32S
 # PartitionFirstByteOffset==$((32*512))==16384
 
 
+#3. 断言 磁盘映像文件几何参数
 #xxd -seek +0X1C3 -len 3 $HdImgF
 #0X1C3:0X0F:15:即16H:即16个磁头, 0X1C4:0X20:32:即32S:即每磁道有32个扇区, 0X1C3:0XC7:199:即200C:即200个柱面
 
@@ -49,6 +50,7 @@ PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S)
 
 echo "注意sfdisk显示磁盘的几何参数与diskgenius的不一致,这里认为sfdisk是错误的，而diskgenius是正确的" && sfdisk --show-geometry $HdImgF
 
+#不需要 parted 、 mkfs.vfat 等命令 再格式化分区，因为mkdiskimage制作 磁盘映像文件时 已经 格式化过分区了
 # parted -s  $HdImgF mklabel msdos
 # parted -s  $HdImgF mkpart primary fat16 2048s 100%
 # parted -s  $HdImgF set 1 boot on
@@ -59,42 +61,80 @@ echo "注意sfdisk显示磁盘的几何参数与diskgenius的不一致,这里认
 
 
 
-#2. 用grubinst.exe安装grldr.mbr到磁盘镜像
+#4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像
 echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)"
 
 
 #借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
+
+# 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
 echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
 
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
 win10Host=192.168.1.13
 win10SshPort=3022
 win10SshPassF=/win10SshPass
-{ test -f $win10SshPassF && win10SshPass=`cat $win10SshPassF` ; } || { echo  "必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"; exit 7 ; }
 
-#若无sshpass则安装
-{ sshpass -V 2>/dev/null 1>/dev/null && echo "已经安装sshpass" ; } || { sudo apt install -y sshpass ; echo "sshpass安装完毕"; }
+# 4.1 断言 文件/win10SshPass 必须存在
+失败消息="必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"
+{ \
+#测试 是否存在文件/win10SshPass
+test -f $win10SshPassF && _="若 文件/win10SshPass已存在," && \
+#则 读取文件/win10SshPass
+win10SshPass=`cat $win10SshPassF` \
+; } \
+|| "否则 (即 文件/win10SshPass不存在)" 2>/dev/null || \
+{ \
+#提示错误消息 并 退出此脚本
+echo  $失败消息; exit 7 \
+; }
 
-sshpass -p $win10SshPass scp  -P $win10SshPort $HdImgF zzz@$win10Host:/$HdImgF 
+# 4.2 安装sshpass
+set 消息已安装="已经安装sshpass"
+set 消息正常安装="sshpass安装完毕"
+{ \
+#测试 目标命令 是否存在及正常运行
+sshpass -V 2>/dev/null 1>/dev/null && _="若 目标命令已安装," && \
+#则 显示已安装消息 并 执行目标命令
+{ echo $消息已安装 && apt-file search mkdiskimage ; } \
+; } \
+|| "否则 (即 目标命令未安装)" 2>/dev/null || \
+{ \
+#安装目标命令
+sudo apt install -y sshpass && _="若安装目标命令成功,则显示正常安装消息" && \
+echo $消息正常安装 \
+; }
 
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || { wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && pacman --noconfirm -S  unzip && unzip -o /grubinst_1.0.1_bin_win.zip -d / ; }"
+# 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
+sshpass -p $win10SshPass scp  -P $win10SshPort $HdImgF zzz@$win10Host:/$HdImgF && \
 
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /$HdImgF && echo 'grubinst.exe ok'"
+# 4.4 win10主机上msys2: 下载 grubinst_1.0.1_bin_win.zip,   安装unzip, 用 unzip 解压 grubinst_1.0.1_bin_win.zip
+msysScriptOnWin10Host="test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || { wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && pacman --noconfirm -S  unzip && unzip -o /grubinst_1.0.1_bin_win.zip -d / ; }" && \
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host $msysScriptOnWin10Host && \
 
-sshpass -p $win10SshPass scp   -P $win10SshPort  zzz@$win10Host:/$HdImgF  $HdImgF
-#注: $win10Host:/ == D:\msys64, 所以请实现复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
+# 4.5 win10主机上msys2:  用 grubinst.exe 对 磁盘映像文件 安装 grldr.mbr
+grubInstScript="/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /$HdImgF && echo 'grubinst.exe ok'" && \
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host $grubInstScript && \
+
+#4.6 传回已 安装 grldr.mbr 的 磁盘映像文件
+sshpass -p $win10SshPass scp   -P $win10SshPort  zzz@$win10Host:/$HdImgF  $HdImgF && \
+#注: $win10Host:/ == D:\msys64, 所以请事先复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
 
 echo "执行grubinst.exe后md5sum: $(md5sum $HdImgF)"
 
+#5 挂载 磁盘映像文件
 sudo mkdir /mnt/hd_img
 sudo mount -o loop,offset=$PartitionFirstByteOffset $HdImgF /mnt/hd_img
 # sudo losetup --offset $((32*512)) /dev/loop15 $HdImgF
 # sudo mount -o loop /dev/loop15 /mnt/hd_img
+
+#6 下载 grub4dos-0.4.4.zip
 test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip ; }
 md5sum --check  md5sum.grub4dos-0.4.4.zip.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
 unzip -o -q grub4dos-0.4.4.zip
 #unzip --help : -o  overwrite files WITHOUT prompting
 
+#7 制作 文件menu.lst
 cat << 'EOF' > menu.lst
 title=OS2Bochs
 root (hd0,0)
@@ -102,7 +142,10 @@ kernel /bzImage root=/dev/ram0
 initrd /initramfs-busybox-i686.cpio.tar.gz
 EOF
 
-#去内核编译机器ubuntu14X86下载已经编译好的内核
+#8. 复制grldr、menu.lst 到 磁盘映像文件
+sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
+
+#9. 去内核编译机器ubuntu14X86下载已经编译好的内核
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
 ubuntu14X86Host=192.168.1.4
 ubuntu14X86Port=3022
@@ -115,19 +158,21 @@ sshpass -p $ubuntu14X86Pass scp  -o StrictHostKeyChecking=no -P $ubuntu14X86Port
 okMsg1="正常,发现linux内核编译产物:$bzImageF"
 errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"
 
-#复制grldr、menu.lst
-sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
+#10. 复制 内核bzImage  到 磁盘映像文件
 #复制内核.  ??大文件(3MB)bzImage放到fat12分区中, bochs的bios或mbr界面无grub.??
 #问题现象:  
 # 0. 若复制3MB的bzImage，则bochs的bios或mbr启动界面没进grub.  反之, bochs启动界面bios能进grub.
 # 1. diskgenious下打开.img 内无文件. (提交 de98c29a7bc2e284473c222b1c9a7e4ec82872ec 也有此问题，但bochs正常进入grub菜单)
 { test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
 
+#11. 制作 initrd(即 init_ram_filesystem 即 初始_内存_文件系统)
+
+#11.1 下载busybox-i686
 #initrd: busybox作为 init ram disk
 test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686
 chmod +x busybox-i686
 
-# 创建 init 脚本
+# 11.2 创建 init 脚本
 cat > init << 'EOF'
 #!/busybox-i686 ash
 /busybox-i686 mount -t proc none /proc
@@ -136,12 +181,14 @@ exec /busybox-i686 ash
 EOF
 chmod +x init
 
+#11.3  执行 cpio_gzip 以 生成 initRamFS
 initrdF=$(pwd)/initramfs-busybox-i686.cpio.tar.gz
 RT=initramfs && \
 (rm -frv $RT &&   mkdir $RT && \
 cp busybox-i686 init $RT/ &&  cd $RT  && \
 # 创建 initrd
 { find . | cpio --create --format=newc   | gzip -9 > $initrdF ; }  ) && \
+#12. 复制 initRamFS 到 磁盘映像文件
 sudo cp $initrdF /mnt/hd_img/
 
 #todo: 或initrd: helloworld.c作为 init ram disk
@@ -149,13 +196,13 @@ sudo cp $initrdF /mnt/hd_img/
 # 1. google搜索"bzImage启动initrd"
 # 2. 编译Linux内核在qemu中启动 : https://www.baifachuan.com/posts/211b427f.html
 
-#卸载磁盘映像文件
+#13. 卸载 磁盘映像文件
 read -p "即将卸载"
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
 
 
-
+#14. 生成 bxrc文件（引用 磁盘映像文件）
 cat << 'EOF' > gen-linux-2.6.27.15-grub0.97.bxrc
 megs: 32
 
@@ -179,4 +226,5 @@ EOF
 
 sed -i "s/\$HdImgF/$HdImgF/g" gen-linux-2.6.27.15-grub0.97.bxrc
 
+#15. bochs 执行 bxrc文件( 即 磁盘映像文件 即 grubinst.exe安装产物{grldr.mbr}、grub4dos组件{grldr、menu.lst}、内核bzImage、初始内存文件系统initRamFS{busybox-i686})
 /crk/bochs/bochs/bochs -f gen-linux-2.6.27.15-grub0.97.bxrc
