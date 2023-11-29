@@ -44,12 +44,13 @@ $debug_ifelseif && set -x
 argPrefix="false &&"
 scriptF=$1
 lnNum=$2
+set +x
 cmdA1=        $(_get_arg $scriptF   $((lnNum+1))   $argPrefix)  #忽略$3
 msgCmdA1Good= $(_get_arg $scriptF   $((lnNum+2))   $argPrefix)  #忽略$4
 cmdA2=        $(_get_arg $scriptF   $((lnNum+3))   $argPrefix)  #忽略$5
 cmdB1=        $(_get_arg $scriptF   $((lnNum+4))   $argPrefix)  #忽略$6
 msgCmdB1Good= $(_get_arg $scriptF   $((lnNum+5))   $argPrefix)  #忽略$7
-
+$debug_ifelseif && set -x
 
 { \
 #执行 cmdA1
