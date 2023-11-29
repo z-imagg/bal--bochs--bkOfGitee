@@ -14,8 +14,9 @@ ifelse  $CurScriptF $LINENO
   false && apt-file --help 2>/dev/null 1>/dev/null
     false && "已安装apt-file(搜索命令对应的.deb安装包)"
     false && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}
-  false && sudo apt install -y apt-file && sudo apt-file update
-  false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
+  #else:
+    false && sudo apt install -y apt-file && sudo apt-file update
+    false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
 
 read -p "断点2"
 
@@ -25,8 +26,9 @@ ifelse  $CurScriptF $LINENO
   false && mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && dpkg -S syslinux 2>/dev/null 1>/dev/null  && dpkg -S syslinux-common 2>/dev/null 1>/dev/null && dpkg -S syslinux-efi 2>/dev/null 1>/dev/null
     false && "已经安装mkdiskimage"
     false && rm -fv __.img
-  false && sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils
-  false && "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
+  #else:
+    false && sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils
+    false && "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
 
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
@@ -94,8 +96,9 @@ ifelse  $CurScriptF $LINENO
   false && sshpass -V 2>/dev/null 1>/dev/null
     false && "已经安装sshpass"
     false && :
-  false && sudo apt install -y sshpass
-  false && "sshpass安装完毕"
+  #else:
+    false && sudo apt install -y sshpass
+    false && "sshpass安装完毕"
 
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下

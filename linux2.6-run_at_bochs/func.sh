@@ -62,12 +62,14 @@ _retF="${_x}$(date +%s%N)"
 _get_arg $scriptF   $((lnNum+3))   "$argPrefix"  $_retF   #忽略$5
 cmdA2=$(cat $_retF)
 
+#$((lnNum+4)) , 跳过 第4行 ，因为第4行是 注释 #else:
+
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+4))   "$argPrefix"  $_retF   #忽略$6
+_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$6
 cmdB1=$(cat $_retF)
 
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$7
+_get_arg $scriptF   $((lnNum+6))   "$argPrefix"  $_retF   #忽略$7
 msgCmdB1Good=$(cat $_retF)
 
 set -x

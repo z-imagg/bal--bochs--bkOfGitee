@@ -33,8 +33,9 @@ ifelse  $CurScriptF $LINENO
   false && _is_git_2x
     false && "git版本无需升级,已为2.x:$curGitVer"
     false && :
-  false && _install_git_2x
-  false && :
+  #else:
+    false && _install_git_2x
+    false && ""
 
 
 
@@ -104,8 +105,9 @@ ifelse  $CurScriptF $LINENO
   false && _is_gcc4_4
     false && "正确,已经是gcc4.4"
     false && :
-  false && _install_gcc4_4
-  false &&  :
+  #else:
+    false && _install_gcc4_4
+    false &&  ""
 
 
 
@@ -144,8 +146,9 @@ ifelse  $CurScriptF $LINENO
   false && _is_kernel_ok
     false && "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF"
     false && :
-  false && _download_kernel
-  false && "kernel下载完成"
+  #else:
+    false && _download_kernel
+    false && "kernel下载完成"
 
 
 
