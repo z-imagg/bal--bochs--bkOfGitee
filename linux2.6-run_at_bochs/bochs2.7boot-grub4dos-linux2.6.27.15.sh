@@ -32,7 +32,7 @@ set msgInstOk="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是
 
 
 ifelse  $CurScriptF $LINENO
-  false _is_mkdiskimage_installed
+  false && _is_mkdiskimage_installed
     false && "已经安装mkdiskimage"
     false && rm -fv __.img
   #else:
