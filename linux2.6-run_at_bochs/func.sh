@@ -21,7 +21,7 @@ lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 argText=$(echo "$lnText" | sed 's/^ *false &&//')
 
 
-tee  $argText > $retF
+echo  "$argText" > $retF
 echo "$argText"
 
 { $debug__get_arg  &&  set +x ;}  ; unset debug__get_arg
