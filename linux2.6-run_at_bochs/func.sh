@@ -1,6 +1,14 @@
 
 function _get_arg(){
+scriptF=$1
+lnK=$2
+argPrefix=$3
+lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
+
+trimmedLnText=${lnText##+([[:space:]])}
+argText=${trimmedText#false &&}
+echo $argText
 }
 
 function ifelseif(){
@@ -14,14 +22,14 @@ function ifelseif(){
 #       echo $msgCmdB1Good
 ##############函数ifelseif伪码结束#################
 
-scriptF=bochs2.7boot-grub4dos-linux2.6.27.15.sh
+# scriptF=bochs2.7boot-grub4dos-linux2.6.27.15.sh
 argPrefix="false &&"
 lnNum=$1
-# cmdA1= $scriptF 的  第 lnNum+1 行内容 去掉 前缀 $argPrefix  #忽略$2
-msgCmdA1Good=$3
-# cmdA2= $scriptF 的  第 lnNum+2 行内容 去掉 前缀 $argPrefix  #忽略$4
-# cmdB1= $scriptF 的  第 lnNum+2 行内容 去掉 前缀 $argPrefix    #忽略$5
-msgCmdB1Good=$4
+cmdA1=        _get_arg $scriptF   $((lnNum+1))   $argPrefix  #忽略$2
+msgCmdA1Good= _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$3
+cmdA2=        _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$4
+cmdB1=        _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$5
+msgCmdB1Good= _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$6
 
 
 { \
