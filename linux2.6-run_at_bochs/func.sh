@@ -11,14 +11,12 @@ function _get_arg(){
 
 scriptF=$1
 lnK=$2
-argPrefix=$3
-retF=$4
-# argPrefix="false &&"
+retF=$3
 lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
-argText=$(echo "$trimmedLnText" | sed "s/^ *${argPrefix}//")
+# argText=$(echo "$trimmedLnText" | sed "s/^ *${argPrefix}//") //这行结果不对 , 不要使用此行。 （不知为何sed中使用变量${argPrefix}结果不对）。 如果这样能正常，则各参数行前缀可以不一样。
 
-# argText=$(echo "$lnText" | sed 's/^ *false &&//')
+argText=$(echo "$lnText" | sed 's/^ *false &&//') #此行写死false &&,结果是对的, 但这要求各参数行前缀必须一致，目前能做到，先这样吧。
 
 
 echo  -n "$argText" > $retF
@@ -41,32 +39,31 @@ function ifelse(){
 
 
 
-argPrefix='false &&'
 scriptF=$1
 lnNum=$2
 # set +x
 # debug__get_arg=true
 _x="/tmp/_get_arg__retF_"
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+1))   "$argPrefix"  $_retF  #忽略$3
+_get_arg $scriptF   $((lnNum+1))     $_retF  #忽略$3
 cmdA1=$(cat $_retF)
 
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+2))   "$argPrefix"  $_retF   #忽略$4
+_get_arg $scriptF   $((lnNum+2))     $_retF   #忽略$4
 msgCmdA1Good=$(cat $_retF)
 
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+3))   "$argPrefix"  $_retF   #忽略$5
+_get_arg $scriptF   $((lnNum+3))     $_retF   #忽略$5
 cmdA2=$(cat $_retF)
 
 #$((lnNum+4)) , 跳过 第4行 ，因为第4行是 注释 #else:
 
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$6
+_get_arg $scriptF   $((lnNum+5))     $_retF   #忽略$6
 cmdB1=$(cat $_retF)
 
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+6))   "$argPrefix"  $_retF   #忽略$7
+_get_arg $scriptF   $((lnNum+6))     $_retF   #忽略$7
 msgCmdB1Good=$(cat $_retF)
 
 # set -x
