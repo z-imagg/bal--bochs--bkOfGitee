@@ -118,9 +118,9 @@ IGOW10F=install_grubinst_on_win10_by_msys2.sh
 #[ssh | scp ] -o StrictHostKeyChecking=no:
 #  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
 
-sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $ConfigF  zzz@win10Host:/$ConfigF && \
-sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  zzz@win10Host:/$IGOW10F && \
-sshpass -p $win10SshPass ssh -o StrictHostKeyChecking=no  -p $win10SshPort zzz@win10Host "HdImgF=$HdImgF bash -x /$IGOW10F" && \
+sshpass -p $win10SshPass scp -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -P $win10SshPort $ConfigF  zzz@win10Host:/$ConfigF && \
+sshpass -p $win10SshPass scp -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  zzz@win10Host:/$IGOW10F && \
+sshpass -p $win10SshPass ssh -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $win10SshPort zzz@win10Host "HdImgF=$HdImgF bash -x /$IGOW10F" && \
 
 
 #5 挂载 磁盘映像文件
@@ -146,7 +146,7 @@ sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 
 bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
 bzImageF=bzImage
-sshpass -p $ubuntu14X86Pass scp -o StrictHostKeyChecking=no  -o StrictHostKeyChecking=no -P $ubuntu14X86Port  z@$ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
+sshpass -p $ubuntu14X86Pass scp -o ConnectTimeout=$SshConnTimeoutSeconds  -o  StrictHostKeyChecking=no -P $ubuntu14X86Port  z@$ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
 
 okMsg1="正常,发现linux内核编译产物:$bzImageF"
 errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"

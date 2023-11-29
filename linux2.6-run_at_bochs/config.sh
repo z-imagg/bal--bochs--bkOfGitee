@@ -1,6 +1,9 @@
 
 # 用bash执行此脚本
 
+rm -fv ~/.ssh/known_hosts
+SshConnTimeoutSeconds=10
+
 SUDO=sudo
 #mingw(msys)下不需要sudo
 [ "$(uname -o)" == "Msys" ] && SUDO=""
