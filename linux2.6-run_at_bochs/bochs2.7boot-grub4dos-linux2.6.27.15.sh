@@ -83,30 +83,18 @@ echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)"
 #借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
 
 #登录机器信息参照：linux2.6-run_at_bochs\readme.md
-win10Host=192.168.1.13
-win10SshPort=3022
+ConfigF=config.sh
+source $ConfigF
 win10SshPassF=/win10SshPass
 
 # 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
 set msgErr="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer， 退出码11"
 #if (...........................){  if(!........................................................)   则 .........................   /*内层if结束*/       }/*外层if结束*/
-     nc -w 3 -zv localhost 22 && {      nc -w 3  -zv $win10Host $win10SshPort ; [ $? != 0  ]  &&       echo $msgErr && exit 11         ;}
+     nc -w 3 -zv localhost 22 && {      nc -w 3  -zv win10Host $win10SshPort ; [ $? != 0  ]  &&       echo $msgErr && exit 11         ;}
 
 echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
 
-# 4.1 断言 文件/win10SshPass 必须存在
-set msgFailed="必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"
-{ \
-#测试 是否存在文件/win10SshPass
-test -f $win10SshPassF && _="若 文件/win10SshPass已存在," && \
-#则 读取文件/win10SshPass
-win10SshPass=`cat $win10SshPassF` \
-; } \
-|| "否则 (即 文件/win10SshPass不存在)" 2>/dev/null || \
-{ \
-#提示错误消息 并 退出此脚本
-echo  $msgFailed; exit 7 \
-; }
+
 
 # 4.2 安装sshpass
 set msgInstalled="已经安装sshpass"
@@ -126,20 +114,14 @@ echo $msgInstOk \
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
 
-#登录机器信息参照：linux2.6-run_at_bochs\readme.md
-# - ubuntu22x64: 192.168.1.4:2122; (TPLINK_*)
-ubt22x64Host=192.168.1.4
-ubt22x64User=z
-ubt22x64Port=2122
-
- 
 IGOW10F=install_grubinst_on_win10_by_msys2.sh
 
 #[ssh | scp ] -o StrictHostKeyChecking=no:
 #  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
 
-sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  zzz@$win10Host:/$IGOW10F && \
-sshpass -p $win10SshPass ssh -o StrictHostKeyChecking=no  -p $win10SshPort zzz@$win10Host "HdImgF=$HdImgF bash -x /$IGOW10F" && \
+sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $ConfigF  zzz@win10Host:/$ConfigF && \
+sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  zzz@win10Host:/$IGOW10F && \
+sshpass -p $win10SshPass ssh -o StrictHostKeyChecking=no  -p $win10SshPort zzz@win10Host "HdImgF=$HdImgF bash -x /$IGOW10F" && \
 
 
 #5 挂载 磁盘映像文件
@@ -166,10 +148,7 @@ EOF
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 
 #9. 去内核编译机器ubuntu14X86下载已经编译好的内核
-#登录机器信息参照：linux2.6-run_at_bochs\readme.md
-ubuntu14X86Host=192.168.1.4
-ubuntu14X86Port=3022
-ubuntu14X86PassF=/ubuntu14X86SshPass
+
 { test -f $ubuntu14X86PassF && ubuntu14X86Pass=`cat $ubuntu14X86PassF` ; } || { echo  "必须有文件ubuntu14X86PassF:$ubuntu14X86PassF , 产生办法 \"echo ubuntu14X86密码比如1234 > $ubuntu14X86PassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为9"; exit 9 ; }
 bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
 bzImageF=bzImage
