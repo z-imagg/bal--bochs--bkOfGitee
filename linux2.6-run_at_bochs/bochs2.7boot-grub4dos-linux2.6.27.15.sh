@@ -2,7 +2,23 @@ HdImgF=HD50MB200C16H32S.img
 HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
 #0. 安装mkdiskimage命令
 # { apt-file --help 2>/dev/null 1>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
-{ mkdiskimage 2>/dev/null 1>/dev/null && echo "已经安装mkdiskimage" ; } || { sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils ; echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"; }
+
+#1. 安装mkdiskimage命令
+set msg_已安装_mkdiskimage="已经安装mkdiskimage"
+set msg_正常安装_mkdiskimage="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
+
+{ \
+#测试mkdiskimage 是否存在及正常运行
+mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && _="若 mkdiskimage已经安装," && \
+#则 显示已安装消息 并 删除刚刚测试mkdiskimage产生的无用磁盘映像文件
+{ echo $msg_已安装_mkdiskimage && rm -fv __.img ; }  ; \
+} \
+\
+|| "否则 (即 mkdiskimage未安装)" 2>/dev/null || \
+{ \
+#安装mkdiskimage
+sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils && _="#若安装mkdiskimage成功,则显示正常安装消息" && \
+echo $msg_正常安装_mkdiskimage; }
 
 #1. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat12分区
 sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF
