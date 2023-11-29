@@ -21,7 +21,7 @@ lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 argText=$(echo "$lnText" | sed 's/^ *false &&//')
 
 
-echo  "$argText" > $retF
+echo  -n "$argText" > $retF
 echo "$argText"
 
 { $debug__get_arg  &&  set +x ;}  ; unset debug__get_arg
@@ -49,11 +49,27 @@ scriptF=$1
 lnNum=$2
 # set +x
 # debug__get_arg=true
-cmdA1=        $(_get_arg $scriptF   $((lnNum+1))   "$argPrefix"  "/tmp/_get_arg__retF_$(date +%s%N)" )  #忽略$3
-msgCmdA1Good= $(_get_arg $scriptF   $((lnNum+2))   "$argPrefix"  "/tmp/_get_arg__retF_$(date +%s%N)" )  #忽略$4
-cmdA2=        $(_get_arg $scriptF   $((lnNum+3))   "$argPrefix"  "/tmp/_get_arg__retF_$(date +%s%N)" )  #忽略$5
-cmdB1=        $(_get_arg $scriptF   $((lnNum+4))   "$argPrefix"  "/tmp/_get_arg__retF_$(date +%s%N)" )  #忽略$6
-msgCmdB1Good= $(_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  "/tmp/_get_arg__retF_$(date +%s%N)" )  #忽略$7
+="/tmp/_get_arg__retF_"
+_retF="${_x}$(date +%s%N)"
+_get_arg $scriptF   $((lnNum+1))   "$argPrefix"  $_retF  #忽略$3
+cmdA1=$(cat $_retF)
+
+_retF="${_x}$(date +%s%N)"
+_get_arg $scriptF   $((lnNum+2))   "$argPrefix"  $_retF   #忽略$4
+msgCmdA1Good=$(cat $_retF)
+
+_retF="${_x}$(date +%s%N)"
+_get_arg $scriptF   $((lnNum+3))   "$argPrefix"  $_retF   #忽略$5
+cmdA2=$(cat $_retF)
+
+_retF="${_x}$(date +%s%N)"
+_get_arg $scriptF   $((lnNum+4))   "$argPrefix"  $_retF   #忽略$6
+cmdB1=$(cat $_retF)
+
+_retF="${_x}$(date +%s%N)"
+_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$7
+msgCmdB1Good=$(cat $_retF)
+
 # $debug_ifelseif && set -x
 
 echo "cmdA1:$cmdA1, msgCmdA1Good:$msgCmdA1Good, cmda2:$cmda2, cmdB1:$cmdB1, msgCmdB1Good:$msgCmdB1Good"
