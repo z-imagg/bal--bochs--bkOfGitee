@@ -5,9 +5,9 @@
 
 function _get_arg(){
 #if $debug__get_arg is null : debug__get_arg=true
-[ "x"  == "x$debug__get_arg"  ] && debug__get_arg=false
+# [ "x"  == "x$debug__get_arg"  ] && debug__get_arg=false
 
-$debug__get_arg && set -x
+# $debug__get_arg && set -x
 
 scriptF=$1
 lnK=$2
@@ -22,9 +22,9 @@ argText=$(echo "$lnText" | sed 's/^ *false &&//')
 
 
 echo  -n "$argText" > $retF
-echo "$argText"
+# echo "$argText"
 
-{ $debug__get_arg  &&  set +x ;}  ; unset debug__get_arg
+# { $debug__get_arg  &&  set +x ;}  ; unset debug__get_arg
 
 }
 
@@ -40,14 +40,14 @@ function ifelseif(){
 ##############函数ifelseif伪码结束#################
 
 #if $debug_ifelseif is null : debug_ifelseif=true
-[ "x"  == "x$debug_ifelseif"  ] && debug_ifelseif=false
-$debug_ifelseif && set -x
+# [ "x"  == "x$debug_ifelseif"  ] && debug_ifelseif=false
+# $debug_ifelseif && set -x
 
 
 argPrefix='false &&'
 scriptF=$1
 lnNum=$2
-# set +x
+set +x
 # debug__get_arg=true
 _x="/tmp/_get_arg__retF_"
 _retF="${_x}$(date +%s%N)"
@@ -70,6 +70,7 @@ _retF="${_x}$(date +%s%N)"
 _get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$7
 msgCmdB1Good=$(cat $_retF)
 
+set -x
 # $debug_ifelseif && set -x
 
 echo "cmdA1:$cmdA1, msgCmdA1Good:$msgCmdA1Good, cmda2:$cmda2, cmdB1:$cmdB1, msgCmdB1Good:$msgCmdB1Good"
@@ -87,6 +88,6 @@ eval $cmdB1 && _="若cmdB1命令成功,则显示msgCmdB1Good" && \
 echo $msgCmdB1Good \
 ; }
 
-{ $debug_ifelseif  &&  set +x ;}  ; unset debug_ifelseif
+# { $debug_ifelseif  &&  set +x ;}  ; unset debug_ifelseif
 
 }
