@@ -1,5 +1,7 @@
 
 function _get_arg(){
+set -x
+
 scriptF=$1
 lnK=$2
 argPrefix=$3
@@ -9,6 +11,9 @@ lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 trimmedLnText=${lnText##+([[:space:]])}
 argText=${trimmedText#false &&}
 echo $argText
+
+set +x
+
 }
 
 function ifelseif(){
