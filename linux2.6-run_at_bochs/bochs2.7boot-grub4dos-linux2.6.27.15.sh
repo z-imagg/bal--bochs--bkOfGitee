@@ -131,14 +131,12 @@ echo $msgInstOk \
 ubt22x64Host=192.168.1.4
 ubt22x64User=z
 ubt22x64Port=2122
-ubt22x64PassF=/ubuntu22x64Pass
 
  
 set IGOW10F=install_grubinst_on_win10_by_msys2.sh
-set IGOW10GenF=install_grubinst_on_win10_by_msys2.gen.sh
 
-sshpass -p $win10SshPass scp  -P $win10SshPort $IGOW10GenF  zzz@$win10Host:/$IGOW10GenF && \
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host 'bash -x /$IGOW10GenF' && \
+sshpass -p $win10SshPass scp  -P $win10SshPort $IGOW10F  zzz@$win10Host:/$IGOW10F && \
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "ubt22x64Host=$ubt22x64Host ubt22x64User=$ubt22x64User ubt22x64Port=$ubt22x64Port HdImgF=$HdImgF bash -x /$IGOW10F" && \
 
 
 #5 挂载 磁盘映像文件
