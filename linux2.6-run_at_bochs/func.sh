@@ -49,7 +49,7 @@ scriptF=$1
 lnNum=$2
 # set +x
 # debug__get_arg=true
-="/tmp/_get_arg__retF_"
+_x="/tmp/_get_arg__retF_"
 _retF="${_x}$(date +%s%N)"
 _get_arg $scriptF   $((lnNum+1))   "$argPrefix"  $_retF  #忽略$3
 cmdA1=$(cat $_retF)
