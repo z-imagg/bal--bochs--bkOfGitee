@@ -12,12 +12,12 @@ $debug_me && set -x
 scriptF=$1
 lnK=$2
 argPrefix=$3
+# argPrefix="false &&"
 lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
 
 trimmedLnText=${lnText##+([[:space:]])}
-# argPrefix="false &&"
-argText=$(echo "$trimmedLnText" | sed 's/^false &&//')
+argText=$(echo "$trimmedLnText" | sed "s/^${argPrefix}//")
 
 echo $argText
 
