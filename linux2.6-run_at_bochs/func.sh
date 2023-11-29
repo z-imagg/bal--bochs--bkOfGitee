@@ -28,8 +28,8 @@ echo  -n "$argText" > $retF
 
 }
 
-function ifelseif(){
-#此函数 即 ifelseif 实现 如下伪码 ： 
+function ifelse(){
+#此函数 即 ifelse 实现 如下伪码 ： 
 #cmdA1ExitCode=cmdA1()
 #if cmdA1ExitCode == 0: #cmdA1正常执行
 #   echo $msgCmdA1Good
@@ -39,15 +39,12 @@ function ifelseif(){
 #       echo $msgCmdB1Good
 ##############函数ifelseif伪码结束#################
 
-#if $debug_ifelseif is null : debug_ifelseif=true
-# [ "x"  == "x$debug_ifelseif"  ] && debug_ifelseif=false
-# $debug_ifelseif && set -x
 
 
 argPrefix='false &&'
 scriptF=$1
 lnNum=$2
-set +x
+# set +x
 # debug__get_arg=true
 _x="/tmp/_get_arg__retF_"
 _retF="${_x}$(date +%s%N)"
@@ -62,16 +59,17 @@ _retF="${_x}$(date +%s%N)"
 _get_arg $scriptF   $((lnNum+3))   "$argPrefix"  $_retF   #忽略$5
 cmdA2=$(cat $_retF)
 
+#$((lnNum+4)) , 跳过 第4行 ，因为第4行是 注释 #else:
+
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+4))   "$argPrefix"  $_retF   #忽略$6
+_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$6
 cmdB1=$(cat $_retF)
 
 _retF="${_x}$(date +%s%N)"
-_get_arg $scriptF   $((lnNum+5))   "$argPrefix"  $_retF   #忽略$7
+_get_arg $scriptF   $((lnNum+6))   "$argPrefix"  $_retF   #忽略$7
 msgCmdB1Good=$(cat $_retF)
 
-set -x
-# $debug_ifelseif && set -x
+# set -x
 
 echo "cmdA1:$cmdA1, msgCmdA1Good:$msgCmdA1Good, cmda2:$cmda2, cmdB1:$cmdB1, msgCmdB1Good:$msgCmdB1Good"
 
@@ -88,6 +86,5 @@ eval $cmdB1 && _="若cmdB1命令成功,则显示msgCmdB1Good" && \
 echo $msgCmdB1Good \
 ; }
 
-# { $debug_ifelseif  &&  set +x ;}  ; unset debug_ifelseif
 
 }
