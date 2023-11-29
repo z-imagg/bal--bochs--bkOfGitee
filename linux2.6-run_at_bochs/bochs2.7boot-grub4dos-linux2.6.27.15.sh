@@ -139,7 +139,7 @@ IGOW10F=install_grubinst_on_win10_by_msys2.sh
 #  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
 
 sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  zzz@$win10Host:/$IGOW10F && \
-sshpass -p $win10SshPass ssh -o StrictHostKeyChecking=no  -p $win10SshPort zzz@$win10Host "ubt22x64Host=$ubt22x64Host ubt22x64User=$ubt22x64User ubt22x64Port=$ubt22x64Port HdImgF=$HdImgF bash -x /$IGOW10F" && \
+sshpass -p $win10SshPass ssh -o StrictHostKeyChecking=no  -p $win10SshPort zzz@$win10Host "HdImgF=$HdImgF bash -x /$IGOW10F" && \
 
 
 #5 挂载 磁盘映像文件
