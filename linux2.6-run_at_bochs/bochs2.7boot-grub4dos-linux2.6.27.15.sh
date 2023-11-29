@@ -1,38 +1,38 @@
 HdImgF=HD50MB200C16H32S.img
 HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
 #0. 安装apt-file命令(非必需步骤)
-set 消息已安装="已安装apt-file(搜索命令对应的.deb安装包)"
-set 消息正常安装="apt-file(搜索命令对应的.deb安装包)安装完毕"
+set msgInstalled="已安装apt-file(搜索命令对应的.deb安装包)"
+set msgInstOk="apt-file(搜索命令对应的.deb安装包)安装完毕"
 { \
 #执行 目标命令
 apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令.返回码 == 正常返回码0 :" && \
 #则 显示正常消息 并 执行 自定义命令
-{ echo $消息已安装 && apt-file search mkdiskimage ; } \
+{ echo $msgInstalled && apt-file search mkdiskimage ; } \
 ; } ; [ $? != 0 ] && \
 #若 目标命令.返回码 != 正常返回码0 :
 { \
 #安装目标命令
 sudo apt install -y apt-file && sudo apt-file update && _="若安装目标命令成功,则显示正常安装消息" && \
-echo $消息正常安装 \
+echo $msgInstOk \
 ; }
 
 #1. 安装mkdiskimage命令
-set msg_已安装_mkdiskimage="已经安装mkdiskimage"
-set msg_正常安装_mkdiskimage="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
+set msgInstalled="已经安装mkdiskimage"
+set msgInstOk="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
 
 { \
 #测试mkdiskimage 是否存在及正常运行
 mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && _="若 mkdiskimage已经安装," && \
 dpkg -S syslinux 2>/dev/null 1>/dev/null  && dpkg -S syslinux-common 2>/dev/null 1>/dev/null && dpkg -S syslinux-efi 2>/dev/null 1>/dev/null    && _="且 syslinux、syslinux-common、syslinux-efi都已经安装," && \
 #则 显示已安装消息 并 删除刚刚测试mkdiskimage产生的无用磁盘映像文件
-{ echo $msg_已安装_mkdiskimage && rm -fv __.img ; }  \
+{ echo $msgInstalled && rm -fv __.img ; }  \
 ; } \
 \
 || "否则 (即 mkdiskimage未安装)" 2>/dev/null || \
 { \
 #安装mkdiskimage
 sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils && _="若安装mkdiskimage成功,则显示正常安装消息" && \
-echo $msg_正常安装_mkdiskimage \
+echo $msgInstOk \
 ; }
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
@@ -42,12 +42,12 @@ PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) 
 #  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
 #  所以 应该 同时安装了 syslinux syslinux-common syslinux-efi， "步骤1." 已有这样的检测了
 # PartitionFirstByteOffset==$((32*512))==16384
-set 消息错误="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffset 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
+set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffset 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
 { \
 #测试 mkdiskimage返回的PartitionFirstByteOffset是否为 '预期值 即 $((32*512)) 即 16384'
 [ $PartitionFirstByteOffset == $((32*512)) ] || \
 "否则 (即 PartitionFirstByteOffset不是预期值)" 2>/dev/null || \
-{ echo $消息错误 && exit 9 ;} \
+{ echo $msgErr && exit 9 ;} \
 ;}
 
 
@@ -88,14 +88,14 @@ win10SshPort=3022
 win10SshPassF=/win10SshPass
 
 # 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
-set 错误消息="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer， 退出码11"
+set msgErr="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer， 退出码11"
 #if (...........................){  if(!........................................................)   则 .........................   /*内层if结束*/       }/*外层if结束*/
-     nc -w 3 -zv localhost 22 && {      nc -w 3  -zv $win10Host $win10SshPort ; [ $? != 0  ]  &&       echo $错误消息 && exit 11         ;}
+     nc -w 3 -zv localhost 22 && {      nc -w 3  -zv $win10Host $win10SshPort ; [ $? != 0  ]  &&       echo $msgErr && exit 11         ;}
 
 echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
 
 # 4.1 断言 文件/win10SshPass 必须存在
-失败消息="必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"
+set msgFailed="必须有文件win10SshPassF:$win10SshPassF , 产生办法 \"echo win10Ssh密码比如1234 > $win10SshPassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为7"
 { \
 #测试 是否存在文件/win10SshPass
 test -f $win10SshPassF && _="若 文件/win10SshPass已存在," && \
@@ -105,23 +105,23 @@ win10SshPass=`cat $win10SshPassF` \
 || "否则 (即 文件/win10SshPass不存在)" 2>/dev/null || \
 { \
 #提示错误消息 并 退出此脚本
-echo  $失败消息; exit 7 \
+echo  $msgFailed; exit 7 \
 ; }
 
 # 4.2 安装sshpass
-set 消息已安装="已经安装sshpass"
-set 消息正常安装="sshpass安装完毕"
+set msgInstalled="已经安装sshpass"
+set msgInstOk="sshpass安装完毕"
 { \
 #测试 目标命令 是否存在及正常运行
 sshpass -V 2>/dev/null 1>/dev/null && _="若 目标命令已安装," && \
 #则 显示已安装消息 并 执行目标命令
-{ echo $消息已安装 && apt-file search mkdiskimage ; } \
+{ echo $msgInstalled && apt-file search mkdiskimage ; } \
 ; } \
 || "否则 (即 目标命令未安装)" 2>/dev/null || \
 { \
 #安装目标命令
 sudo apt install -y sshpass && _="若安装目标命令成功,则显示正常安装消息" && \
-echo $消息正常安装 \
+echo $msgInstOk \
 ; }
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
