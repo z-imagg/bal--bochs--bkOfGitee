@@ -16,6 +16,10 @@
 
 fn ifElseIf {
     |condition1Fn act1Fn condition2Fn act2Fn|
+    
+    try { $condition1Fn }
+    catch e { echo "条件1异常"; put $e } 
+
     if $condition1Fn {
         $act1Fn
         return
@@ -28,5 +32,10 @@ fn ifElseIf {
 ifElseIf {} {} {} {} #语法错误
 ifElseIf {;} {;} {;} {;} #语法正确, 正常执行
 
+#evish中 : 命令的返回码以异常形式表达
+var f6 =   { mkdiskimage 2>/dev/null 1>/dev/null }
+try { $f6 } catch e { echo "error" }
+# error
 
-ifElseIf { mkdiskimage 2>/dev/null 1>/dev/null }  { echo "已经安装mkdiskimage" ; }   { sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils } { echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )" }
+
+# ifElseIf { mkdiskimage 2>/dev/null 1>/dev/null }  { echo "已经安装mkdiskimage" ; }   { sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils } { echo "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )" }
