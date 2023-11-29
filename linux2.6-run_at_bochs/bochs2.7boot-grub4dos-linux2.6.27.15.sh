@@ -22,13 +22,22 @@ read -p "断点2"
 
 #1. 安装mkdiskimage命令
 
+function _is_mkdiskimage_installed(){
+#测试mkdiskimage 是否存在及正常运行
+mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && _="若 mkdiskimage已经安装," && \
+dpkg -S syslinux 2>/dev/null 1>/dev/null  && dpkg -S syslinux-common 2>/dev/null 1>/dev/null && dpkg -S syslinux-efi 2>/dev/null 1>/dev/null    && _="且 syslinux、syslinux-common、syslinux-efi都已经安装,"
+}
+
+set msgInstOk="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
+
+
 ifelse  $CurScriptF $LINENO
-  false && mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && dpkg -S syslinux 2>/dev/null 1>/dev/null  && dpkg -S syslinux-common 2>/dev/null 1>/dev/null && dpkg -S syslinux-efi 2>/dev/null 1>/dev/null
+  false _is_mkdiskimage_installed
     false && "已经安装mkdiskimage"
     false && rm -fv __.img
   #else:
     false && sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils
-      false && "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
+      false && "$msgInstOk"
 
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
