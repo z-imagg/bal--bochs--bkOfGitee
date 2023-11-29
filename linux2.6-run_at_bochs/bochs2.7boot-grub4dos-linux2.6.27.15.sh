@@ -5,7 +5,7 @@ dNul=/dev/null
 HdImgF=HD50MB200C16H32S.img
 HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
 
-CurScriptF=\$0
+CurScriptF=$0
 source func.sh
 #0. 安装apt-file命令(非必需步骤)
 echo $CurScriptF $LINENO
