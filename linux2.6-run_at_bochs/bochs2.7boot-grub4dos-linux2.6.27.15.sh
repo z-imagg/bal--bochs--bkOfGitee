@@ -36,7 +36,7 @@ echo $msgInstOk \
 ; }
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
-sudo umount /mnt/hd_img 2>/dev/null &&  sudo rm -frv /mnt/hd_img && rm -fv $HdImgF && \
+{ sudo umount /mnt/hd_img 2>/dev/null ;  sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF ;} && \
 
 PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
 #  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
