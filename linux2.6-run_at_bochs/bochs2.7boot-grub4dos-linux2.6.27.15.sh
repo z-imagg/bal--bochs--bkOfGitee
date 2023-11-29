@@ -1,20 +1,23 @@
+#-2. 非业务常数
+
+#-1. 业务内容开始
 HdImgF=HD50MB200C16H32S.img
 HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
+
+CurScriptF=$0
+source func.sh
 #0. 安装apt-file命令(非必需步骤)
-set msgInstalled="已安装apt-file(搜索命令对应的.deb安装包)"
-set msgInstOk="apt-file(搜索命令对应的.deb安装包)安装完毕"
-{ \
-#执行 目标命令
-apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令.返回码 == 正常返回码0 :" && \
-#则 显示正常消息 并 执行 自定义命令
-{ echo $msgInstalled && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}  ;} \
-; } ; [ $? != 0 ] && \
-#若 目标命令.返回码 != 正常返回码0 :
-{ \
-#安装目标命令
-sudo apt install -y apt-file && sudo apt-file update && _="若安装目标命令成功,则显示正常安装消息" && \
-echo $msgInstOk \
-; }
+echo $CurScriptF $LINENO
+read -p "断点1"
+# debug_ifelseif=true
+ifelseif  $CurScriptF $LINENO
+  false && apt-file --help 2>/dev/null 1>/dev/null
+    false && "已安装apt-file(搜索命令对应的.deb安装包)"
+    false && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}
+  false && sudo apt install -y apt-file && sudo apt-file update
+  false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
+
+read -p "断点2"
 
 #1. 安装mkdiskimage命令
 set msgInstalled="已经安装mkdiskimage"
