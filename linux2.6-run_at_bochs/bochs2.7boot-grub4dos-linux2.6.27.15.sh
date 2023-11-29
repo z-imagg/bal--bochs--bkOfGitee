@@ -10,7 +10,7 @@ source func.sh
 echo $CurScriptF $LINENO
 read -p "断点1"
 # debug_ifelseif=true
-ifelseif  $CurScriptF $LINENO
+ifelse  $CurScriptF $LINENO
   false && apt-file --help 2>/dev/null 1>/dev/null
     false && "已安装apt-file(搜索命令对应的.deb安装包)"
     false && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}

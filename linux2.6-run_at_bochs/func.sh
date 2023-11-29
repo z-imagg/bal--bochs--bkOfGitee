@@ -28,8 +28,8 @@ echo  -n "$argText" > $retF
 
 }
 
-function ifelseif(){
-#此函数 即 ifelseif 实现 如下伪码 ： 
+function ifelse(){
+#此函数 即 ifelse 实现 如下伪码 ： 
 #cmdA1ExitCode=cmdA1()
 #if cmdA1ExitCode == 0: #cmdA1正常执行
 #   echo $msgCmdA1Good
