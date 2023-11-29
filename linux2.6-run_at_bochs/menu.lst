@@ -1,0 +1,4 @@
+title=OS2Bochs
+root (hd0,0)
+kernel /bzImage root=/dev/ram0
+initrd /initramfs-busybox-i686.cpio.tar.gz
