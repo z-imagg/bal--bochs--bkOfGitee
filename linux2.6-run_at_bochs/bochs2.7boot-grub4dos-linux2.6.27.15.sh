@@ -7,7 +7,7 @@ set msgInstOk="apt-file(搜索命令对应的.deb安装包)安装完毕"
 #执行 目标命令
 apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令.返回码 == 正常返回码0 :" && \
 #则 显示正常消息 并 执行 自定义命令
-{ echo $msgInstalled && {  which mkdiskimage || apt-file search mkdiskimage ;}  ;} \
+{ echo $msgInstalled && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}  ;} \
 ; } ; [ $? != 0 ] && \
 #若 目标命令.返回码 != 正常返回码0 :
 { \
