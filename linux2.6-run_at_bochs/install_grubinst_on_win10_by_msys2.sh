@@ -12,6 +12,8 @@ set -e
 
 pacman --noconfirm -S   sshpass
 
+echo "ubt22x64Pass=$ubt22x64Pass"
+
 # 4.3 磁盘映像文件 复制到 ubt22x64主机msys2的根目录下
 sshpass -p $ubt22x64Pass scp  -P $ubt22x64Port  $ubt22x64User@ubt22x64Host:/crk/bochs/linux2.6-run_at_bochs/$HdImgF /$HdImgF && \
 
