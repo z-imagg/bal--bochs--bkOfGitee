@@ -1,4 +1,8 @@
 
+#测试_get_arg:
+#x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "false &&") ; echo $x
+#apt-file --help 2>$dNul 1>$dNul
+
 function _get_arg(){
 set -x
 
