@@ -135,8 +135,11 @@ ubt22x64Port=2122
  
 IGOW10F=install_grubinst_on_win10_by_msys2.sh
 
-sshpass -p $win10SshPass scp  -P $win10SshPort $IGOW10F  zzz@$win10Host:/$IGOW10F && \
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host "ubt22x64Host=$ubt22x64Host ubt22x64User=$ubt22x64User ubt22x64Port=$ubt22x64Port HdImgF=$HdImgF bash -x /$IGOW10F" && \
+#[ssh | scp ] -o StrictHostKeyChecking=no:
+#  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
+
+sshpass -p $win10SshPass scp -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  zzz@$win10Host:/$IGOW10F && \
+sshpass -p $win10SshPass ssh -o StrictHostKeyChecking=no  -p $win10SshPort zzz@$win10Host "ubt22x64Host=$ubt22x64Host ubt22x64User=$ubt22x64User ubt22x64Port=$ubt22x64Port HdImgF=$HdImgF bash -x /$IGOW10F" && \
 
 
 #5 挂载 磁盘映像文件
@@ -170,7 +173,7 @@ ubuntu14X86PassF=/ubuntu14X86SshPass
 { test -f $ubuntu14X86PassF && ubuntu14X86Pass=`cat $ubuntu14X86PassF` ; } || { echo  "必须有文件ubuntu14X86PassF:$ubuntu14X86PassF , 产生办法 \"echo ubuntu14X86密码比如1234 > $ubuntu14X86PassF\", 且此文件不能放到代码仓库(否则密码泄露), 退出码为9"; exit 9 ; }
 bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
 bzImageF=bzImage
-sshpass -p $ubuntu14X86Pass scp  -o StrictHostKeyChecking=no -P $ubuntu14X86Port  z@$ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
+sshpass -p $ubuntu14X86Pass scp -o StrictHostKeyChecking=no  -o StrictHostKeyChecking=no -P $ubuntu14X86Port  z@$ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
 
 okMsg1="正常,发现linux内核编译产物:$bzImageF"
 errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"
