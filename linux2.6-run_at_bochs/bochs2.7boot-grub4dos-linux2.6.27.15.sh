@@ -1,5 +1,4 @@
 #-2. 非业务常数
-dNul=/dev/null
 
 #-1. 业务内容开始
 HdImgF=HD50MB200C16H32S.img
@@ -10,11 +9,11 @@ source func.sh
 #0. 安装apt-file命令(非必需步骤)
 echo $CurScriptF $LINENO
 read -p "断点1"
-debug_ifelseif=true
+# debug_ifelseif=true
 ifelseif  $CurScriptF $LINENO
-  false && apt-file --help 2>$dNul 1>$dNul
+  false && apt-file --help 2>/dev/null 1>/dev/null
     false && "已安装apt-file(搜索命令对应的.deb安装包)"
-    false && {  which mkdiskimage  1>$dNul 2>$dNul || apt-file search mkdiskimage ;}
+    false && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}
   false && sudo apt install -y apt-file && sudo apt-file update
   false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
 
@@ -26,13 +25,13 @@ set msgInstOk="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是
 
 { \
 #测试mkdiskimage 是否存在及正常运行
-mkdiskimage  __.img 10 8 32 2>$dNul 1>$dNul && _="若 mkdiskimage已经安装," && \
-dpkg -S syslinux 2>$dNul 1>$dNul  && dpkg -S syslinux-common 2>$dNul 1>$dNul && dpkg -S syslinux-efi 2>$dNul 1>$dNul    && _="且 syslinux、syslinux-common、syslinux-efi都已经安装," && \
+mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && _="若 mkdiskimage已经安装," && \
+dpkg -S syslinux 2>/dev/null 1>/dev/null  && dpkg -S syslinux-common 2>/dev/null 1>/dev/null && dpkg -S syslinux-efi 2>/dev/null 1>/dev/null    && _="且 syslinux、syslinux-common、syslinux-efi都已经安装," && \
 #则 显示已安装消息 并 删除刚刚测试mkdiskimage产生的无用磁盘映像文件
 { echo $msgInstalled && rm -fv __.img ; }  \
 ; } \
 \
-|| "否则 (即 mkdiskimage未安装)" 2>$dNul || \
+|| "否则 (即 mkdiskimage未安装)" 2>/dev/null || \
 { \
 #安装mkdiskimage
 sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils && _="若安装mkdiskimage成功,则显示正常安装消息" && \
@@ -40,7 +39,7 @@ echo $msgInstOk \
 ; }
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
-{ sudo umount /mnt/hd_img 2>$dNul ;  sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF ;} && \
+{ sudo umount /mnt/hd_img 2>/dev/null ;  sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF ;} && \
 
 PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
 #  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
@@ -50,7 +49,7 @@ set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffs
 { \
 #测试 mkdiskimage返回的PartitionFirstByteOffset是否为 '预期值 即 $((32*512)) 即 16384'
 [ $PartitionFirstByteOffset == $((32*512)) ] || \
-"否则 (即 PartitionFirstByteOffset不是预期值)" 2>$dNul || \
+"否则 (即 PartitionFirstByteOffset不是预期值)" 2>/dev/null || \
 { echo $msgErr && exit 9 ;} \
 ;}
 
@@ -68,7 +67,7 @@ set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffs
 # #则 显示 消息条件已满足
 # echo $消息条件已满足 
 # ;} \
-# || "否则 (即 消息条件已满足)" 2>$dNul || \
+# || "否则 (即 消息条件已满足)" 2>/dev/null || \
 # { \
 # #显示 消息断言失败并退出 并 退出
 # echo $消息断言失败并退出 && exit 5 && \
@@ -104,11 +103,11 @@ set msgInstalled="已经安装sshpass"
 set msgInstOk="sshpass安装完毕"
 { \
 #测试 目标命令 是否存在及正常运行
-sshpass -V 2>$dNul 1>$dNul && _="若 目标命令已安装," && \
+sshpass -V 2>/dev/null 1>/dev/null && _="若 目标命令已安装," && \
 #则 显示已安装消息 并 执行目标命令
 { echo $msgInstalled && apt-file search mkdiskimage ; } \
 ; } \
-|| "否则 (即 目标命令未安装)" 2>$dNul || \
+|| "否则 (即 目标命令未安装)" 2>/dev/null || \
 { \
 #安装目标命令
 sudo apt install -y sshpass && _="若安装目标命令成功,则显示正常安装消息" && \
