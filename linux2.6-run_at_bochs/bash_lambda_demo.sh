@@ -11,13 +11,13 @@ function multiplyBy() {
 # <<- 'EOF' 允许缩进，可读性高
 # << 'EOF'  每行必须顶格写（不能缩进），可读性低
 
-echo 'Y=$1; echo $Y'
-echo 'echo "$X * $Y = $(( $X * $Y ))"'
+# echo 'Y=$1; echo $Y'
+# echo 'echo "$X * $Y = $(( $X * $Y ))"'
 
-# cat <<- 'EOF'
-	# Y=\\$1 ; echo $Y
-	# echo "$X * $Y = \$(( $X * $Y ))"
-# EOF
+cat <<- 'EOF'
+	Y=$1 ; echo $Y
+	echo "$X * $Y = $(( $X * $Y ))"
+EOF
 }
 
 function callFunc() {
