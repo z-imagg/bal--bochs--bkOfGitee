@@ -16,7 +16,7 @@ ifelse  $CurScriptF $LINENO
     false && {  which mkdiskimage  1>/dev/null 2>/dev/null || apt-file search mkdiskimage ;}
   #else:
     false && sudo apt install -y apt-file && sudo apt-file update
-    false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
+      false && "apt-file(搜索命令对应的.deb安装包)安装完毕"
 
 read -p "断点2"
 
@@ -28,7 +28,7 @@ ifelse  $CurScriptF $LINENO
     false && rm -fv __.img
   #else:
     false && sudo apt install -y syslinux syslinux-common syslinux-efi syslinux-utils
-    false && "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
+      false && "mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是syslinux syslinux-common syslinux-efi都要安装,否则mkdiskimage产生的此 $HdImgF 几何参数不对、且 分区没格式化 )"
 
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
@@ -98,7 +98,7 @@ ifelse  $CurScriptF $LINENO
     false && :
   #else:
     false && sudo apt install -y sshpass
-    false && "sshpass安装完毕"
+      false && "sshpass安装完毕"
 
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下

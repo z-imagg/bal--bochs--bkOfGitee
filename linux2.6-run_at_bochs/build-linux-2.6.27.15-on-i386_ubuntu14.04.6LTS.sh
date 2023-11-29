@@ -35,7 +35,7 @@ ifelse  $CurScriptF $LINENO
     false && :
   #else:
     false && _install_git_2x
-    false && ""
+      false && ""
 
 
 
@@ -107,7 +107,7 @@ ifelse  $CurScriptF $LINENO
     false && :
   #else:
     false && _install_gcc4_4
-    false &&  ""
+      false &&  ""
 
 
 
@@ -148,7 +148,7 @@ ifelse  $CurScriptF $LINENO
     false && :
   #else:
     false && _download_kernel
-    false && "kernel下载完成"
+      false && "kernel下载完成"
 
 
 
