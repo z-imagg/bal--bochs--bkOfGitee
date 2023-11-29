@@ -12,7 +12,7 @@ SUDO=sudo
 #本文内容，请参照: linux2.6-run_at_bochs\readme.md
 read -p "请输入 win10SshPass(密码):"  win10SshPass
 export win10SshPass
-export win10User=z
+export win10User=zzz
 export win10SshPort=3022
 grep win10Host /etc/hosts || { echo "192.168.1.13  win10Host" | ${SUDO} tee -a /etc/hosts ;}
 
