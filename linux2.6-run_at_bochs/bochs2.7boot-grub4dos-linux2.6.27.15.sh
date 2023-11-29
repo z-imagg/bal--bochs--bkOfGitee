@@ -1,7 +1,20 @@
 HdImgF=HD50MB200C16H32S.img
 HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
-#0. 安装mkdiskimage命令
-# { apt-file --help 2>/dev/null 1>/dev/null && echo "已安装apt-file(搜索命令对应的.deb安装包)" && apt-file search mkdiskimage ; } || { sudo apt install -y apt-file && sudo apt-file update && echo "apt-file(搜索命令对应的.deb安装包)安装完毕" ; }
+#0. 安装apt-file命令(非必需步骤)
+set 消息已安装="已安装apt-file(搜索命令对应的.deb安装包)"
+set 消息正常安装="apt-file(搜索命令对应的.deb安装包)安装完毕"
+{ \
+#测试 目标命令 是否存在及正常运行
+apt-file --help 2>/dev/null 1>/dev/null && _="若 目标命令已安装," && \
+#则 显示已安装消息 并 执行目标命令
+{ echo $消息已安装 && apt-file search mkdiskimage ; } \
+; } \
+|| "否则 (即 目标命令未安装)" 2>/dev/null || \
+{ \
+#安装目标命令
+sudo apt install -y apt-file && sudo apt-file update && _="#若安装目标命令成功,则显示正常安装消息" && \
+echo $消息正常安装 \
+; }
 
 #1. 安装mkdiskimage命令
 set msg_已安装_mkdiskimage="已经安装mkdiskimage"
