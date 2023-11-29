@@ -16,7 +16,8 @@ retF=$4
 # argPrefix="false &&"
 lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
-argText=$(echo "$trimmedLnText" | sed "s/^ *'"${argPrefix}"'//")
+_trimLn=$(echo "$lnText" | sed 's/^[[:space:]]*//')
+argText=$(echo "$_trimLn" | sed  -literal "s/${argPrefix}//")
 
 # argText=$(echo "$lnText" | sed 's/^ *false &&//')
 
@@ -38,7 +39,7 @@ function ifelse(){
 #   if cmdB1():
 #       echo $msgCmdB1Good
 ##############函数ifelseif伪码结束#################
-
+ 
 
 
 argPrefix='false &&'
