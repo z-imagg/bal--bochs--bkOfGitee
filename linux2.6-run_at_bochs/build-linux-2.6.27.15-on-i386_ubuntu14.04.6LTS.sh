@@ -1,13 +1,21 @@
 #正常编译 linux-2.6.27.15.tar.gz 在 "真机 i386/ubuntu14.04.6LTS"
 
+
+CurScriptF=$0
+source func.sh
+
 #升级git到2.x版本
 #  ubuntu14.04 自带git版本为1.9, lazygit目前主流版本最低支持git2.0, 因此要升级git版本
 
-{ curGitVer=`git --version` && \
+function _is_git_2x(){
+which git && \
+curGitVer=`git --version` && \
 [[ "$curGitVer" > "git version 2._" ]] && \
 #ascii码表中 '0'>'_' 从而决定了 :  "git version 2.0" > "git version 2._"
-echo "git版本无需升级,已为2.x:$curGitVer" ; } || \
-{ echo "git版本($curGitVer)过低,现在升级git" && \
+}
+
+function _install_git_2x(){
+echo "git版本($curGitVer)过低,现在升级git" && \
 sudo add-apt-repository --yes ppa:git-core/ppa && \
 sudo apt-get update 1>/dev/null && \
  { sudo apt-cache show  git | grep Version ; } && \
@@ -17,7 +25,17 @@ git --version && \
 #git version 2.29.0
 sudo add-apt-repository --yes --remove ppa:git-core/ppa && \
 curGitVer=`git --version` && \
-echo "git版本升级完成,已升级到版本($curGitVer)" ; }
+echo "git版本升级完成,已升级到版本($curGitVer)" ; 
+
+}
+
+ifelse  $CurScriptF $LINENO
+  false && _is_git_2x
+    false && "git版本无需升级,已为2.x:$curGitVer"
+    false && :
+  false && _install_git_2x
+  false && :
+
 
 
 
@@ -45,15 +63,17 @@ cmdName=$2
 
 }
 
-{ \
-#如果有gcc命令，才判断gcc版本.
+function _is_gcc4_4(){
+  #如果有gcc命令，才判断gcc版本.
 which gcc && \
 #如果是gcc4.4,则不做任何处理
 gccVer=$(gcc --version 2>/dev/null | head -n 1  | sed 's/([^)]*)//g') && \
 # gcc (Ubuntu 4.8.4-2ubuntu1~14.04.4) 4.8.4
 # gcc  4.8.4
-{ echo $gccVer | grep "4.4" ; } && \
-echo "正确,已经是gcc4.4" ; } || \
+{ echo $gccVer | grep "4.4" ; }
+
+}
+function _install_gcc4_4() {
 { \
 #否则 即不是gcc4.4，则卸载当前gcc 并安装gcc4.4
 echo " 开始: 卸载gcc-*、g++-*, 安装gcc-4.4、g++-4.4" && \
@@ -76,7 +96,17 @@ gpp_4_4_bin=$(findCmdByDebPkgName g++-4.4 g++-4.4) && \
 # sudo ln -s /usr/bin/g++-4.4 /usr/bin/g++ && \
 echo " 完成: 安装gcc-4.4、g++-4.4" && \
 which gcc ; \
-} && \
+}
+
+}
+
+ifelse  $CurScriptF $LINENO
+  false && _is_gcc4_4
+    false && "正确,已经是gcc4.4"
+    false && :
+  false && _install_gcc4_4
+  false &&  :
+
 
 
 
@@ -100,16 +130,22 @@ kernelF="linux-2.6.27.15.tar.gz" && \
 kernelF_="linux-2.6.27.15" && \
 kernelSumF="sha256sums.asc" && \
 
-{ test -f $kernelF && test -f $kernelSumF && \
-grep  $kernelF  $kernelSumF | sha256sum --check  - &&  \
-echo "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF" ; } || \
-{ \
+function _is_kernel_ok(){
+test -f $kernelF && test -f $kernelSumF && \
+grep  $kernelF  $kernelSumF | sha256sum --check  -
+}
+
+function _download_kernel(){
 echo "文件$kernelF不存在或校验和不正确，重新下载" && \
 wget $kernelFUrl --output-document  $kernelF && \
-wget $kernelSumFUrl --output-document $kernelSumF ; \
-} && \
-
-
+wget $kernelSumFUrl --output-document $kernelSumF 
+}
+ifelse  $CurScriptF $LINENO
+  false && _is_kernel_ok
+    false && "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF"
+    false && :
+  false && _download_kernel
+  false && "kernel下载完成"
 
 
 
