@@ -23,6 +23,7 @@ set msg_正常安装_mkdiskimage="mkdiskimage安装完毕(mkdiskimage由syslinux
 { \
 #测试mkdiskimage 是否存在及正常运行
 mkdiskimage  __.img 10 8 32 2>/dev/null 1>/dev/null && _="若 mkdiskimage已经安装," && \
+dpkg -S syslinux 2>/dev/null 1>/dev/null  && dpkg -S syslinux-common 2>/dev/null 1>/dev/null && dpkg -S syslinux-efi 2>/dev/null 1>/dev/null    && _="且 syslinux、syslinux-common、syslinux-efi都已经安装," && \
 #则 显示已安装消息 并 删除刚刚测试mkdiskimage产生的无用磁盘映像文件
 { echo $msg_已安装_mkdiskimage && rm -fv __.img ; }  \
 ; } \
@@ -35,10 +36,19 @@ echo $msg_正常安装_mkdiskimage \
 ; }
 
 #2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
-sudo umount /mnt/hd_img 2>/dev/null ; sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF
-PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S)
-#  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以正常使用，但是mkdiskimage 并没有正确设置磁盘映像文件10MB.img的几何参数为 200C 16H 32S
+sudo umount /mnt/hd_img 2>/dev/null &&  sudo rm -frv /mnt/hd_img && rm -fv $HdImgF && \
+
+PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
+#  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
+#  所以 应该 同时安装了 syslinux syslinux-common syslinux-efi， "步骤1." 已有这样的检测了
 # PartitionFirstByteOffset==$((32*512))==16384
+set 消息错误="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffset 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
+{ \
+#测试 mkdiskimage返回的PartitionFirstByteOffset是否为 '预期值 即 $((32*512)) 即 16384'
+[ $PartitionFirstByteOffset == $((32*512)) ] || \
+"否则 (即 PartitionFirstByteOffset不是预期值)" 2>/dev/null || \
+{ echo $消息错误 && exit 9 ;} \
+;}
 
 
 #3. 断言 磁盘映像文件几何参数
@@ -46,19 +56,24 @@ PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S)
 #0X1C3:0X0F:15:即16H:即16个磁头, 0X1C4:0X20:32:即32S:即每磁道有32个扇区, 0X1C3:0XC7:199:即200C:即200个柱面
 
 #0f20C7 即  用010editor打开 磁盘映像文件  偏移0X1C3到偏移0X1C3+2 的3个字节
-# { test "$(xxd -seek +0X1C3 -len 3  -plain  $HdImgF)" == "0f20C7" && echo "磁盘几何参数指定成功" ; }  || { echo "磁盘几何参数指定失败, 为确认 请用diskgenius专业版打开该x.img查看几何参数" && exit 5; }
+# set 消息条件已满足="磁盘几何参数指定成功"
+# set 消息断言失败并退出="磁盘几何参数指定失败, 为确认 请用diskgenius专业版打开该x.img查看几何参数, 退出码为5"
+# { \
+# #测试 目标条件 是否满足
+# test "$(xxd -seek +0X1C3 -len 3  -plain  $HdImgF)" == "0f20C7" && _="若 目标条件 已满足," && \
+# #则 显示 消息条件已满足
+# echo $消息条件已满足 
+# ;} \
+# || "否则 (即 消息条件已满足)" 2>/dev/null || \
+# { \
+# #显示 消息断言失败并退出 并 退出
+# echo $消息断言失败并退出 && exit 5 && \
+# ;}
 
-echo "注意sfdisk显示磁盘的几何参数与diskgenius的不一致,这里认为sfdisk是错误的，而diskgenius是正确的" && sfdisk --show-geometry $HdImgF
+#  注意sfdisk显示磁盘的几何参数与diskgenius的不一致,这里认为sfdisk是错误的，而diskgenius是正确的
+# sfdisk --show-geometry $HdImgF
 
 #不需要 parted 、 mkfs.vfat 等命令 再格式化分区，因为mkdiskimage制作 磁盘映像文件时 已经 格式化过分区了
-# parted -s  $HdImgF mklabel msdos
-# parted -s  $HdImgF mkpart primary fat16 2048s 100%
-# parted -s  $HdImgF set 1 boot on
-
-# mkfs.vfat -F 16 -n C $HdImgF
-
-
-
 
 
 #4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像
