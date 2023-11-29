@@ -10,7 +10,7 @@ source func.sh
 #0. 安装apt-file命令(非必需步骤)
 echo $CurScriptF $LINENO
 read -p "断点1"
-
+debug_ifelseif=true
 ifelseif  $CurScriptF $LINENO
   false && apt-file --help 2>$dNul 1>$dNul
     false && "已安装apt-file(搜索命令对应的.deb安装包)"

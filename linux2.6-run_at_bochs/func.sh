@@ -1,13 +1,13 @@
 
 #测试_get_arg:
-#debug_me=true; x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "false &&") ; echo $x
+#debug__get_arg=true; x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "false &&") ; echo $x
 #apt-file --help 2>$dNul 1>$dNul
 
 function _get_arg(){
-#if $debug_me is null : debug_me=true
-[ "x"  == "x$debug_me"  ] && debug_me=false
+#if $debug__get_arg is null : debug__get_arg=true
+[ "x"  == "x$debug__get_arg"  ] && debug__get_arg=false
 
-$debug_me && set -x
+$debug__get_arg && set -x
 
 scriptF=$1
 lnK=$2
@@ -21,7 +21,7 @@ argText=$(echo "$trimmedLnText" | sed "s/^${argPrefix}//")
 
 echo $argText
 
-{ $debug_me  &&  set +x ;}  ; unset debug_me
+{ $debug__get_arg  &&  set +x ;}  ; unset debug__get_arg
 
 }
 
@@ -36,14 +36,19 @@ function ifelseif(){
 #       echo $msgCmdB1Good
 ##############函数ifelseif伪码结束#################
 
+#if $debug_ifelseif is null : debug_ifelseif=true
+[ "x"  == "x$debug_ifelseif"  ] && debug_ifelseif=false
+$debug_ifelseif && set -x
+
+
 # scriptF=bochs2.7boot-grub4dos-linux2.6.27.15.sh
 argPrefix="false &&"
 lnNum=$1
-cmdA1=        _get_arg $scriptF   $((lnNum+1))   $argPrefix  #忽略$2
-msgCmdA1Good= _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$3
-cmdA2=        _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$4
-cmdB1=        _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$5
-msgCmdB1Good= _get_arg $scriptF   $((lnNum+2))   $argPrefix  #忽略$6
+cmdA1=        $(_get_arg $scriptF   $((lnNum+1))   $argPrefix)  #忽略$2
+msgCmdA1Good= $(_get_arg $scriptF   $((lnNum+2))   $argPrefix)  #忽略$3
+cmdA2=        $(_get_arg $scriptF   $((lnNum+3))   $argPrefix)  #忽略$4
+cmdB1=        $(_get_arg $scriptF   $((lnNum+4))   $argPrefix)  #忽略$5
+msgCmdB1Good= $(_get_arg $scriptF   $((lnNum+5))   $argPrefix)  #忽略$6
 
 
 { \
@@ -59,5 +64,6 @@ eval $cmdB1 && _="若cmdB1命令成功,则显示msgCmdB1Good" && \
 echo $msgCmdB1Good \
 ; }
 
+{ $debug_ifelseif  &&  set +x ;}  ; unset debug_ifelseif
 
 }
