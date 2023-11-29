@@ -128,8 +128,17 @@ echo $消息正常安装 \
 sshpass -p $win10SshPass scp  -P $win10SshPort $HdImgF zzz@$win10Host:/$HdImgF && \
 
 # 4.4 win10主机上msys2: 下载 grubinst_1.0.1_bin_win.zip,   安装unzip, 用 unzip 解压 grubinst_1.0.1_bin_win.zip
-msysScriptOnWin10Host="test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || { wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && pacman --noconfirm -S  unzip && unzip -o /grubinst_1.0.1_bin_win.zip -d / ; }" && \
-sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host $msysScriptOnWin10Host && \
+cat << 'EOF' > install_grubinst_on_win10_by_msys2.sh
+test -f  /grubinst_1.0.1_bin_win/grubinst/grubinst.exe || \
+{ \
+wget https://sourceforge.net/projects/grub4dos/files/grubinst/grubinst%201.0.1/grubinst_1.0.1_bin_win.zip/download  --output-document   /grubinst_1.0.1_bin_win.zip && \
+pacman --noconfirm -S  unzip && \
+unzip -o /grubinst_1.0.1_bin_win.zip -d / \
+;}
+EOF
+
+install_grubinst_on_win10_by_msys2="$(cat install_grubinst_on_win10_by_msys2.sh)" && \
+sshpass -p $win10SshPass ssh -p $win10SshPort zzz@$win10Host $install_grubinst_on_win10_by_msys2 && \
 
 # 4.5 win10主机上msys2:  用 grubinst.exe 对 磁盘映像文件 安装 grldr.mbr
 grubInstScript="/grubinst_1.0.1_bin_win/grubinst/grubinst.exe /$HdImgF && echo 'grubinst.exe ok'" && \
