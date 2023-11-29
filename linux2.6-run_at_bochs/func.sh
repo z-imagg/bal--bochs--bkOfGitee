@@ -41,14 +41,14 @@ function ifelseif(){
 $debug_ifelseif && set -x
 
 
-# scriptF=bochs2.7boot-grub4dos-linux2.6.27.15.sh
 argPrefix="false &&"
-lnNum=$1
-cmdA1=        $(_get_arg $scriptF   $((lnNum+1))   $argPrefix)  #忽略$2
-msgCmdA1Good= $(_get_arg $scriptF   $((lnNum+2))   $argPrefix)  #忽略$3
-cmdA2=        $(_get_arg $scriptF   $((lnNum+3))   $argPrefix)  #忽略$4
-cmdB1=        $(_get_arg $scriptF   $((lnNum+4))   $argPrefix)  #忽略$5
-msgCmdB1Good= $(_get_arg $scriptF   $((lnNum+5))   $argPrefix)  #忽略$6
+scriptF=$1
+lnNum=$2
+cmdA1=        $(_get_arg $scriptF   $((lnNum+1))   $argPrefix)  #忽略$3
+msgCmdA1Good= $(_get_arg $scriptF   $((lnNum+2))   $argPrefix)  #忽略$4
+cmdA2=        $(_get_arg $scriptF   $((lnNum+3))   $argPrefix)  #忽略$5
+cmdB1=        $(_get_arg $scriptF   $((lnNum+4))   $argPrefix)  #忽略$6
+msgCmdB1Good= $(_get_arg $scriptF   $((lnNum+5))   $argPrefix)  #忽略$7
 
 
 { \
