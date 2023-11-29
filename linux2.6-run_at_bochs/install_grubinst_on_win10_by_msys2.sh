@@ -8,6 +8,8 @@
 # 192.168.1.4 ubt22x64Host
 # 否则此脚本失败
 
+. /etc/profile
+
 set -e
 
 pacman --noconfirm -S   sshpass
