@@ -1,6 +1,6 @@
 
 #测试_get_arg:
-#debug__get_arg=true; x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "false &&") ; echo $x
+#debug__get_arg=true; x=$(_get_arg bochs2.7boot-grub4dos-linux2.6.27.15.sh 15 "true ||") ; echo $x
 #apt-file --help 2>$dNul 1>$dNul
 
 function _get_arg(){
@@ -13,14 +13,14 @@ scriptF=$1
 lnK=$2
 argPrefix=$3
 retF=$4
-# argPrefix="false &&"
+# argPrefix="true ||"
 lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
 _trimLn=$(echo "$lnText" | sed 's/^[[:space:]]*//')  #1. 用正则删除前导空格
 _delPrefixLn=$(echo "$_trimLn" | sed  -literal "s/^${argPrefix}//") #2.  在 禁用正则(-literal) 时  删除 前缀, 因为前缀中可能含正则的保留字
 argText=$(echo "$_delPrefixLn" | sed  -literal "s/&& \\$//") #3.  在 禁用正则(-literal) 时  删除 后缀"&& \"
 
-# argText=$(echo "$lnText" | sed 's/^ *false &&//')
+# argText=$(echo "$lnText" | sed 's/^ *true ||//')
 
 
 echo  -n "$argText" > $retF
@@ -43,7 +43,7 @@ function ifelse(){
  
 
 
-argPrefix='false &&'
+argPrefix='true ||'
 scriptF=$1
 lnNum=$2
 # set +x
