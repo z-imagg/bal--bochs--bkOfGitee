@@ -30,12 +30,12 @@ echo "git版本升级完成,已升级到版本($curGitVer)" ;
 }
 
 ifelse  $CurScriptF $LINENO
-  false && _is_git_2x
-    false && "git版本无需升级,已为2.x:$curGitVer"
-    false && :
+  true || _is_git_2x && \
+    true || "git版本无需升级,已为2.x:$curGitVer" && \
+    true || : && \
   #else:
-    false && _install_git_2x
-      false && ""
+    true || _install_git_2x && \
+      true || "" && \
 
 
 
@@ -102,12 +102,12 @@ which gcc ; \
 }
 
 ifelse  $CurScriptF $LINENO
-  false && _is_gcc4_4
-    false && "正确,已经是gcc4.4"
-    false && :
+  true || _is_gcc4_4 && \
+    true || "正确,已经是gcc4.4" && \
+    true || : && \
   #else:
-    false && _install_gcc4_4
-      false &&  ""
+    true || _install_gcc4_4 && \
+      true ||  "" && \
 
 
 
@@ -143,12 +143,12 @@ wget $kernelFUrl --output-document  $kernelF && \
 wget $kernelSumFUrl --output-document $kernelSumF 
 }
 ifelse  $CurScriptF $LINENO
-  false && _is_kernel_ok
-    false && "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF"
-    false && :
+  true || _is_kernel_ok && \
+    true || "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF" && \
+    true || : && \
   #else:
-    false && _download_kernel
-      false && "kernel下载完成"
+    true || _download_kernel && \
+      true || "kernel下载完成" && \
 
 
 

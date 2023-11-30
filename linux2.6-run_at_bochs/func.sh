@@ -16,8 +16,9 @@ retF=$4
 # argPrefix="false &&"
 lnText=$(awk -v line="$lnK" 'NR==line' $scriptF)
 
-_trimLn=$(echo "$lnText" | sed 's/^[[:space:]]*//')  #先用正则删除前导空格
-argText=$(echo "$_trimLn" | sed  -literal "s/${argPrefix}//") #再  在 禁用正则(-literal) 时  删除 前缀, 因为前缀中可能含正则的保留字
+_trimLn=$(echo "$lnText" | sed 's/^[[:space:]]*//')  #1. 用正则删除前导空格
+_delPrefixLn=$(echo "$_trimLn" | sed  -literal "s/^${argPrefix}//") #2.  在 禁用正则(-literal) 时  删除 前缀, 因为前缀中可能含正则的保留字
+argText=$(echo "$_delPrefixLn" | sed  -literal "s/&& \\$//") #3.  在 禁用正则(-literal) 时  删除 后缀"&& \"
 
 # argText=$(echo "$lnText" | sed 's/^ *false &&//')
 
