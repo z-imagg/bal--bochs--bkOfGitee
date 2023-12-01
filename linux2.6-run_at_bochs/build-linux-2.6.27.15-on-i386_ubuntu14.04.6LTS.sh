@@ -10,7 +10,7 @@ source func.sh
 function _is_git_2x(){
 which git && \
 curGitVer=`git --version` && \
-[[ "$curGitVer" > "git version 2._" ]] && \
+[[ "$curGitVer" > "git version 2._" ]]
 #ascii码表中 '0'>'_' 从而决定了 :  "git version 2.0" > "git version 2._"
 }
 
