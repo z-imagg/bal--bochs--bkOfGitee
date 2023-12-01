@@ -1,11 +1,40 @@
+#!/bin/bash
+
+
 #正常编译 linux-2.6.27.15.tar.gz 在 "真机 i386/ubuntu14.04.6LTS"
 
 
-CurScriptF=$0
-source func.sh
+{ _='加载（依赖、通用变量） 开始' && \
+######{此脚本调试步骤:
+###{1. 干运行（置空ifelse）以 确定参数行是否都被短路:
+#PS4='[${BASH_SOURCE##*/}] [$FUNCNAME] [$LINENO]: '    bash -x   ./build-linux-2.6.27.15-on-i386_ubuntu14.04.6LTS.sh   #bash调试执行 且 显示 行号
+#使用 ifelse空函数
+# function ifelse(){
+#     :
+# }
+###}
 
-#升级git到2.x版本
+
+###2. 当 确定参数行都被短路 时, 再 使用 真实 ifelse 函数:
+#加载 func.sh中的函数 ifelse
+source /crk/bochs/bash-simplify/func.sh
+######}
+
+
+source /crk/bochs/bash-simplify/dir_util.sh
+
+#当前脚本文件名, 此处 CurScriptF=build-linux-2.6.27.15-on-i386_ubuntu14.04.6LTS.sh
+CurScriptF=$(pwd)/$0
+
+
+_='加载（依赖、通用变量） 结束' ;} && \
+
+# read -p "断点1" && \
+
+#B1. 升级git到2.x版本
 #  ubuntu14.04 自带git版本为1.9, lazygit目前主流版本最低支持git2.0, 因此要升级git版本
+
+{ _='升级git到2.x版本 开始' && \
 
 function _is_git_2x(){
 which git && \
@@ -29,20 +58,27 @@ echo "git版本升级完成,已升级到版本($curGitVer)" ;
 
 }
 
-ifelse  $CurScriptF $LINENO
-  true || _is_git_2x && \
-    true || "git版本无需升级,已为2.x:$curGitVer" && \
-    true || : && \
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  _is_git_2x
+    "git版本无需升级,已为2.x:$curGitVer"
+    :
   #else:
-    true || _install_git_2x && \
-      true || "" && \
+    _install_git_2x
+      ""
+} \
+} && [ $__e == 0 ] && \
+
+_='升级git到2.x版本 结束' ;} && \
 
 
 
+#B2. 报错解决/Error2
 
-#报错解决/Error2
+{ _='报错解决/Error2 开始' && \
 
 #命令1 gcc -Wp,-MD,arch/x86/kvm/.svm.o.d  -nostdinc -isystem /usr/lib/gcc/i686-linux-gnu/4.8/include -D__KERNEL__ -Iinclude  -I/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/include -include include/linux/autoconf.h -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -O2 -m32 -msoft-float -mregparm=3 -freg-struct-return -mpreferred-stack-boundary=2 -march=i686 -mtune=generic -ffreestanding -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -Iinclude/asm-x86/mach-default -Wframe-larger-than=1024 -fno-stack-protector -fno-omit-frame-pointer -fno-optimize-sibling-calls -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -Ivirt/kvm -Iarch/x86/kvm -DMODULE -D"KBUILD_STR(s)=#s" -D"KBUILD_BASENAME=KBUILD_STR(svm)"  -D"KBUILD_MODNAME=KBUILD_STR(kvm_amd)" -c -o arch/x86/kvm/.tmp_svm.o arch/x86/kvm/svm.c
+
 echo '解决报错/Error2,如下:
 make V=1, 报错如下:
 命令1 gcc ... arch/x86/kvm/svm.c (完整命令在本脚本此行附近注释)
@@ -50,9 +86,13 @@ make V=1, 报错如下:
    __u64 padding;
          ^
 解决方案: 现在用的是gcc4.8, 换成gcc4.4
-'
+' && \
 
-#替换[gcc|g++]-4.4为[gcc|g++]-4.8
+_='报错解决/Error2 结束' ;} && \
+
+#B3. 替换[gcc|g++]-4.4为[gcc|g++]-4.8
+{ _='替换[gcc|g++]-4.4为[gcc|g++]-4.8 开始' && \
+
 findCmdByDebPkgName(){
 # findCmdByDebPkgName gcc-4.8 gcc-4.8
 # findCmdByDebPkgName g++-4.8 g++-4.8
@@ -99,20 +139,25 @@ echo " 完成: 安装gcc-4.4、g++-4.4" && \
 which gcc ; \
 }
 
-}
+} # end of function _install_gcc4_4 
 
-ifelse  $CurScriptF $LINENO
-  true || _is_gcc4_4 && \
-    true || "正确,已经是gcc4.4" && \
-    true || : && \
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  _is_gcc4_4
+    "正确,已经是gcc4.4"
+    :
   #else:
-    true || _install_gcc4_4 && \
-      true ||  "" && \
+    _install_gcc4_4
+      ""
+} \
+} && [ $__e == 0 ] && \
 
 
+_='替换[gcc|g++]-4.4为[gcc|g++]-4.8 结束' ;} && \
 
+#0. 编译环境显示
 
-#0. 编译环境
+{ _='编译环境显示 开始' && \
 
 cat /etc/issue && \
 #Ubuntu 14.04.6 LTS \n \l
@@ -124,13 +169,19 @@ uname -a && \
 gcc --version && \
 #gcc (Ubuntu/Linaro 4.4.7-8ubuntu1) 4.4.7
 
+_='编译环境显示 结束' ;} && \
 
 #1. 下载内核源码包并验证签名
-kernelFUrl="https://mirrors.cloud.tencent.com/linux-kernel/v2.6/linux-2.6.27.15.tar.gz" && \
-kernelSumFUrl="https://mirrors.cloud.tencent.com/linux-kernel/v2.6/sha256sums.asc" && \
-kernelF="linux-2.6.27.15.tar.gz" && \
-kernelF_="linux-2.6.27.15" && \
-kernelSumF="sha256sums.asc" && \
+
+{ _='下载内核源码包并验证签名 开始' && \
+
+{ \
+kernelFUrl="https://mirrors.cloud.tencent.com/linux-kernel/v2.6/linux-2.6.27.15.tar.gz"
+kernelSumFUrl="https://mirrors.cloud.tencent.com/linux-kernel/v2.6/sha256sums.asc"
+kernelF="linux-2.6.27.15.tar.gz"
+kernelF_="linux-2.6.27.15"
+kernelSumF="sha256sums.asc"
+} && \
 
 function _is_kernel_ok(){
 test -f $kernelF && test -f $kernelSumF && \
@@ -142,18 +193,24 @@ echo "文件$kernelF不存在或校验和不正确，重新下载" && \
 wget $kernelFUrl --output-document  $kernelF && \
 wget $kernelSumFUrl --output-document $kernelSumF 
 }
-ifelse  $CurScriptF $LINENO
-  true || _is_kernel_ok && \
-    true || "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF" && \
-    true || : && \
+
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  _is_kernel_ok
+    "正确,无需下载,使用已有文件 : kernelFile=$kernelF,kernelSumF=$kernelSumF"
+    :
   #else:
-    true || _download_kernel && \
-      true || "kernel下载完成" && \
+    _download_kernel
+      "kernel下载完成"
+} \
+} && [ $__e == 0 ] && \
 
-
+_='下载内核源码包并验证签名 结束' ;} && \
 
 
 #2. linux2.6内核编译过程
+
+{ _='linux2.6内核编译过程 开始' && \
 
 #2.1解压内核
 rm -fr $kernelF_ && \
@@ -195,7 +252,5 @@ make V=1 -j $jobCnt && \
 #pwd==/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15
 { find . -not -name "*.o"  -and -not -name "*.h" -and -not -name "*.c" -and -not -name "*.ko" -and -not -name "*.so" -and -not -name "*.dbg"  -exec file {} \; | grep "ELF 32-bit LSB" ; } && \
 
-
-
-
-_end=true
+_='linux2.6内核编译过程 结束' ;} && \
+_=end
