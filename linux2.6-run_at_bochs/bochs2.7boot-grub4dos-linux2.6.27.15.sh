@@ -138,11 +138,17 @@ _='4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像 结束' ;} 
 
 # 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
 { _='4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer 开始' && \
-set msgErr="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer， 退出码11" && \
-#if (...........................){  if(!........................................................)   则 .........................   /*内层if结束*/       }/*外层if结束*/
-     nc -w 3 -zv localhost 22 && {      nc -w 3  -zv win10Host $win10SshPort ; [ $? != 0  ]  &&       echo $msgErr && exit 11         ;} && \
 
-echo "win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)" && \
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  nc -w 3 -zv localhost 22 && nc -w 3  -zv win10Host $win10SshPort
+    "本地ssh端口正常,win10Ssh端口正常"
+    :
+  #else:
+    :
+      "出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer; win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
+} \
+} && [ $__e == 0 ] && \
 
 _='4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer 结束' ;} && \
 
