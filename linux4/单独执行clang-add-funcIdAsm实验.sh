@@ -13,6 +13,7 @@ cd /home/z/linux-4.14.259
 #
 #直接改造为:
 /app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin/clang \
+-m32   -march=i686  \
 -D__OPTIMIZE__ \
 -Wp,-MD,net/netfilter/.xt_addrtype.o.d \
 -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
@@ -26,47 +27,17 @@ cd /home/z/linux-4.14.259
 -Wno-packed-not-aligned \
  -std=gnu89   -D__KERNEL__    -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1   -DCC_HAVE_ASM_GOTO   -DMODULE  -DKBUILD_BASENAME='"xt_addrtype"'  -DKBUILD_MODNAME='"xt_addrtype"'  -isystem /usr/lib/gcc-cross/i686-linux-gnu/11/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h  -Xclang   -load -Xclang  /crk/clang-add-funcIdAsm/build/lib/libCTk.so  -Xclang   -add-plugin -Xclang  CTk      -c  net/netfilter/xt_addrtype.c
 
-#   （由于 clang插件只是语法层面的，因此 上述 命令中  后端部分参数    -m32   -march=i686     可以丢弃）
+#   （虽然  clang插件只是语法层面的，但是     -m32   -march=i686     被 内核源码 中 宏判断 用到了， 所以不可以丢弃 ）
 
-#会报错:
-
-
-# ./arch/x86/include/asm/ptrace.h:208:16: error: no member named 'ds' in 'pt_regs'
-            # offset == offsetof(struct pt_regs, ds) ||
-                      # ^                        ~~
-# ./include/linux/stddef.h:17:32: note: expanded from macro 'offsetof'
-# define offsetof(TYPE, MEMBER)  __compiler_offsetof(TYPE, MEMBER)
+#不会再报错，clang插件正常运行了:
 
 
-# ./arch/x86/include/asm/ptrace.h:209:16: error: no member named 'es' in 'pt_regs'
-            # offset == offsetof(struct pt_regs, es) ||
-                      # ^                        ~~
-# ./include/linux/stddef.h:17:32: note: expanded from macro 'offsetof'
-# define offsetof(TYPE, MEMBER)  __compiler_offsetof(TYPE, MEMBER)
-
-
-# ./arch/x86/include/asm/ptrace.h:210:16: error: no member named 'fs' in 'pt_regs'
-            # offset == offsetof(struct pt_regs, fs) ||
-
-#修复报错 BUILD_BUG_ON :
-#  根据 linux-4.14.259/include/linux/build_bug.h : 67 行: 可知 ，打开宏 __OPTIMIZE__ (即增加选项-D__OPTIMIZE__）  即可 关闭 BUILD_BUG_ON，
-#ifndef __OPTIMIZE__
-#define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
-#else
-#define BUILD_BUG_ON(condition) \
-	BUILD_BUG_ON_MSG(condition, "BUILD_BUG_ON failed: " #condition)
-#endif
-
-# ./include/net/dst.h:255:2: error: array size is negative
-        # BUILD_BUG_ON(offsetof(struct dst_entry, __refcnt) & 63);
+#修复报错  ./arch/x86/include/asm/ptrace.h:210:16: error: no member named 'fs' in 'pt_regs'， 
+#   分析:  fs 应该是x64中的寄存器， 而在x86中没有该寄存器，所以说应该是需要 告知现在是x32：
+#  即 增加 选项 -m32   -march=i686  即可修复报错
  
-# ./include/net/dst.h:255:2: error: array size is negative
-        # BUILD_BUG_ON(offsetof(struct dst_entry, __refcnt) & 63);
 
-
-#   ...
-
-# 但是 clang插件 修改了部分函数, 但 xt_addrtype.c:240行 的  函数 "static void __exit addrtype_mt_exit(void)" 没有修改
+#   clang插件 正常运行 没有语法错误时，  修改了被编译源文件中的全部函数 
 grep -Hn -B 1  "\{"  net/netfilter/xt_addrtype.c
 #   以下结果 手工删除了无关内容
 # net/netfilter/xt_addrtype.c-38-                     const struct in6_addr *addr, u16 mask)
@@ -93,5 +64,5 @@ grep -Hn -B 1  "\{"  net/netfilter/xt_addrtype.c
 # net/netfilter/xt_addrtype.c-234-static int __init addrtype_mt_init(void)
 # net/netfilter/xt_addrtype.c:235:{__asm__  __volatile__ (   "jmp 0f \n\t"    "or $0xFFFFFFFF,%%edi \n\t"    "or $7,%%edi \n\t"    "0: \n\t" : : ); /*filePath=net/netfilter/xt_addrtype.c,line=234,column=1,abs_location_id=7,funcName=addrtype_mt_init,srcFileId=0,locationId=7*/
 
-# net/netfilter/xt_addrtype.c-240-static void __exit addrtype_mt_exit(void)   #这里看 函数 "static void __exit addrtype_mt_exit(void)" 没有被修改
-# net/netfilter/xt_addrtype.c:241:{    
+# net/netfilter/xt_addrtype.c-240-static void __exit addrtype_mt_exit(void)    
+# net/netfilter/xt_addrtype.c:241:{__asm__  __volatile__ (   "jmp 0f \n\t"    "or $0xFFFFFFFF,%%edi \n\t"    "or $8,%%edi \n\t"    "0: \n\t" : : ); /*filePath=net/netfilter/xt_addrtype.c,line=240,column=1,abs_location_id=8,funcName=addrtype_mt_exit,srcFileId=0,locationId=8*/
