@@ -8,17 +8,16 @@ cd /home/z/linux-4.14.259
 
 
 #直接改造为:
-/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin/clang  -std=gnu89 -isystem /usr/lib/gcc-cross/i686-linux-gnu/11/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h  -Xclang   -load -Xclang  /crk/clang-add-funcIdAsm/build/lib/libCTk.so  -Xclang   -add-plugin -Xclang  CTk      -c  net/netfilter/xt_addrtype.c
+/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin/clang  -std=gnu89   -D__KERNEL__  -Wall -Wundef  -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1   -DCC_HAVE_ASM_GOTO   -DMODULE  -DKBUILD_BASENAME='"xt_addrtype"'  -DKBUILD_MODNAME='"xt_addrtype"'  -isystem /usr/lib/gcc-cross/i686-linux-gnu/11/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h  -Xclang   -load -Xclang  /crk/clang-add-funcIdAsm/build/lib/libCTk.so  -Xclang   -add-plugin -Xclang  CTk      -c  net/netfilter/xt_addrtype.c
 
 #   （由于 clang插件只是语法层面的，因此 上述 命令中  后端部分参数    -m32   -march=i686     可以丢弃）
 
 #会报错:
-# ./include/linux/printk.h:143:28: error: expected parameter declarator
-# extern asmlinkage __printf(1, 2)
-                           # ^
-# ./include/linux/printk.h:143:28: error: expected ')'
-# ./include/linux/printk.h:143:27: note: to match this '('
-# extern asmlinkage __printf(1, 2)
+# ./include/net/dst.h:255:2: error: array size is negative
+        # BUILD_BUG_ON(offsetof(struct dst_entry, __refcnt) & 63);
+# ./include/net/dst.h:255:2: error: array size is negative
+        # BUILD_BUG_ON(offsetof(struct dst_entry, __refcnt) & 63);
+
 
 #   ...
 
