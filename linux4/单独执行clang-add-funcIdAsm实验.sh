@@ -8,13 +8,18 @@ cd /home/z/linux-4.14.259
 
 
 #直接改造为:
-/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin/clang -isystem /usr/lib/gcc-cross/i686-linux-gnu/11/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h  -Xclang   -load -Xclang  /crk/clang-add-funcIdAsm/build/lib/libCTk.so  -Xclang   -add-plugin -Xclang  CTk      -c  net/netfilter/xt_addrtype.c
+/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin/clang  -std=gnu89 -isystem /usr/lib/gcc-cross/i686-linux-gnu/11/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h  -Xclang   -load -Xclang  /crk/clang-add-funcIdAsm/build/lib/libCTk.so  -Xclang   -add-plugin -Xclang  CTk      -c  net/netfilter/xt_addrtype.c
 
 #   （由于 clang插件只是语法层面的，因此 上述 命令中  后端部分参数    -m32   -march=i686     可以丢弃）
 
 #会报错:
-#   ./arch/x86/include/asm/bitops.h:134:2: error: call to undeclared function 'barrier'; ISO C99 and later do not support implicit function de
-#   ./include/linux/bitops.h:171:10: error: call to undeclared function 'fls'; ISO C99 and later do not support implicit function declarations
+# ./include/linux/printk.h:143:28: error: expected parameter declarator
+# extern asmlinkage __printf(1, 2)
+                           # ^
+# ./include/linux/printk.h:143:28: error: expected ')'
+# ./include/linux/printk.h:143:27: note: to match this '('
+# extern asmlinkage __printf(1, 2)
+
 #   ...
 
 # 但是 clang插件 修改了部分函数, 但 xt_addrtype.c:240行 的  函数 "static void __exit addrtype_mt_exit(void)" 没有修改
