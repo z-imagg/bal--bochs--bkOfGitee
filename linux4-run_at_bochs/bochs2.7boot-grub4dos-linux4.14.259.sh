@@ -3,7 +3,7 @@
 #当前主机为ubuntu22x64
 
 #本脚本运行例子:
-usage_echo_stmt='echo -e "用法:\n 【HdImg_C=400 bash $0】（指定 磁盘映像文件 柱面数HdImg_C 为 400）； \n【bash $0】（指定  柱面数HdImg_C 默认为 200）. \n  磁头数HdImg_H固定为${HdImg_H}、每磁道扇区数固定为${HdImg_S}" ' && \
+usage_echo_stmt='echo -e "用法:\n【HdImg_C=400 bash $0】（指定 磁盘映像文件 柱面数HdImg_C 为 400）； \n【bash $0】（指定  柱面数HdImg_C 默认为 200）. \n  磁头数HdImg_H固定为${HdImg_H}、每磁道扇区数固定为${HdImg_S}" \n\n' && \
 
 _SectorSize=512 && _Pwr2_10=$((2**10)) && \
 
