@@ -1,13 +1,10 @@
 
 # 各主机访问端口备忘
-- win10Ssh: 192.168.1.13:3022; (__*)
-- ubuntu14x32: 192.168.1.4:3022; (TPLINK_*)
-- ubuntu22x64: 192.168.1.4:2122; (TPLINK_*)
-
-
-- w10LocSsh: 10.0.4.30:22; (TPLINK_*)
-- ubuntu22x64Loc(该机器运行本目录内的脚本): 10.0.4.21:22; (TPLINK_*)
-
+- w10.loc(win10Ssh)/ubuntu23x64:       10.0.4.23:22; (TPLINK_*),23就是指ubuntu23
+- ubuntu14x32:                         10.0.4.14:22; (TPLINK_*),14就是指ubuntu14
+- u22.loc/ubuntu22x64:                 10.0.4.22:22; (TPLINK_*),22就是指ubuntu22
+>>>>>> 主机ubuntu22x64Loc 运行本目录内的脚本
+ 
 
 # 步骤
 > 在 主机ubuntu22x64Loc上运行 脚本bochs2.7boot-grub4dos-linux4.14.259.sh
