@@ -191,7 +191,7 @@ _='4.2b_1 建立 sshfs远程win10主机根目录 结束' ;} && \
     "sshfs远程win10主机根目录 $w10LocSshfsRt 已挂载"
     :
   #else:
-    echo $win10SshPass sshfs  -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $w10LocSshPort  -o password_stdin z@w10.loc:/ $w10LocSshfsRt 
+    echo $win10SshPass sshfs  -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $w10LocSshPort  -o password_stdin $win10User@w10.loc:/ $w10LocSshfsRt 
       "sshfs远程win10主机根目录 $w10LocSshfsRt 挂载完毕"
 } \
 } && [ $__e == 0 ] && \
