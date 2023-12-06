@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#当前主机为ubuntu22x64
+
 { _='加载（依赖、通用变量） 开始' && \
 ######{此脚本调试步骤:
 ###{1. 干运行（置空ifelse）以 确定参数行是否都被短路:
@@ -141,7 +143,7 @@ _='4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像 结束' ;} 
 
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  nc -w 3 -zv localhost 22 && nc -w 3  -zv win10Host $win10SshPort
+  nc -w 3 -zv localhost 22 && nc -w 3  -zv w10.loc $w10LocSshPort
     "本地ssh端口正常,win10Ssh端口正常"
     :
   #else:
@@ -153,20 +155,45 @@ _='4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像 结束' ;} 
 _='4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer 结束' ;} && \
 
 
-# 4.2 安装sshpass
-{ _='4.2 安装sshpass 开始' && \
+# 4.2 安装sshpass sshfs
+{ _='4.2 安装sshpass sshfs 开始' && \
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  sshpass -V 2>/dev/null 1>/dev/null
-    "已经安装sshpass"
+  sshpass -V 2>/dev/null 1>/dev/null && sshfs --version 2>/dev/null 1>/dev/null
+    "已经安装sshpass sshfs"
     :
   #else:
-    sudo apt install -y sshpass
-      "sshpass安装完毕"
+    sudo apt install -y sshpass sshfs
+      "sshpass sshfs 安装完毕"
 } \
 } && [ $__e == 0 ] && \
 
 _='4.2 安装sshpass 结束' ;} && \
+
+# 4.2b 利用sshfs挂载远程sshserver主机根目录
+{ _='4.2b_1 建立 sshfs远程win10主机根目录' && \
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  test -d $w10LocSshfsRt
+    "sshfs远程win10主机根目录 $w10LocSshfsRt 已存在"
+    :
+  #else:
+    { sudo rm -fr $w10LocSshfsRt ; sudo mkdir $w10LocSshfsRt && sudo chown -R $(id -gn).$(whoami) $w10LocSshfsRt ;}
+      "sshfs远程win10主机根目录 $w10LocSshfsRt 新建完毕"
+} \
+} && [ $__e == 0 ] && \
+
+{ _='4.2b_2 挂载 sshfs远程win10主机根目录' && \
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  mount | grep  "$w10LocSshfsRt"
+    "sshfs远程win10主机根目录 $w10LocSshfsRt 已挂载"
+    :
+  #else:
+    echo $win10SshPass sshfs  -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $w10LocSshPort  -o password_stdin z@w10.loc:/ $w10LocSshfsRt 
+      "sshfs远程win10主机根目录 $w10LocSshfsRt 挂载完毕"
+} \
+} && [ $__e == 0 ] && \
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
 
@@ -175,10 +202,9 @@ IGOW10F=install_grubinst_on_win10_by_msys2.sh
 
 #[ssh | scp ] -o StrictHostKeyChecking=no:
 #  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
-
-sshpass -p $win10SshPass scp -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -P $win10SshPort $ConfigF  $win10User@win10Host:/$ConfigF && \
-sshpass -p $win10SshPass scp -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -P $win10SshPort $IGOW10F  $win10User@win10Host:/$IGOW10F && \
-sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $win10SshPort $win10User@win10Host "HdImgF=$HdImgF bash -x /$IGOW10F" && \
+cp $ConfigF $w10LocSshfsRt/$ConfigF && \
+cp $IGOW10F  $w10LocSshfsRt/$IGOW10F && \
+sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $w10LocSshPort $win10User@w10.loc "HdImgF=$HdImgF bash -x /$IGOW10F" && \
 #ssh -t , -t 即 分配  pseudo-terminal 即 分配 伪终端, 否则 交互式命令工作不正常 （比如read -p 提示消息 ，将不显示提示消息）
 
 _='4.3 磁盘映像文件 复制到 win10主机msys2的根目录下 结束' ;} && \
@@ -211,16 +237,8 @@ _='制作 文件menu.lst 结束' ;} && \
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 _='复制grldr、menu.lst 到 磁盘映像文件 结束' ;} && \
 
-#9. 去内核编译机器ubuntu14X86下载已经编译好的内核
-{ _='去内核编译机器ubuntu14X86下载已经编译好的内核 开始' && \
-
-
-bzImageAtUbuntu14X86=/crk/bochs/linux2.6-run_at_bochs/linux-2.6.27.15/arch/x86/boot/bzImage
-bzImageF=bzImage
-sshpass -p $ubuntu14X86Pass scp -o ConnectTimeout=$SshConnTimeoutSeconds  -o  StrictHostKeyChecking=no -P $ubuntu14X86Port  z@ubuntu14X86Host:$bzImageAtUbuntu14X86 $bzImageF
-
-
-_='去内核编译机器ubuntu14X86下载已经编译好的内核 结束' ;} && \
+#9. 内核编译机器为本机ubuntu22, 假设 已经编译好内核
+bzImageF=/crk/bochs/linux4-run_at_bochs/linux-4.14.259/arch/x86/boot/bzImage && \
 
 #10. 复制 内核bzImage  到 磁盘映像文件
 { _='复制 内核bzImage  到 磁盘映像文件 开始' && \
