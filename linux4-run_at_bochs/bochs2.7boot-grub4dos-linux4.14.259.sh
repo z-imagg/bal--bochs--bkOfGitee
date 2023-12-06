@@ -102,32 +102,44 @@ set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffs
 :;} && \
 
 #3. 断言 磁盘映像文件几何参数
-{   \
+{  \
 #xxd -seek +0X1C3 -len 3 $HdImgF
-#0X1C3:0X0F:15:即16H:即16个磁头, 0X1C4:0X20:32:即32S:即每磁道有32个扇区, 0X1C3:0XC7:199:即200C:即200个柱面
+#0X1C3:HdImg_H -1 : 0X0F:15:即16H:即16个磁头,  0X1C4: HdImg_S : 0X20:32:即32S:即每磁道有32个扇区, 0X1C3:HdImg_C -1 : 0XC7:199:即200C:即200个柱面
 
 #0f20C7 即  用010editor打开 磁盘映像文件  偏移0X1C3到偏移0X1C3+2 的3个字节
-# set 消息条件已满足="磁盘几何参数指定成功"
-# set 消息断言失败并退出="磁盘几何参数指定失败, 为确认 请用diskgenius专业版打开该x.img查看几何参数, 退出码为5"
-# { \
-# #测试 目标条件 是否满足
-# test "$(xxd -seek +0X1C3 -len 3  -plain  $HdImgF)" == "0f20C7" && _="若 目标条件 已满足," && \
-# #则 显示 消息条件已满足
-# echo $消息条件已满足 
-# ;} \
-# || "否则 (即 消息条件已满足)" 2>/dev/null || \
-# { \
-# #显示 消息断言失败并退出 并 退出
-# echo $消息断言失败并退出 && exit 5 && \
-# ;}
+ 
+function _check_hdimgF_geometry_param_HSC(){
+#测试mkdiskimage 是否存在及正常运行
+HdImg_C_sub1_hex=$( printf "%02x" $((HdImg_C-1)) ) && \
+HdImg_H_hex=$(printf "%02x" $((HdImg_H-1)) ) && \
+HdImg_S_hex=$(printf "%02x" $HdImg_S ) && \
+_HSC_hex_calc="${HdImg_H_hex}${HdImg_S_hex}${HdImg_C_sub1_hex}" && \
+_HSC_hex_xxdRdFromHdImgF="$(xxd -seek +0X1C3 -len 3  -plain  $HdImgF)" && \
+test "$_HSC_hex_xxdRdFromHdImgF" == "${_HSC_hex_calc}"
+}
+
+
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  _check_hdimgF_geometry_param_HSC
+    "磁盘映像文件几何参数HSC正确,_HSC_hex=${_HSC_hex_calc}"
+    :
+  #else:
+    echo "磁盘映像文件几何参数HSC错误【 错误, _HSC_hex_calc=${_HSC_hex_calc} != _HSC_hex_xxdRdFromHdImgF=${_HSC_hex_xxdRdFromHdImgF} 】，退出码为5" && exit 5
+      ""
+} \
+} && [ $__e == 0 ] && \
 
 #  注意sfdisk显示磁盘的几何参数与diskgenius的不一致,这里认为sfdisk是错误的，而diskgenius是正确的
 # sfdisk --show-geometry $HdImgF
 
 #不需要 parted 、 mkfs.vfat 等命令 再格式化分区，因为mkdiskimage制作 磁盘映像文件时 已经 格式化过分区了
 
-
 :;} && \
+ 
+
+
+ 
 
 #4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像
 {  \
