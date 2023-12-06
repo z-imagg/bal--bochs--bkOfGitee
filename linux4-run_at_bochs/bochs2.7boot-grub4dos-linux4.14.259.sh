@@ -30,8 +30,8 @@ _='加载（依赖、通用变量） 结束' ;} && \
 # read -p "断点1" && \
 
 #-1. 业务内容开始
-HdImgF=HD50MB200C16H32S.img
-HdImg_C=200 ; HdImg_H=16 ; HdImg_S=32 ;
+HdImgF=HD50MB200C16H32S.img && \
+HdImg_C=200 &&  HdImg_H=16 && HdImg_S=32 && \
 
 #0. 安装apt-file命令(非必需步骤)
 { _='安装apt-file命令(非必需步骤)' && \
@@ -171,7 +171,7 @@ _='4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServe
 _='4.2 安装sshpass 结束' ;} && \
 
 # 4.2b 利用sshfs挂载远程sshserver主机根目录
-{ _='4.2b_1 建立 sshfs远程win10主机根目录' && \
+{ _='4.2b_1 建立 sshfs远程win10主机根目录 开始' && \
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
   test -d $w10LocSshfsRt
@@ -182,8 +182,9 @@ _='4.2 安装sshpass 结束' ;} && \
       "sshfs远程win10主机根目录 $w10LocSshfsRt 新建完毕"
 } \
 } && [ $__e == 0 ] && \
+_='4.2b_1 建立 sshfs远程win10主机根目录 结束' ;} && \
 
-{ _='4.2b_2 挂载 sshfs远程win10主机根目录' && \
+{ _='4.2b_2 挂载 sshfs远程win10主机根目录 开始' && \
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
   mount | grep  "$w10LocSshfsRt"
@@ -194,6 +195,7 @@ _='4.2 安装sshpass 结束' ;} && \
       "sshfs远程win10主机根目录 $w10LocSshfsRt 挂载完毕"
 } \
 } && [ $__e == 0 ] && \
+_='4.2b_1 挂载 sshfs远程win10主机根目录 结束' ;} && \
 
 # 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
 
