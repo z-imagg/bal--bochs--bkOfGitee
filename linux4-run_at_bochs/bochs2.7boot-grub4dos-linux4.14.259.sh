@@ -143,7 +143,7 @@ _='4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像 结束' ;} 
 
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  nc -w 3 -zv localhost 22 && nc -w 3  -zv w10.loc $w10LocSshPort
+  nc -w 3 -zv localhost 22 && nc -w 3  -zv w10.loc $w10SshPort
     "本地ssh端口正常,win10Ssh端口正常"
     :
   #else:
@@ -174,12 +174,12 @@ _='4.2 安装sshpass 结束' ;} && \
 { _='4.2b_1 建立 sshfs远程win10主机根目录 开始' && \
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  test -d $w10LocSshfsRt
-    "sshfs远程win10主机根目录 $w10LocSshfsRt 已存在"
+  test -d $w10SshfsRt
+    "sshfs远程win10主机根目录 $w10SshfsRt 已存在"
     :
   #else:
-    { sudo rm -fr $w10LocSshfsRt ; sudo mkdir $w10LocSshfsRt && sudo chown -R $(id -gn).$(whoami) $w10LocSshfsRt ;}
-      "sshfs远程win10主机根目录 $w10LocSshfsRt 新建完毕"
+    { sudo rm -fr $w10SshfsRt ; sudo mkdir $w10SshfsRt && sudo chown -R $(id -gn).$(whoami) $w10SshfsRt ;}
+      "sshfs远程win10主机根目录 $w10SshfsRt 新建完毕"
 } \
 } && [ $__e == 0 ] && \
 _='4.2b_1 建立 sshfs远程win10主机根目录 结束' ;} && \
@@ -187,12 +187,12 @@ _='4.2b_1 建立 sshfs远程win10主机根目录 结束' ;} && \
 { _='4.2b_2 挂载 sshfs远程win10主机根目录 开始' && \
 { \
 { ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  mount | grep  "$w10LocSshfsRt"
-    "sshfs远程win10主机根目录 $w10LocSshfsRt 已挂载"
+  mount | grep  "$w10SshfsRt"
+    "sshfs远程win10主机根目录 $w10SshfsRt 已挂载"
     :
   #else:
-    echo $win10SshPass | sshfs  -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $w10LocSshPort  -o password_stdin $win10User@w10.loc:/ $w10LocSshfsRt 
-      "sshfs远程win10主机根目录 $w10LocSshfsRt 挂载完毕"
+    echo $win10SshPass | sshfs  -o ConnectTimeout=$SshConnTS -o StrictHostKeyChecking=no  -p $w10SshPort  -o password_stdin $win10User@w10.loc:/ $w10SshfsRt 
+      "sshfs远程win10主机根目录 $w10SshfsRt 挂载完毕"
 } \
 } && [ $__e == 0 ] && \
 _='4.2b_1 挂载 sshfs远程win10主机根目录 结束' ;} && \
@@ -204,9 +204,9 @@ IGOW10F=install_grubinst_on_win10_by_msys2.sh
 
 #[ssh | scp ] -o StrictHostKeyChecking=no:
 #  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
-cp $ConfigF $w10LocSshfsRt/$ConfigF && \
-cp $IGOW10F  $w10LocSshfsRt/$IGOW10F && \
-sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTimeoutSeconds -o StrictHostKeyChecking=no  -p $w10LocSshPort $win10User@w10.loc "HdImgF=$HdImgF bash -x /$IGOW10F" && \
+cp $ConfigF $w10SshfsRt/$ConfigF && \
+cp $IGOW10F  $w10SshfsRt/$IGOW10F && \
+sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTS -o StrictHostKeyChecking=no  -p $w10SshPort $win10User@w10.loc "HdImgF=$HdImgF bash -x /$IGOW10F" && \
 #ssh -t , -t 即 分配  pseudo-terminal 即 分配 伪终端, 否则 交互式命令工作不正常 （比如read -p 提示消息 ，将不显示提示消息）
 
 _='4.3 磁盘映像文件 复制到 win10主机msys2的根目录下 结束' ;} && \
