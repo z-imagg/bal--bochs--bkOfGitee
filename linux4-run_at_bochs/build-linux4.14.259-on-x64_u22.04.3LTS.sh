@@ -1,3 +1,7 @@
+#cmd-wrap 拦截 gcc 命令
+[   -e /crk/cmd-wrap ] || ln -s /crk/bochs/cmd-wrap /crk/cmd-wrap
+bash /crk/cmd-wrap/install-wrap.sh
+
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu
 sudo apt install -y gcc-multilib-i686-linux-gnu
