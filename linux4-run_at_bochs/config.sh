@@ -7,7 +7,7 @@ SshConnTS=10
 SUDO=sudo
 HostsF="/etc/hosts"
 #mingw(msys)下不需要sudo
-[ "$(uname -o)" == "Msys" ] && { SUDO="" && HostF="/c/Windows/System32/drivers/etc/hosts";}
+[ "$(uname -o)" == "Msys" ] && { SUDO="" && HostsF="/c/Windows/System32/drivers/etc/hosts";}
 
 
 #本文内容，请参照: linux2.6-run_at_bochs\readme.md
