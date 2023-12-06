@@ -2,27 +2,35 @@
 
 #当前主机为ubuntu22x64
 
-#本脚本运行例子:
-usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=32 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 32）； \n【 bash $0 】（指定  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " ' && \
+# 此脚本用法:
+{ \
+usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=32 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 32）； \n【 bash $0 】（指定  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " '
+:;} && \
 
-_SectorSize=512 && _Pwr2_10=$((2**10)) && \
+# 常量
+{ \
+_SectorSize=512 && _Pwr2_10=$((2**10))
+:;} && \
 
-# 加载（依赖、通用变量）
+
+
+# 加载（依赖、通用变量）（此脚本中的ifelse调试步骤) (关于此脚本中的 【:;}】)
 {  \
-######{此脚本调试步骤:
+
+####{此脚本中的ifelse调试步骤:
 ###{1. 干运行（置空ifelse）以 确定参数行是否都被短路:
 #PS4='[${BASH_SOURCE##*/}] [$FUNCNAME] [$LINENO]: '    bash -x   ./bochs2.7boot-grub4dos-linux2.6.27.15.sh   #bash调试执行 且 显示 行号
 #使用 ifelse空函数
 # function ifelse(){
 #     :
 # }
-###}
-
+#### 1.结束}
 
 ###2. 当 确定参数行都被短路 时, 再 使用 真实 ifelse 函数:
 #加载 func.sh中的函数 ifelse
 source /crk/bochs/bash-simplify/func.sh
-######}
+### 2.结束}
+#### 此脚本中的ifelse调试步骤 结束}
 
 
 source /crk/bochs/bash-simplify/dir_util.sh
@@ -30,11 +38,13 @@ source /crk/bochs/bash-simplify/dir_util.sh
 #当前脚本文件名, 此处 CurScriptF=build-linux-2.6.27.15-on-i386_ubuntu14.04.6LTS.sh
 CurScriptF=$(pwd)/$0
 
-
-:;} && \
+### { 关于此脚本中的 【:;}】
 # bash中关于 {}  , 结尾的}同一行若有命令x 则 形式必须是 x;} 不能是 x}
 #  这里 : 是 空命令, 因此 :;} 符合 形式 x;} 
 # :;} 实际 可以写为 } , 写为 :;} 是为了更加醒目 的表示 这是本块业务代码的结束点
+### 关于此脚本中的 结束 }
+
+:;} && \
 
 # read -p "断点1" && \
 
