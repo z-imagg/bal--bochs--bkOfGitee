@@ -4,3 +4,6 @@
 [submodule "bash-simplify"]
 	path = bash-simplify
 	url = https://prgrmz07:S9UWyxCXr55tD3SiWVxX@gitcode.net/crk/bash-simplify.git
+[submodule "cmd-wrap"]
+	path = cmd-wrap
+	url = https://prgrmz07:gTzskcSomrVPMZ-tcUd5@gitcode.net/pubx/analyze_code/cmd-wrap.git
