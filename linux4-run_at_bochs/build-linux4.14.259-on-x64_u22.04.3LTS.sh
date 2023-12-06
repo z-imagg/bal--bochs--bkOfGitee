@@ -1,5 +1,5 @@
 #cmd-wrap 拦截 gcc 命令
-ln -s /crk/bochs/cmd-wrap /crk/cmd-wrap
+[   -e /crk/cmd-wrap ] || ln -s /crk/bochs/cmd-wrap /crk/cmd-wrap
 bash /crk/cmd-wrap/install-wrap.sh
 
 #ubuntu 22 x64
