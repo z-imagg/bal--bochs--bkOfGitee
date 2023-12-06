@@ -274,7 +274,9 @@ errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出�
 { \
 
 #initrd: busybox作为 init ram disk
-test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686
+# busybox_i686_url="http://ftp.icm.edu.pl/packages/busybox/binaries/1.16.1/busybox-i686"
+busybox_i686_url="https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686" && \
+{ test -f busybox-i686 ||  wget $busybox_i686_url ;}
 chmod +x busybox-i686
 
 :;} && \
