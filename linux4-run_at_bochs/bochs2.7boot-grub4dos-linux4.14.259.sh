@@ -2,6 +2,9 @@
 
 #当前主机为ubuntu22x64
 
+#本脚本运行例子:
+# HdImg_C=400 bash bochs2.7boot-grub4dos-linux4.14.259.sh  #指定 磁盘映像文件 柱面数HdImg_C 为 400
+
 # 加载（依赖、通用变量）
 {  \
 ######{此脚本调试步骤:
@@ -34,11 +37,13 @@ CurScriptF=$(pwd)/$0
 # read -p "断点1" && \
 
 #-1. 业务内容开始
-HdImg_C=200 &&  HdImg_H=16 && HdImg_S=32 && \
+#磁盘映像文件 柱面数 HdImg_C ： 外部指定变量HdImg_C的值 或 默认 200
+HdImg_C=${HdImg_C:-200} &&  HdImg_H=16 && HdImg_S=32 && \
 _SectorSize=512 && _Pwr2_10=$((2**10)) \
 _HdImgF_Sz_MB=$(( HdImg_C * HdImg_H * HdImg_S * _SectorSize / ( _Pwr2_10*_Pwr2_10 ) )) && \
 HdImgF="HD${_HdImgF_Sz_MB}MB${HdImg_C}C${HdImg_H}H${HdImg_S}S.img" && \
-echo "磁盘映像文件名:${HdImgF}" && \
+echo "磁盘映像文件【名:${HdImgF}，尺寸:${HdImgF}MB】" && \
+read -p "按回车开始（停止请按Ctrl+C）" && \
 
 #0. 安装apt-file命令(非必需步骤)
 {   \
@@ -327,7 +332,7 @@ sudo cp $initrdF /mnt/hd_img/
 
 #13. 卸载 磁盘映像文件
 {  \
-read -p "即将卸载"
+read -p "按回车即将卸载"
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
 
