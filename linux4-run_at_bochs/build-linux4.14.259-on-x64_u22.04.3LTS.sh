@@ -1,9 +1,9 @@
 #ubuntu 22 x64
-sudo apt install  gcc-11-i686-linux-gnu gcc-i686-linux-gnu
-sudo apt install  gcc-multilib-i686-linux-gnu
+sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu
+sudo apt install -y gcc-multilib-i686-linux-gnu
 
 
-
+rm -fr linux-4.14.259.tar.gz linux-4.14.259
 wget https://mirrors.cloud.tencent.com/linux-kernel/v4.x/linux-4.14.259.tar.gz
 tar -zxf linux-4.14.259.tar.gz
 cd linux-4.14.259
