@@ -3,7 +3,7 @@
 #当前主机为ubuntu22x64
 
 #本脚本运行例子:
-usage_echo_stmt='echo -e "此脚本$0用法:\n【HdImg_C=400 bash $0】（指定 磁盘映像文件 柱面数HdImg_C 为 400）； \n【bash $0】（指定  柱面数HdImg_C 默认为 200）. \n  磁头数HdImg_H固定为${HdImg_H}、每磁道扇区数固定为${HdImg_S} \n\n " ' && \
+usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=32 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 32）； \n【 bash $0 】（指定  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " ' && \
 
 _SectorSize=512 && _Pwr2_10=$((2**10)) && \
 
@@ -39,8 +39,9 @@ CurScriptF=$(pwd)/$0
 # read -p "断点1" && \
 
 #-1. 业务内容开始
-#磁盘映像文件 柱面数 HdImg_C ： 外部指定变量HdImg_C的值 或 默认 200
-HdImg_C=${HdImg_C:-200} &&  HdImg_H=16 && HdImg_S=32 && \
+#磁盘映像文件 磁头数 HdImg_H ： 外部指定变量HdImg_H的值 或 默认 16
+#磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255
+HdImg_C=200 && HdImg_H=${HdImg_H:-16} && HdImg_S=32 && \
 #显示本命令用法
 eval $usage_echo_stmt && \
 #计算磁盘映像文件尺寸
