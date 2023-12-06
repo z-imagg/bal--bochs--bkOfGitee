@@ -3,7 +3,9 @@
 #当前主机为ubuntu22x64
 
 #本脚本运行例子:
-# HdImg_C=400 bash bochs2.7boot-grub4dos-linux4.14.259.sh  #指定 磁盘映像文件 柱面数HdImg_C 为 400
+usage_echo_stmt='echo -e "用法:\n 【HdImg_C=400 bash $0】（指定 磁盘映像文件 柱面数HdImg_C 为 400）； \n【bash $0】（指定  柱面数HdImg_C 默认为 200）. \n  磁头数HdImg_H固定为${HdImg_H}、每磁道扇区数固定为${HdImg_S}" ' && \
+
+_SectorSize=512 && _Pwr2_10=$((2**10)) && \
 
 # 加载（依赖、通用变量）
 {  \
@@ -39,10 +41,15 @@ CurScriptF=$(pwd)/$0
 #-1. 业务内容开始
 #磁盘映像文件 柱面数 HdImg_C ： 外部指定变量HdImg_C的值 或 默认 200
 HdImg_C=${HdImg_C:-200} &&  HdImg_H=16 && HdImg_S=32 && \
-_SectorSize=512 && _Pwr2_10=$((2**10)) \
+#显示本命令用法
+eval $usage_echo_stmt && \
+#计算磁盘映像文件尺寸
 _HdImgF_Sz_MB=$(( HdImg_C * HdImg_H * HdImg_S * _SectorSize / ( _Pwr2_10*_Pwr2_10 ) )) && \
+#组装磁盘映像文件名
 HdImgF="HD${_HdImgF_Sz_MB}MB${HdImg_C}C${HdImg_H}H${HdImg_S}S.img" && \
+#显示 磁盘映像文件名
 echo "磁盘映像文件【名:${HdImgF}，尺寸:${_HdImgF_Sz_MB}MB】" && \
+#提示是否继续
 read -p "按回车开始（停止请按Ctrl+C）" && \
 
 #0. 安装apt-file命令(非必需步骤)
