@@ -237,8 +237,11 @@ _='制作 文件menu.lst 结束' ;} && \
 sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 _='复制grldr、menu.lst 到 磁盘映像文件 结束' ;} && \
 
-#9. 内核编译机器为本机ubuntu22, 假设 已经编译好内核
-bzImageF=/crk/bochs/linux4-run_at_bochs/linux-4.14.259/arch/x86/boot/bzImage && \
+#9. 编译内核 内核编译机器为本机ubuntu22
+{ _='编译内核 开始' && \
+bzImageF=linux-4.14.259/arch/x86/boot/bzImage && \
+{ test -f $bzImageF || bash build-linux4.14.259-on-x64_u22.04.3LTS.sh ;} && \
+_='编译内核 结束' ;} && \
 
 #10. 复制 内核bzImage  到 磁盘映像文件
 { _='复制 内核bzImage  到 磁盘映像文件 开始' && \

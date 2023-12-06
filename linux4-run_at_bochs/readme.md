@@ -10,6 +10,5 @@
 
 
 # 步骤
-1.  build-linux4.14.259-on-x64_u22.04.3LTS.sh
-
-2.  bochs2.7boot-grub4dos-linux4.14.259.sh
+> 在 主机ubuntu22x64Loc上运行 脚本bochs2.7boot-grub4dos-linux4.14.259.sh
+>  脚本bochs2.7boot-grub4dos-linux4.14.259.sh 会 调用 内核编译脚本build-linux4.14.259-on-x64_u22.04.3LTS.sh
