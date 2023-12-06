@@ -2,22 +2,35 @@
 
 #当前主机为ubuntu22x64
 
-# 加载（依赖、通用变量）
+# 此脚本用法:
+{ \
+usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=32 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 32）； \n【 bash $0 】（指定  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " '
+:;} && \
+
+# 常量
+{ \
+_SectorSize=512 && _Pwr2_10=$((2**10))
+:;} && \
+
+
+
+# 加载（依赖、通用变量）（此脚本中的ifelse调试步骤) (关于此脚本中的 【:;}】) (断点1)
 {  \
-######{此脚本调试步骤:
+
+####{此脚本中的ifelse调试步骤:
 ###{1. 干运行（置空ifelse）以 确定参数行是否都被短路:
 #PS4='[${BASH_SOURCE##*/}] [$FUNCNAME] [$LINENO]: '    bash -x   ./bochs2.7boot-grub4dos-linux2.6.27.15.sh   #bash调试执行 且 显示 行号
 #使用 ifelse空函数
 # function ifelse(){
 #     :
 # }
-###}
-
+#### 1.结束}
 
 ###2. 当 确定参数行都被短路 时, 再 使用 真实 ifelse 函数:
 #加载 func.sh中的函数 ifelse
 source /crk/bochs/bash-simplify/func.sh
-######}
+### 2.结束}
+#### 此脚本中的ifelse调试步骤 结束}
 
 
 source /crk/bochs/bash-simplify/dir_util.sh
@@ -25,19 +38,35 @@ source /crk/bochs/bash-simplify/dir_util.sh
 #当前脚本文件名, 此处 CurScriptF=build-linux-2.6.27.15-on-i386_ubuntu14.04.6LTS.sh
 CurScriptF=$(pwd)/$0
 
-
-:;} && \
+### { 关于此脚本中的 【:;}】
 # bash中关于 {}  , 结尾的}同一行若有命令x 则 形式必须是 x;} 不能是 x}
 #  这里 : 是 空命令, 因此 :;} 符合 形式 x;} 
 # :;} 实际 可以写为 } , 写为 :;} 是为了更加醒目 的表示 这是本块业务代码的结束点
+### 关于此脚本中的 结束 }
 
 # read -p "断点1" && \
+:;} && \
 
-#-1. 业务内容开始
-HdImgF=HD50MB200C16H32S.img && \
-HdImg_C=200 &&  HdImg_H=16 && HdImg_S=32 && \
 
-#0. 安装apt-file命令(非必需步骤)
+#-1. 指定 磁盘几何参数
+{   \
+#磁盘映像文件 磁头数 HdImg_H ： 外部指定变量HdImg_H的值 或 默认 16
+#磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255
+HdImg_C=200 && HdImg_H=${HdImg_H:-16} && HdImg_S=32 && \
+#显示本命令用法
+eval $usage_echo_stmt && \
+#计算磁盘映像文件尺寸
+_HdImgF_Sz_MB=$(( HdImg_C * HdImg_H * HdImg_S * _SectorSize / ( _Pwr2_10*_Pwr2_10 ) )) && \
+#组装磁盘映像文件名
+HdImgF="HD${_HdImgF_Sz_MB}MB${HdImg_C}C${HdImg_H}H${HdImg_S}S.img" && \
+#显示 磁盘映像文件名
+echo "磁盘映像文件【名:${HdImgF}，尺寸:${_HdImgF_Sz_MB}MB】" && \
+#提示是否继续
+read -p "按回车开始（停止请按Ctrl+C）" 
+
+:;} && \
+
+#0. 安装apt-file命令(非必需步骤)  （断点2）
 {   \
 echo $CurScriptF $LINENO
 # read -p "断点1"
@@ -53,8 +82,8 @@ echo $CurScriptF $LINENO
 } \
 } && [ $__e == 0 ] && \
 
-:;} && \
 # read -p "断点2"
+:;} && \
 
 #1. 安装mkdiskimage命令
 {  \
@@ -102,37 +131,44 @@ set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffs
 :;} && \
 
 #3. 断言 磁盘映像文件几何参数
-{   \
+{  \
 #xxd -seek +0X1C3 -len 3 $HdImgF
-#0X1C3:0X0F:15:即16H:即16个磁头, 0X1C4:0X20:32:即32S:即每磁道有32个扇区, 0X1C3:0XC7:199:即200C:即200个柱面
+#0X1C3:HdImg_H -1 : 0X0F:15:即16H:即16个磁头,  0X1C4: HdImg_S : 0X20:32:即32S:即每磁道有32个扇区, 0X1C3:HdImg_C -1 : 0XC7:199:即200C:即200个柱面
 
 #0f20C7 即  用010editor打开 磁盘映像文件  偏移0X1C3到偏移0X1C3+2 的3个字节
-# set 消息条件已满足="磁盘几何参数指定成功"
-# set 消息断言失败并退出="磁盘几何参数指定失败, 为确认 请用diskgenius专业版打开该x.img查看几何参数, 退出码为5"
-# { \
-# #测试 目标条件 是否满足
-# test "$(xxd -seek +0X1C3 -len 3  -plain  $HdImgF)" == "0f20C7" && _="若 目标条件 已满足," && \
-# #则 显示 消息条件已满足
-# echo $消息条件已满足 
-# ;} \
-# || "否则 (即 消息条件已满足)" 2>/dev/null || \
-# { \
-# #显示 消息断言失败并退出 并 退出
-# echo $消息断言失败并退出 && exit 5 && \
-# ;}
+ 
+function _check_hdimgF_geometry_param_HSC(){
+#测试mkdiskimage 是否存在及正常运行
+HdImg_C_sub1_hex=$( printf "%02x" $((HdImg_C-1)) ) && \
+HdImg_H_hex=$(printf "%02x" $((HdImg_H-1)) ) && \
+HdImg_S_hex=$(printf "%02x" $HdImg_S ) && \
+_HSC_hex_calc="${HdImg_H_hex}${HdImg_S_hex}${HdImg_C_sub1_hex}" && \
+_HSC_hex_xxdRdFromHdImgF="$(xxd -seek +0X1C3 -len 3  -plain  $HdImgF)" && \
+test "$_HSC_hex_xxdRdFromHdImgF" == "${_HSC_hex_calc}"
+}
+
+
+{ \
+{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
+  _check_hdimgF_geometry_param_HSC
+    "磁盘映像文件几何参数HSC正确,_HSC_hex=${_HSC_hex_calc}"
+    :
+  #else:
+    echo "磁盘映像文件几何参数HSC错误【 错误, _HSC_hex_calc=${_HSC_hex_calc} != _HSC_hex_xxdRdFromHdImgF=${_HSC_hex_xxdRdFromHdImgF} 】，退出码为5" && exit 5
+      ""
+} \
+} && [ $__e == 0 ] && \
 
 #  注意sfdisk显示磁盘的几何参数与diskgenius的不一致,这里认为sfdisk是错误的，而diskgenius是正确的
 # sfdisk --show-geometry $HdImgF
 
 #不需要 parted 、 mkfs.vfat 等命令 再格式化分区，因为mkdiskimage制作 磁盘映像文件时 已经 格式化过分区了
 
-
 :;} && \
-
+ 
 #4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像
 {  \
 echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)" && \
-
 
 #借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
 
@@ -232,7 +268,7 @@ sudo mount -o loop,offset=$PartitionFirstByteOffset $HdImgF /mnt/hd_img
 { \
 #原始下载地址 https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip 太慢了
 grub4dos_zip_url="https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/util/boot/grub4dos/grub4dos-0.4.4.zip"
-test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget $grub4dos_zip_url ; }
+test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget --no-verbose $grub4dos_zip_url ; }
 md5sum --check  md5sum.grub4dos-0.4.4.zip.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
 unzip -o -q grub4dos-0.4.4.zip
 #unzip --help : -o  overwrite files WITHOUT prompting
@@ -274,7 +310,9 @@ errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出�
 { \
 
 #initrd: busybox作为 init ram disk
-test -f busybox-i686 ||  wget https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686
+# busybox_i686_url="http://ftp.icm.edu.pl/packages/busybox/binaries/1.16.1/busybox-i686"
+busybox_i686_url="https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686" && \
+{ test -f busybox-i686 ||  wget --no-verbose $busybox_i686_url ;}
 chmod +x busybox-i686
 
 :;} && \
@@ -310,7 +348,7 @@ sudo cp $initrdF /mnt/hd_img/
 
 #13. 卸载 磁盘映像文件
 {  \
-read -p "即将卸载"
+read -p "按回车即将卸载"
 sudo umount /mnt/hd_img
 sudo rm -frv /mnt/hd_img
 
