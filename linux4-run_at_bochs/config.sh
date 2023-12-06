@@ -32,6 +32,6 @@ export ubt22x64Pass
 export ubt22x64User=z
 export ubt22x64Port=2122
 export ubt22LocPort=22
-grep ubt22x64Host /etc/hosts || { echo "192.168.1.4  ubt22x64Pass" | ${SUDO} tee -a /etc/hosts ;}
+grep ubt22x64Host /etc/hosts || { echo "192.168.1.4  ubt22x64Host" | ${SUDO} tee -a /etc/hosts ;}
 grep u22.loc.wire /etc/hosts || { echo "10.0.4.21  u22.loc.wire" | ${SUDO} tee -a /etc/hosts ;}
 #u22.loc.wire: ubuntu22x64.local.wire: ubuntu22x64.本地网络.有线连接
