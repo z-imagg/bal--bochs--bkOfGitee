@@ -211,7 +211,7 @@ IGOW10F=install_grubinst_on_win10_by_msys2.sh
 #  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
 cp $ConfigF $w10SshfsRt/$ConfigF && \
 cp $IGOW10F  $w10SshfsRt/$IGOW10F && \
-sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTS -o StrictHostKeyChecking=no  -p $w10SshPort $win10User@w10.loc "HdImgF=$HdImgF bash -x /$IGOW10F" && \
+sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTS -o StrictHostKeyChecking=no  -p $w10SshPort $win10User@w10.loc "HdImgF=$HdImgF bash  /$IGOW10F" && \
 #ssh -t , -t 即 分配  pseudo-terminal 即 分配 伪终端, 否则 交互式命令工作不正常 （比如read -p 提示消息 ，将不显示提示消息）
 
 :;} && \

@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 
 # win10x64主机的 必须的准备:  启动 mingw(msys2)的sshd服务, 请人工参考 https://www.msys2.org/wiki/Setting-up-SSHd/ 
 
