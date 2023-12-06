@@ -227,7 +227,9 @@ sudo mount -o loop,offset=$PartitionFirstByteOffset $HdImgF /mnt/hd_img
 
 #6 下载 grub4dos-0.4.4.zip
 { \
-test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip ; }
+#原始下载地址 https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip 太慢了
+grub4dos_zip_url="https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/util/boot/grub4dos/grub4dos-0.4.4.zip"
+test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget $grub4dos_zip_url ; }
 md5sum --check  md5sum.grub4dos-0.4.4.zip.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
 unzip -o -q grub4dos-0.4.4.zip
 #unzip --help : -o  overwrite files WITHOUT prompting
