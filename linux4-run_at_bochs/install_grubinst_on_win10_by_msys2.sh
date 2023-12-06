@@ -6,7 +6,8 @@
 
 
 
-set -e
+echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+echo "当前所在主机类型(uname -a): $(uname -a)"
 
 
 pwd
@@ -43,3 +44,6 @@ sshpass -p $ubt22Pass scp  -o ConnectTimeout=$SshConnTS  -o StrictHostKeyCheckin
 #注: (win10主机.本地)w10.loc:/ == D:\msys64, 所以请事先复制 grubinst_1.0.1_bin_win 到 D:\msys64\下
 
 echo "执行grubinst.exe后md5sum: $(md5sum $HdImgF)"
+
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
