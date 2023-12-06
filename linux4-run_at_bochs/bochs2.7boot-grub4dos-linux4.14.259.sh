@@ -166,14 +166,9 @@ test "$_HSC_hex_xxdRdFromHdImgF" == "${_HSC_hex_calc}"
 
 :;} && \
  
-
-
- 
-
 #4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像
 {  \
 echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)" && \
-
 
 #借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
 
