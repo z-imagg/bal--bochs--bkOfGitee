@@ -13,7 +13,7 @@ pwd
 cd /
 source  config.sh
 
-pacman --noconfirm -S   sshpass
+sshpass -V || pacman --noconfirm -S   sshpass
 
 echo "ubt22x64Pass=$ubt22x64Pass"
 
