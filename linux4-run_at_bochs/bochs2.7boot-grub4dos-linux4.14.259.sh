@@ -14,7 +14,7 @@ _SectorSize=512 && _Pwr2_10=$((2**10))
 
 
 
-# 加载（依赖、通用变量）（此脚本中的ifelse调试步骤) (关于此脚本中的 【:;}】)
+# 加载（依赖、通用变量）（此脚本中的ifelse调试步骤) (关于此脚本中的 【:;}】) (断点1)
 {  \
 
 ####{此脚本中的ifelse调试步骤:
@@ -44,11 +44,12 @@ CurScriptF=$(pwd)/$0
 # :;} 实际 可以写为 } , 写为 :;} 是为了更加醒目 的表示 这是本块业务代码的结束点
 ### 关于此脚本中的 结束 }
 
+# read -p "断点1" && \
 :;} && \
 
-# read -p "断点1" && \
 
-#-1. 业务内容开始
+#-1. 指定 磁盘几何参数
+{   \
 #磁盘映像文件 磁头数 HdImg_H ： 外部指定变量HdImg_H的值 或 默认 16
 #磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255
 HdImg_C=200 && HdImg_H=${HdImg_H:-16} && HdImg_S=32 && \
@@ -61,9 +62,11 @@ HdImgF="HD${_HdImgF_Sz_MB}MB${HdImg_C}C${HdImg_H}H${HdImg_S}S.img" && \
 #显示 磁盘映像文件名
 echo "磁盘映像文件【名:${HdImgF}，尺寸:${_HdImgF_Sz_MB}MB】" && \
 #提示是否继续
-read -p "按回车开始（停止请按Ctrl+C）" && \
+read -p "按回车开始（停止请按Ctrl+C）" 
 
-#0. 安装apt-file命令(非必需步骤)
+:;} && \
+
+#0. 安装apt-file命令(非必需步骤)  （断点2）
 {   \
 echo $CurScriptF $LINENO
 # read -p "断点1"
@@ -79,8 +82,8 @@ echo $CurScriptF $LINENO
 } \
 } && [ $__e == 0 ] && \
 
-:;} && \
 # read -p "断点2"
+:;} && \
 
 #1. 安装mkdiskimage命令
 {  \
