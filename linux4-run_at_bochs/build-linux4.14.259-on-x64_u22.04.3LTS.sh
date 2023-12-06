@@ -1,7 +1,7 @@
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu
 sudo apt install -y gcc-multilib-i686-linux-gnu
-
+# sudo apt-get install -y gcc-multilib g++-multilib
 
 rm -fr linux-4.14.259.tar.gz linux-4.14.259
 wget https://mirrors.cloud.tencent.com/linux-kernel/v4.x/linux-4.14.259.tar.gz
@@ -9,7 +9,6 @@ tar -zxf linux-4.14.259.tar.gz
 cd linux-4.14.259
 
 #
-sudo apt-get install -y gcc-multilib g++-multilib
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- V=1 | tee -a make.log
