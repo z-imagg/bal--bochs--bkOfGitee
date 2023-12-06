@@ -14,7 +14,6 @@ HostsF="/etc/hosts"
 read -p "请输入 win10SshPass(密码):"  win10SshPass
 export win10SshPass
 export win10User=zzz
-export win10SshPort=3022
 export w10LocSshfsRt=/w10.loc-rt
 export w10LocSshPort=22
 grep w10.loc $HostsF || { echo "10.0.4.30  w10.loc" | ${SUDO} tee -a $HostsF ;}
@@ -25,7 +24,6 @@ grep w10.loc $HostsF || { echo "10.0.4.30  w10.loc" | ${SUDO} tee -a $HostsF ;}
 read -p "请输入 ubt22x64Pass(密码):"  ubt22x64Pass
 export ubt22x64Pass
 export ubt22x64User=z
-export ubt22x64Port=2122
 export ubt22LocPort=22
 grep u22.loc $HostsF || { echo "10.0.4.21  u22.loc" | ${SUDO} tee -a $HostsF ;}
 #u22.loc: ubuntu22x64.local: ubuntu22x64.本地网络
