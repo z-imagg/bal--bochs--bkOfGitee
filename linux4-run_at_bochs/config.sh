@@ -17,7 +17,7 @@ export win10SshPort=3022
 export w10LocSshfsRt=/w10.loc-rt
 export w10LocSshPort=22
 grep w10.loc /etc/hosts || { echo "10.0.4.30  w10.loc" | ${SUDO} tee -a /etc/hosts ;}
-#w10.loc: win10x64.local.wire: win10x64.本地网络.有线连接
+#w10.loc: win10x64.local: win10x64.本地网络
 
 
 
@@ -26,5 +26,5 @@ export ubt22x64Pass
 export ubt22x64User=z
 export ubt22x64Port=2122
 export ubt22LocPort=22
-grep u22.loc.wire /etc/hosts || { echo "10.0.4.21  u22.loc.wire" | ${SUDO} tee -a /etc/hosts ;}
-#u22.loc.wire: ubuntu22x64.local.wire: ubuntu22x64.本地网络.有线连接
+grep u22.loc /etc/hosts || { echo "10.0.4.21  u22.loc" | ${SUDO} tee -a /etc/hosts ;}
+#u22.loc: ubuntu22x64.local: ubuntu22x64.本地网络
