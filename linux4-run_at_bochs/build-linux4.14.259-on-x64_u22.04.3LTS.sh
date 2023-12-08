@@ -1,11 +1,13 @@
 
 # 拉代码（包括子模块cmd-wrap） 
 #  （这段命令是从lazygit抄来的）
-( cd /crk/bochs/ && \
+{ cd /crk/bochs/ && \
 git pull --no-edit && \
 git reset HEAD -- cmd-wrap && \
 git -C cmd-wrap stash --include-untracked && \
-git submodule update --init --force -- cmd-wrap ) && \
+git submodule update --init --force -- cmd-wrap && \
+{ echo "已更新代码仓库，由于本脚本可能也更新了，故现在退出，退出码1，请重新执行本脚本" && exit 1;}
+} && \
 
 
 #cmd-wrap 拦截 gcc 命令
