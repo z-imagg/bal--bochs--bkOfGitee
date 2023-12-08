@@ -11,7 +11,7 @@ git -C cmd-wrap stash --include-untracked && \
 git submodule update --init --force -- cmd-wrap && \
 { \
 { grep $CurScriptNm .gitPull.log &&  echo "已更新代码仓库，由于本脚本可能也更新了，故现在退出，退出码5，请重新执行本脚本" && exit 5;} || true
-;}
+}
 } && \
 
 
