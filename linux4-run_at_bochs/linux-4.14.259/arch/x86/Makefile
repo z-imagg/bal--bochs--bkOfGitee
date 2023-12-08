@@ -261,8 +261,7 @@ endif
 archscripts: scripts_basic
 	echo "进入目标 archscripts"
 	env > /crk/env-archscripts.txt
-	$(Q)$(MAKE) --trace --print-directory $(build)=arch/x86/tools relocs V=1
-	echo "退出目标 archscripts"
+	$(Q)$(MAKE) --trace --print-directory $(build)=arch/x86/tools relocs V=1 && echo "退出目标 archscripts"
 
 ###
 # Syscall table generation
@@ -270,8 +269,7 @@ archscripts: scripts_basic
 archheaders:
 	echo "进入目标 archheaders"
 	env > /crk/env-archheaders.txt
-	$(Q)$(MAKE)  --trace --print-directory $(build)=arch/x86/entry/syscalls all V=1
-	echo "退出目标 archheaders"
+	$(Q)$(MAKE)  --trace --print-directory $(build)=arch/x86/entry/syscalls all V=1 && echo "退出目标 archheaders"
 
 archprepare:
 ifeq ($(CONFIG_KEXEC_FILE),y)

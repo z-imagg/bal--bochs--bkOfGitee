@@ -518,14 +518,12 @@ export KBUILD_DEFCONFIG KBUILD_KCONFIG
 config: scripts_basic outputmakefile FORCE
 	echo "进入目标 archscripts"
 	env > /crk/env-config.txt
-	$(Q)$(MAKE) --trace --print-directory $(build)=scripts/kconfig $@ V=1
-	echo "退出目标 archscripts"
+	$(Q)$(MAKE) --trace --print-directory $(build)=scripts/kconfig $@ V=1 && echo "退出目标 archscripts"
 
 %config: scripts_basic outputmakefile FORCE
 	echo "进入目标 archscripts"
 	env > /crk/env-0-config.txt
-	$(Q)$(MAKE) --trace --print-directory $(build)=scripts/kconfig $@ V=1
-	echo "退出目标 archscripts"
+	$(Q)$(MAKE) --trace --print-directory $(build)=scripts/kconfig $@ V=1 && echo "退出目标 archscripts"
 
 else
 # ===========================================================================
@@ -1111,14 +1109,12 @@ asm-generic: uapi-asm-generic
 	echo "进入目标 asm-generic"
 	env > /crk/env-asm-generic.txt
 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.asm-generic  --trace --print-directory \
-	            src=asm obj=arch/$(SRCARCH)/include/generated/asm V=1
-	echo "退出目标 asm-generic"
+	            src=asm obj=arch/$(SRCARCH)/include/generated/asm V=1 && echo "退出目标 asm-generic"
 uapi-asm-generic:
 	echo "进入目标 uapi-asm-generic"
 	env > /crk/env-auapi-asm-generic.txt
 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.asm-generic  --trace --print-directory \
-	            src=uapi/asm obj=arch/$(SRCARCH)/include/generated/uapi/asm V=1
-	echo "退出目标 uapi-asm-generic"
+	            src=uapi/asm obj=arch/$(SRCARCH)/include/generated/uapi/asm V=1 && echo "退出目标 uapi-asm-generic"
 
 PHONY += prepare-objtool
 prepare-objtool: $(objtool_target)
