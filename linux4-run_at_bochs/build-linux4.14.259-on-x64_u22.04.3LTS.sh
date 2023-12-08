@@ -44,7 +44,7 @@ job_n=$((nproc-1)) && \
 job_n=$(( core_n > 1 ? core_n: 1 )) && \
 
 set -x && \
-git stash save  Makefile  arch/x86/Makefile && \
+git stash save  Makefile  arch/x86/Makefile  scripts/Kbuild.include && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
 { make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 | tee -a make.log ;} && \
