@@ -1,3 +1,13 @@
+
+# 拉代码（包括子模块cmd-wrap） 
+#  （这段命令是从lazygit抄来的）
+( cd /crk/bochs/ && \
+git pull --no-edit && \
+git reset HEAD -- cmd-wrap && \
+git -C cmd-wrap stash --include-untracked && \
+git submodule update --init --force -- cmd-wrap )
+
+
 #cmd-wrap 拦截 gcc 命令
 [   -e /crk/cmd-wrap ] || ln -s /crk/bochs/cmd-wrap /crk/cmd-wrap
 #install-wrap.sh内 会 将假gcc命令所在目录/crk/bin 放到 PATH最前面, 因此需要source执行。
