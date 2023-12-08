@@ -22,6 +22,8 @@ LINUX=linux-4.14.259
 LINUX_tar_gz="${LINUX}.tar.gz"
 LINUX_tar_gz_md5sum_F="${LINUX_tar_gz}.md5sum.txt"
 
+cd /crk/bochs/linux4-run_at_bochs/
+
 { [ -f $LINUX_tar_gz_md5sum_F ] && md5sum --check $LINUX_tar_gz_md5sum_F ;} || { rm -fr $LINUX_tar_gz  $LINUX && \
 wget https://mirrors.cloud.tencent.com/linux-kernel/v4.x/linux-4.14.259.tar.gz && \
 md5sum $LINUX_tar_gz > $LINUX_tar_gz_md5sum_F ;}
