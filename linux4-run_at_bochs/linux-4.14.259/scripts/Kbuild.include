@@ -88,7 +88,7 @@ TMPOUT = $(if $(KBUILD_EXTMOD),$(firstword $(KBUILD_EXTMOD))/).tmp_$$$$
 # Usage: option = $(call try-run, $(CC)...-o "$$TMP",option-ok,otherwise)
 # Exit code chooses option. "$$TMP" serves as a temporary file and is
 # try-run 定义处 automatically cleaned up.
-try-run = $(shell set -e;		\
+try-run = $(shell set -e;set -x;		\
 	TMP=$(TMPOUT)/tmp;		\
 	TMPO=$(TMPOUT)/tmp.o;		\
 	mkdir -p $(TMPOUT);		\
