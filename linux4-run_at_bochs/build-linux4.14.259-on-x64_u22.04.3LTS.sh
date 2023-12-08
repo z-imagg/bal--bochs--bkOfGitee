@@ -17,10 +17,11 @@ cd linux-4.14.259
 job_n=$((nproc-1))
 job_n=$(( core_n > 1 ? core_n: 1 ))
 
+set -x
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 | tee -a make.log
-
+set +x
 
 find . -name "*bzImage*"
 # ./arch/x86/boot/bzImage
