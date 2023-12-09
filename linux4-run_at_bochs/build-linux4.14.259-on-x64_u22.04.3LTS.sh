@@ -39,7 +39,7 @@ LnxRpGitD=$LinuxRepoD/.git && \
 } && \
 LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
 LnxRpCmtIdCur=$(git --git-dir=$LnxRpGitD rev-parse HEAD) && \
-{ [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ] ; || \
+{ [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
   git --git-dir=$LnxRpGitD checkout -b $LnxRpBrch origin/$LnxRpBrch
 } && \
 {
