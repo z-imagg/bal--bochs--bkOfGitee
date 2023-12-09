@@ -24,6 +24,8 @@ git submodule update --init --force -- cmd-wrap && \
 #install-wrap.sh内 会 将假gcc命令所在目录/crk/bin 放到 PATH最前面, 因此需要source执行。
 source /crk/cmd-wrap/install-wrap.sh && \
 
+echo -n "i686-linux-gnu-gcc 指向:" && readlink -f $(which i686-linux-gnu-gcc) && \
+
 #进入目录 /crk/bochs/linux4-run_at_bochs/
 cd $CurScriptDir && \
 
