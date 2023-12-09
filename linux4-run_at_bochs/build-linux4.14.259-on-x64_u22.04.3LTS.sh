@@ -40,12 +40,12 @@ LnxRpGitD=$LinuxRepoD/.git && \
 LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
 LnxRpCmtIdCur=$(git --git-dir=$LnxRpGitD rev-parse HEAD) && \
 #{重置git仓库
-git --git-dir=$LnxRpGitD   reset --hard && \
-git --git-dir=$LnxRpGitD clean -df && \
-git --git-dir=$LnxRpGitD checkout -- . && \
+git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard && \
+git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  clean -df && \
+git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 #重置git仓库}
 { [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
-  git --git-dir=$LnxRpGitD  checkout -b $LnxRpBrch origin/$LnxRpBrch
+  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -b $LnxRpBrch origin/$LnxRpBrch
 } && \
 {
 # 记录 当前所用Linux仓库的 分支和commitId
