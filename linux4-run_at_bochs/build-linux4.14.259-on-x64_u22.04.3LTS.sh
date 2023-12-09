@@ -25,23 +25,27 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LINUX_changed=linux-4.14.259-changed && \
-LINUX=linux-4.14.259 && \
-LINUX_tar_gz="${LINUX}.tar.gz" && \
-LINUX_tar_gz_md5sum_F="${LINUX_tar_gz}.md5sum.txt" && \
-
-cd /crk/bochs/linux4-run_at_bochs/ && \
-
-{ \
-{ [ -f $LINUX_tar_gz_md5sum_F ] && md5sum --check $LINUX_tar_gz_md5sum_F ;} || { rm -fr $LINUX_tar_gz  $LINUX && \
-wget https://mirrors.cloud.tencent.com/linux-kernel/v4.x/linux-4.14.259.tar.gz && \
-md5sum $LINUX_tar_gz > $LINUX_tar_gz_md5sum_F ;} \
+LnxRpBrch="linux-4.14.y" && \
+LinuxRepoD=/crk/linux-stable && \
+LnxRpGitD=$LinuxRepoD/.git && \
+{ [ -f $LnxRpGitD/config ] || \
+  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD
+#linux-stable仓库尺寸大约2.56GB，  提交时请提交到 https://gitcode.net/crk/linux-stable.git （此仓库是从上一行清华linux-stable.git仓库克隆来的，是一样的，只是可以更改并提交而已)
 } && \
-tar -zxf $LINUX_tar_gz && \
-#diff $LINUX_changed $LINUX && \
-#复制修改的文件
-cp -rv $LINUX_changed/* $LINUX/ && \
-cd $LINUX && \
+LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
+LnxRpCmtIdCur=$(git --git-dir=$LnxRpGitD rev-parse HEAD) && \
+{ [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ] ; || \
+  git --git-dir=$LnxRpGitD checkout -b $LnxRpBrch origin/$LnxRpBrch
+} && \
+{
+# 记录 当前所用Linux仓库的 分支和commitId
+ _RM=/crk/bochs/linux4-run_at_bochs/readme.md && \
+ _S1="Linux_Run_At_Bochs所用Linux的GIT仓库分支:" && \
+ sed -i "s/^$_S1.*/$_S1$LnxRpBrchCur/" $_RM && \
+ _S1="Linux_Run_At_Bochs所用Linux的GIT仓库CommitId:" && \
+ sed -i "s/^$_S1.*/$_S1$LnxRpCmtIdCur/" $_RM
+ cd $LinuxRepoD 
+} && \
 
 #并行编译 job数 为 max(核心数-1,1)
 job_n=$((nproc-1)) && \
