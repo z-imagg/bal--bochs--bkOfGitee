@@ -292,7 +292,7 @@ sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
 
 #9. 编译内核 内核编译机器为本机ubuntu22
 {  \
-bzImageF=linux-4.14.259/arch/x86/boot/bzImage && ls -lh $bzImageF && \
+bzImageF=/crk/linux-stable/arch/x86/boot/bzImage && ls -lh $bzImageF && \
 { test -f $bzImageF || bash build-linux4.14.259-on-x64_u22.04.3LTS.sh :;} && \
 :;} && \
 
