@@ -16,9 +16,9 @@ git submodule update --init --force -- cmd-wrap && \
 
 
 #cmd-wrap 拦截 gcc 命令
-{ [   -e /crk/cmd-wrap ] || ln -s /crk/bochs/cmd-wrap /crk/cmd-wrap ;} && \
+#{ [   -e /crk/cmd-wrap ] || ln -s /crk/bochs/cmd-wrap /crk/cmd-wrap ;} && \
 #install-wrap.sh内 会 将假gcc命令所在目录/crk/bin 放到 PATH最前面, 因此需要source执行。
-source /crk/cmd-wrap/install-wrap.sh && \
+#source /crk/cmd-wrap/install-wrap.sh && \
 
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
