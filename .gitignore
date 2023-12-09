@@ -153,3 +153,11 @@ linux2.6-run_at_bochs/linux-2.6.27.15.tar.gz
 linux4-run_at_bochs/linux-2.6.27.15.tar.gz
 linux4-run_at_bochs/linux-4.14.259
 linux4-run_at_bochs/linux-4.14.259.tar.gz
+linux4-run_at_bochs/grub4dos-0.4.4
+linux4-run_at_bochs/grub4dos-0.4.4.zip
+linux4-run_at_bochs/busybox-i686
+linux4-run_at_bochs/HD*.img
+linux4-run_at_bochs/initramfs
+linux4-run_at_bochs/gen-*.bxrc
+linux4-run_at_bochs/initramfs-*.tar.gz
+linux4-run_at_bochs/bochsout.txt
