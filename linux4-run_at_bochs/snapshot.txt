@@ -1,0 +1,25 @@
+[   15.155566] ip_tables: (C) 2000-2006 Netfilter Core Team
+[   15.159819] Initializing XFRM netlink socket
+[   15.207903] NET: Registered protocol family 10
+[   15.259492] Segment Routing with IPv6
+[   15.264567] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[   15.273369] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[   15.319459] NET: Registered protocol family 17
+[   15.323750] Key type dns_resolver registered
+[   15.339789] mce: Using 0 MCE banks
+[   15.356645] microcode: sig=0x633, pf=0x0, revision=0x0
+[   15.369348] microcode: Microcode Update Driver: v2.2.
+[   15.369523] Using IPI No-Shortcut mode
+[   15.429551] registered taskstats version 1
+[   15.441794]   Magic number: 3:970:600
+[   15.444823] console [netcon0] enabled
+[   15.445763] netconsole: network logging started
+[   15.455362] ALSA device list:
+[   15.455738]   No soundcards found.
+[   15.461722] md: Waiting for all devices to be available before autodetect
+[   15.462944] md: If you don't use raid, use raid=noautodetect
+[   15.501580] md: Autodetecting RAID arrays.
+[   15.502476] md: autorun ...
+[   15.502841] md: ... autorun DONE.
+[   15.512753] VFS: Cannot open root device "ram0" or unknown-block(0,0): error
+-6

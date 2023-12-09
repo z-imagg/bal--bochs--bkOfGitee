@@ -11,8 +11,12 @@
 >  脚本bochs2.7boot-grub4dos-linux4.14.259.sh 会 调用 内核编译脚本build-linux4.14.259-on-x64_u22.04.3LTS.sh
 
 # Linux-Run_At_Bochs 
-Linux_Run_At_Bochs所用Linux的GIT仓库分支:
+Linux_Run_At_Bochs所用Linux的GIT仓库分支:linux-4.14.y
 
 >
 
-Linux_Run_At_Bochs所用Linux的GIT仓库CommitId:
+Linux_Run_At_Bochs所用Linux的GIT仓库CommitId:ae1952ac1aac66010a51a69c4592d72724d91ce2
+
+gcc拦截器修改后的linux-kernel的linux-4.14.y-dev分支：https://gitcode.net/crk/linux-stable/-/commits/linux-4.14.y-dev
+
+gcc拦截器修改后的linux-kernel的单次提交:  https://gitcode.net/crk/linux-stable/-/commit/91ce0145f5a3d643ee2018e57309300935229e01
