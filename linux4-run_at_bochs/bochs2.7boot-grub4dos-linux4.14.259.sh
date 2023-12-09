@@ -36,7 +36,9 @@ source /crk/bochs/bash-simplify/func.sh
 source /crk/bochs/bash-simplify/dir_util.sh
 
 #当前脚本文件名, 此处 CurScriptF=build-linux-2.6.27.15-on-i386_ubuntu14.04.6LTS.sh
-CurScriptF=$(pwd)/$0
+#CurScriptF为当前脚本的绝对路径
+#若$0以/开头 (即 绝对路径) 返回$0, 否则 $0为 相对路径 返回  pwd/$0
+{ { [[ $0 == /* ]] && CurScriptF=$0 ;} ||  CurScriptF=$(pwd)/$0 ;} && \
 
 ### { 关于此脚本中的 【:;}】
 # bash中关于 {}  , 结尾的}同一行若有命令x 则 形式必须是 x;} 不能是 x}
