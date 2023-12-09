@@ -9,3 +9,10 @@
 # 步骤
 > 在 主机ubuntu22x64Loc上运行 脚本bochs2.7boot-grub4dos-linux4.14.259.sh
 >  脚本bochs2.7boot-grub4dos-linux4.14.259.sh 会 调用 内核编译脚本build-linux4.14.259-on-x64_u22.04.3LTS.sh
+
+# Linux-Run_At_Bochs 
+Linux_Run_At_Bochs所用Linux的GIT仓库分支:
+
+>
+
+Linux_Run_At_Bochs所用Linux的GIT仓库CommitId:

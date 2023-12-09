@@ -1,6 +1,10 @@
+#CurScriptF为当前脚本的绝对路径
+#若$0以/开头 (即 绝对路径) 返回$0, 否则 $0为 相对路径 返回  pwd/$0
+{ { [[ $0 == /* ]] && CurScriptF=$0 ;} ||  CurScriptF=$(pwd)/$0 ;} && \
 
-CurScriptF=$(pwd)/$0 && \
 CurScriptNm=$(basename $CurScriptF) && \
+CurScriptDir=$(dirname $CurScriptF) && \
+#CurScriptDir == /crk/bochs/linux4-run_at_bochs
 
 # 拉代码（包括子模块cmd-wrap） 
 #  （这段命令是从lazygit抄来的）
@@ -20,28 +24,40 @@ git submodule update --init --force -- cmd-wrap && \
 #install-wrap.sh内 会 将假gcc命令所在目录/crk/bin 放到 PATH最前面, 因此需要source执行。
 source /crk/cmd-wrap/install-wrap.sh && \
 
+#进入目录 /crk/bochs/linux4-run_at_bochs/
+cd $CurScriptDir && \
+
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LINUX_changed=linux-4.14.259-changed && \
-LINUX=linux-4.14.259 && \
-LINUX_tar_gz="${LINUX}.tar.gz" && \
-LINUX_tar_gz_md5sum_F="${LINUX_tar_gz}.md5sum.txt" && \
-
-cd /crk/bochs/linux4-run_at_bochs/ && \
-
-{ \
-{ [ -f $LINUX_tar_gz_md5sum_F ] && md5sum --check $LINUX_tar_gz_md5sum_F ;} || { rm -fr $LINUX_tar_gz  $LINUX && \
-wget https://mirrors.cloud.tencent.com/linux-kernel/v4.x/linux-4.14.259.tar.gz && \
-md5sum $LINUX_tar_gz > $LINUX_tar_gz_md5sum_F ;} \
+LnxRpBrch="linux-4.14.y" && \
+LinuxRepoD=/crk/linux-stable && \
+LnxRpGitD=$LinuxRepoD/.git && \
+{ [ -f $LnxRpGitD/config ] || \
+  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD
+#linux-stable仓库尺寸大约2.56GB，  提交时请提交到 https://gitcode.net/crk/linux-stable.git （此仓库是从上一行清华linux-stable.git仓库克隆来的，是一样的，只是可以更改并提交而已)
 } && \
-tar -zxf $LINUX_tar_gz && \
-#diff $LINUX_changed $LINUX && \
-#复制修改的文件
-cp -rv $LINUX_changed/* $LINUX/ && \
-cd $LINUX && \
+LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
+LnxRpCmtIdCur=$(git --git-dir=$LnxRpGitD rev-parse HEAD) && \
+#{重置git仓库
+git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard && \
+git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  clean -df && \
+git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
+#重置git仓库}
+{ [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
+  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -b $LnxRpBrch origin/$LnxRpBrch
+} && \
+{
+# 记录 当前所用Linux仓库的 分支和commitId
+ _RM=/crk/bochs/linux4-run_at_bochs/readme.md && \
+ _S1="Linux_Run_At_Bochs所用Linux的GIT仓库分支:" && \
+ sed -i "s/^$_S1.*/$_S1$LnxRpBrchCur/" $_RM && \
+ _S1="Linux_Run_At_Bochs所用Linux的GIT仓库CommitId:" && \
+ sed -i "s/^$_S1.*/$_S1$LnxRpCmtIdCur/" $_RM
+ cd $LinuxRepoD 
+} && \
 
 #并行编译 job数 为 max(核心数-1,1)
 job_n=$((nproc-1)) && \
@@ -50,7 +66,7 @@ job_n=$(( core_n > 1 ? core_n: 1 )) && \
 set -x && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
-{ make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 2>&1 | tee -a make.log ;} && \
+{ make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 2>&1 | tee -a /crk/make.log ;} && \
 set +x && \
 
 find . -name "*bzImage*" && \
