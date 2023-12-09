@@ -25,6 +25,7 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
+LINUX_changed=linux-4.14.259-changed && \
 LINUX=linux-4.14.259 && \
 LINUX_tar_gz="${LINUX}.tar.gz" && \
 LINUX_tar_gz_md5sum_F="${LINUX_tar_gz}.md5sum.txt" && \
@@ -37,6 +38,9 @@ wget https://mirrors.cloud.tencent.com/linux-kernel/v4.x/linux-4.14.259.tar.gz &
 md5sum $LINUX_tar_gz > $LINUX_tar_gz_md5sum_F ;} \
 } && \
 tar -zxf $LINUX_tar_gz && \
+#diff $LINUX_changed $LINUX && \
+#复制修改的文件
+cp -rv $LINUX_changed/* $LINUX/ && \
 cd $LINUX && \
 
 #并行编译 job数 为 max(核心数-1,1)
@@ -44,7 +48,6 @@ job_n=$((nproc-1)) && \
 job_n=$(( core_n > 1 ? core_n: 1 )) && \
 
 set -x && \
-git stash save  Makefile  arch/x86/Makefile  scripts/Kbuild.include && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
 { make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 2>&1 | tee -a make.log ;} && \
