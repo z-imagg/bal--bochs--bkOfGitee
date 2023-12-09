@@ -39,6 +39,9 @@ source /crk/bochs/bash-simplify/dir_util.sh
 #CurScriptF为当前脚本的绝对路径
 #若$0以/开头 (即 绝对路径) 返回$0, 否则 $0为 相对路径 返回  pwd/$0
 { { [[ $0 == /* ]] && CurScriptF=$0 ;} ||  CurScriptF=$(pwd)/$0 ;} && \
+CurScriptNm=$(basename $CurScriptF) && \
+CurScriptDir=$(dirname $CurScriptF) && \
+cd $CurScriptDir && \
 
 ### { 关于此脚本中的 【:;}】
 # bash中关于 {}  , 结尾的}同一行若有命令x 则 形式必须是 x;} 不能是 x}
