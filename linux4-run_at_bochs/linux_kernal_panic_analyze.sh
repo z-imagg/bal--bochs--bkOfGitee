@@ -26,14 +26,14 @@ Kernel Offset: 0x0 from Oxc1000000 (relocation range: 0XC0000000-0xc27effff
 
 cd /crk/linux-stable/
 
-#所用linux kernel代码仓库 分支、commitId如下:
-git branch --show-current
-#linux-4.14.y-dev
-git rev-parse HEAD
-#8115121212cb07bbcc9a0794ace2778e3afb57fb
+    #所用linux kernel代码仓库 分支、commitId如下:
+    git branch --show-current
+    #linux-4.14.y-dev
+    git rev-parse HEAD
+    #8115121212cb07bbcc9a0794ace2778e3afb57fb
 
-#牵涉的各函数 所在源文件 如下:
-grep mount_block_root funcIdDescLs.txt.csv
+    #牵涉的各函数 所在源文件 如下:
+    grep mount_block_root funcIdDescLs.txt.csv
     # init/do_mounts.c,382,1,40013,mount_block_root,4,13
     grep mount_root funcIdDescLs.txt.csv
     # init/do_mounts.c,512,1,40015,mount_root,4,15
@@ -46,16 +46,14 @@ grep mount_block_root funcIdDescLs.txt.csv
     grep ret_from_fork funcIdDescLs.txt.csv
     #无函数 ret_from_fork
 
-
-
 objdump --source     init/do_mounts.o > init/do_mounts.o.my.S
 "
 000001f4 <mount_block_root>:                                             #0. 此即  mount_block_root == 0X1f4
  1f4:	55                   	push   %ebp
  ...
  32b:	e8 fc ff ff ff       	call   32c <mount_block_root+0x138>      #2.  仔细看此行  mount_block_root+0x138 == 0X32c, 跳转 的 目的地址 0X32C 并不是某指令的开头 此即 跳转到非法指令，因此崩溃。  
- (备注 地址0X32C 附近 只有 地址 0x32b 、 地址0x330 是指令开头）
- 330:	f6 45 cc 01          	testb  $0x1,-0x34(%ebp)                  #1.  panic截图CallTrace中的 'mount_block_root+0x13c' == 0X330 即此行, 因此崩溃的是上一行
+ #(备注 地址0X32C 附近 只有 地址 0x32b 、 地址0x330 是指令开头）
+ 330:	f6 45 cc 01          	testb  $0x1,-0x34(%ebp)                  #1.  崩溃日志中的 'mount_block_root+0x13c' == 0X330 即此行, 因此崩溃的是上一行
  334:	75 09                	jne    33f <mount_block_root+0x14b>
  336:	83 4d cc 01          	orl    $0x1,-0x34(%ebp)
  33a:	e9 4e ff ff ff       	jmp    28d <mount_block_root+0x99>
@@ -64,22 +62,32 @@ objdump --source     init/do_mounts.o > init/do_mounts.o.my.S
  3a5:	55                   	push   %ebp
  ...
  491:	e8 fc ff ff ff       	call   492 <mount_root+0xed> #2. mount_root+0xed == 0x492, 跳转 的 目的地址 0x492 并不是某指令的开头 此即 跳转到非法指令，因此崩溃。  
- (备注 地址 0x492 附近 只有 地址 0x491 、 地址0x496 是指令开头）
- 496:	8d 65 f8             	lea    -0x8(%ebp),%esp       #1. panic截图CallTrace中的 'mount_root+0xf1' == 0x496 , 即此行，因此奔溃的是上一行.
+ #(备注 地址 0x492 附近 只有 地址 0x491 、 地址0x496 是指令开头）
+ 496:	8d 65 f8             	lea    -0x8(%ebp),%esp       #1. 崩溃日志中的  'mount_root+0xf1' == 0x496 , 即此行，因此奔溃的是上一行.
  499:	5b                   	pop    %ebx
  49a:	5e                   	pop    %esi
  49b:	5d                   	pop    %ebp
  49c:	c3                   	ret    
-"
 
-objdump --source init/main.o > init/main.o.my.S
-"
 0000049d <prepare_namespace>:                                            #0. 此即  prepare_namespace == 0X49d
  49d:	55                   	push   %ebp
  ...
  5b9:	e8 fc ff ff ff       	call   5ba <prepare_namespace+0x11d>     #2. prepare_namespace+0x11d == 0x5ba, 跳转 的 目的地址 0x5ba 并不是某指令的开头 此即 跳转到非法指令，因此崩溃。  
- (备注 地址 0x5ba 附近 只有 地址 0x5b9 、 地址 0x5be 是指令开头）
- 5be:	b8 83 00 00 00       	mov    $0x83,%eax                        #1. prepare_namespace+0x121 == 0x5be
+ #(备注 地址 0x5ba 附近 只有 地址 0x5b9 、 地址 0x5be 是指令开头）
+ 5be:	b8 83 00 00 00       	mov    $0x83,%eax                        #1. 崩溃日志中的 'prepare_namespace+0x121' == 0x5be , 即此行，因此奔溃的是上一行.
  ...
  5ee:	c3       
+"
+
+objdump --source init/main.o > init/main.o.my.S
+"
+0000081d <kernel_init_freeable>:                                             #0. 此即  kernel_init_freeable == 0X81d
+ 81d:	55                   	push   %ebp
+ ...
+ 9e9:	e8 fc ff ff ff       	call   9ea <kernel_init_freeable+0x1cd>      #2. kernel_init_freeable+0x1cd == 0x9ea, 跳转 的 目的地址 0x9ea 并不是某指令的开头 此即 跳转到非法指令，因此崩溃。  
+# (备注 地址 0x9ea 附近 只有 地址 0x9e9 、 地址 0x9ee 是指令开头）
+ 9ee:	e8 fc ff ff ff       	call   9ef <kernel_init_freeable+0x1d2>      #1. 崩溃日志中的 'kernel_init_freeable+0x1d1' == 0x9ee , 即此行，因此奔溃的是上一行.
+ 9f3:	e8 fc ff ff ff       	call   9f4 <kernel_init_freeable+0x1d7>
+ ...
+ 9ff:	c3      
 "
