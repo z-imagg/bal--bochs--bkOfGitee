@@ -53,7 +53,10 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 #重置git仓库}
 { [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
 # 切换到给定分支
-  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -b $LnxRpBrch origin/$LnxRpBrch
+  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -B $LnxRpBrch origin/$LnxRpBrch
+#git checkout -B 覆盖已经存在的本地分支
+# -b <branch>           create and checkout a new branch
+# -B <branch>           create/reset and checkout a branch
 } && \
 { [ "X$LnxRpCmtIdCur" == "X$LnxRpCmtId" ]  || \
 # 切换到给定提交
