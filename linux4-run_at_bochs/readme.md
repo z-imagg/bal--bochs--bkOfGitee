@@ -18,3 +18,22 @@ Linux_Run_At_Bochs对linux-stable分支: https://gitcode.net/crk/linux-stable/-/
  再运行gcc命令以编译改后源码
 
 改后源码的linux-stable分支: https://gitcode.net/crk/linux-stable/-/commits/linux-4.14.y-dev-O2-to-O1-bochs2.7-busyboxi686-run-to-shell-ok , https://gitcode.net/crk/linux-stable/-/commit/7618f6ab872bbadf5cc775233d703075cbaa8c60
+
+
+# 基本微弱
+```
+#原先 clang插件funcIdAsm 对 linux内核代码修改的文件个数为 2342个 
+#  https://gitcode.net/crk/linux-stable/-/commit/7618f6ab872bbadf5cc775233d703075cbaa8c60
+#  linux-4.14-y: interceptor.py : ArgvReplace_O2As_O1 , bochs2.7+kernel-4.14-y+busybox_i686 : run ok to shell
+z@x:/crk/linux-stable$ git --no-pager  show  --stat 7618f6ab872bbadf5cc775233d703075cbaa8c60 | tail -n 1
+ 2342 files changed, 115509 insertions(+), 55421 deletions(-)
+
+
+#“(cmd-wrap ) lark文法 修复 -Dxx丢失” 后 clang插件funcIdAsm 对 linux内核代码修改的文件个数为 同样是 2342个 
+# https://gitcode.net/crk/linux-stable/-/commit/d678647ac7d1ccce6c330e60093354e7b8325ef7
+z@x:/crk/linux-stable$ git --no-pager  show  --stat d678647ac7d1ccce6c330e60093354e7b8325ef7 | tail -n 1
+ 2342 files changed, 115521 insertions(+), 55427 deletions(-)
+
+```
+
+> 可见  “(cmd-wrap ) lark文法 修复 -Dxx丢失” 后，clang插件funcIdAsm 编译 内核源文件 报错并没有减少
