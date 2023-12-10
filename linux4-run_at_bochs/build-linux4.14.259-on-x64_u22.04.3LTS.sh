@@ -35,6 +35,9 @@ sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
 LnxRpBrch="linux-4.14.y-dev" && \
+LnxRpCmtId="ae1952ac1aac66010a51a69c4592d72724d91ce2" && \
+#分支 linux-4.14.y 的最后一次提交 ae1952ac1aac66010a51a69c4592d72724d91ce2 , 链接如下: 
+# https://gitcode.net/crk/linux-stable/-/commit/ae1952ac1aac66010a51a69c4592d72724d91ce2
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
@@ -49,7 +52,12 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  clean -df && \
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 #重置git仓库}
 { [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
+# 切换到给定分支
   git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -b $LnxRpBrch origin/$LnxRpBrch
+} && \
+{ [ "X$LnxRpCmtIdCur" == "X$LnxRpCmtId" ]  || \
+# 切换到给定提交
+  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard "$LnxRpCmtId"
 } && \
 {
 # 记录 当前所用Linux仓库的 分支和commitId
