@@ -1,3 +1,21 @@
+
+# 此脚本用法:
+{ \
+###
+:;} && \
+
+# 常量
+{ \
+###
+:;} && \
+
+
+
+# 加载（依赖、通用变量）（此脚本中的ifelse调试步骤) (关于此脚本中的 【:;}】) (断点1)
+{  \
+# source /crk/bochs/bash-simplify/func.sh
+source /crk/bochs/bash-simplify/dir_util.sh
+
 #CurScriptF为当前脚本的绝对路径
 #若$0以/开头 (即 绝对路径) 返回$0, 否则 $0为 相对路径 返回  pwd/$0
 { { [[ $0 == /* ]] && CurScriptF=$0 ;} ||  CurScriptF=$(pwd)/$0 ;} && \
@@ -5,6 +23,12 @@
 CurScriptNm=$(basename $CurScriptF) && \
 CurScriptDir=$(dirname $CurScriptF) && \
 #CurScriptDir == /crk/bochs/linux4-run_at_bochs
+
+
+:;} && \
+
+#######
+
 
 # 拉代码（包括子模块cmd-wrap） 
 #  （这段命令是从lazygit抄来的）
@@ -76,8 +100,7 @@ job_n=$(( core_n > 1 ? core_n: 1 )) && \
 
 set -x && \
 MakeLogF=/crk/make.log && \
-UniqueId="$MakeLogF-$(date +'%Y%m%d%H%M%S_%s_%N')" && \
-[ -f $MakeLogF ] && mv $MakeLogF "$MakeLogF_$UniqueId"
+mvFile_AppendCurAbsTime $MakeLogF && \
 make clean && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \

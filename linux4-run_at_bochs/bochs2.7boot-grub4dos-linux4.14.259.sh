@@ -368,6 +368,8 @@ sed "s/\$HdImgF/$HdImgF/g" linux-2.6.27.15-grub0.97.bxrc.template > gen-linux-2.
 
 #15. bochs 执行 bxrc文件( 即 磁盘映像文件 即 grubinst.exe安装产物{grldr.mbr}、grub4dos组件{grldr、menu.lst}、内核bzImage、初始内存文件系统initRamFS{busybox-i686})
 {  \
+mvFile_AppendCurAbsTime  bochsout.txt && \
+# /crk/bochs/linux4-run_at_bochs/bochsout.txt
 /crk/bochs/bochs/bochs -f gen-linux-2.6.27.15-grub0.97.bxrc
 :;} && \
 
