@@ -65,10 +65,8 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 {
 # 记录 当前所用Linux仓库的 分支和commitId
  _RM=/crk/bochs/linux4-run_at_bochs/readme.md && \
- _S1="Linux_Run_At_Bochs所用Linux的GIT仓库分支:" && \
- sed -i "s/^$_S1.*/$_S1$LnxRpBrchCur/" $_RM && \
- _S1="Linux_Run_At_Bochs所用Linux的GIT仓库CommitId:" && \
- sed -i "s/^$_S1.*/$_S1$LnxRpCmtIdCur/" $_RM
+ _S1="Linux_Run_At_Bochs对linux-stable分支:" && \
+ sed -i "s/^$_S1.*/$_S1 $LnxRpBrchCur , $LnxRpCmtIdCur/" $_RM && \
  cd $LinuxRepoD 
 } && \
 
