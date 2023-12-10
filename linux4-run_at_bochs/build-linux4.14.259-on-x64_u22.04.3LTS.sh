@@ -34,7 +34,7 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LnxRpBrch="linux-4.14.y-dev" && \
+LnxRpBrch="linux-4.14.y" && \
 LnxRpCmtId="ae1952ac1aac66010a51a69c4592d72724d91ce2" && \
 #分支 linux-4.14.y 的最后一次提交 ae1952ac1aac66010a51a69c4592d72724d91ce2 , 链接如下: 
 # https://gitcode.net/crk/linux-stable/-/commit/ae1952ac1aac66010a51a69c4592d72724d91ce2
