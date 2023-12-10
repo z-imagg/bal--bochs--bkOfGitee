@@ -26,25 +26,30 @@ Kernel Offset: 0x0 from Oxc1000000 (relocation range: 0XC0000000-0xc27effff
 
 cd /crk/linux-stable/
 
-    #所用linux kernel代码仓库 分支、commitId如下:
-    git branch --show-current
-    #linux-4.14.y-dev
-    git rev-parse HEAD
-    #8115121212cb07bbcc9a0794ace2778e3afb57fb
+#所用linux kernel代码仓库 分支、commitId如下:
+git branch --show-current
+#linux-4.14.y-dev
+git rev-parse HEAD
+#8115121212cb07bbcc9a0794ace2778e3afb57fb
 
-    #牵涉的各函数 所在源文件 如下:
-    grep mount_block_root funcIdDescLs.txt.csv
-    # init/do_mounts.c,382,1,40013,mount_block_root,4,13
-    grep mount_root funcIdDescLs.txt.csv
-    # init/do_mounts.c,512,1,40015,mount_root,4,15
-    grep prepare_namespace funcIdDescLs.txt.csv
-    #init/do_mounts.c,549,1,40016,prepare_namespace,4,16
-    grep kernel_init_freeable funcIdDescLs.txt.csv
-    # init/main.c,1040,1,30029,kernel_init_freeable,3,29
-    grep kernel_init funcIdDescLs.txt.csv
-    # init/main.c,994,1,30000,kernel_init,3,0
-    grep ret_from_fork funcIdDescLs.txt.csv
-    #无函数 ret_from_fork
+#牵涉的各函数 所在源文件 如下:
+grep mount_block_root funcIdDescLs.txt.csv
+# init/do_mounts.c,382,1,40013,mount_block_root,4,13
+grep mount_root funcIdDescLs.txt.csv
+# init/do_mounts.c,512,1,40015,mount_root,4,15
+grep prepare_namespace funcIdDescLs.txt.csv
+#init/do_mounts.c,549,1,40016,prepare_namespace,4,16
+grep kernel_init_freeable funcIdDescLs.txt.csv
+# init/main.c,1040,1,30029,kernel_init_freeable,3,29
+grep kernel_init funcIdDescLs.txt.csv
+# init/main.c,994,1,30000,kernel_init,3,0
+grep ret_from_fork funcIdDescLs.txt.csv
+#函数 ret_from_fork 未插入 funcIdAsm
+grep boot_command_line  funcIdDescLs.txt.csv
+#函数 boot_command_line 未插入 funcIdAsm
+grep boot_command_line System.map
+#c1d858a0 D boot_command_line
+
 
 objdump --source     init/do_mounts.o > init/do_mounts.o.my.S
 "
@@ -90,4 +95,16 @@ objdump --source init/main.o > init/main.o.my.S
  9f3:	e8 fc ff ff ff       	call   9f4 <kernel_init_freeable+0x1d7>
  ...
  9ff:	c3      
+
+
+000000a0 <kernel_init>:                                                      #0. 此即  kernel_init == 0Xa0
+  a0:	55                   	push   %ebp
+  ...
+  ae:	e8 19 08 00 00       	call   8cc <boot_command_line+0x4c>          #2. 跳转 的 目的地址 boot_command_line+0x4c  ,找不下去了，因为 找不到 boot_command_line 在哪个 .o文件中。
+  b3:	e8 fc ff ff ff       	call   b4 <kernel_init+0x14>                 #1. 崩溃日志中的 'kernel_init+0x13' == 0xb3 , 即此行，因此奔溃的是上一行.
+  b8:	e8 fc ff ff ff       	call   b9 <kernel_init+0x19>
+  ...
+  1dd:	e8 fc ff ff ff       	call   1de <kernel_init+0x13e>
+
+
 "
