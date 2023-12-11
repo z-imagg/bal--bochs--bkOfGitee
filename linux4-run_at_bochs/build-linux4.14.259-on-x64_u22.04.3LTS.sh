@@ -68,7 +68,9 @@ sudo apt install -y flex bison libssl-dev && \
 #   https://gitcode.net/crk/linux-stable/-/blob/linux-5.8.y/arch/x86/include/asm/percpu.h
 #  和
 #   https://gitcode.net/crk/linux-stable/-/blob/linux-5.9.y/arch/x86/include/asm/percpu.h
-# 发现 5.9的 已经改了
+# 发现 5.9的 已经改了, 但是 5.9 又报另一个错:
+#   ./arch/x86/include/asm/jump_label.h:25:20: error: invalid operand for inline asm constraint 'i'
+# 还是回到4.14.y吧
 LnxRpBrch="linux-5.9.y" && \
 LnxRpCmtId="a60d1a8fea7579778cac14894e360a12365100e2" && \
 #分支 linux-5.9.y 的最后一次提交 a60d1a8fea7579778cac14894e360a12365100e2 , 链接如下: 
