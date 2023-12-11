@@ -97,7 +97,7 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 core_n=$(( $(nproc) - 1 )) && \
 job_n=$(( core_n > 1 ? core_n: 1 )) && \
 
-{ [ "X$multi_build" == "X" ] && multi_build=false ;} && \
+{ { [ "X$multi_build" == "X" ] && multi_build=false ;} || : ;} && \
 #multi_build默认为false
 # 当不指定multi_build时, multi_build取false
 { $multi_build || job_n=1 ;} && \
