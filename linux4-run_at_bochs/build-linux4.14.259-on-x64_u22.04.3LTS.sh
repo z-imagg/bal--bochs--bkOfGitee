@@ -57,10 +57,12 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LnxRpBrch="linux-4.14.y" && \
-LnxRpCmtId="ae1952ac1aac66010a51a69c4592d72724d91ce2" && \
-#分支 linux-4.14.y 的最后一次提交 ae1952ac1aac66010a51a69c4592d72724d91ce2 , 链接如下: 
-# https://gitcode.net/crk/linux-stable/-/commit/ae1952ac1aac66010a51a69c4592d72724d91ce2
+LnxRpBrch="linux-5.9.y" && \
+LnxRpCmtId="a60d1a8fea7579778cac14894e360a12365100e2" && \
+#分支 linux-5.9.y 的最后一次提交 a60d1a8fea7579778cac14894e360a12365100e2 , 链接如下: 
+#https://gitcode.net/crk/linux-stable/-/tree/linux-5.9.y 
+#https://gitcode.net/crk/linux-stable/-/commits/linux-5.9.y    
+# https://gitcode.net/crk/linux-stable/-/commit/a60d1a8fea7579778cac14894e360a12365100e2
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
