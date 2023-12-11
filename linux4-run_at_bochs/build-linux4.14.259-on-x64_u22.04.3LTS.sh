@@ -103,6 +103,7 @@ job_n=$(( core_n > 1 ? core_n: 1 )) && \
 { $multi_build || job_n=1 ;} && \
 #默认单进程编译
 # multi_build为false，则单进程编译
+{ { [ $job_n == 1 ] && echo "单进程编译" ;} || echo "多进程编译：（${job_n}进程编译）";} && \
 
 set -x && \
 MakeLogF=/crk/make.log && \
