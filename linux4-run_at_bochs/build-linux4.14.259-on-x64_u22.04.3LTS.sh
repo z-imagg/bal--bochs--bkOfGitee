@@ -108,6 +108,7 @@ job_n=$(( used_core_n > 1 ? used_core_n: 1 )) && \
 set -x && \
 MakeLogF=/crk/make.log && \
 mvFile_AppendCurAbsTime $MakeLogF && \
+make mrproper && \
 make clean && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
