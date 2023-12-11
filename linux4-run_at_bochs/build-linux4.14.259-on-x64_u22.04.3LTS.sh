@@ -94,8 +94,9 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 } && \
 
 #并行编译 job数 为 max(核心数-1,1)
-job_n=$((nproc-1)) && \
-job_n=$(( core_n > 1 ? core_n: 1 )) && \
+# core_n=$((nproc-1)) && \
+# 上行写错了 core_n其实是-1, 正确写法是 core_n=$(( $(nproc) - 1 ))
+# job_n=$(( core_n > 1 ? core_n: 1 )) && \
 
 set -x && \
 MakeLogF=/crk/make.log && \
@@ -103,7 +104,7 @@ mvFile_AppendCurAbsTime $MakeLogF && \
 make clean && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
-{ make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
+{ make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j 1 V=1 2>&1 | tee -a $MakeLogF ;} && \
 set +x && \
 
 find . -name "*bzImage*" && \
