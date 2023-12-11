@@ -55,7 +55,7 @@ cd $CurScriptDir && \
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
-sudo apt install -y flex bison && \
+sudo apt install -y flex bison libssl-dev && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
 # clang 编译 linux内核4.14.y i386 确实有bug:  
