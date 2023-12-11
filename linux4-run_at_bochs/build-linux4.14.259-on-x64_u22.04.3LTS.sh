@@ -111,7 +111,7 @@ mvFile_AppendCurAbsTime $MakeLogF && \
 make mrproper && \
 make clean && \
 make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
-make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
+# make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
 { make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
 set +x && \
 
