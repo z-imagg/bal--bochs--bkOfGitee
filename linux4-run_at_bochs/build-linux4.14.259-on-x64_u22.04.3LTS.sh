@@ -55,9 +55,20 @@ cd $CurScriptDir && \
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
-sudo apt install -y flex && \ 
+sudo apt install -y flex bison && \ 
 # sudo apt-get install -y gcc-multilib g++-multilib
 
+# clang 编译 linux内核4.14.y i386 确实有bug:  
+#  https://github.com/ClangBuiltLinux/linux/issues/194
+#  invalid output size for constraint '=q' in arch/x86/events/amd/core.c
+#    此错误的解决办法 是 改 内核代码，具体  在 问题页面中已经给出  https://github.com/ClangBuiltLinux/linux/issues/194#issuecomment-548710288
+#  但是我不想改内核代码，想要尝试新内核版本 以避开此问题
+#  估计linux kernel 小于等于 5.8.y 编译i386 平台 都有此问题,  因此转向 5.9.y
+# 理由是 比对 
+#   https://gitcode.net/crk/linux-stable/-/blob/linux-5.8.y/arch/x86/include/asm/percpu.h
+#  和
+#   https://gitcode.net/crk/linux-stable/-/blob/linux-5.9.y/arch/x86/include/asm/percpu.h
+# 发现 5.9的 已经改了
 LnxRpBrch="linux-5.9.y" && \
 LnxRpCmtId="a60d1a8fea7579778cac14894e360a12365100e2" && \
 #分支 linux-5.9.y 的最后一次提交 a60d1a8fea7579778cac14894e360a12365100e2 , 链接如下: 
