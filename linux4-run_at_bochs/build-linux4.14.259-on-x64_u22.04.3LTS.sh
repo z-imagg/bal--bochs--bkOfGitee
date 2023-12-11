@@ -93,9 +93,9 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
  cd $LinuxRepoD 
 } && \
 
-#并行编译 job数 为 max(核心数-1,1)
-core_n=$(( $(nproc) - 1 )) && \
-job_n=$(( core_n > 1 ? core_n: 1 )) && \
+#并行编译 job数 为 核心数 * 0.7
+used_core_n=$(( $(nproc)  * 7 / 10 )) && \
+job_n=$(( used_core_n > 1 ? used_core_n: 1 )) && \
 
 { { [ "X$multi_build" == "X" ] && multi_build=false ;} || : ;} && \
 #multi_build默认为false
