@@ -55,6 +55,7 @@ cd $CurScriptDir && \
 #ubuntu 22 x64
 sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
+sudo apt install -y flex && \ 
 # sudo apt-get install -y gcc-multilib g++-multilib
 
 LnxRpBrch="linux-5.9.y" && \
