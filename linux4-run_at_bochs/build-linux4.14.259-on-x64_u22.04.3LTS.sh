@@ -106,13 +106,13 @@ job_n=$(( used_core_n > 1 ? used_core_n: 1 )) && \
 { { [ $job_n == 1 ] && echo "单进程编译" ;} || echo "多进程编译：（${job_n}进程编译）";} && \
 
 set -x && \
+export PATH=/app/llvm_release_home/clang+llvm-15.0.0-x86_64-linux-gnu-rhel-8.4/bin:$PATH
 MakeLogF=/crk/make.log && \
 mvFile_AppendCurAbsTime $MakeLogF && \
 make mrproper && \
 make clean && \
-make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- defconfig && \
-# make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- menuconfig && \
-{ make ARCH=i386 CROSS_COMPILE=i686-linux-gnu- -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
+make ARCH=i386 CC=clang defconfig && \
+{ make ARCH=i386 CC=clang -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
 set +x && \
 
 find . -name "*bzImage*" && \
