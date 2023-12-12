@@ -13,6 +13,6 @@ ata0-master: type=disk, path="$HdImgF", cylinders=40, heads=16, spt=32
 boot: c
 log: bochsout.txt
 mouse: enabled=0
-cpu: ips=15000000, x86_64=false
+cpu: ips=15000000
 clock: sync=both
 #display_library: sdl
