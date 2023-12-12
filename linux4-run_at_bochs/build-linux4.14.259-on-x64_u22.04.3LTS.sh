@@ -57,10 +57,8 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LnxRpBrch="linux-4.14.y" && \
-LnxRpCmtId="ae1952ac1aac66010a51a69c4592d72724d91ce2" && \
-#分支 linux-4.14.y 的最后一次提交 ae1952ac1aac66010a51a69c4592d72724d91ce2 , 链接如下: 
-# https://gitcode.net/crk/linux-stable/-/commit/ae1952ac1aac66010a51a69c4592d72724d91ce2
+LnxRpBrch="linux-5.19.y" && \
+#分支  : https://gitcode.net/crk/linux-stable/-/tree/linux-5.19.y
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
@@ -68,7 +66,6 @@ LnxRpGitD=$LinuxRepoD/.git && \
 #linux-stable仓库尺寸大约2.56GB，  提交时请提交到 https://gitcode.net/crk/linux-stable.git （此仓库是从上一行清华linux-stable.git仓库克隆来的，是一样的，只是可以更改并提交而已)
 } && \
 LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
-LnxRpCmtIdCur=$(git --git-dir=$LnxRpGitD rev-parse HEAD) && \
 #{重置git仓库
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard && \
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  clean -df && \
@@ -80,10 +77,6 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 #git checkout -B 覆盖已经存在的本地分支
 # -b <branch>           create and checkout a new branch
 # -B <branch>           create/reset and checkout a branch
-} && \
-{ [ "X$LnxRpCmtIdCur" == "X$LnxRpCmtId" ]  || \
-# 切换到给定提交
-  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard "$LnxRpCmtId"
 } && \
 {
 # 记录 当前所用Linux仓库的 分支和commitId
