@@ -57,8 +57,8 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LnxRpBrch="linux-4.14.y" && \
-#分支  : https://gitcode.net/crk/linux-stable/-/tree/linux-4.14.y
+LnxRpBrch="linux-5.19.y" && \
+#分支  : https://gitcode.net/crk/linux-stable/-/tree/linux-5.19.y
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
