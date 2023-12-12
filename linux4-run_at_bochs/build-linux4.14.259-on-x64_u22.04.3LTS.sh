@@ -57,8 +57,8 @@ sudo apt install -y gcc-11-i686-linux-gnu gcc-i686-linux-gnu && \
 sudo apt install -y gcc-multilib-i686-linux-gnu && \
 # sudo apt-get install -y gcc-multilib g++-multilib
 
-LnxRpBrch="linux-5.19.y" && \
-#分支  : https://gitcode.net/crk/linux-stable/-/tree/linux-5.19.y
+LnxRpBrch="linux-4.14.y-patch" && \
+#分支  : https://gitcode.net/crk/linux-stable/-/tree/linux-4.14.y
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
@@ -104,7 +104,7 @@ MakeLogF=/crk/make.log && \
 mvFile_AppendCurAbsTime $MakeLogF && \
 make mrproper && \
 make clean && \
-make ARCH=i386 CC=clang defconfig && \
+make ARCH=i386 CC=clang defconfig  CONFIG_DRM_I915=n && \
 { make ARCH=i386 CC=clang -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
 set +x && \
 
