@@ -13,6 +13,62 @@ _SectorSize=512 && _Pwr2_10=$((2**10))
 :;} && \
 
 
+#检测当前是否启动了调试 即 'bash -x'
+{ { [[ $- == *x* ]] && _en_dbg=true ;} || _en_dbg=false ;} && \
+_=$_en_dbg
+
+# 工具函数
+
+hd_img_dir=$(pwd)/hd_img && \
+
+function _hdImg_list_loopX(){
+    { { $_en_dbg && set -x ;} || : ;} && \
+    sudo losetup   --raw   --associated  $HdImgF
+}
+
+function _hdImg_list_loopX_f1(){
+    #此函数的输出 要作为变量loopX的值 因此一定不能放开调试 即 不能加 'set -x'
+    # set +x && \
+    sudo losetup   --raw   --associated  $HdImgF | cut -d: -f1
+}
+
+function _hdImg_detach_all_loopX(){
+    { { $_en_dbg && set -x ;} || : ;} && \
+    sudo losetup   --raw   --associated  $HdImgF | cut -d: -f1  |   xargs -I%  sudo losetup --detach %
+}
+
+
+function _hdImg_umount(){
+    { { $_en_dbg && set -x ;} || : ;} && \
+    _hdImg_detach_all_loopX  && { { sudo umount $HdImgF ; sudo umount $hd_img_dir ;} || : ;}
+}
+
+
+function _hdImgDir_rm(){
+    { { $_en_dbg && set -x ;} || : ;} && \
+    rm -frv $hd_img_dir ; mkdir $hd_img_dir
+}
+
+
+function _hdImg_mount(){
+    { { $_en_dbg && set -x ;} || : ;} && \
+
+#mount形成链条:  $HdImgF --> /dev/loopX --> $hd_img_dir/
+sudo mount --verbose --options loop,offset=$Part1stByteIdx $HdImgF $hd_img_dir && \
+
+#用losetup 找出上一行mount命令形成的链条中的 loopX
+loopX=$( _hdImg_list_loopX_f1 ) && \
+
+#断言 必须只有一个 回环设备 指向 $HdImgF
+{ { [ "X$loopX" != "X" ] &&  [ $(echo   $loopX | wc -l) == 1 ] ;} || { eval $err_msg_multi_loopX_gen && exit $err_exitCode_multi_loopX  ;} ;} && \
+
+lsblk $loopX 
+#  NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+#  loop1   7:1    0  50M  0 loop $hd_img_dir
+
+}
+####
+
 
 # 加载（依赖、通用变量）（此脚本中的ifelse调试步骤) (关于此脚本中的 【:;}】) (断点1)
 {  \
@@ -115,27 +171,32 @@ set msgInstOk="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是
 
 :;} && \
 
-#2. 制作硬盘镜像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
-{  \
+#2A. 对 磁盘映像: 卸载、删除、删除挂载目录
+_hdImg_list_loopX && \
+_hdImg_umount && \
+_hdImgDir_rm && \
+rm -fv hd.img && \
 
-{ sudo umount /mnt/hd_img 2>/dev/null ;  sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF :;} && \
+#2. 制作磁盘映像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
+{  \
+#  Part1stByteIdx : Partition First Byte Offset : 分区的第一个字节偏移量 ： 相对于 磁盘映像文件hd.img的开头, hd.img内的唯一的分区的第一个字节偏移量
+
 #Part1stByteIdx : PartitionFirstByteOffset: 分区第一个字节在hd.img磁盘映像文件中的位置
-Part1stByteIdx=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
+Part1stByteIdx=$(mkdiskimage  -F  -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
 #  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
 #  所以 应该 同时安装了 syslinux syslinux-common syslinux-efi， "步骤1." 已有这样的检测了
-# Part1stByteIdx==$((32*512))==16384
+# Part1stByteIdx == $((32*512)) == 16384 == 0X4000 == 32个扇区 == SectsPerTrk个扇区 == 1个Track
+
 set msgErr="mkdiskimage返回的Part1stByteIdx $Part1stByteIdx 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
 { \
 #测试 mkdiskimage返回的Part1stByteIdx是否为 '预期值 即 $((32*512)) 即 16384', 其中 32 是 HdImg_S
-[ $Part1stByteIdx == $((HdImg_S*512)) ] || \
-"否则 (即 Part1stByteIdx不是预期值)" 2>/dev/null || \
-{ echo $msgErr && exit 9 ;} \
+[ $Part1stByteIdx == $((HdImg_S*512)) ] ||  { echo $msgErr && exit 9 ;} \
 } && \
 
 
 :;} && \
 
-#3. 断言 磁盘映像文件几何参数
+#3. 断言 磁盘映像几何参数
 {  \
 #xxd -seek +0X1C3 -len 3 $HdImgF
 #0X1C3:HdImg_H -1 : 0X0F:15:即16H:即16个磁头,  0X1C4: HdImg_S : 0X20:32:即32S:即每磁道有32个扇区, 0X1C3:HdImg_C -1 : 0XC7:199:即200C:即200个柱面
@@ -172,123 +233,38 @@ test "$_HSC_hex_xxdRdFromHdImgF" == "${_HSC_hex_calc}"
 :;} && \
  
 #4. 用win10主机上的grubinst.exe安装grldr.mbr到磁盘镜像
-{  \
-echo "执行grubinst.exe前md5sum: $(md5sum $HdImgF)" && \
 
-#借助win10中的grubinst_1.0.1_bin_win安装grldr.mbr
-
-#登录机器信息参照：linux2.6-run_at_bochs\readme.md
-ConfigF=config.sh && \
-source $ConfigF && \
-
-:;} && \
 
 # 4.0 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer
-{  \
-okMsg="本地ssh端口正常,win10Ssh端口正常"
-errMsg="出错! 必须人工确保win10中的mingw(msys2)中已安装并已启动sshServer; win10中的mingw中安装sshServer, 参照: https://www.msys2.org/wiki/Setting-up-SSHd/  。 请打开mingw终端:输入whoami得mingw ssh登录用户, 输入passwd设置mingw ssh登录密码(目前密码是petNm)"
-{ \
-{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  nc -w 3 -zv localhost 22 && nc -w 3  -zv w10.loc $w10SshPort
-    okMsg
-    :
-  #else:
-    :
-      errMsg
-} \
-} && [ $__e == 0 ] && \
 
-:;} && \
 
 
 # 4.2 安装sshpass sshfs
-{  \
-{ \
-{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  sshpass -V 2>/dev/null 1>/dev/null && sshfs --version 2>/dev/null 1>/dev/null
-    "已经安装sshpass sshfs"
-    :
-  #else:
-    sudo apt install -y sshpass sshfs
-      "sshpass sshfs 安装完毕"
-} \
-} && [ $__e == 0 ] && \
 
-:;} && \
 
 # 4.2b 利用sshfs挂载远程sshserver主机根目录
-{  \
-{ \
-{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  test -d $w10SshfsRt
-    "sshfs远程win10主机根目录 $w10SshfsRt 已存在"
-    :
-  #else:
-    { sudo rm -fr $w10SshfsRt ; sudo mkdir $w10SshfsRt && sudo chown -R $(id -gn).$(whoami) $w10SshfsRt ;}
-      "sshfs远程win10主机根目录 $w10SshfsRt 新建完毕"
-} \
-} && [ $__e == 0 ] && \
-:;} && \
 
-{  \
-{ \
-{ ifelse  $CurScriptF $LINENO ; __e=$? ;} || true || { \
-  mount | grep  "$w10SshfsRt"
-    "sshfs远程win10主机根目录 $w10SshfsRt 已挂载"
-    :
-  #else:
-    echo $win10SshPass | sshfs  -o ConnectTimeout=$SshConnTS -o StrictHostKeyChecking=no  -p $w10SshPort  -o password_stdin $win10User@w10.loc:/ $w10SshfsRt 
-      "sshfs远程win10主机根目录 $w10SshfsRt 挂载完毕"
-} \
-} && [ $__e == 0 ] && \
-:;} && \
 
-# 4.3 磁盘映像文件 复制到 win10主机msys2的根目录下
+# 4.3 磁盘映像 复制到 win10主机msys2的根目录下
 
+
+#5A 对 磁盘映像: 新建目录/boot/syslinux/，放置 syslinux.cfg,  安装 syslinux
 {   \
-IGOW10F=install_grubinst_on_win10_by_msys2.sh
+# 5A.0 挂载 磁盘映像
+_hdImg_mount && \
 
-#[ssh | scp ] -o StrictHostKeyChecking=no:
-#  Are you sure you want to continue connecting (yes/no/[fingerprint])? yes  (自动答yes)
-cp $ConfigF $w10SshfsRt/  && \
-cp $IGOW10F $w10SshfsRt/  && \
-# 4.3 磁盘映像文件 复制到 ubt22x64主机msys2的根目录下
-cp $HdImgF $w10SshfsRt/  && \
-sshpass -p $win10SshPass ssh -t -o ConnectTimeout=$SshConnTS -o StrictHostKeyChecking=no  -p $w10SshPort $win10User@w10.loc "HdImgF=$HdImgF bash  /$IGOW10F" && \
-#ssh -t , -t 即 分配  pseudo-terminal 即 分配 伪终端, 否则 交互式命令工作不正常 （比如read -p 提示消息 ，将不显示提示消息）
-#4.6 传回已 安装 grldr.mbr 的 磁盘映像文件
-cp  $w10SshfsRt/$HdImgF $HdImgF && \
-:;} && \
+# 5A.1 syslinux 中指定的 目录 /boot/syslinux/ 必须要事先建立.
+sudo mkdir -p  $hd_img_dir/boot/syslinux/ && \
 
-#5 挂载 磁盘映像文件
-{   \
-sudo mkdir /mnt/hd_img
-sudo mount -o loop,offset=$Part1stByteIdx $HdImgF /mnt/hd_img
-# sudo losetup --offset $((32*512)) /dev/loop15 $HdImgF
-# sudo mount -o loop /dev/loop15 /mnt/hd_img
+# 5A.2 放置 syslinux.cfg 到 磁盘映像文件
+sudo cp syslinux.cfg $hd_img_dir/boot/syslinux/syslinux.cfg  && \
+
+# 5A.3 卸载hd.img后, 再 安装syslinux (  复制 ?mbr?、ldlinux.sys 、ldlinux.c32) 到 磁盘映像hd.img 
+_hdImg_umount && \
+syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install $HdImgF && \
 
 :;} && \
 
-#6 下载 grub4dos-0.4.4.zip
-{ \
-#原始下载地址 https://jaist.dl.sourceforge.net/project/grub4dos/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip 太慢了
-grub4dos_zip_url="https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/util/boot/grub4dos/grub4dos-0.4.4.zip"
-test -f grub4dos-0.4.4.zip || { echo "下载grub4dos-0.4.4.zip" && wget --no-verbose $grub4dos_zip_url ; }
-md5sum --check  md5sum.grub4dos-0.4.4.zip.txt || { echo "grub4dos-0.4.4.zip的md5sum错,退出码为6" && exit 6; }
-unzip -o -q grub4dos-0.4.4.zip
-#unzip --help : -o  overwrite files WITHOUT prompting
-
-:;} && \
-
-#7 制作 文件menu.lst
-{   \
-
-:;} && \
-
-#8. 复制grldr、menu.lst 到 磁盘映像文件
-{  \
-sudo cp -v grub4dos-0.4.4/grldr  menu.lst  /mnt/hd_img/
-:;} && \
 
 #9. 编译内核 内核编译机器为本机ubuntu22
 {  \
@@ -296,16 +272,20 @@ bzImageF=/crk/linux-stable/arch/x86/boot/bzImage && ls -lh $bzImageF && \
 { test -f $bzImageF || bash build-linux4.14.259-on-x64_u22.04.3LTS.sh :;} && \
 :;} && \
 
+
+#10A. 挂载 磁盘映像文件
+{   \
+_hdImg_mount 
+
+:;} && \
+
 #10. 复制 内核bzImage  到 磁盘映像文件
 {   \
 
 okMsg1="正常,发现linux内核编译产物:$bzImageF"
 errMsg2="错误,内核未编译（没发现内核编译产物:$bzImageF,退出码为8"
-#复制内核.  ??大文件(3MB)bzImage放到fat12分区中, bochs的bios或mbr界面无grub.??
-#问题现象:  
-# 0. 若复制3MB的bzImage，则bochs的bios或mbr启动界面没进grub.  反之, bochs启动界面bios能进grub.
-# 1. diskgenious下打开.img 内无文件. (提交 de98c29a7bc2e284473c222b1c9a7e4ec82872ec 也有此问题，但bochs正常进入grub菜单)
-{ test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  /mnt/hd_img/; } || { echo $errMsg2  && exit 8 ;  } 
+
+{ test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  $hd_img_dir; } || { echo $errMsg2  && exit 8 ;  } 
 
 :;} && \
 
@@ -342,7 +322,7 @@ cp busybox-i686 init $RT/ &&  cd $RT  && \
 
 #12. 复制 initRamFS 到 磁盘映像文件
 {  \
-sudo cp $initrdF /mnt/hd_img/
+sudo cp $initrdF $hd_img_dir
 
 #todo: 或initrd: helloworld.c作为 init ram disk
 #未验证的参考: 
@@ -354,15 +334,15 @@ sudo cp $initrdF /mnt/hd_img/
 #13. 卸载 磁盘映像文件
 {  \
 read -p "按回车即将卸载"
-sudo umount /mnt/hd_img
-sudo rm -frv /mnt/hd_img
+
+_hdImg_umount && \
 
 :;} && \
 
 #14. 生成 bxrc文件（引用 磁盘映像文件）
 {  \
 
-sed "s/\$HdImgF/$HdImgF/g" linux-2.6.27.15-grub0.97.bxrc.template > gen-linux-2.6.27.15-grub0.97.bxrc
+sed -e "s/\$HdImgF/$HdImgF/g"  -e "s/_cylinders_/$HdImg_C/g"  -e "s/_heads_/$HdImg_H/g" -e "s/_spt_/$HdImg_S/g" linux-2.6.27.15-grub0.97.bxrc.template > gen-linux-2.6.27.15-grub0.97.bxrc
 
 :;} && \
 
