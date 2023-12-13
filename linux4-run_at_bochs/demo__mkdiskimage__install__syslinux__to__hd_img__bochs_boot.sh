@@ -9,8 +9,8 @@ echo $_en_dbg
 # read -p "xxx"
 
 function _hdImg_list_loopX(){
-    $_en_dbg && set -x && \
-    sudo losetup   --raw   --associated  hd.img
+    { { $_en_dbg && set -x ;} || : ;} && \
+    sudo losetup   --raw   --associated  hd.img 
 }
 
 function _hdImg_list_loopX_f1(){
@@ -21,25 +21,26 @@ function _hdImg_list_loopX_f1(){
 }
 
 function _hdImg_detach_all_loopX(){
-    $_en_dbg && set -x && \
+    { { $_en_dbg && set -x ;} || : ;} && \
     sudo losetup   --raw   --associated  hd.img | cut -d: -f1  |   xargs -I%  sudo losetup --detach %
 }
 
 
 function _hdImg_umount(){
-    $_en_dbg && set -x && \
+    { { $_en_dbg && set -x ;} || : ;} && \
     _hdImg_detach_all_loopX  && { { sudo umount hd.img ; sudo umount hd_img_dir ;} || : ;}
 }
 
 
 function _hdImgDir_rm(){
-    $_en_dbg && set -x && \
+    { { $_en_dbg && set -x ;} || : ;} && \
     rm -frv hd_img_dir ; mkdir hd_img_dir
 }
 
 
 function _hdImg_mount(){
-    $_en_dbg && set -x && \
+    { { $_en_dbg && set -x ;} || : ;} && \
+
 #mount形成链条:  hd.img --> /dev/loopX --> ./hd_img_dir/
 sudo mount --verbose --options loop,offset=$Part1stBOfst hd.img hd_img_dir && \
 #用losetup 找出上一条mount命令形成的链条中的 loopX
@@ -67,14 +68,6 @@ Cylinders=200 && Heads=16 && SectsPerTrk=32 && \
 
 
 # -1  制作 syslinux.cfg  
-_hdImg_mount && \
-sudo cat << 'EOF' | sudo tee   syslinux.cfg
-DEFAULT linux
-LABEL linux
-  KERNEL /bzImage root=/dev/ram0
-  APPEND initrd=/initramfs-busybox-i686.cpio.tar.gz
-EOF
-&& \
 
 #0. 清理、还原
 _hdImg_list_loopX && \
@@ -84,8 +77,9 @@ rm -fv hd.img && \
 #1. mkdiskimage制作磁盘映像文件hd.img
 #  Part1stBOfst : Partition First Byte Offset : 分区的第一个字节偏移量 ： 相对于 磁盘映像文件hd.img的开头, hd.img内的唯一的分区的第一个字节偏移量
 Part1stBOfst=$(mkdiskimage -F -o hd.img $Cylinders $Heads $SectsPerTrk) && \
+echo $Part1stBOfst && \
 [ $Part1stBOfst == $((SectsPerTrk*512)) ] && \
-# Part1stBOfst == 16384 == 0X4000 == 32个扇区 == SectorsPerTrack个扇区 == 1个Track
+# Part1stBOfst == 16384 == 0X4000 == 32个扇区 == SectsPerTrk个扇区 == 1个Track
 # hd.img  固定偏移+0X1C3 处 的 3个 字节  为 CHS 的值, 可以用 xxd 来 做此断言，从而可以部分验证上面的 制作hd.img的 命令mkdiskimage 是否正确.  这里只用xxd来显示了 ，并未断言。
 xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 
@@ -171,7 +165,7 @@ _hdImg_umount && \
 
 #4. bochs正常启动到syslinux
 
-sudo cat << 'EOF' |  tee  demo_bochs.bxrc
+sudo cat << 'EOF' |  tee  demo_bochs.bxrc 
 megs: 48
 
 romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
@@ -185,8 +179,10 @@ cpu: ips=15000000
 clock: sync=both
 EOF
 
-sed -i  -e "s/_cylinders_/$Cylinders/g"  -e "s/_heads_/$Heads/g" -e "s/_spt_/$SectorsPerTrack/g" bochs.bxrc
+sed -i  -e "s/_cylinders_/$Cylinders/g"  -e "s/_heads_/$Heads/g" -e "s/_spt_/$SectsPerTrk/g" demo_bochs.bxrc && \
+cat demo_bochs.bxrc && \
+read -p "回车" && \
 
-
+rm -fv hd.img.lock && \
 /crk/bochs/bochs/bochs -f demo_bochs.bxrc
 #bochs能正常启动直到syslinux
