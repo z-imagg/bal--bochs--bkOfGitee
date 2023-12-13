@@ -65,6 +65,17 @@ err_msg_multi_loopX_gen=' echo "必须只能有一个回环设备指向hd.img,�
 #C:Cylinders, Heads:H, SectsPerTrk:SectorsPerTrack:S
 Cylinders=200 && Heads=16 && SectsPerTrk=32 && \
 
+
+# -1  制作 syslinux.cfg  
+_hdImg_mount && \
+sudo cat << 'EOF' | sudo tee   syslinux.cfg
+DEFAULT linux
+LABEL linux
+  KERNEL /bzImage root=/dev/ram0
+  APPEND initrd=/initramfs-busybox-i686.cpio.tar.gz
+EOF
+&& \
+
 #0. 清理、还原
 _hdImg_list_loopX && \
 _hdImg_umount && \
@@ -78,25 +89,87 @@ Part1stBOfst=$(mkdiskimage -F -o hd.img $Cylinders $Heads $SectsPerTrk) && \
 # hd.img  固定偏移+0X1C3 处 的 3个 字节  为 CHS 的值, 可以用 xxd 来 做此断言，从而可以部分验证上面的 制作hd.img的 命令mkdiskimage 是否正确.  这里只用xxd来显示了 ，并未断言。
 xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 
-#2. 安装syslinux到磁盘映像文件
+#2. 放置 syslinux , 安装syslinux ( 复制 ?mbr?、ldlinux.sys 、ldlinux.c32 ) 到 磁盘映像文件 
 _hdImgDir_rm && \
 _hdImg_mount && \
-# syslinux 中指定的 目录 /boot/syslinux/ 必须要事先建立.
+# 2.0 syslinux 中指定的 目录 /boot/syslinux/ 必须要事先建立.
 sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
+# 2.1 放置 syslinux 到 磁盘映像文件
+sudo cp syslinux.cfg hd_img_dir/boot/syslinux/syslinux.cfg  && \
+# 2.2 卸载hd.img后, 再 安装syslinux (  复制 ?mbr?、ldlinux.sys 、ldlinux.c32) 到 hd.img 
 _hdImg_umount && \
 syslinux --directory /boot/syslinux/ --offset $Part1stBOfst --install hd.img && \
 
+#####
 
-#2B. 显示syslinux安装的文件
 _hdImg_mount && \
+
+#9. 内核bzImage
+{  \
+bzImageF=/crk/linux-stable/arch/x86/boot/bzImage
+:;} && \
+
+#10. 复制 内核bzImage  到 磁盘映像文件
+{   \
+okMsg1="有内核文件bzImage" && \
+errMsg2="错误,内核文件bzImage不存在,退出码8" && \
+{ test -f $bzImageF  && echo $okMsg1 && sudo cp -v $bzImageF  hd_img_dir/; } || { echo $errMsg2  && exit 8 ;  } 
+:;} && \
+
+#11. 制作 initrd(即 init_ram_filesystem 即 初始_内存_文件系统)
+
+#11.1 下载busybox-i686
+{ \
+
+#initrd: busybox作为 init ram disk
+# busybox_i686_url="http://ftp.icm.edu.pl/packages/busybox/binaries/1.16.1/busybox-i686"
+busybox_i686_url="https://www.busybox.net/downloads/binaries/1.16.1/busybox-i686" && \
+{ test -f busybox-i686 ||  wget --no-verbose $busybox_i686_url ;}
+chmod +x busybox-i686
+
+:;} && \
+
+# 11.2 创建 init 脚本
+{ \
+
+chmod +x init
+
+:;} && \
+
+#11.3  执行 cpio_gzip 以 生成 initRamFS
+{     \
+
+initrdF=$(pwd)/initramfs-busybox-i686.cpio.tar.gz
+RT=initramfs && \
+(rm -frv $RT &&   mkdir $RT && \
+cp busybox-i686 init $RT/ &&  cd $RT  && \
+# 创建 initrd
+{ find . | cpio --create --format=newc   | gzip -9 > $initrdF ; }  ) && \
+:;} && \
+
+#12. 复制 initRamFS 到 磁盘映像文件
+{  \
+sudo cp $initrdF hd_img_dir/
+
+#todo: 或initrd: helloworld.c作为 init ram disk
+#未验证的参考: 
+# 1. google搜索"bzImage启动initrd"
+# 2. 编译Linux内核在qemu中启动 : https://www.baifachuan.com/posts/211b427f.html
+
+:;} && \
+
+
+
+# 3 显示syslinux安装的文件
 find ./hd_img_dir/ -type f  -ls && \
 #   174     59 -r-xr-xr-x    ./hd_img_dir/boot/syslinux/ldlinux.sys
 #   175    117 -r-xr-xr-x    ./hd_img_dir/boot/syslinux/ldlinux.c32
 
 _hdImg_umount && \
+#####
 
 
-#3. bochs正常启动到syslinux
+#4. bochs正常启动到syslinux
 
 sudo cat << 'EOF' |  tee  demo_bochs.bxrc
 megs: 48
