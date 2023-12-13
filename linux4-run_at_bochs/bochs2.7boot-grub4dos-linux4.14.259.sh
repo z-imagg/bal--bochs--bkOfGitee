@@ -4,7 +4,7 @@
 
 # 此脚本用法:
 { \
-usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=32 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 32）； \n【 bash $0 】（指定  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " '
+usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=20 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 20）； \n【 bash $0 】（  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " '
 :;} && \
 
 # 常量
@@ -126,8 +126,8 @@ PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) 
 # PartitionFirstByteOffset==$((32*512))==16384
 set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffset 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
 { \
-#测试 mkdiskimage返回的PartitionFirstByteOffset是否为 '预期值 即 $((32*512)) 即 16384'
-[ $PartitionFirstByteOffset == $((32*512)) ] || \
+#测试 mkdiskimage返回的PartitionFirstByteOffset是否为 '预期值 即 $((32*512)) 即 16384', 其中 32 是 HdImg_S
+[ $PartitionFirstByteOffset == $((HdImg_S*512)) ] || \
 "否则 (即 PartitionFirstByteOffset不是预期值)" 2>/dev/null || \
 { echo $msgErr && exit 9 ;} \
 } && \
