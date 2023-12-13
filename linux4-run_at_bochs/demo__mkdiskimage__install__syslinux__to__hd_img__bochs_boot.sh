@@ -10,8 +10,10 @@ uname -a && \
 
 #磁盘CHS几何参数
 Cylinders=200 && Heads=16 && SectorsPerTrack=32 && \
-#1. mkdiskimage制作磁盘映像文件hd.img
+#0. 清理、还原
+sudo losetup  --all | grep hd.img | cut -d: -f1 | xargs -I%  sudo losetup --detach % && \
 rm -fv hd.img && \
+#1. mkdiskimage制作磁盘映像文件hd.img
 Part1stByteIdx=$(mkdiskimage -F -o hd.img $Cylinders $Heads $SectorsPerTrack) && \
 [ $Part1stByteIdx == $((SectorsPerTrack*512)) ] && \
 # Part1stByteIdx == 16384 == 0X4000 == 32个扇区 == SectorsPerTrack个扇区 == 1个Track
@@ -29,11 +31,15 @@ sudo umount hd_img_dir &&  sudo losetup --detach $lopXOffset && \
 syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install hd.img && \
 
 
+#2B. 显示syslinux安装的文件
+sudo mount -o loop,offset=$Part1stByteIdx hd.img hd_img_dir && \
+find ./hd_img_dir/ -type f  -l && \
+sudo umount hd.img && \
 
 
 #3. bochs正常启动到syslinux
 
-sudo cat << 'EOF' |  tee  bochs.bxrc
+sudo cat << 'EOF' |  tee  demo_bochs.bxrc
 megs: 48
 
 romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
@@ -50,5 +56,5 @@ EOF
 sed -i  -e "s/_cylinders_/$Cylinders/g"  -e "s/_heads_/$Heads/g" -e "s/_spt_/$SectorsPerTrack/g" bochs.bxrc
 
 
-/crk/bochs/bochs/bochs -f bochs.bxrc
+/crk/bochs/bochs/bochs -f demo_bochs.bxrc
 #bochs能正常启动直到syslinux
