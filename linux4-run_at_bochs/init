@@ -1,4 +1,7 @@
 #!/busybox-i686 ash
-/busybox-i686 mount -t proc none /proc
-/busybox-i686 mount -t sysfs none /sys
+/busybox-i686 find /
+#此dev挂载依然只有/dev/console, 建议按照 《深度探索linux操作系统系统构建和原理解析.epub》/4.7.2 切换到根文件系统:258页，所说的，做 make menuconfig-->'Device Drivers'-->'Generic Driver Options'-->'Maintain a devtmpfs filesystem to mount at /dev' 后 重新编译出bzImage再bochs启动后 确认以下dev是否内容更丰富一些.
+/busybox-i686 mount -n -t devtmpfs noneee /dev
+# /busybox-i686 mount -t proc none /proc
+# /busybox-i686 mount -t sysfs none /sys
 exec /busybox-i686 ash
