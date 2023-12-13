@@ -4,7 +4,7 @@
 
 # 此脚本用法:
 { \
-usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=32 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 32）； \n【 bash $0 】（指定  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " '
+usage_echo_stmt='echo -e "此脚本$0用法:\n【 HdImg_H=20 bash $0 】（指定 磁盘映像文件 磁头数HdImg_H 为 20）； \n【 bash $0 】（  磁头数HdImg_H 默认为 16）. \n  柱面数HdImg_C固定为${HdImg_C}、每磁道扇区数固定为${HdImg_S}. \n备注：【磁盘映像文件 : 柱面数 HdImg_C 、 磁头数 HdImg_H 、 每磁道扇区数 HdImg_S 都只占据一个字节 因此取值范围都是0到255】 \n\n " '
 :;} && \
 
 # 常量
@@ -119,16 +119,16 @@ set msgInstOk="mkdiskimage安装完毕(mkdiskimage由syslinux-util提供, 但是
 {  \
 
 { sudo umount /mnt/hd_img 2>/dev/null ;  sudo rm -frv /mnt/hd_img ; rm -fv $HdImgF :;} && \
-
-PartitionFirstByteOffset=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
+#Part1stByteIdx : PartitionFirstByteOffset: 分区第一个字节在hd.img磁盘映像文件中的位置
+Part1stByteIdx=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
 #  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
 #  所以 应该 同时安装了 syslinux syslinux-common syslinux-efi， "步骤1." 已有这样的检测了
-# PartitionFirstByteOffset==$((32*512))==16384
-set msgErr="mkdiskimage返回的PartitionFirstByteOffset $PartitionFirstByteOffset 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
+# Part1stByteIdx==$((32*512))==16384
+set msgErr="mkdiskimage返回的Part1stByteIdx $Part1stByteIdx 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
 { \
-#测试 mkdiskimage返回的PartitionFirstByteOffset是否为 '预期值 即 $((32*512)) 即 16384'
-[ $PartitionFirstByteOffset == $((32*512)) ] || \
-"否则 (即 PartitionFirstByteOffset不是预期值)" 2>/dev/null || \
+#测试 mkdiskimage返回的Part1stByteIdx是否为 '预期值 即 $((32*512)) 即 16384', 其中 32 是 HdImg_S
+[ $Part1stByteIdx == $((HdImg_S*512)) ] || \
+"否则 (即 Part1stByteIdx不是预期值)" 2>/dev/null || \
 { echo $msgErr && exit 9 ;} \
 } && \
 
@@ -263,7 +263,7 @@ cp  $w10SshfsRt/$HdImgF $HdImgF && \
 #5 挂载 磁盘映像文件
 {   \
 sudo mkdir /mnt/hd_img
-sudo mount -o loop,offset=$PartitionFirstByteOffset $HdImgF /mnt/hd_img
+sudo mount -o loop,offset=$Part1stByteIdx $HdImgF /mnt/hd_img
 # sudo losetup --offset $((32*512)) /dev/loop15 $HdImgF
 # sudo mount -o loop /dev/loop15 /mnt/hd_img
 
