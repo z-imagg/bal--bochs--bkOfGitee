@@ -8,11 +8,13 @@ cat /etc/issue && \
 uname -a && \
 #Linux x 6.2.0-37-generic #38~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov  2 18:01:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
 
+#磁盘CHS几何参数
+Cylinders=200 && Heads=16 && SectorsPerTrack=32 && \
 #1. mkdiskimage制作磁盘映像文件hd.img
 rm -fv hd.img && \
-Part1stByteIdx=$(mkdiskimage -F -o hd.img 200 16 32) && \
-[ $Part1stByteIdx == $((32*512)) ] && \
-# Part1stByteIdx == 16384 == 0X4000 == 32个扇区
+Part1stByteIdx=$(mkdiskimage -F -o hd.img $Cylinders $Heads $SectorsPerTrack) && \
+[ $Part1stByteIdx == $((SectorsPerTrack*512)) ] && \
+# Part1stByteIdx == 16384 == 0X4000 == 32个扇区 == SectorsPerTrack个扇区 == 1个Track
 xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 #2. 安装syslinux到磁盘映像文件
 { rm -frv hd_img_dir ; mkdir hd_img_dir ;} && \
@@ -41,13 +43,16 @@ megs: 48
 romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
 vgaromimage: file=/crk/bochs/bochs/bios/VGABIOS-lgpl-latest
 
-ata0-master: type=disk, path="hd.img", cylinders=200, heads=16, spt=32
+ata0-master: type=disk, path="hd.img", cylinders=_cylinders_, heads=_heads_, spt=_spt_
 boot: c
-log: bochsout_demo.txt
+log: bochsout.txt
 mouse: enabled=0
 cpu: ips=15000000
 clock: sync=both
 EOF
+
+sed -i  -e "s/_cylinders_/$Cylinders/g"  -e "s/_heads_/$Heads/g" -e "s/_spt_/$SectorsPerTrack/g" bochs.bxrc
+
 
 /crk/bochs/bochs/bochs -f bochs.bxrc
 #bochs能正常启动直到syslinux
