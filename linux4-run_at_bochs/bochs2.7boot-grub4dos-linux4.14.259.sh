@@ -362,7 +362,7 @@ sudo rm -frv /mnt/hd_img
 #14. 生成 bxrc文件（引用 磁盘映像文件）
 {  \
 
-sed "s/\$HdImgF/$HdImgF/g" linux-2.6.27.15-grub0.97.bxrc.template > gen-linux-2.6.27.15-grub0.97.bxrc
+sed -e "s/\$HdImgF/$HdImgF/g"  -e "s/_cylinders_/$HdImg_C/g"  -e "s/_heads_/$HdImg_H/g" -e "s/_spt_/$HdImg_S/g" linux-2.6.27.15-grub0.97.bxrc.template > gen-linux-2.6.27.15-grub0.97.bxrc
 
 :;} && \
 
