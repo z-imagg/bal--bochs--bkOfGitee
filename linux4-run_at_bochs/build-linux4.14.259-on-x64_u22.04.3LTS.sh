@@ -91,7 +91,18 @@ MakeLogF=/crk/make.log && \
 mvFile_AppendCurAbsTime $MakeLogF && \
 make mrproper && \
 make clean && \
-make ARCH=i386 CC=clang defconfig  CONFIG_DRM_I915=n && \
+#menuconfig 替换为 : 默认配置defconfig 、 命令改配置 './scripts/config  --file .config' 
+# make ARCH=i386 CC=clang menuconfig && \
+make ARCH=i386 CC=clang defconfig && \
+#等同于 "禁用I915 (Intel 8xx 9xx G3x G4x HD Graphics) Drivers.png": menuconfig 路径 为 'Device Drivers' --> 'Graphics support' --> 不勾选 'Intel 8xx/9xx/G3x/G4x/HD Graphics'
+./scripts/config --file .config  && \
+--disable CONFIG_MMU_NOTIFIER && \
+--disable CONFIG_DRM_MIPI_DSI && \
+--disable CONFIG_DRM_I915  && \
+--disable CONFIG_DRM_I915_CAPTURE_ERROR && \
+--disable CONFIG_DRM_I915_COMPRESS_ERROR && \
+--disable CONFIG_DRM_I915_USERPTR && \
+--disable CONFIG_SND_HDA_I915 && \
 #lang编译只能单进程 理由是 libCTk.so 中有写 文件
 # libCTk.so 中有写 文件funcIdDescLs.txt.csv 、 文件srcFileIdDict.json , 并发写肯定会错乱，因此 简单起见 libCTk.so 不允许并发， 即 clang编译只能单进程
 { make ARCH=i386 CC=clang -j 1 V=1 2>&1 | tee -a $MakeLogF ;} && \
