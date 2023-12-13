@@ -20,12 +20,6 @@ xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 { rm -frv hd_img_dir ; mkdir hd_img_dir ;} && \
 sudo mount -o loop,offset=$Part1stByteIdx hd.img hd_img_dir && \
 # 上一行mount做了: hd.img --> /dev/lopX  --> 文件夹hd_img_dir， 命令 sudo losetup  -a | grep hd.img 可显示/dev/lopX
-# {显示信息,非必须
-# 找出lopX
-lopX=$(sudo losetup  -a | grep hd.img | cut -d: -f1) && \
-# 显示lopX
-lsblk $lopX1 && \
-# 显示信息}
 sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
 #卸载 hd.img 会同时卸载 链条 "hd.img --> /dev/lopX  --> 文件夹hd_img_dir" 后面的全部节点
 sudo umount hd.img && \
