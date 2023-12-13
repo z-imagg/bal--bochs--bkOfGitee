@@ -20,13 +20,17 @@ Part1stByteIdx=$(mkdiskimage -F -o hd.img $Cylinders $Heads $SectorsPerTrack) &&
 xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 #2. 安装syslinux到磁盘映像文件
 { rm -frv hd_img_dir ; mkdir hd_img_dir ;} && \
-lopXOffset=$(sudo losetup --offset $Part1stByteIdx --partscan  --find --show  hd.img)  && sudo mount $lopXOffset hd_img_dir && \
-lsblk $lopXOffset && \
+#mount形成链条:  hd.img --> /dev/loopX --> ./hd_img_dir/
+sudo mount --verbose --options loop,offset=$Part1stByteIdx hd.img hd_img_dir && \
+#用losetup 找出上一条mount命令形成的链条中的 loopX
+loopX=$(sudo losetup   --raw   --associated  hd.img  | cut -d: -f1) && \
+lsblk $loopX && \
 # NAME      MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
 # loop5       7:5    0  50M  0 loop /crk/bochs/linux4-run_at_bochs/hd_img_dir
 # └─loop5p1 259:0    0  50M  0 part
 sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
-sudo umount hd_img_dir &&  sudo losetup --detach $lopXOffset && \
+sudo umount hd.img &&  sudo losetup --detach $loopX && \
+# /dev/loop1: [2051]:7372676 (/crk/bochs/linux4-run_at_bochs/hd.img), offset 16384
 #而 卸载 文件夹hd_img_dir, 不会卸载 该链条之前的节点, 即 依然残存部分链条"hd.img --> /dev/lopX"
 syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install hd.img && \
 
@@ -34,7 +38,7 @@ syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install hd.img &
 #2B. 显示syslinux安装的文件
 sudo mount -o loop,offset=$Part1stByteIdx hd.img hd_img_dir && \
 find ./hd_img_dir/ -type f  -l && \
-sudo umount hd.img && \
+sudo umount hd.img &&  sudo losetup -d $loopX && \
 
 
 #3. bochs正常启动到syslinux
