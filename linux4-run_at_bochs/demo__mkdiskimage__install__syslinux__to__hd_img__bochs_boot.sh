@@ -32,20 +32,6 @@ xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 
 #2. 安装syslinux到磁盘映像文件
 { rm -frv hd_img_dir ; mkdir hd_img_dir ;} && \
-#mount形成链条:  hd.img --> /dev/loopX --> ./hd_img_dir/
-sudo mount --verbose --options loop,offset=$Part1stBOfst hd.img hd_img_dir && \
-#用losetup 找出上一条mount命令形成的链条中的 loopX
-loopX=$( _hdImg_list_loopX ) && \
-#断言 必须只有一个 回环设备 指向 hd.img
-{ [ "X$loopX" != $loopX &&   $(echo   $loopX | wc -l) == 1 ] || { eval $err_msg_multi_loopX_gen && exit $err_exitCode_multi_loopX  ;} ;} && \
-lsblk $loopX && \
-#  NAME      MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
-#  loop5       7:5    0  50M  0 loop /crk/bochs/linux4-run_at_bochs/hd_img_dir
-#  └─loop5p1 259:0    0  50M  0 part
-sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
-sudo umount hd.img &&  sudo losetup --detach $loopX && \
-# /dev/loop1: [2051]:7372676 (/crk/bochs/linux4-run_at_bochs/hd.img), offset 16384
-#而 卸载 文件夹hd_img_dir, 不会卸载 该链条之前的节点, 即 依然残存部分链条"hd.img --> /dev/lopX"
 syslinux --directory /boot/syslinux/ --offset $Part1stBOfst --install hd.img && \
 
 
