@@ -24,9 +24,18 @@ lsblk $lopXOffset && \
 # loop5       7:5    0  50M  0 loop /crk/bochs/linux4-run_at_bochs/hd_img_dir
 # └─loop5p1 259:0    0  50M  0 part
 sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
+# 下一行命令即 : sudo syslinux --directory /boot/syslinux/   --install /dev/loop5 && \
+sudo syslinux --directory /boot/syslinux/   --install $lopXOffset && \
+# 已经知道 正常运行形式: 'syslinux 指定偏移量 hd.img'.  
+# 那么理论上  'syslinux 挂载时已指定偏移loop设备'(即第28行) 也应该能正常运行，但 实际上 第28行 syslinux 报错如下:
+# Could not get geometry of device (Inappropriate ioctl for device)
+# Could not get geometry of device (Inappropriate ioctl for device)
+# Could not get geometry of device (Inappropriate ioctl for device)
+# Could not get geometry of device (Inappropriate ioctl for device)
+# Could not get geometry of device (Inappropriate ioctl for device)
+# Could not get geometry of device (Inappropriate ioctl for device)
 sudo umount hd_img_dir &&  sudo losetup --detach $lopXOffset && \
 #而 卸载 文件夹hd_img_dir, 不会卸载 该链条之前的节点, 即 依然残存部分链条"hd.img --> /dev/lopX"
-syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install hd.img && \
 
 
 
