@@ -19,7 +19,7 @@ _=$_en_dbg
 
 # 工具函数
 
-hd_img_dir=/mnt/hd_img && \
+hd_img_dir=$(pwd)/hd_img && \
 
 function _hdImg_list_loopX(){
     { { $_en_dbg && set -x ;} || : ;} && \
