@@ -88,7 +88,7 @@ _hdImgDir_rm && \
 _hdImg_mount && \
 # 2.0 syslinux 中指定的 目录 /boot/syslinux/ 必须要事先建立.
 sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
-# 2.1 放置 syslinux 到 磁盘映像文件
+# 2.1 放置 syslinux.cfg 到 磁盘映像文件
 sudo cp syslinux.cfg hd_img_dir/boot/syslinux/syslinux.cfg  && \
 # 2.2 卸载hd.img后, 再 安装syslinux (  复制 ?mbr?、ldlinux.sys 、ldlinux.c32) 到 hd.img 
 _hdImg_umount && \
