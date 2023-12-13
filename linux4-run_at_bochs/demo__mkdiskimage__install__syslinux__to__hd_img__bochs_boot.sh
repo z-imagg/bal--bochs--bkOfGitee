@@ -3,36 +3,43 @@
 #mkdiskimage制作磁盘映像文件hd.img,安装syslinux到磁盘映像文件，bochs正常启动到syslinux
 
 
+#检测当前是否启动了调试 即 'bash -x'
+{ { [[ $- == *x* ]] && _en_dbg=true ;} || _en_dbg=false ;}
+echo $_en_dbg
+# read -p "xxx"
+
 function _hdImg_list_loopX(){
+    $_en_dbg && set -x && \
     sudo losetup   --raw   --associated  hd.img
 }
 
 function _hdImg_list_loopX_f1(){
     #此函数的输出 要作为变量loopX的值 因此一定不能放开调试 即 不能加 'set -x'
-    set +x && \
+    # set +x && \
     sudo losetup   --raw   --associated  hd.img | cut -d: -f1
     # set +x
 }
 
 function _hdImg_detach_all_loopX(){
-    # set -x && \
+    $_en_dbg && set -x && \
     sudo losetup   --raw   --associated  hd.img | cut -d: -f1  |   xargs -I%  sudo losetup --detach %
 }
 
 
 function _hdImg_umount(){
-    # set -x && \
+    $_en_dbg && set -x && \
     _hdImg_detach_all_loopX  && { { sudo umount hd.img ; sudo umount hd_img_dir ;} || : ;}
 }
 
 
 function _hdImgDir_rm(){
-    set -x && \
-rm -frv hd_img_dir ; mkdir hd_img_dir
+    $_en_dbg && set -x && \
+    rm -frv hd_img_dir ; mkdir hd_img_dir
 }
 
 
 function _hdImg_mount(){
+    $_en_dbg && set -x && \
 #mount形成链条:  hd.img --> /dev/loopX --> ./hd_img_dir/
 sudo mount --verbose --options loop,offset=$Part1stBOfst hd.img hd_img_dir && \
 #用losetup 找出上一条mount命令形成的链条中的 loopX
