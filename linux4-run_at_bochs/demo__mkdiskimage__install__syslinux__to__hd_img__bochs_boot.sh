@@ -18,11 +18,13 @@ Part1stByteIdx=$(mkdiskimage -F -o hd.img $Cylinders $Heads $SectorsPerTrack) &&
 xxd -seek  +0X1C3 -len 3 -plain hd.img && \
 #2. 安装syslinux到磁盘映像文件
 { rm -frv hd_img_dir ; mkdir hd_img_dir ;} && \
-sudo mount -o loop,offset=$Part1stByteIdx hd.img hd_img_dir && \
-# 上一行mount做了: hd.img --> /dev/lopX  --> 文件夹hd_img_dir， 命令 sudo losetup  -a | grep hd.img 可显示/dev/lopX
+lopXOffset=$(sudo losetup --offset $Part1stByteIdx --partscan  --find --show  hd.img)  && sudo mount $lopXOffset hd_img_dir && \
+lsblk $lopXOffset && \
+# NAME      MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+# loop5       7:5    0  50M  0 loop /crk/bochs/linux4-run_at_bochs/hd_img_dir
+# └─loop5p1 259:0    0  50M  0 part
 sudo mkdir -p  hd_img_dir/boot/syslinux/ && \
-#卸载 hd.img 会同时卸载 链条 "hd.img --> /dev/lopX  --> 文件夹hd_img_dir" 后面的全部节点
-sudo umount hd.img && \
+sudo umount hd_img_dir &&  sudo losetup -d $lopXOffset && \
 #而 卸载 文件夹hd_img_dir, 不会卸载 该链条之前的节点, 即 依然残存部分链条"hd.img --> /dev/lopX"
 syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install hd.img && \
 
