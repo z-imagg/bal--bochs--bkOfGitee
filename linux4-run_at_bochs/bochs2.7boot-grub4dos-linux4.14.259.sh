@@ -179,13 +179,13 @@ rm -fv hd.img && \
 
 #2. 制作磁盘映像、注意磁盘几何参数得符合bochs要求、仅1个fat16分区
 {  \
-
+#  Part1stByteIdx : Partition First Byte Offset : 分区的第一个字节偏移量 ： 相对于 磁盘映像文件hd.img的开头, hd.img内的唯一的分区的第一个字节偏移量
 
 #Part1stByteIdx : PartitionFirstByteOffset: 分区第一个字节在hd.img磁盘映像文件中的位置
-Part1stByteIdx=$(mkdiskimage -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
+Part1stByteIdx=$(mkdiskimage  -F  -o   $HdImgF $HdImg_C $HdImg_H $HdImg_S) && \
 #  当只安装syslinux而没安装syslinux-common syslinux-efi时, mkdiskimage可以制作出磁盘映像文件，但 该 磁盘映像文件  的几何尺寸参数 并不是 给定的  参数 200C 16H 32S
 #  所以 应该 同时安装了 syslinux syslinux-common syslinux-efi， "步骤1." 已有这样的检测了
-# Part1stByteIdx==$((32*512))==16384
+# Part1stByteIdx == $((32*512)) == 16384 == 0X4000 == 32个扇区 == SectsPerTrk个扇区 == 1个Track
 
 set msgErr="mkdiskimage返回的Part1stByteIdx $Part1stByteIdx 不是预期值 $((32*512)), 请人工排查问题, 退出码9" && \
 { \
@@ -261,7 +261,7 @@ sudo cp syslinux.cfg $hd_img_dir/boot/syslinux/syslinux.cfg  && \
 
 # 5A.3 卸载hd.img后, 再 安装syslinux (  复制 ?mbr?、ldlinux.sys 、ldlinux.c32) 到 磁盘映像hd.img 
 _hdImg_umount && \
-syslinux --directory /boot/syslinux/ --offset $Part1stBOfst --install $HdImgF && \
+syslinux --directory /boot/syslinux/ --offset $Part1stByteIdx --install $HdImgF && \
 
 :;} && \
 
