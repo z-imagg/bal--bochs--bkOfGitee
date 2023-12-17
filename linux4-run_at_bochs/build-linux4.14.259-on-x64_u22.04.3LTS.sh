@@ -95,6 +95,9 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
  cd $LinuxRepoD 
 } && \
 
+#启动函数id生成web服务
+bash /crk/bochs/clang-add-funcIdAsm/SrcFileFuncIdGenService/FFnIdGenSrv-boot.sh && \
+
 #并行编译 job数 为 核心数 * 0.7
 used_core_n=$(( $(nproc)  * 7 / 10 )) && \
 job_n=$(( used_core_n > 1 ? used_core_n: 1 )) && \
