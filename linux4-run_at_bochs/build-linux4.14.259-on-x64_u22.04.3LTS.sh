@@ -18,10 +18,8 @@ source /crk/bochs/bash-simplify/dir_util.sh
 
 #CurScriptF为当前脚本的绝对路径
 #若$0以/开头 (即 绝对路径) 返回$0, 否则 $0为 相对路径 返回  pwd/$0
-{ { [[ $0 == /* ]] && CurScriptF=$0 ;} ||  CurScriptF=$(pwd)/$0 ;} && \
-
-CurScriptNm=$(basename $CurScriptF) && \
-CurScriptDir=$(dirname $CurScriptF) && \
+getCurScriptDirName $0
+#当前脚本文件 绝对路径 CurScriptF, 当前脚本文件 名 CurScriptNm, 当前脚本文件 所在目录 绝对路径 CurScriptNm
 #CurScriptDir == /crk/bochs/linux4-run_at_bochs
 
 
