@@ -62,7 +62,12 @@ LnxRpBrch="linux-4.14.y-patch" && \
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
-  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD
+  { \
+  #从清华镜像获取linux-stable更快
+  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD && \ 
+  #人工将清华镜像linux-stable放到gitcode上, 并将修改分支放到gitcode仓库上
+  #指定gitcode仓库地址
+  git remote add my_origin https://prgrmz07:uE4BUZEsymZvFmK2Wm9e@gitcode.net/crk/linux-stable.git ;}
 #linux-stable仓库尺寸大约2.56GB，  提交时请提交到 https://gitcode.net/crk/linux-stable.git （此仓库是从上一行清华linux-stable.git仓库克隆来的，是一样的，只是可以更改并提交而已)
 } && \
 LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
@@ -71,9 +76,15 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard && \
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  clean -df && \
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 #重置git仓库}
+#{拉取远程分支
+{ git branch -a --list "my_origin/$LnxRpBrch" || \
+  { git --git-dir=$LnxRpGitD config pull.rebase false && \
+  git --git-dir=$LnxRpGitD pull my_origin $LnxRpBrch:$LnxRpBrch ;}
+} && \
+#拉取远程分支}
 { [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
 # 切换到给定分支
-  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -B $LnxRpBrch origin/$LnxRpBrch
+  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -B $LnxRpBrch my_origin/$LnxRpBrch
 #git checkout -B 覆盖已经存在的本地分支
 # -b <branch>           create and checkout a new branch
 # -B <branch>           create/reset and checkout a branch
