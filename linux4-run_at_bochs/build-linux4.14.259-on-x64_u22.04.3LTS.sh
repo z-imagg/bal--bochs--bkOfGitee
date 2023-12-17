@@ -41,6 +41,10 @@ git submodule update --init --force -- cmd-wrap && \
 } && \
 
 
+#cmd-wrap 拦截 gcc 命令
+#install-wrap.sh内 会 将假gcc命令所在目录/crk/bin 放到 PATH最前面, 因此需要source执行。
+source /crk/bochs/cmd-wrap/install-wrap.sh && \
+
 echo -n "假编译器 指向:" && readlink -f $(which clang) && \
 
 #进入目录 /crk/bochs/linux4-run_at_bochs/
@@ -90,12 +94,6 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
  sed -i "s/^$_S1.*/$_S1 $LnxRpBrchCur , $LnxRpCmtIdCur/" $_RM && \
  cd $LinuxRepoD 
 } && \
-
-
-#cmd-wrap 拦截 gcc 命令
-#install-wrap.sh内 会 将假gcc命令所在目录/crk/bin 放到 PATH最前面, 因此需要source执行。
-source /crk/bochs/cmd-wrap/install-wrap.sh && \
-
 
 #并行编译 job数 为 核心数 * 0.7
 used_core_n=$(( $(nproc)  * 7 / 10 )) && \
