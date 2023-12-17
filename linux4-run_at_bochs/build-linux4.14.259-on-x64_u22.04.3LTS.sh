@@ -120,6 +120,8 @@ cp -v .config ~/linux-stable-default-config && \
 ./scripts/config --file .config     --disable CONFIG_DRM_I915   && \
 #以多进程编译测试函数id生成服务
 { make ARCH=i386 CC=clang -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
+FnIdGenSrv='http://localhost:8002/_shutdown'  && \
+{ curl -X 'GET'   $FnIdGenSrv   -H 'accept: application/json'  && echo "正常关闭 函数id生成服务.(关闭是为了把内存没写盘的尾巴写盘)" ;} &&  \
 set +x && \
 
 find . -name "*bzImage*" && \
