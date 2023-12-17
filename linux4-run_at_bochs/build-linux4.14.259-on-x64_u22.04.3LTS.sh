@@ -1,7 +1,7 @@
 
 # 此脚本用法:
 { \
-
+echo -e "此脚本用法 : \n 默认单核编译: 【 $0】 \n 多核并行编译: 【 multi_build=true $0】"
 :;} && \
 
 # 常量
@@ -18,10 +18,8 @@ source /crk/bochs/bash-simplify/dir_util.sh
 
 #CurScriptF为当前脚本的绝对路径
 #若$0以/开头 (即 绝对路径) 返回$0, 否则 $0为 相对路径 返回  pwd/$0
-{ { [[ $0 == /* ]] && CurScriptF=$0 ;} ||  CurScriptF=$(pwd)/$0 ;} && \
-
-CurScriptNm=$(basename $CurScriptF) && \
-CurScriptDir=$(dirname $CurScriptF) && \
+getCurScriptDirName $0
+#当前脚本文件 绝对路径 CurScriptF, 当前脚本文件 名 CurScriptNm, 当前脚本文件 所在目录 绝对路径 CurScriptNm
 #CurScriptDir == /crk/bochs/linux4-run_at_bochs
 
 
@@ -62,7 +60,12 @@ LnxRpBrch="linux-4.14.y-patch" && \
 LinuxRepoD=/crk/linux-stable && \
 LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
-  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD
+  { \
+  #从清华镜像获取linux-stable更快
+  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD && \ 
+  #人工将清华镜像linux-stable放到gitcode上, 并将修改分支放到gitcode仓库上
+  #指定gitcode仓库地址
+  git remote add my_origin https://prgrmz07:uE4BUZEsymZvFmK2Wm9e@gitcode.net/crk/linux-stable.git ;}
 #linux-stable仓库尺寸大约2.56GB，  提交时请提交到 https://gitcode.net/crk/linux-stable.git （此仓库是从上一行清华linux-stable.git仓库克隆来的，是一样的，只是可以更改并提交而已)
 } && \
 LnxRpBrchCur=$(git --git-dir=$LnxRpGitD branch --show-current) && \
@@ -71,9 +74,15 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  reset --hard && \
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  clean -df && \
 git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
 #重置git仓库}
+#{拉取远程分支
+{ git branch -a --list "my_origin/$LnxRpBrch" || \
+  { git --git-dir=$LnxRpGitD config pull.rebase false && \
+  git --git-dir=$LnxRpGitD pull my_origin $LnxRpBrch:$LnxRpBrch ;}
+} && \
+#拉取远程分支}
 { [ "X$LnxRpBrchCur" == "X$LnxRpBrch" ]  || \
 # 切换到给定分支
-  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -B $LnxRpBrch origin/$LnxRpBrch
+  git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD checkout -B $LnxRpBrch my_origin/$LnxRpBrch
 #git checkout -B 覆盖已经存在的本地分支
 # -b <branch>           create and checkout a new branch
 # -B <branch>           create/reset and checkout a branch
@@ -86,6 +95,21 @@ git --git-dir=$LnxRpGitD --work-tree=$LinuxRepoD  checkout -- && \
  cd $LinuxRepoD 
 } && \
 
+#启动函数id生成web服务
+bash /crk/bochs/clang-add-funcIdAsm/SrcFileFuncIdGenService/FFnIdGenSrv-boot.sh && \
+
+#并行编译 job数 为 核心数 * 0.7
+used_core_n=$(( $(nproc)  * 7 / 10 )) && \
+job_n=$(( used_core_n > 1 ? used_core_n: 1 )) && \
+
+{ { [ "X$multi_build" == "X" ] && multi_build=false ;} || : ;} && \
+#multi_build默认为false
+# 当不指定multi_build时, multi_build取false
+{ $multi_build || job_n=1 ;} && \
+#默认单进程编译
+# multi_build为false，则单进程编译
+{ { [ $job_n == 1 ] && echo "单进程编译" ;} || echo "多进程编译：（${job_n}进程编译）";} && \
+
 set -x && \
 MakeLogF=/crk/make.log && \
 mvFile_AppendCurAbsTime $MakeLogF && \
@@ -97,9 +121,10 @@ make ARCH=i386 CC=clang defconfig && \
 cp -v .config ~/linux-stable-default-config && \
 #等同于 "禁用I915 (Intel 8xx 9xx G3x G4x HD Graphics) Drivers.png": menuconfig 路径 为 'Device Drivers' --> 'Graphics support' --> 不勾选 'Intel 8xx/9xx/G3x/G4x/HD Graphics'
 ./scripts/config --file .config     --disable CONFIG_DRM_I915   && \
-#lang编译只能单进程 理由是 libCTk.so 中有写 文件
-# libCTk.so 中有写 文件funcIdDescLs.txt.csv 、 文件srcFileIdDict.json , 并发写肯定会错乱，因此 简单起见 libCTk.so 不允许并发， 即 clang编译只能单进程
-{ make ARCH=i386 CC=clang -j 1 V=1 2>&1 | tee -a $MakeLogF ;} && \
+#以多进程编译测试函数id生成服务
+{ make ARCH=i386 CC=clang -j $job_n V=1 2>&1 | tee -a $MakeLogF ;} && \
+FnIdGenSrv='http://localhost:8002/_shutdown'  && \
+{ curl -X 'GET'   $FnIdGenSrv   -H 'accept: application/json'  && echo "正常关闭 函数id生成服务.(关闭是为了把内存没写盘的尾巴写盘)" ;} &&  \
 set +x && \
 
 find . -name "*bzImage*" && \
