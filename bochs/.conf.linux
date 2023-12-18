@@ -3,13 +3,25 @@
 # .conf.linux
 #
 
-#which_config=normal
-which_config=plugins
+#which_config=normal编译正常 编译产物bochs运行正常
+which_config=normal
+
+#which_config=plugins编译正常 编译产物bochs运行崩溃于 config.cc:362行 config_interface_list[0]是NULL
+#which_config=plugins
 
 CC="gcc"
 CXX="c++"
-CFLAGS="-Wall -O3 -fomit-frame-pointer -pipe"    # for speed
-#CFLAGS="-Wall -g -pipe"                         # for development
+
+
+# CFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g2   -pipe"                         
+#带调试信息(变量名称和行号、局部变量),  当出现问题方便排查:
+# CXXFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g2"
+
+#调试级别-g3 == -g2 + 宏定义,  
+#-ggdb: 带有gdb专用调试信息
+CFLAGS=" -fno-omit-frame-pointer -Wall   -O0    -g3 -ggdb   "                         
+
+
 CXXFLAGS="$CFLAGS"
 
 export CC
@@ -23,19 +35,16 @@ case $which_config in
   normal)
 
     #######################################################################
-    # configuration 1 for release binary RPMs
-    # Include a few standard options, speed optimizations, X11 only.
+    #
+    #此配置编译出的 /crk/bochs/bochs/bochs  就是 bochs-dbg 即 bochs调试器 即 https://gitcode.net/crk/oslab/-/blob/master/bochs/bochs-dbg 即 https://gitee.com/cn-guoziyang/oslab/blob/master/bochs/bochs-dbg
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
-                --enable-all-optimizations \
-                --enable-cpu-level=6 \
+                --disable-debugger \
                 --enable-x86-64 \
-                --enable-vmx=2 \
-                --enable-svm \
-                --enable-avx \
-                --enable-evex \
-                --enable-cet \
+                --disable-all-optimizations \
+                --disable-handlers-chaining \
+                --enable-static \
                 --enable-pci \
                 --enable-clgd54xx \
                 --enable-voodoo \

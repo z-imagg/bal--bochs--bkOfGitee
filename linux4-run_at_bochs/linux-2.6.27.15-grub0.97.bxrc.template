@@ -1,0 +1,18 @@
+megs: 32
+
+#romimage: file=/usr/share/bochs/BIOS-bochs-latest
+#vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
+
+romimage: file=/crk/bochs/bochs/bios/BIOS-bochs-latest
+vgaromimage: file=/crk/bochs/bochs/bios/VGABIOS-lgpl-latest
+
+#romimage: file=D:\Bochs-2.6.11\BIOS-bochs-latest
+#vgaromimage: file=D:\Bochs-2.6.11\VGABIOS-lgpl-latest
+
+ata0-master: type=disk, path="$HdImgF", cylinders=_cylinders_, heads=_heads_, spt=_spt_
+boot: c
+log: bochsout.txt
+mouse: enabled=0
+cpu: ips=15000000
+clock: sync=both
+#display_library: sdl

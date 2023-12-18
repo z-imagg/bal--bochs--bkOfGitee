@@ -1,0 +1,12 @@
+[submodule "xv6-x86"]
+	path = xv6-x86
+	url = https://prgrmz07:EuFdhtNYeyD1k1ncD6F9@gitcode.net/crk/xv6-x86.git
+[submodule "bash-simplify"]
+	path = bash-simplify
+	url = https://prgrmz07:S9UWyxCXr55tD3SiWVxX@gitcode.net/crk/bash-simplify.git
+[submodule "cmd-wrap"]
+	path = cmd-wrap
+	url = https://prgrmz07:gTzskcSomrVPMZ-tcUd5@gitcode.net/pubx/analyze_code/cmd-wrap.git
+[submodule "clang-add-funcIdAsm"]
+	path = clang-add-funcIdAsm
+	url = https://prgrmz07:rTcoY2Grd_TErMk-nbg_@gitcode.net/analyze_code/clang-add-funcIdAsm.git

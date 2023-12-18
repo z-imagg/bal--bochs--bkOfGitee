@@ -1,0 +1,4 @@
+#!/busybox-i686 ash
+/busybox-i686 mount -t proc none /proc
+/busybox-i686 mount -t sysfs none /sys
+exec /busybox-i686 ash

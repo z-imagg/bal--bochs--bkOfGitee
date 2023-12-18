@@ -22,23 +22,23 @@
 /////////////////////////////////////////////////////////////////////////
 
 /* bx_define_opcode is a macro with the following fields:
-( *   - Opcode name
- *   - Opcode execution function (/m form)
- *   - Opcode execution function (/r form)
+( *   - Opcode name 操作码名
+ *   - Opcode execution function (/m form) 模拟 该 操作码 的函数(/m内存样式)
+ *   - Opcode execution function (/r form) 模拟 该 操作码 的函数(/r寄存器样式)
  *   - x86 ISA extensions that enable this instruction
- *   - source for instruction destination register
- *   - source for instruction src1 register
- *   - source for instruction src2 register
- *   - source for instruction src3 register
+ *   - source for instruction destination register 指令的目的寄存器
+ *   - source for instruction src1 register 指令的源寄存器1
+ *   - source for instruction src2 register 指令的源寄存器2
+ *   - source for instruction src3 register 指令的源寄存器3
  *   - special attributes (PREPARE_SSE, PREPARE_AVX and etc)
  *
  * in case of complex /m form instruction (load+op) /m form execution function
  * directly calls the /r form.
  */
 
-/* Codes for Addressing Method:
+/* Codes for Addressing Method 寻址方式 编码: 
  * ---------------------------
- * A  - Direct address. The instruction has no ModR/M byte; the address
+ * A  - Direct address 直接地址. The instruction has no ModR/M byte; the address
  *      of the operand is encoded in the instruction; and no base register,
  *      index register, or scaling factor can be applied.
  * C  - The reg field of the ModR/M byte selects a control register.
@@ -81,7 +81,7 @@
  */
 
 /*
- * Codes for Operand Type:
+ * Codes for Operand Type 操作类别 编码:
  * ----------------------
  * b  - Byte, regardless of operand-size attribute.
  * w  - Word, regardless of operand-size attribute.
@@ -446,7 +446,7 @@ bx_define_opcode(BX_IA_JZ_Jbd, "jz", "jz", NULL, &BX_CPU_C::JZ_Jd, 0, OP_Jbd, OP
 
 bx_define_opcode(BX_IA_SAHF, "sahf", "sahf", NULL, &BX_CPU_C::SAHF, 0, OP_NONE, OP_NONE, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LAHF, "lahf", "lahf", NULL, &BX_CPU_C::LAHF, 0, OP_NONE, OP_NONE, OP_NONE, OP_NONE, 0)
-
+//段寄存器
 bx_define_opcode(BX_IA_LDS_GdMp, "lds", "ldsl", &BX_CPU_C::LDS_GdMp, &BX_CPU_C::BxError, 0, OP_Gd, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LDS_GwMp, "lds", "ldsw", &BX_CPU_C::LDS_GwMp, &BX_CPU_C::BxError, 0, OP_Gw, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LES_GdMp, "les", "lesl", &BX_CPU_C::LES_GdMp, &BX_CPU_C::BxError, 0, OP_Gd, OP_M, OP_NONE, OP_NONE, 0)
@@ -465,7 +465,7 @@ bx_define_opcode(BX_IA_LSL_GdEw, "lsl", "lsll", &BX_CPU_C::LSL_GvEw, &BX_CPU_C::
 bx_define_opcode(BX_IA_LEA_GdM, "lea", "leal", &BX_CPU_C::LEA_GdM, &BX_CPU_C::BxError, 0, OP_Gd, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LEA_GwM, "lea", "leaw", &BX_CPU_C::LEA_GwM, &BX_CPU_C::BxError, 0, OP_Gw, OP_M, OP_NONE, OP_NONE, 0)
 
-// IDT/GDT/LDTR/TR access - keep NNN for VMX
+// IDT/GDT/LDTR/TR access - keep NNN for VMX； 操纵 全局描述符表GDT、 局部描述符表LDT 、任务状态寄存器TR(任务状态段TSS所占内存区域的地址) 等 的指令. TR==Task Register, TSS==Task State Segment
 bx_define_opcode(BX_IA_SIDT_Ms, "sidt", "sidt", &BX_CPU_C::SIDT_Ms, &BX_CPU_C::BxError, 0, OP_M, BX_SRC_NNN, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_LIDT_Ms, "lidt", "lidt", &BX_CPU_C::LIDT_Ms, &BX_CPU_C::BxError, 0, BX_SRC_NNN, OP_M, OP_NONE, OP_NONE, 0)
 bx_define_opcode(BX_IA_SGDT_Ms, "sgdt", "sgdt", &BX_CPU_C::SGDT_Ms, &BX_CPU_C::BxError, 0, OP_M, BX_SRC_NNN, OP_NONE, OP_NONE, 0)
