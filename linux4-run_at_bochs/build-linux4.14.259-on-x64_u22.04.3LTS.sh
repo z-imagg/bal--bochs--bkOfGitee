@@ -62,7 +62,7 @@ LnxRpGitD=$LinuxRepoD/.git && \
 { [ -f $LnxRpGitD/config ] || \
   { \
   #从清华镜像获取linux-stable更快
-  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD && \ 
+  git clone http://mirrors.tuna.tsinghua.edu.cn/git/linux-stable.git $LinuxRepoD && \
   #人工将清华镜像linux-stable放到gitcode上, 并将修改分支放到gitcode仓库上
   #指定gitcode仓库地址
   git remote add my_origin https://prgrmz07:uE4BUZEsymZvFmK2Wm9e@gitcode.net/crk/linux-stable.git ;}
