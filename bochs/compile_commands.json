@@ -21,9 +21,9 @@
       "devices.o",
       "devices.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/devices.cc",
-    "output": "/crk/bochs/bochs/iodev/devices.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/devices.cc",
+    "output": "/bal/bochs/iodev/devices.o"
   },
   {
     "arguments": [
@@ -47,9 +47,9 @@
       "virt_timer.o",
       "virt_timer.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/virt_timer.cc",
-    "output": "/crk/bochs/bochs/iodev/virt_timer.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/virt_timer.cc",
+    "output": "/bal/bochs/iodev/virt_timer.o"
   },
   {
     "arguments": [
@@ -73,9 +73,9 @@
       "slowdown_timer.o",
       "slowdown_timer.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/slowdown_timer.cc",
-    "output": "/crk/bochs/bochs/iodev/slowdown_timer.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/slowdown_timer.cc",
+    "output": "/bal/bochs/iodev/slowdown_timer.o"
   },
   {
     "arguments": [
@@ -99,9 +99,9 @@
       "pic.o",
       "pic.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/pic.cc",
-    "output": "/crk/bochs/bochs/iodev/pic.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/pic.cc",
+    "output": "/bal/bochs/iodev/pic.o"
   },
   {
     "arguments": [
@@ -125,9 +125,9 @@
       "pit.o",
       "pit.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/pit.cc",
-    "output": "/crk/bochs/bochs/iodev/pit.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/pit.cc",
+    "output": "/bal/bochs/iodev/pit.o"
   },
   {
     "arguments": [
@@ -151,9 +151,9 @@
       "serial.o",
       "serial.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/serial.cc",
-    "output": "/crk/bochs/bochs/iodev/serial.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/serial.cc",
+    "output": "/bal/bochs/iodev/serial.o"
   },
   {
     "arguments": [
@@ -177,9 +177,9 @@
       "parallel.o",
       "parallel.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/parallel.cc",
-    "output": "/crk/bochs/bochs/iodev/parallel.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/parallel.cc",
+    "output": "/bal/bochs/iodev/parallel.o"
   },
   {
     "arguments": [
@@ -203,9 +203,9 @@
       "floppy.o",
       "floppy.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/floppy.cc",
-    "output": "/crk/bochs/bochs/iodev/floppy.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/floppy.cc",
+    "output": "/bal/bochs/iodev/floppy.o"
   },
   {
     "arguments": [
@@ -229,9 +229,9 @@
       "keyboard.o",
       "keyboard.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/keyboard.cc",
-    "output": "/crk/bochs/bochs/iodev/keyboard.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/keyboard.cc",
+    "output": "/bal/bochs/iodev/keyboard.o"
   },
   {
     "arguments": [
@@ -255,9 +255,9 @@
       "biosdev.o",
       "biosdev.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/biosdev.cc",
-    "output": "/crk/bochs/bochs/iodev/biosdev.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/biosdev.cc",
+    "output": "/bal/bochs/iodev/biosdev.o"
   },
   {
     "arguments": [
@@ -281,9 +281,9 @@
       "cmos.o",
       "cmos.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/cmos.cc",
-    "output": "/crk/bochs/bochs/iodev/cmos.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/cmos.cc",
+    "output": "/bal/bochs/iodev/cmos.o"
   },
   {
     "arguments": [
@@ -307,9 +307,9 @@
       "harddrv.o",
       "harddrv.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/harddrv.cc",
-    "output": "/crk/bochs/bochs/iodev/harddrv.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/harddrv.cc",
+    "output": "/bal/bochs/iodev/harddrv.o"
   },
   {
     "arguments": [
@@ -333,9 +333,9 @@
       "dma.o",
       "dma.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/dma.cc",
-    "output": "/crk/bochs/bochs/iodev/dma.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/dma.cc",
+    "output": "/bal/bochs/iodev/dma.o"
   },
   {
     "arguments": [
@@ -359,9 +359,9 @@
       "unmapped.o",
       "unmapped.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/unmapped.cc",
-    "output": "/crk/bochs/bochs/iodev/unmapped.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/unmapped.cc",
+    "output": "/bal/bochs/iodev/unmapped.o"
   },
   {
     "arguments": [
@@ -385,9 +385,9 @@
       "extfpuirq.o",
       "extfpuirq.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/extfpuirq.cc",
-    "output": "/crk/bochs/bochs/iodev/extfpuirq.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/extfpuirq.cc",
+    "output": "/bal/bochs/iodev/extfpuirq.o"
   },
   {
     "arguments": [
@@ -411,9 +411,9 @@
       "speaker.o",
       "speaker.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/speaker.cc",
-    "output": "/crk/bochs/bochs/iodev/speaker.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/speaker.cc",
+    "output": "/bal/bochs/iodev/speaker.o"
   },
   {
     "arguments": [
@@ -437,9 +437,9 @@
       "ioapic.o",
       "ioapic.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/ioapic.cc",
-    "output": "/crk/bochs/bochs/iodev/ioapic.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/ioapic.cc",
+    "output": "/bal/bochs/iodev/ioapic.o"
   },
   {
     "arguments": [
@@ -463,9 +463,9 @@
       "busmouse.o",
       "busmouse.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/busmouse.cc",
-    "output": "/crk/bochs/bochs/iodev/busmouse.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/busmouse.cc",
+    "output": "/bal/bochs/iodev/busmouse.o"
   },
   {
     "arguments": [
@@ -489,9 +489,9 @@
       "pci.o",
       "pci.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/pci.cc",
-    "output": "/crk/bochs/bochs/iodev/pci.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/pci.cc",
+    "output": "/bal/bochs/iodev/pci.o"
   },
   {
     "arguments": [
@@ -515,9 +515,9 @@
       "pci2isa.o",
       "pci2isa.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/pci2isa.cc",
-    "output": "/crk/bochs/bochs/iodev/pci2isa.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/pci2isa.cc",
+    "output": "/bal/bochs/iodev/pci2isa.o"
   },
   {
     "arguments": [
@@ -541,9 +541,9 @@
       "pci_ide.o",
       "pci_ide.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/pci_ide.cc",
-    "output": "/crk/bochs/bochs/iodev/pci_ide.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/pci_ide.cc",
+    "output": "/bal/bochs/iodev/pci_ide.o"
   },
   {
     "arguments": [
@@ -567,9 +567,9 @@
       "acpi.o",
       "acpi.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/acpi.cc",
-    "output": "/crk/bochs/bochs/iodev/acpi.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/acpi.cc",
+    "output": "/bal/bochs/iodev/acpi.o"
   },
   {
     "arguments": [
@@ -593,9 +593,9 @@
       "hpet.o",
       "hpet.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/hpet.cc",
-    "output": "/crk/bochs/bochs/iodev/hpet.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/hpet.cc",
+    "output": "/bal/bochs/iodev/hpet.o"
   },
   {
     "arguments": [
@@ -619,9 +619,9 @@
       "gameport.o",
       "gameport.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/gameport.cc",
-    "output": "/crk/bochs/bochs/iodev/gameport.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/gameport.cc",
+    "output": "/bal/bochs/iodev/gameport.o"
   },
   {
     "arguments": [
@@ -645,9 +645,9 @@
       "pit82c54.o",
       "pit82c54.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/pit82c54.cc",
-    "output": "/crk/bochs/bochs/iodev/pit82c54.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/pit82c54.cc",
+    "output": "/bal/bochs/iodev/pit82c54.o"
   },
   {
     "arguments": [
@@ -671,9 +671,9 @@
       "scancodes.o",
       "scancodes.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/scancodes.cc",
-    "output": "/crk/bochs/bochs/iodev/scancodes.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/scancodes.cc",
+    "output": "/bal/bochs/iodev/scancodes.o"
   },
   {
     "arguments": [
@@ -697,9 +697,9 @@
       "serial_raw.o",
       "serial_raw.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev",
-    "file": "/crk/bochs/bochs/iodev/serial_raw.cc",
-    "output": "/crk/bochs/bochs/iodev/serial_raw.o"
+    "directory": "/bal/bochs/iodev",
+    "file": "/bal/bochs/iodev/serial_raw.cc",
+    "output": "/bal/bochs/iodev/serial_raw.o"
   },
   {
     "arguments": [
@@ -723,9 +723,9 @@
       "vga.o",
       "vga.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/display",
-    "file": "/crk/bochs/bochs/iodev/display/vga.cc",
-    "output": "/crk/bochs/bochs/iodev/display/vga.o"
+    "directory": "/bal/bochs/iodev/display",
+    "file": "/bal/bochs/iodev/display/vga.cc",
+    "output": "/bal/bochs/iodev/display/vga.o"
   },
   {
     "arguments": [
@@ -749,9 +749,9 @@
       "svga_cirrus.o",
       "svga_cirrus.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/display",
-    "file": "/crk/bochs/bochs/iodev/display/svga_cirrus.cc",
-    "output": "/crk/bochs/bochs/iodev/display/svga_cirrus.o"
+    "directory": "/bal/bochs/iodev/display",
+    "file": "/bal/bochs/iodev/display/svga_cirrus.cc",
+    "output": "/bal/bochs/iodev/display/svga_cirrus.o"
   },
   {
     "arguments": [
@@ -775,9 +775,9 @@
       "voodoo.o",
       "voodoo.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/display",
-    "file": "/crk/bochs/bochs/iodev/display/voodoo.cc",
-    "output": "/crk/bochs/bochs/iodev/display/voodoo.o"
+    "directory": "/bal/bochs/iodev/display",
+    "file": "/bal/bochs/iodev/display/voodoo.cc",
+    "output": "/bal/bochs/iodev/display/voodoo.o"
   },
   {
     "arguments": [
@@ -801,9 +801,9 @@
       "vgacore.o",
       "vgacore.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/display",
-    "file": "/crk/bochs/bochs/iodev/display/vgacore.cc",
-    "output": "/crk/bochs/bochs/iodev/display/vgacore.o"
+    "directory": "/bal/bochs/iodev/display",
+    "file": "/bal/bochs/iodev/display/vgacore.cc",
+    "output": "/bal/bochs/iodev/display/vgacore.o"
   },
   {
     "arguments": [
@@ -827,9 +827,9 @@
       "ddc.o",
       "ddc.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/display",
-    "file": "/crk/bochs/bochs/iodev/display/ddc.cc",
-    "output": "/crk/bochs/bochs/iodev/display/ddc.o"
+    "directory": "/bal/bochs/iodev/display",
+    "file": "/bal/bochs/iodev/display/ddc.cc",
+    "output": "/bal/bochs/iodev/display/ddc.o"
   },
   {
     "arguments": [
@@ -853,9 +853,9 @@
       "banshee.o",
       "banshee.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/display",
-    "file": "/crk/bochs/bochs/iodev/display/banshee.cc",
-    "output": "/crk/bochs/bochs/iodev/display/banshee.o"
+    "directory": "/bal/bochs/iodev/display",
+    "file": "/bal/bochs/iodev/display/banshee.cc",
+    "output": "/bal/bochs/iodev/display/banshee.o"
   },
   {
     "arguments": [
@@ -881,9 +881,9 @@
       "hdimage.o",
       "hdimage.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/hdimage.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/hdimage.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/hdimage.cc",
+    "output": "/bal/bochs/iodev/hdimage/hdimage.o"
   },
   {
     "arguments": [
@@ -909,9 +909,9 @@
       "cdrom.o",
       "cdrom.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/cdrom.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/cdrom.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/cdrom.cc",
+    "output": "/bal/bochs/iodev/hdimage/cdrom.o"
   },
   {
     "arguments": [
@@ -937,9 +937,9 @@
       "cdrom_misc.o",
       "cdrom_misc.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/cdrom_misc.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/cdrom_misc.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/cdrom_misc.cc",
+    "output": "/bal/bochs/iodev/hdimage/cdrom_misc.o"
   },
   {
     "arguments": [
@@ -965,9 +965,9 @@
       "vbox.o",
       "vbox.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vbox.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/vbox.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/vbox.cc",
+    "output": "/bal/bochs/iodev/hdimage/vbox.o"
   },
   {
     "arguments": [
@@ -993,9 +993,9 @@
       "vmware3.o",
       "vmware3.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vmware3.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/vmware3.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/vmware3.cc",
+    "output": "/bal/bochs/iodev/hdimage/vmware3.o"
   },
   {
     "arguments": [
@@ -1021,9 +1021,9 @@
       "vmware4.o",
       "vmware4.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vmware4.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/vmware4.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/vmware4.cc",
+    "output": "/bal/bochs/iodev/hdimage/vmware4.o"
   },
   {
     "arguments": [
@@ -1049,9 +1049,9 @@
       "vpc.o",
       "vpc.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vpc.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/vpc.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/vpc.cc",
+    "output": "/bal/bochs/iodev/hdimage/vpc.o"
   },
   {
     "arguments": [
@@ -1077,9 +1077,9 @@
       "vvfat.o",
       "vvfat.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/hdimage",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vvfat.cc",
-    "output": "/crk/bochs/bochs/iodev/hdimage/vvfat.o"
+    "directory": "/bal/bochs/iodev/hdimage",
+    "file": "/bal/bochs/iodev/hdimage/vvfat.cc",
+    "output": "/bal/bochs/iodev/hdimage/vvfat.o"
   },
   {
     "arguments": [
@@ -1105,9 +1105,9 @@
       "usb_common.o",
       "usb_common.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_common.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_common.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_common.cc",
+    "output": "/bal/bochs/iodev/usb/usb_common.o"
   },
   {
     "arguments": [
@@ -1133,9 +1133,9 @@
       "usb_pcap.o",
       "usb_pcap.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_pcap.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_pcap.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_pcap.cc",
+    "output": "/bal/bochs/iodev/usb/usb_pcap.o"
   },
   {
     "arguments": [
@@ -1161,9 +1161,9 @@
       "usb_uhci.o",
       "usb_uhci.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_uhci.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_uhci.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_uhci.cc",
+    "output": "/bal/bochs/iodev/usb/usb_uhci.o"
   },
   {
     "arguments": [
@@ -1189,9 +1189,9 @@
       "usb_ohci.o",
       "usb_ohci.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_ohci.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_ohci.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_ohci.cc",
+    "output": "/bal/bochs/iodev/usb/usb_ohci.o"
   },
   {
     "arguments": [
@@ -1217,9 +1217,9 @@
       "usb_ehci.o",
       "usb_ehci.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_ehci.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_ehci.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_ehci.cc",
+    "output": "/bal/bochs/iodev/usb/usb_ehci.o"
   },
   {
     "arguments": [
@@ -1245,9 +1245,9 @@
       "usb_xhci.o",
       "usb_xhci.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_xhci.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_xhci.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_xhci.cc",
+    "output": "/bal/bochs/iodev/usb/usb_xhci.o"
   },
   {
     "arguments": [
@@ -1273,9 +1273,9 @@
       "usb_hid.o",
       "usb_hid.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_hid.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_hid.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_hid.cc",
+    "output": "/bal/bochs/iodev/usb/usb_hid.o"
   },
   {
     "arguments": [
@@ -1301,9 +1301,9 @@
       "usb_hub.o",
       "usb_hub.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_hub.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_hub.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_hub.cc",
+    "output": "/bal/bochs/iodev/usb/usb_hub.o"
   },
   {
     "arguments": [
@@ -1329,9 +1329,9 @@
       "usb_msd.o",
       "usb_msd.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_msd.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_msd.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_msd.cc",
+    "output": "/bal/bochs/iodev/usb/usb_msd.o"
   },
   {
     "arguments": [
@@ -1357,9 +1357,9 @@
       "usb_printer.o",
       "usb_printer.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_printer.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_printer.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_printer.cc",
+    "output": "/bal/bochs/iodev/usb/usb_printer.o"
   },
   {
     "arguments": [
@@ -1385,9 +1385,9 @@
       "usb_floppy.o",
       "usb_floppy.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_floppy.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_floppy.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_floppy.cc",
+    "output": "/bal/bochs/iodev/usb/usb_floppy.o"
   },
   {
     "arguments": [
@@ -1413,9 +1413,9 @@
       "uhci_core.o",
       "uhci_core.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/uhci_core.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/uhci_core.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/uhci_core.cc",
+    "output": "/bal/bochs/iodev/usb/uhci_core.o"
   },
   {
     "arguments": [
@@ -1441,9 +1441,9 @@
       "ohci_core.o",
       "ohci_core.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/ohci_core.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/ohci_core.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/ohci_core.cc",
+    "output": "/bal/bochs/iodev/usb/ohci_core.o"
   },
   {
     "arguments": [
@@ -1469,9 +1469,9 @@
       "scsi_device.o",
       "scsi_device.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/scsi_device.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/scsi_device.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/scsi_device.cc",
+    "output": "/bal/bochs/iodev/usb/scsi_device.o"
   },
   {
     "arguments": [
@@ -1497,9 +1497,9 @@
       "usb_uasp.o",
       "usb_uasp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/usb",
-    "file": "/crk/bochs/bochs/iodev/usb/usb_uasp.cc",
-    "output": "/crk/bochs/bochs/iodev/usb/usb_uasp.o"
+    "directory": "/bal/bochs/iodev/usb",
+    "file": "/bal/bochs/iodev/usb/usb_uasp.cc",
+    "output": "/bal/bochs/iodev/usb/usb_uasp.o"
   },
   {
     "arguments": [
@@ -1525,9 +1525,9 @@
       "netmod.o",
       "netmod.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/netmod.cc",
-    "output": "/crk/bochs/bochs/iodev/network/netmod.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/netmod.cc",
+    "output": "/bal/bochs/iodev/network/netmod.o"
   },
   {
     "arguments": [
@@ -1553,9 +1553,9 @@
       "ne2k.o",
       "ne2k.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/ne2k.cc",
-    "output": "/crk/bochs/bochs/iodev/network/ne2k.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/ne2k.cc",
+    "output": "/bal/bochs/iodev/network/ne2k.o"
   },
   {
     "arguments": [
@@ -1581,9 +1581,9 @@
       "e1000.o",
       "e1000.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/e1000.cc",
-    "output": "/crk/bochs/bochs/iodev/network/e1000.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/e1000.cc",
+    "output": "/bal/bochs/iodev/network/e1000.o"
   },
   {
     "arguments": [
@@ -1609,9 +1609,9 @@
       "eth_null.o",
       "eth_null.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_null.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_null.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_null.cc",
+    "output": "/bal/bochs/iodev/network/eth_null.o"
   },
   {
     "arguments": [
@@ -1637,9 +1637,9 @@
       "eth_vnet.o",
       "eth_vnet.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_vnet.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_vnet.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_vnet.cc",
+    "output": "/bal/bochs/iodev/network/eth_vnet.o"
   },
   {
     "arguments": [
@@ -1665,9 +1665,9 @@
       "eth_slirp.o",
       "eth_slirp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_slirp.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_slirp.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_slirp.cc",
+    "output": "/bal/bochs/iodev/network/eth_slirp.o"
   },
   {
     "arguments": [
@@ -1693,9 +1693,9 @@
       "eth_socket.o",
       "eth_socket.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_socket.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_socket.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_socket.cc",
+    "output": "/bal/bochs/iodev/network/eth_socket.o"
   },
   {
     "arguments": [
@@ -1721,9 +1721,9 @@
       "eth_linux.o",
       "eth_linux.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_linux.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_linux.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_linux.cc",
+    "output": "/bal/bochs/iodev/network/eth_linux.o"
   },
   {
     "arguments": [
@@ -1749,9 +1749,9 @@
       "eth_vde.o",
       "eth_vde.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_vde.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_vde.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_vde.cc",
+    "output": "/bal/bochs/iodev/network/eth_vde.o"
   },
   {
     "arguments": [
@@ -1777,9 +1777,9 @@
       "eth_tuntap.o",
       "eth_tuntap.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/eth_tuntap.cc",
-    "output": "/crk/bochs/bochs/iodev/network/eth_tuntap.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/eth_tuntap.cc",
+    "output": "/bal/bochs/iodev/network/eth_tuntap.o"
   },
   {
     "arguments": [
@@ -1805,9 +1805,9 @@
       "netutil.o",
       "netutil.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/netutil.cc",
-    "output": "/crk/bochs/bochs/iodev/network/netutil.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/netutil.cc",
+    "output": "/bal/bochs/iodev/network/netutil.o"
   },
   {
     "arguments": [
@@ -1833,9 +1833,9 @@
       "slirp/arp_table.o",
       "slirp/arp_table.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/arp_table.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/arp_table.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/arp_table.cc",
+    "output": "/bal/bochs/iodev/network/slirp/arp_table.o"
   },
   {
     "arguments": [
@@ -1861,9 +1861,9 @@
       "slirp/bootp.o",
       "slirp/bootp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/bootp.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/bootp.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/bootp.cc",
+    "output": "/bal/bochs/iodev/network/slirp/bootp.o"
   },
   {
     "arguments": [
@@ -1889,9 +1889,9 @@
       "slirp/cksum.o",
       "slirp/cksum.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/cksum.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/cksum.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/cksum.cc",
+    "output": "/bal/bochs/iodev/network/slirp/cksum.o"
   },
   {
     "arguments": [
@@ -1917,9 +1917,9 @@
       "slirp/compat.o",
       "slirp/compat.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/compat.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/compat.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/compat.cc",
+    "output": "/bal/bochs/iodev/network/slirp/compat.o"
   },
   {
     "arguments": [
@@ -1945,9 +1945,9 @@
       "slirp/dnssearch.o",
       "slirp/dnssearch.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/dnssearch.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/dnssearch.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/dnssearch.cc",
+    "output": "/bal/bochs/iodev/network/slirp/dnssearch.o"
   },
   {
     "arguments": [
@@ -1973,9 +1973,9 @@
       "slirp/if.o",
       "slirp/if.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/if.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/if.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/if.cc",
+    "output": "/bal/bochs/iodev/network/slirp/if.o"
   },
   {
     "arguments": [
@@ -2001,9 +2001,9 @@
       "slirp/ip_icmp.o",
       "slirp/ip_icmp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/ip_icmp.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/ip_icmp.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/ip_icmp.cc",
+    "output": "/bal/bochs/iodev/network/slirp/ip_icmp.o"
   },
   {
     "arguments": [
@@ -2029,9 +2029,9 @@
       "slirp/ip_input.o",
       "slirp/ip_input.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/ip_input.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/ip_input.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/ip_input.cc",
+    "output": "/bal/bochs/iodev/network/slirp/ip_input.o"
   },
   {
     "arguments": [
@@ -2057,9 +2057,9 @@
       "slirp/ip_output.o",
       "slirp/ip_output.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/ip_output.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/ip_output.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/ip_output.cc",
+    "output": "/bal/bochs/iodev/network/slirp/ip_output.o"
   },
   {
     "arguments": [
@@ -2085,9 +2085,9 @@
       "slirp/mbuf.o",
       "slirp/mbuf.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/mbuf.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/mbuf.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/mbuf.cc",
+    "output": "/bal/bochs/iodev/network/slirp/mbuf.o"
   },
   {
     "arguments": [
@@ -2113,9 +2113,9 @@
       "slirp/misc.o",
       "slirp/misc.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/misc.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/misc.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/misc.cc",
+    "output": "/bal/bochs/iodev/network/slirp/misc.o"
   },
   {
     "arguments": [
@@ -2141,9 +2141,9 @@
       "slirp/sbuf.o",
       "slirp/sbuf.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/sbuf.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/sbuf.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/sbuf.cc",
+    "output": "/bal/bochs/iodev/network/slirp/sbuf.o"
   },
   {
     "arguments": [
@@ -2169,9 +2169,9 @@
       "slirp/slirp.o",
       "slirp/slirp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/slirp.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/slirp.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/slirp.cc",
+    "output": "/bal/bochs/iodev/network/slirp/slirp.o"
   },
   {
     "arguments": [
@@ -2197,9 +2197,9 @@
       "slirp/socket.o",
       "slirp/socket.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/socket.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/socket.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/socket.cc",
+    "output": "/bal/bochs/iodev/network/slirp/socket.o"
   },
   {
     "arguments": [
@@ -2225,9 +2225,9 @@
       "slirp/tcp_input.o",
       "slirp/tcp_input.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/tcp_input.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/tcp_input.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/tcp_input.cc",
+    "output": "/bal/bochs/iodev/network/slirp/tcp_input.o"
   },
   {
     "arguments": [
@@ -2253,9 +2253,9 @@
       "slirp/tcp_output.o",
       "slirp/tcp_output.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/tcp_output.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/tcp_output.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/tcp_output.cc",
+    "output": "/bal/bochs/iodev/network/slirp/tcp_output.o"
   },
   {
     "arguments": [
@@ -2281,9 +2281,9 @@
       "slirp/tcp_subr.o",
       "slirp/tcp_subr.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/tcp_subr.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/tcp_subr.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/tcp_subr.cc",
+    "output": "/bal/bochs/iodev/network/slirp/tcp_subr.o"
   },
   {
     "arguments": [
@@ -2309,9 +2309,9 @@
       "slirp/tcp_timer.o",
       "slirp/tcp_timer.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/tcp_timer.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/tcp_timer.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/tcp_timer.cc",
+    "output": "/bal/bochs/iodev/network/slirp/tcp_timer.o"
   },
   {
     "arguments": [
@@ -2337,9 +2337,9 @@
       "slirp/tftp.o",
       "slirp/tftp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/tftp.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/tftp.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/tftp.cc",
+    "output": "/bal/bochs/iodev/network/slirp/tftp.o"
   },
   {
     "arguments": [
@@ -2365,9 +2365,9 @@
       "slirp/udp.o",
       "slirp/udp.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/network",
-    "file": "/crk/bochs/bochs/iodev/network/slirp/udp.cc",
-    "output": "/crk/bochs/bochs/iodev/network/slirp/udp.o"
+    "directory": "/bal/bochs/iodev/network",
+    "file": "/bal/bochs/iodev/network/slirp/udp.cc",
+    "output": "/bal/bochs/iodev/network/slirp/udp.o"
   },
   {
     "arguments": [
@@ -2393,9 +2393,9 @@
       "soundmod.o",
       "soundmod.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/soundmod.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/soundmod.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/soundmod.cc",
+    "output": "/bal/bochs/iodev/sound/soundmod.o"
   },
   {
     "arguments": [
@@ -2421,9 +2421,9 @@
       "soundlow.o",
       "soundlow.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/soundlow.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/soundlow.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/soundlow.cc",
+    "output": "/bal/bochs/iodev/sound/soundlow.o"
   },
   {
     "arguments": [
@@ -2449,9 +2449,9 @@
       "sb16.o",
       "sb16.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/sb16.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/sb16.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/sb16.cc",
+    "output": "/bal/bochs/iodev/sound/sb16.o"
   },
   {
     "arguments": [
@@ -2477,9 +2477,9 @@
       "es1370.o",
       "es1370.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/es1370.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/es1370.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/es1370.cc",
+    "output": "/bal/bochs/iodev/sound/es1370.o"
   },
   {
     "arguments": [
@@ -2505,9 +2505,9 @@
       "sounddummy.o",
       "sounddummy.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/sounddummy.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/sounddummy.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/sounddummy.cc",
+    "output": "/bal/bochs/iodev/sound/sounddummy.o"
   },
   {
     "arguments": [
@@ -2533,9 +2533,9 @@
       "soundfile.o",
       "soundfile.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/soundfile.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/soundfile.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/soundfile.cc",
+    "output": "/bal/bochs/iodev/sound/soundfile.o"
   },
   {
     "arguments": [
@@ -2561,9 +2561,9 @@
       "soundoss.o",
       "soundoss.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/soundoss.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/soundoss.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/soundoss.cc",
+    "output": "/bal/bochs/iodev/sound/soundoss.o"
   },
   {
     "arguments": [
@@ -2589,9 +2589,9 @@
       "opl.o",
       "opl.cc"
     ],
-    "directory": "/crk/bochs/bochs/iodev/sound",
-    "file": "/crk/bochs/bochs/iodev/sound/opl.cc",
-    "output": "/crk/bochs/bochs/iodev/sound/opl.o"
+    "directory": "/bal/bochs/iodev/sound",
+    "file": "/bal/bochs/iodev/sound/opl.cc",
+    "output": "/bal/bochs/iodev/sound/opl.o"
   },
   {
     "arguments": [
@@ -2615,9 +2615,9 @@
       "init.o",
       "init.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/init.cc",
-    "output": "/crk/bochs/bochs/cpu/init.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/init.cc",
+    "output": "/bal/bochs/cpu/init.o"
   },
   {
     "arguments": [
@@ -2641,9 +2641,9 @@
       "cpu.o",
       "cpu.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/cpu.cc",
-    "output": "/crk/bochs/bochs/cpu/cpu.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/cpu.cc",
+    "output": "/bal/bochs/cpu/cpu.o"
   },
   {
     "arguments": [
@@ -2667,9 +2667,9 @@
       "event.o",
       "event.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/event.cc",
-    "output": "/crk/bochs/bochs/cpu/event.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/event.cc",
+    "output": "/bal/bochs/cpu/event.o"
   },
   {
     "arguments": [
@@ -2693,9 +2693,9 @@
       "icache.o",
       "icache.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/icache.cc",
-    "output": "/crk/bochs/bochs/cpu/icache.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/icache.cc",
+    "output": "/bal/bochs/cpu/icache.o"
   },
   {
     "arguments": [
@@ -2719,9 +2719,9 @@
       "decoder/fetchdecode32.o",
       "decoder/fetchdecode32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/decoder/fetchdecode32.cc",
-    "output": "/crk/bochs/bochs/cpu/decoder/fetchdecode32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/decoder/fetchdecode32.cc",
+    "output": "/bal/bochs/cpu/decoder/fetchdecode32.o"
   },
   {
     "arguments": [
@@ -2745,9 +2745,9 @@
       "access.o",
       "access.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/access.cc",
-    "output": "/crk/bochs/bochs/cpu/access.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/access.cc",
+    "output": "/bal/bochs/cpu/access.o"
   },
   {
     "arguments": [
@@ -2771,9 +2771,9 @@
       "access2.o",
       "access2.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/access2.cc",
-    "output": "/crk/bochs/bochs/cpu/access2.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/access2.cc",
+    "output": "/bal/bochs/cpu/access2.o"
   },
   {
     "arguments": [
@@ -2797,9 +2797,9 @@
       "shift16.o",
       "shift16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/shift16.cc",
-    "output": "/crk/bochs/bochs/cpu/shift16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/shift16.cc",
+    "output": "/bal/bochs/cpu/shift16.o"
   },
   {
     "arguments": [
@@ -2823,9 +2823,9 @@
       "logical16.o",
       "logical16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/logical16.cc",
-    "output": "/crk/bochs/bochs/cpu/logical16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/logical16.cc",
+    "output": "/bal/bochs/cpu/logical16.o"
   },
   {
     "arguments": [
@@ -2849,9 +2849,9 @@
       "ctrl_xfer32.o",
       "ctrl_xfer32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/ctrl_xfer32.cc",
-    "output": "/crk/bochs/bochs/cpu/ctrl_xfer32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/ctrl_xfer32.cc",
+    "output": "/bal/bochs/cpu/ctrl_xfer32.o"
   },
   {
     "arguments": [
@@ -2875,9 +2875,9 @@
       "ctrl_xfer16.o",
       "ctrl_xfer16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/ctrl_xfer16.cc",
-    "output": "/crk/bochs/bochs/cpu/ctrl_xfer16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/ctrl_xfer16.cc",
+    "output": "/bal/bochs/cpu/ctrl_xfer16.o"
   },
   {
     "arguments": [
@@ -2901,9 +2901,9 @@
       "mmx.o",
       "mmx.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/mmx.cc",
-    "output": "/crk/bochs/bochs/cpu/mmx.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/mmx.cc",
+    "output": "/bal/bochs/cpu/mmx.o"
   },
   {
     "arguments": [
@@ -2927,9 +2927,9 @@
       "3dnow.o",
       "3dnow.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/3dnow.cc",
-    "output": "/crk/bochs/bochs/cpu/3dnow.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/3dnow.cc",
+    "output": "/bal/bochs/cpu/3dnow.o"
   },
   {
     "arguments": [
@@ -2953,9 +2953,9 @@
       "fpu_emu.o",
       "fpu_emu.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/fpu_emu.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu_emu.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/fpu_emu.cc",
+    "output": "/bal/bochs/cpu/fpu_emu.o"
   },
   {
     "arguments": [
@@ -2979,9 +2979,9 @@
       "sse.o",
       "sse.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sse.cc",
-    "output": "/crk/bochs/bochs/cpu/sse.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sse.cc",
+    "output": "/bal/bochs/cpu/sse.o"
   },
   {
     "arguments": [
@@ -3005,9 +3005,9 @@
       "sse_move.o",
       "sse_move.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sse_move.cc",
-    "output": "/crk/bochs/bochs/cpu/sse_move.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sse_move.cc",
+    "output": "/bal/bochs/cpu/sse_move.o"
   },
   {
     "arguments": [
@@ -3031,9 +3031,9 @@
       "sse_pfp.o",
       "sse_pfp.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sse_pfp.cc",
-    "output": "/crk/bochs/bochs/cpu/sse_pfp.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sse_pfp.cc",
+    "output": "/bal/bochs/cpu/sse_pfp.o"
   },
   {
     "arguments": [
@@ -3057,9 +3057,9 @@
       "sse_rcp.o",
       "sse_rcp.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sse_rcp.cc",
-    "output": "/crk/bochs/bochs/cpu/sse_rcp.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sse_rcp.cc",
+    "output": "/bal/bochs/cpu/sse_rcp.o"
   },
   {
     "arguments": [
@@ -3083,9 +3083,9 @@
       "sse_string.o",
       "sse_string.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sse_string.cc",
-    "output": "/crk/bochs/bochs/cpu/sse_string.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sse_string.cc",
+    "output": "/bal/bochs/cpu/sse_string.o"
   },
   {
     "arguments": [
@@ -3109,9 +3109,9 @@
       "xsave.o",
       "xsave.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/xsave.cc",
-    "output": "/crk/bochs/bochs/cpu/xsave.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/xsave.cc",
+    "output": "/bal/bochs/cpu/xsave.o"
   },
   {
     "arguments": [
@@ -3135,9 +3135,9 @@
       "aes.o",
       "aes.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/aes.cc",
-    "output": "/crk/bochs/bochs/cpu/aes.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/aes.cc",
+    "output": "/bal/bochs/cpu/aes.o"
   },
   {
     "arguments": [
@@ -3161,9 +3161,9 @@
       "gf2.o",
       "gf2.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/gf2.cc",
-    "output": "/crk/bochs/bochs/cpu/gf2.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/gf2.cc",
+    "output": "/bal/bochs/cpu/gf2.o"
   },
   {
     "arguments": [
@@ -3187,9 +3187,9 @@
       "sha.o",
       "sha.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sha.cc",
-    "output": "/crk/bochs/bochs/cpu/sha.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sha.cc",
+    "output": "/bal/bochs/cpu/sha.o"
   },
   {
     "arguments": [
@@ -3213,9 +3213,9 @@
       "sha512.o",
       "sha512.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sha512.cc",
-    "output": "/crk/bochs/bochs/cpu/sha512.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sha512.cc",
+    "output": "/bal/bochs/cpu/sha512.o"
   },
   {
     "arguments": [
@@ -3239,9 +3239,9 @@
       "sm3.o",
       "sm3.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sm3.cc",
-    "output": "/crk/bochs/bochs/cpu/sm3.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sm3.cc",
+    "output": "/bal/bochs/cpu/sm3.o"
   },
   {
     "arguments": [
@@ -3265,9 +3265,9 @@
       "sm4.o",
       "sm4.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/sm4.cc",
-    "output": "/crk/bochs/bochs/cpu/sm4.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/sm4.cc",
+    "output": "/bal/bochs/cpu/sm4.o"
   },
   {
     "arguments": [
@@ -3291,9 +3291,9 @@
       "svm.o",
       "svm.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/svm.cc",
-    "output": "/crk/bochs/bochs/cpu/svm.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/svm.cc",
+    "output": "/bal/bochs/cpu/svm.o"
   },
   {
     "arguments": [
@@ -3317,9 +3317,9 @@
       "vmx.o",
       "vmx.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/vmx.cc",
-    "output": "/crk/bochs/bochs/cpu/vmx.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/vmx.cc",
+    "output": "/bal/bochs/cpu/vmx.o"
   },
   {
     "arguments": [
@@ -3343,9 +3343,9 @@
       "vmcs.o",
       "vmcs.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/vmcs.cc",
-    "output": "/crk/bochs/bochs/cpu/vmcs.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/vmcs.cc",
+    "output": "/bal/bochs/cpu/vmcs.o"
   },
   {
     "arguments": [
@@ -3369,9 +3369,9 @@
       "vmexit.o",
       "vmexit.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/vmexit.cc",
-    "output": "/crk/bochs/bochs/cpu/vmexit.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/vmexit.cc",
+    "output": "/bal/bochs/cpu/vmexit.o"
   },
   {
     "arguments": [
@@ -3395,9 +3395,9 @@
       "vmfunc.o",
       "vmfunc.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/vmfunc.cc",
-    "output": "/crk/bochs/bochs/cpu/vmfunc.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/vmfunc.cc",
+    "output": "/bal/bochs/cpu/vmfunc.o"
   },
   {
     "arguments": [
@@ -3421,9 +3421,9 @@
       "soft_int.o",
       "soft_int.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/soft_int.cc",
-    "output": "/crk/bochs/bochs/cpu/soft_int.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/soft_int.cc",
+    "output": "/bal/bochs/cpu/soft_int.o"
   },
   {
     "arguments": [
@@ -3447,9 +3447,9 @@
       "apic.o",
       "apic.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/apic.cc",
-    "output": "/crk/bochs/bochs/cpu/apic.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/apic.cc",
+    "output": "/bal/bochs/cpu/apic.o"
   },
   {
     "arguments": [
@@ -3473,9 +3473,9 @@
       "bcd.o",
       "bcd.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bcd.cc",
-    "output": "/crk/bochs/bochs/cpu/bcd.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bcd.cc",
+    "output": "/bal/bochs/cpu/bcd.o"
   },
   {
     "arguments": [
@@ -3499,9 +3499,9 @@
       "mult16.o",
       "mult16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/mult16.cc",
-    "output": "/crk/bochs/bochs/cpu/mult16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/mult16.cc",
+    "output": "/bal/bochs/cpu/mult16.o"
   },
   {
     "arguments": [
@@ -3525,9 +3525,9 @@
       "tasking.o",
       "tasking.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/tasking.cc",
-    "output": "/crk/bochs/bochs/cpu/tasking.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/tasking.cc",
+    "output": "/bal/bochs/cpu/tasking.o"
   },
   {
     "arguments": [
@@ -3551,9 +3551,9 @@
       "shift32.o",
       "shift32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/shift32.cc",
-    "output": "/crk/bochs/bochs/cpu/shift32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/shift32.cc",
+    "output": "/bal/bochs/cpu/shift32.o"
   },
   {
     "arguments": [
@@ -3577,9 +3577,9 @@
       "shift8.o",
       "shift8.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/shift8.cc",
-    "output": "/crk/bochs/bochs/cpu/shift8.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/shift8.cc",
+    "output": "/bal/bochs/cpu/shift8.o"
   },
   {
     "arguments": [
@@ -3603,9 +3603,9 @@
       "arith8.o",
       "arith8.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/arith8.cc",
-    "output": "/crk/bochs/bochs/cpu/arith8.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/arith8.cc",
+    "output": "/bal/bochs/cpu/arith8.o"
   },
   {
     "arguments": [
@@ -3629,9 +3629,9 @@
       "stack.o",
       "stack.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/stack.cc",
-    "output": "/crk/bochs/bochs/cpu/stack.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/stack.cc",
+    "output": "/bal/bochs/cpu/stack.o"
   },
   {
     "arguments": [
@@ -3655,9 +3655,9 @@
       "stack16.o",
       "stack16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/stack16.cc",
-    "output": "/crk/bochs/bochs/cpu/stack16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/stack16.cc",
+    "output": "/bal/bochs/cpu/stack16.o"
   },
   {
     "arguments": [
@@ -3681,9 +3681,9 @@
       "protect_ctrl.o",
       "protect_ctrl.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/protect_ctrl.cc",
-    "output": "/crk/bochs/bochs/cpu/protect_ctrl.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/protect_ctrl.cc",
+    "output": "/bal/bochs/cpu/protect_ctrl.o"
   },
   {
     "arguments": [
@@ -3707,9 +3707,9 @@
       "mult8.o",
       "mult8.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/mult8.cc",
-    "output": "/crk/bochs/bochs/cpu/mult8.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/mult8.cc",
+    "output": "/bal/bochs/cpu/mult8.o"
   },
   {
     "arguments": [
@@ -3733,9 +3733,9 @@
       "load.o",
       "load.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/load.cc",
-    "output": "/crk/bochs/bochs/cpu/load.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/load.cc",
+    "output": "/bal/bochs/cpu/load.o"
   },
   {
     "arguments": [
@@ -3759,9 +3759,9 @@
       "data_xfer8.o",
       "data_xfer8.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/data_xfer8.cc",
-    "output": "/crk/bochs/bochs/cpu/data_xfer8.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/data_xfer8.cc",
+    "output": "/bal/bochs/cpu/data_xfer8.o"
   },
   {
     "arguments": [
@@ -3785,9 +3785,9 @@
       "vm8086.o",
       "vm8086.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/vm8086.cc",
-    "output": "/crk/bochs/bochs/cpu/vm8086.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/vm8086.cc",
+    "output": "/bal/bochs/cpu/vm8086.o"
   },
   {
     "arguments": [
@@ -3811,9 +3811,9 @@
       "logical8.o",
       "logical8.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/logical8.cc",
-    "output": "/crk/bochs/bochs/cpu/logical8.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/logical8.cc",
+    "output": "/bal/bochs/cpu/logical8.o"
   },
   {
     "arguments": [
@@ -3837,9 +3837,9 @@
       "logical32.o",
       "logical32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/logical32.cc",
-    "output": "/crk/bochs/bochs/cpu/logical32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/logical32.cc",
+    "output": "/bal/bochs/cpu/logical32.o"
   },
   {
     "arguments": [
@@ -3863,9 +3863,9 @@
       "arith16.o",
       "arith16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/arith16.cc",
-    "output": "/crk/bochs/bochs/cpu/arith16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/arith16.cc",
+    "output": "/bal/bochs/cpu/arith16.o"
   },
   {
     "arguments": [
@@ -3889,9 +3889,9 @@
       "segment_ctrl.o",
       "segment_ctrl.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/segment_ctrl.cc",
-    "output": "/crk/bochs/bochs/cpu/segment_ctrl.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/segment_ctrl.cc",
+    "output": "/bal/bochs/cpu/segment_ctrl.o"
   },
   {
     "arguments": [
@@ -3915,9 +3915,9 @@
       "data_xfer16.o",
       "data_xfer16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/data_xfer16.cc",
-    "output": "/crk/bochs/bochs/cpu/data_xfer16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/data_xfer16.cc",
+    "output": "/bal/bochs/cpu/data_xfer16.o"
   },
   {
     "arguments": [
@@ -3941,9 +3941,9 @@
       "data_xfer32.o",
       "data_xfer32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/data_xfer32.cc",
-    "output": "/crk/bochs/bochs/cpu/data_xfer32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/data_xfer32.cc",
+    "output": "/bal/bochs/cpu/data_xfer32.o"
   },
   {
     "arguments": [
@@ -3967,9 +3967,9 @@
       "exception.o",
       "exception.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/exception.cc",
-    "output": "/crk/bochs/bochs/cpu/exception.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/exception.cc",
+    "output": "/bal/bochs/cpu/exception.o"
   },
   {
     "arguments": [
@@ -3993,9 +3993,9 @@
       "cpuid.o",
       "cpuid.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/cpuid.cc",
-    "output": "/crk/bochs/bochs/cpu/cpuid.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/cpuid.cc",
+    "output": "/bal/bochs/cpu/cpuid.o"
   },
   {
     "arguments": [
@@ -4019,9 +4019,9 @@
       "generic_cpuid.o",
       "generic_cpuid.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/generic_cpuid.cc",
-    "output": "/crk/bochs/bochs/cpu/generic_cpuid.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/generic_cpuid.cc",
+    "output": "/bal/bochs/cpu/generic_cpuid.o"
   },
   {
     "arguments": [
@@ -4045,9 +4045,9 @@
       "proc_ctrl.o",
       "proc_ctrl.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/proc_ctrl.cc",
-    "output": "/crk/bochs/bochs/cpu/proc_ctrl.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/proc_ctrl.cc",
+    "output": "/bal/bochs/cpu/proc_ctrl.o"
   },
   {
     "arguments": [
@@ -4071,9 +4071,9 @@
       "mwait.o",
       "mwait.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/mwait.cc",
-    "output": "/crk/bochs/bochs/cpu/mwait.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/mwait.cc",
+    "output": "/bal/bochs/cpu/mwait.o"
   },
   {
     "arguments": [
@@ -4097,9 +4097,9 @@
       "crregs.o",
       "crregs.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/crregs.cc",
-    "output": "/crk/bochs/bochs/cpu/crregs.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/crregs.cc",
+    "output": "/bal/bochs/cpu/crregs.o"
   },
   {
     "arguments": [
@@ -4123,9 +4123,9 @@
       "cet.o",
       "cet.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/cet.cc",
-    "output": "/crk/bochs/bochs/cpu/cet.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/cet.cc",
+    "output": "/bal/bochs/cpu/cet.o"
   },
   {
     "arguments": [
@@ -4149,9 +4149,9 @@
       "msr.o",
       "msr.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/msr.cc",
-    "output": "/crk/bochs/bochs/cpu/msr.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/msr.cc",
+    "output": "/bal/bochs/cpu/msr.o"
   },
   {
     "arguments": [
@@ -4175,9 +4175,9 @@
       "smm.o",
       "smm.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/smm.cc",
-    "output": "/crk/bochs/bochs/cpu/smm.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/smm.cc",
+    "output": "/bal/bochs/cpu/smm.o"
   },
   {
     "arguments": [
@@ -4201,9 +4201,9 @@
       "flag_ctrl_pro.o",
       "flag_ctrl_pro.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/flag_ctrl_pro.cc",
-    "output": "/crk/bochs/bochs/cpu/flag_ctrl_pro.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/flag_ctrl_pro.cc",
+    "output": "/bal/bochs/cpu/flag_ctrl_pro.o"
   },
   {
     "arguments": [
@@ -4227,9 +4227,9 @@
       "stack32.o",
       "stack32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/stack32.cc",
-    "output": "/crk/bochs/bochs/cpu/stack32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/stack32.cc",
+    "output": "/bal/bochs/cpu/stack32.o"
   },
   {
     "arguments": [
@@ -4253,9 +4253,9 @@
       "debugstuff.o",
       "debugstuff.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/debugstuff.cc",
-    "output": "/crk/bochs/bochs/cpu/debugstuff.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/debugstuff.cc",
+    "output": "/bal/bochs/cpu/debugstuff.o"
   },
   {
     "arguments": [
@@ -4279,9 +4279,9 @@
       "flag_ctrl.o",
       "flag_ctrl.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/flag_ctrl.cc",
-    "output": "/crk/bochs/bochs/cpu/flag_ctrl.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/flag_ctrl.cc",
+    "output": "/bal/bochs/cpu/flag_ctrl.o"
   },
   {
     "arguments": [
@@ -4305,9 +4305,9 @@
       "mult32.o",
       "mult32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/mult32.cc",
-    "output": "/crk/bochs/bochs/cpu/mult32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/mult32.cc",
+    "output": "/bal/bochs/cpu/mult32.o"
   },
   {
     "arguments": [
@@ -4331,9 +4331,9 @@
       "arith32.o",
       "arith32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/arith32.cc",
-    "output": "/crk/bochs/bochs/cpu/arith32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/arith32.cc",
+    "output": "/bal/bochs/cpu/arith32.o"
   },
   {
     "arguments": [
@@ -4357,9 +4357,9 @@
       "jmp_far.o",
       "jmp_far.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/jmp_far.cc",
-    "output": "/crk/bochs/bochs/cpu/jmp_far.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/jmp_far.cc",
+    "output": "/bal/bochs/cpu/jmp_far.o"
   },
   {
     "arguments": [
@@ -4383,9 +4383,9 @@
       "call_far.o",
       "call_far.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/call_far.cc",
-    "output": "/crk/bochs/bochs/cpu/call_far.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/call_far.cc",
+    "output": "/bal/bochs/cpu/call_far.o"
   },
   {
     "arguments": [
@@ -4409,9 +4409,9 @@
       "ret_far.o",
       "ret_far.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/ret_far.cc",
-    "output": "/crk/bochs/bochs/cpu/ret_far.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/ret_far.cc",
+    "output": "/bal/bochs/cpu/ret_far.o"
   },
   {
     "arguments": [
@@ -4435,9 +4435,9 @@
       "iret.o",
       "iret.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/iret.cc",
-    "output": "/crk/bochs/bochs/cpu/iret.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/iret.cc",
+    "output": "/bal/bochs/cpu/iret.o"
   },
   {
     "arguments": [
@@ -4461,9 +4461,9 @@
       "ctrl_xfer_pro.o",
       "ctrl_xfer_pro.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/ctrl_xfer_pro.cc",
-    "output": "/crk/bochs/bochs/cpu/ctrl_xfer_pro.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/ctrl_xfer_pro.cc",
+    "output": "/bal/bochs/cpu/ctrl_xfer_pro.o"
   },
   {
     "arguments": [
@@ -4487,9 +4487,9 @@
       "segment_ctrl_pro.o",
       "segment_ctrl_pro.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/segment_ctrl_pro.cc",
-    "output": "/crk/bochs/bochs/cpu/segment_ctrl_pro.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/segment_ctrl_pro.cc",
+    "output": "/bal/bochs/cpu/segment_ctrl_pro.o"
   },
   {
     "arguments": [
@@ -4513,9 +4513,9 @@
       "io.o",
       "io.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/io.cc",
-    "output": "/crk/bochs/bochs/cpu/io.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/io.cc",
+    "output": "/bal/bochs/cpu/io.o"
   },
   {
     "arguments": [
@@ -4539,9 +4539,9 @@
       "crc32.o",
       "crc32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/crc32.cc",
-    "output": "/crk/bochs/bochs/cpu/crc32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/crc32.cc",
+    "output": "/bal/bochs/cpu/crc32.o"
   },
   {
     "arguments": [
@@ -4565,9 +4565,9 @@
       "bit.o",
       "bit.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bit.cc",
-    "output": "/crk/bochs/bochs/cpu/bit.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bit.cc",
+    "output": "/bal/bochs/cpu/bit.o"
   },
   {
     "arguments": [
@@ -4591,9 +4591,9 @@
       "bit16.o",
       "bit16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bit16.cc",
-    "output": "/crk/bochs/bochs/cpu/bit16.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bit16.cc",
+    "output": "/bal/bochs/cpu/bit16.o"
   },
   {
     "arguments": [
@@ -4617,9 +4617,9 @@
       "bit32.o",
       "bit32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bit32.cc",
-    "output": "/crk/bochs/bochs/cpu/bit32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bit32.cc",
+    "output": "/bal/bochs/cpu/bit32.o"
   },
   {
     "arguments": [
@@ -4643,9 +4643,9 @@
       "bmi32.o",
       "bmi32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bmi32.cc",
-    "output": "/crk/bochs/bochs/cpu/bmi32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bmi32.cc",
+    "output": "/bal/bochs/cpu/bmi32.o"
   },
   {
     "arguments": [
@@ -4669,9 +4669,9 @@
       "cmpccxadd32.o",
       "cmpccxadd32.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/cmpccxadd32.cc",
-    "output": "/crk/bochs/bochs/cpu/cmpccxadd32.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/cmpccxadd32.cc",
+    "output": "/bal/bochs/cpu/cmpccxadd32.o"
   },
   {
     "arguments": [
@@ -4695,9 +4695,9 @@
       "string.o",
       "string.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/string.cc",
-    "output": "/crk/bochs/bochs/cpu/string.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/string.cc",
+    "output": "/bal/bochs/cpu/string.o"
   },
   {
     "arguments": [
@@ -4721,9 +4721,9 @@
       "faststring.o",
       "faststring.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/faststring.cc",
-    "output": "/crk/bochs/bochs/cpu/faststring.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/faststring.cc",
+    "output": "/bal/bochs/cpu/faststring.o"
   },
   {
     "arguments": [
@@ -4747,9 +4747,9 @@
       "paging.o",
       "paging.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/paging.cc",
-    "output": "/crk/bochs/bochs/cpu/paging.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/paging.cc",
+    "output": "/bal/bochs/cpu/paging.o"
   },
   {
     "arguments": [
@@ -4773,9 +4773,9 @@
       "rdrand.o",
       "rdrand.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/rdrand.cc",
-    "output": "/crk/bochs/bochs/cpu/rdrand.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/rdrand.cc",
+    "output": "/bal/bochs/cpu/rdrand.o"
   },
   {
     "arguments": [
@@ -4799,9 +4799,9 @@
       "wide_int.o",
       "wide_int.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/wide_int.cc",
-    "output": "/crk/bochs/bochs/cpu/wide_int.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/wide_int.cc",
+    "output": "/bal/bochs/cpu/wide_int.o"
   },
   {
     "arguments": [
@@ -4825,9 +4825,9 @@
       "decoder/disasm.o",
       "decoder/disasm.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/decoder/disasm.cc",
-    "output": "/crk/bochs/bochs/cpu/decoder/disasm.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/decoder/disasm.cc",
+    "output": "/bal/bochs/cpu/decoder/disasm.o"
   },
   {
     "arguments": [
@@ -4851,9 +4851,9 @@
       "arith64.o",
       "arith64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/arith64.cc",
-    "output": "/crk/bochs/bochs/cpu/arith64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/arith64.cc",
+    "output": "/bal/bochs/cpu/arith64.o"
   },
   {
     "arguments": [
@@ -4877,9 +4877,9 @@
       "ctrl_xfer64.o",
       "ctrl_xfer64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/ctrl_xfer64.cc",
-    "output": "/crk/bochs/bochs/cpu/ctrl_xfer64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/ctrl_xfer64.cc",
+    "output": "/bal/bochs/cpu/ctrl_xfer64.o"
   },
   {
     "arguments": [
@@ -4903,9 +4903,9 @@
       "data_xfer64.o",
       "data_xfer64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/data_xfer64.cc",
-    "output": "/crk/bochs/bochs/cpu/data_xfer64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/data_xfer64.cc",
+    "output": "/bal/bochs/cpu/data_xfer64.o"
   },
   {
     "arguments": [
@@ -4929,9 +4929,9 @@
       "decoder/fetchdecode64.o",
       "decoder/fetchdecode64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/decoder/fetchdecode64.cc",
-    "output": "/crk/bochs/bochs/cpu/decoder/fetchdecode64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/decoder/fetchdecode64.cc",
+    "output": "/bal/bochs/cpu/decoder/fetchdecode64.o"
   },
   {
     "arguments": [
@@ -4955,9 +4955,9 @@
       "logical64.o",
       "logical64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/logical64.cc",
-    "output": "/crk/bochs/bochs/cpu/logical64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/logical64.cc",
+    "output": "/bal/bochs/cpu/logical64.o"
   },
   {
     "arguments": [
@@ -4981,9 +4981,9 @@
       "mult64.o",
       "mult64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/mult64.cc",
-    "output": "/crk/bochs/bochs/cpu/mult64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/mult64.cc",
+    "output": "/bal/bochs/cpu/mult64.o"
   },
   {
     "arguments": [
@@ -5007,9 +5007,9 @@
       "shift64.o",
       "shift64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/shift64.cc",
-    "output": "/crk/bochs/bochs/cpu/shift64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/shift64.cc",
+    "output": "/bal/bochs/cpu/shift64.o"
   },
   {
     "arguments": [
@@ -5033,9 +5033,9 @@
       "bit64.o",
       "bit64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bit64.cc",
-    "output": "/crk/bochs/bochs/cpu/bit64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bit64.cc",
+    "output": "/bal/bochs/cpu/bit64.o"
   },
   {
     "arguments": [
@@ -5059,9 +5059,9 @@
       "stack64.o",
       "stack64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/stack64.cc",
-    "output": "/crk/bochs/bochs/cpu/stack64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/stack64.cc",
+    "output": "/bal/bochs/cpu/stack64.o"
   },
   {
     "arguments": [
@@ -5085,9 +5085,9 @@
       "bmi64.o",
       "bmi64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/bmi64.cc",
-    "output": "/crk/bochs/bochs/cpu/bmi64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/bmi64.cc",
+    "output": "/bal/bochs/cpu/bmi64.o"
   },
   {
     "arguments": [
@@ -5111,9 +5111,9 @@
       "cmpccxadd64.o",
       "cmpccxadd64.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/cmpccxadd64.cc",
-    "output": "/crk/bochs/bochs/cpu/cmpccxadd64.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/cmpccxadd64.cc",
+    "output": "/bal/bochs/cpu/cmpccxadd64.o"
   },
   {
     "arguments": [
@@ -5137,9 +5137,9 @@
       "vapic.o",
       "vapic.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu",
-    "file": "/crk/bochs/bochs/cpu/vapic.cc",
-    "output": "/crk/bochs/bochs/cpu/vapic.o"
+    "directory": "/bal/bochs/cpu",
+    "file": "/bal/bochs/cpu/vapic.cc",
+    "output": "/bal/bochs/cpu/vapic.o"
   },
   {
     "arguments": [
@@ -5165,9 +5165,9 @@
       "intel/pentium.o",
       "intel/pentium.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/pentium.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/pentium.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/pentium.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/pentium.o"
   },
   {
     "arguments": [
@@ -5193,9 +5193,9 @@
       "intel/pentium_mmx.o",
       "intel/pentium_mmx.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/pentium_mmx.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/pentium_mmx.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/pentium_mmx.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/pentium_mmx.o"
   },
   {
     "arguments": [
@@ -5221,9 +5221,9 @@
       "intel/p2_klamath.o",
       "intel/p2_klamath.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/p2_klamath.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/p2_klamath.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/p2_klamath.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/p2_klamath.o"
   },
   {
     "arguments": [
@@ -5249,9 +5249,9 @@
       "intel/p3_katmai.o",
       "intel/p3_katmai.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/p3_katmai.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/p3_katmai.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/p3_katmai.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/p3_katmai.o"
   },
   {
     "arguments": [
@@ -5277,9 +5277,9 @@
       "intel/p4_willamette.o",
       "intel/p4_willamette.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/p4_willamette.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/p4_willamette.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/p4_willamette.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/p4_willamette.o"
   },
   {
     "arguments": [
@@ -5305,9 +5305,9 @@
       "intel/p4_prescott_celeron_336.o",
       "intel/p4_prescott_celeron_336.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/p4_prescott_celeron_336.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/p4_prescott_celeron_336.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/p4_prescott_celeron_336.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/p4_prescott_celeron_336.o"
   },
   {
     "arguments": [
@@ -5333,9 +5333,9 @@
       "intel/atom_n270.o",
       "intel/atom_n270.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/atom_n270.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/atom_n270.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/atom_n270.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/atom_n270.o"
   },
   {
     "arguments": [
@@ -5361,9 +5361,9 @@
       "intel/core_duo_t2400_yonah.o",
       "intel/core_duo_t2400_yonah.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/core_duo_t2400_yonah.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/core_duo_t2400_yonah.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/core_duo_t2400_yonah.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/core_duo_t2400_yonah.o"
   },
   {
     "arguments": [
@@ -5389,9 +5389,9 @@
       "intel/core2_penryn_t9600.o",
       "intel/core2_penryn_t9600.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/core2_penryn_t9600.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/core2_penryn_t9600.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/core2_penryn_t9600.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/core2_penryn_t9600.o"
   },
   {
     "arguments": [
@@ -5417,9 +5417,9 @@
       "intel/corei5_lynnfield_750.o",
       "intel/corei5_lynnfield_750.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei5_lynnfield_750.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei5_lynnfield_750.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei5_lynnfield_750.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei5_lynnfield_750.o"
   },
   {
     "arguments": [
@@ -5445,9 +5445,9 @@
       "intel/corei5_arrandale_m520.o",
       "intel/corei5_arrandale_m520.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei5_arrandale_m520.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei5_arrandale_m520.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei5_arrandale_m520.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei5_arrandale_m520.o"
   },
   {
     "arguments": [
@@ -5473,9 +5473,9 @@
       "intel/corei7_sandy_bridge_2600K.o",
       "intel/corei7_sandy_bridge_2600K.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_sandy_bridge_2600K.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_sandy_bridge_2600K.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei7_sandy_bridge_2600K.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei7_sandy_bridge_2600K.o"
   },
   {
     "arguments": [
@@ -5501,9 +5501,9 @@
       "intel/corei7_ivy_bridge_3770K.o",
       "intel/corei7_ivy_bridge_3770K.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_ivy_bridge_3770K.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_ivy_bridge_3770K.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei7_ivy_bridge_3770K.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei7_ivy_bridge_3770K.o"
   },
   {
     "arguments": [
@@ -5529,9 +5529,9 @@
       "intel/corei7_haswell_4770.o",
       "intel/corei7_haswell_4770.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_haswell_4770.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_haswell_4770.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei7_haswell_4770.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei7_haswell_4770.o"
   },
   {
     "arguments": [
@@ -5557,9 +5557,9 @@
       "intel/broadwell_ult.o",
       "intel/broadwell_ult.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/broadwell_ult.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/broadwell_ult.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/broadwell_ult.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/broadwell_ult.o"
   },
   {
     "arguments": [
@@ -5585,9 +5585,9 @@
       "intel/corei7_skylake-x.o",
       "intel/corei7_skylake-x.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_skylake-x.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_skylake-x.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei7_skylake-x.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei7_skylake-x.o"
   },
   {
     "arguments": [
@@ -5613,9 +5613,9 @@
       "intel/corei3_cnl.o",
       "intel/corei3_cnl.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei3_cnl.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei3_cnl.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei3_cnl.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei3_cnl.o"
   },
   {
     "arguments": [
@@ -5641,9 +5641,9 @@
       "intel/corei7_icelake-u.o",
       "intel/corei7_icelake-u.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_icelake-u.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/corei7_icelake-u.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/corei7_icelake-u.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/corei7_icelake-u.o"
   },
   {
     "arguments": [
@@ -5669,9 +5669,9 @@
       "intel/tigerlake.o",
       "intel/tigerlake.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/intel/tigerlake.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/intel/tigerlake.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/intel/tigerlake.cc",
+    "output": "/bal/bochs/cpu/cpudb/intel/tigerlake.o"
   },
   {
     "arguments": [
@@ -5697,9 +5697,9 @@
       "amd/amd_k6_2_chomper.o",
       "amd/amd_k6_2_chomper.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/amd_k6_2_chomper.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/amd_k6_2_chomper.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/amd_k6_2_chomper.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/amd_k6_2_chomper.o"
   },
   {
     "arguments": [
@@ -5725,9 +5725,9 @@
       "amd/athlon64_clawhammer.o",
       "amd/athlon64_clawhammer.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/athlon64_clawhammer.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/athlon64_clawhammer.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/athlon64_clawhammer.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/athlon64_clawhammer.o"
   },
   {
     "arguments": [
@@ -5753,9 +5753,9 @@
       "amd/athlon64_venice.o",
       "amd/athlon64_venice.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/athlon64_venice.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/athlon64_venice.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/athlon64_venice.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/athlon64_venice.o"
   },
   {
     "arguments": [
@@ -5781,9 +5781,9 @@
       "amd/turion64_tyler.o",
       "amd/turion64_tyler.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/turion64_tyler.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/turion64_tyler.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/turion64_tyler.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/turion64_tyler.o"
   },
   {
     "arguments": [
@@ -5809,9 +5809,9 @@
       "amd/phenomx3_8650_toliman.o",
       "amd/phenomx3_8650_toliman.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/phenomx3_8650_toliman.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/phenomx3_8650_toliman.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/phenomx3_8650_toliman.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/phenomx3_8650_toliman.o"
   },
   {
     "arguments": [
@@ -5837,9 +5837,9 @@
       "amd/trinity_apu.o",
       "amd/trinity_apu.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/trinity_apu.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/trinity_apu.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/trinity_apu.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/trinity_apu.o"
   },
   {
     "arguments": [
@@ -5865,9 +5865,9 @@
       "amd/zambezi.o",
       "amd/zambezi.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/zambezi.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/zambezi.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/zambezi.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/zambezi.o"
   },
   {
     "arguments": [
@@ -5893,9 +5893,9 @@
       "amd/ryzen.o",
       "amd/ryzen.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/cpudb",
-    "file": "/crk/bochs/bochs/cpu/cpudb/amd/ryzen.cc",
-    "output": "/crk/bochs/bochs/cpu/cpudb/amd/ryzen.o"
+    "directory": "/bal/bochs/cpu/cpudb",
+    "file": "/bal/bochs/cpu/cpudb/amd/ryzen.cc",
+    "output": "/bal/bochs/cpu/cpudb/amd/ryzen.o"
   },
   {
     "arguments": [
@@ -5919,9 +5919,9 @@
       "memory.o",
       "memory.cc"
     ],
-    "directory": "/crk/bochs/bochs/memory",
-    "file": "/crk/bochs/bochs/memory/memory.cc",
-    "output": "/crk/bochs/bochs/memory/memory.o"
+    "directory": "/bal/bochs/memory",
+    "file": "/bal/bochs/memory/memory.cc",
+    "output": "/bal/bochs/memory/memory.o"
   },
   {
     "arguments": [
@@ -5945,9 +5945,9 @@
       "misc_mem.o",
       "misc_mem.cc"
     ],
-    "directory": "/crk/bochs/bochs/memory",
-    "file": "/crk/bochs/bochs/memory/misc_mem.cc",
-    "output": "/crk/bochs/bochs/memory/misc_mem.o"
+    "directory": "/bal/bochs/memory",
+    "file": "/bal/bochs/memory/misc_mem.cc",
+    "output": "/bal/bochs/memory/misc_mem.o"
   },
   {
     "arguments": [
@@ -5973,9 +5973,9 @@
       "keymap.o",
       "keymap.cc"
     ],
-    "directory": "/crk/bochs/bochs/gui",
-    "file": "/crk/bochs/bochs/gui/keymap.cc",
-    "output": "/crk/bochs/bochs/gui/keymap.o"
+    "directory": "/bal/bochs/gui",
+    "file": "/bal/bochs/gui/keymap.cc",
+    "output": "/bal/bochs/gui/keymap.o"
   },
   {
     "arguments": [
@@ -6001,9 +6001,9 @@
       "gui.o",
       "gui.cc"
     ],
-    "directory": "/crk/bochs/bochs/gui",
-    "file": "/crk/bochs/bochs/gui/gui.cc",
-    "output": "/crk/bochs/bochs/gui/gui.o"
+    "directory": "/bal/bochs/gui",
+    "file": "/bal/bochs/gui/gui.cc",
+    "output": "/bal/bochs/gui/gui.o"
   },
   {
     "arguments": [
@@ -6029,9 +6029,9 @@
       "siminterface.o",
       "siminterface.cc"
     ],
-    "directory": "/crk/bochs/bochs/gui",
-    "file": "/crk/bochs/bochs/gui/siminterface.cc",
-    "output": "/crk/bochs/bochs/gui/siminterface.o"
+    "directory": "/bal/bochs/gui",
+    "file": "/bal/bochs/gui/siminterface.cc",
+    "output": "/bal/bochs/gui/siminterface.o"
   },
   {
     "arguments": [
@@ -6057,9 +6057,9 @@
       "paramtree.o",
       "paramtree.cc"
     ],
-    "directory": "/crk/bochs/bochs/gui",
-    "file": "/crk/bochs/bochs/gui/paramtree.cc",
-    "output": "/crk/bochs/bochs/gui/paramtree.o"
+    "directory": "/bal/bochs/gui",
+    "file": "/bal/bochs/gui/paramtree.cc",
+    "output": "/bal/bochs/gui/paramtree.o"
   },
   {
     "arguments": [
@@ -6085,9 +6085,9 @@
       "x.o",
       "x.cc"
     ],
-    "directory": "/crk/bochs/bochs/gui",
-    "file": "/crk/bochs/bochs/gui/x.cc",
-    "output": "/crk/bochs/bochs/gui/x.o"
+    "directory": "/bal/bochs/gui",
+    "file": "/bal/bochs/gui/x.cc",
+    "output": "/bal/bochs/gui/x.o"
   },
   {
     "arguments": [
@@ -6113,9 +6113,9 @@
       "textconfig.o",
       "textconfig.cc"
     ],
-    "directory": "/crk/bochs/bochs/gui",
-    "file": "/crk/bochs/bochs/gui/textconfig.cc",
-    "output": "/crk/bochs/bochs/gui/textconfig.o"
+    "directory": "/bal/bochs/gui",
+    "file": "/bal/bochs/gui/textconfig.cc",
+    "output": "/bal/bochs/gui/textconfig.o"
   },
   {
     "arguments": [
@@ -6140,9 +6140,9 @@
       "logio.o",
       "logio.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/logio.cc",
-    "output": "/crk/bochs/bochs/logio.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/logio.cc",
+    "output": "/bal/bochs/logio.o"
   },
   {
     "arguments": [
@@ -6167,9 +6167,9 @@
       "main.o",
       "main.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/main.cc",
-    "output": "/crk/bochs/bochs/main.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/main.cc",
+    "output": "/bal/bochs/main.o"
   },
   {
     "arguments": [
@@ -6194,9 +6194,9 @@
       "config.o",
       "config.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/config.cc",
-    "output": "/crk/bochs/bochs/config.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/config.cc",
+    "output": "/bal/bochs/config.o"
   },
   {
     "arguments": [
@@ -6221,9 +6221,9 @@
       "pc_system.o",
       "pc_system.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/pc_system.cc",
-    "output": "/crk/bochs/bochs/pc_system.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/pc_system.cc",
+    "output": "/bal/bochs/pc_system.o"
   },
   {
     "arguments": [
@@ -6248,9 +6248,9 @@
       "osdep.o",
       "osdep.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/osdep.cc",
-    "output": "/crk/bochs/bochs/osdep.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/osdep.cc",
+    "output": "/bal/bochs/osdep.o"
   },
   {
     "arguments": [
@@ -6275,9 +6275,9 @@
       "plugin.o",
       "plugin.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/plugin.cc",
-    "output": "/crk/bochs/bochs/plugin.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/plugin.cc",
+    "output": "/bal/bochs/plugin.o"
   },
   {
     "arguments": [
@@ -6302,9 +6302,9 @@
       "crc.o",
       "crc.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/crc.cc",
-    "output": "/crk/bochs/bochs/crc.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/crc.cc",
+    "output": "/bal/bochs/crc.o"
   },
   {
     "arguments": [
@@ -6329,9 +6329,9 @@
       "bxthread.o",
       "bxthread.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/bxthread.cc",
-    "output": "/crk/bochs/bochs/bxthread.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/bxthread.cc",
+    "output": "/bal/bochs/bxthread.o"
   },
   {
     "arguments": [
@@ -6355,9 +6355,9 @@
       "ferr.o",
       "ferr.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/ferr.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/ferr.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/ferr.cc",
+    "output": "/bal/bochs/cpu/fpu/ferr.o"
   },
   {
     "arguments": [
@@ -6381,9 +6381,9 @@
       "fpu.o",
       "fpu.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu.o"
   },
   {
     "arguments": [
@@ -6407,9 +6407,9 @@
       "fpu_arith.o",
       "fpu_arith.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_arith.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_arith.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_arith.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_arith.o"
   },
   {
     "arguments": [
@@ -6433,9 +6433,9 @@
       "fpu_compare.o",
       "fpu_compare.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_compare.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_compare.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_compare.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_compare.o"
   },
   {
     "arguments": [
@@ -6459,9 +6459,9 @@
       "fpu_const.o",
       "fpu_const.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_const.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_const.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_const.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_const.o"
   },
   {
     "arguments": [
@@ -6485,9 +6485,9 @@
       "fpu_cmov.o",
       "fpu_cmov.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_cmov.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_cmov.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_cmov.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_cmov.o"
   },
   {
     "arguments": [
@@ -6511,9 +6511,9 @@
       "fpu_load_store.o",
       "fpu_load_store.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_load_store.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_load_store.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_load_store.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_load_store.o"
   },
   {
     "arguments": [
@@ -6537,9 +6537,9 @@
       "fpu_misc.o",
       "fpu_misc.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_misc.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_misc.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_misc.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_misc.o"
   },
   {
     "arguments": [
@@ -6563,9 +6563,9 @@
       "fpu_trans.o",
       "fpu_trans.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpu_trans.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpu_trans.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpu_trans.cc",
+    "output": "/bal/bochs/cpu/fpu/fpu_trans.o"
   },
   {
     "arguments": [
@@ -6589,9 +6589,9 @@
       "fprem.o",
       "fprem.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fprem.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fprem.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fprem.cc",
+    "output": "/bal/bochs/cpu/fpu/fprem.o"
   },
   {
     "arguments": [
@@ -6615,9 +6615,9 @@
       "fsincos.o",
       "fsincos.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fsincos.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fsincos.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fsincos.cc",
+    "output": "/bal/bochs/cpu/fpu/fsincos.o"
   },
   {
     "arguments": [
@@ -6641,9 +6641,9 @@
       "f2xm1.o",
       "f2xm1.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/f2xm1.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/f2xm1.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/f2xm1.cc",
+    "output": "/bal/bochs/cpu/fpu/f2xm1.o"
   },
   {
     "arguments": [
@@ -6667,9 +6667,9 @@
       "fyl2x.o",
       "fyl2x.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fyl2x.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fyl2x.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fyl2x.cc",
+    "output": "/bal/bochs/cpu/fpu/fyl2x.o"
   },
   {
     "arguments": [
@@ -6693,9 +6693,9 @@
       "fpatan.o",
       "fpatan.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/fpatan.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/fpatan.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/fpatan.cc",
+    "output": "/bal/bochs/cpu/fpu/fpatan.o"
   },
   {
     "arguments": [
@@ -6719,9 +6719,9 @@
       "softfloat.o",
       "softfloat.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/softfloat.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/softfloat.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/softfloat.cc",
+    "output": "/bal/bochs/cpu/fpu/softfloat.o"
   },
   {
     "arguments": [
@@ -6745,9 +6745,9 @@
       "softfloatx80.o",
       "softfloatx80.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/softfloatx80.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/softfloatx80.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/softfloatx80.cc",
+    "output": "/bal/bochs/cpu/fpu/softfloatx80.o"
   },
   {
     "arguments": [
@@ -6771,9 +6771,9 @@
       "softfloat16.o",
       "softfloat16.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/softfloat16.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/softfloat16.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/softfloat16.cc",
+    "output": "/bal/bochs/cpu/fpu/softfloat16.o"
   },
   {
     "arguments": [
@@ -6797,9 +6797,9 @@
       "softfloat-muladd.o",
       "softfloat-muladd.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/softfloat-muladd.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/softfloat-muladd.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/softfloat-muladd.cc",
+    "output": "/bal/bochs/cpu/fpu/softfloat-muladd.o"
   },
   {
     "arguments": [
@@ -6823,9 +6823,9 @@
       "softfloat-specialize.o",
       "softfloat-specialize.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/softfloat-specialize.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/softfloat-specialize.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/softfloat-specialize.cc",
+    "output": "/bal/bochs/cpu/fpu/softfloat-specialize.o"
   },
   {
     "arguments": [
@@ -6849,9 +6849,9 @@
       "softfloat-round-pack.o",
       "softfloat-round-pack.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/softfloat-round-pack.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/softfloat-round-pack.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/softfloat-round-pack.cc",
+    "output": "/bal/bochs/cpu/fpu/softfloat-round-pack.o"
   },
   {
     "arguments": [
@@ -6875,9 +6875,9 @@
       "poly.o",
       "poly.cc"
     ],
-    "directory": "/crk/bochs/bochs/cpu/fpu",
-    "file": "/crk/bochs/bochs/cpu/fpu/poly.cc",
-    "output": "/crk/bochs/bochs/cpu/fpu/poly.o"
+    "directory": "/bal/bochs/cpu/fpu",
+    "file": "/bal/bochs/cpu/fpu/poly.cc",
+    "output": "/bal/bochs/cpu/fpu/poly.o"
   },
   {
     "arguments": [
@@ -6900,9 +6900,9 @@
       "misc/bximage.o",
       "./misc/bximage.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/misc/bximage.cc",
-    "output": "/crk/bochs/bochs/misc/bximage.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/misc/bximage.cc",
+    "output": "/bal/bochs/misc/bximage.o"
   },
   {
     "arguments": [
@@ -6926,9 +6926,9 @@
       "misc/hdimage.o",
       "./iodev/hdimage/hdimage.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/iodev/hdimage/hdimage.cc",
-    "output": "/crk/bochs/bochs/misc/hdimage.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/iodev/hdimage/hdimage.cc",
+    "output": "/bal/bochs/misc/hdimage.o"
   },
   {
     "arguments": [
@@ -6952,9 +6952,9 @@
       "misc/vmware3.o",
       "./iodev/hdimage/vmware3.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vmware3.cc",
-    "output": "/crk/bochs/bochs/misc/vmware3.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/iodev/hdimage/vmware3.cc",
+    "output": "/bal/bochs/misc/vmware3.o"
   },
   {
     "arguments": [
@@ -6978,9 +6978,9 @@
       "misc/vmware4.o",
       "./iodev/hdimage/vmware4.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vmware4.cc",
-    "output": "/crk/bochs/bochs/misc/vmware4.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/iodev/hdimage/vmware4.cc",
+    "output": "/bal/bochs/misc/vmware4.o"
   },
   {
     "arguments": [
@@ -7004,9 +7004,9 @@
       "misc/vpc.o",
       "./iodev/hdimage/vpc.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vpc.cc",
-    "output": "/crk/bochs/bochs/misc/vpc.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/iodev/hdimage/vpc.cc",
+    "output": "/bal/bochs/misc/vpc.o"
   },
   {
     "arguments": [
@@ -7030,9 +7030,9 @@
       "misc/vbox.o",
       "./iodev/hdimage/vbox.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/iodev/hdimage/vbox.cc",
-    "output": "/crk/bochs/bochs/misc/vbox.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/iodev/hdimage/vbox.cc",
+    "output": "/bal/bochs/misc/vbox.o"
   },
   {
     "arguments": [
@@ -7055,9 +7055,9 @@
       "misc/bxhub.o",
       "./misc/bxhub.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/misc/bxhub.cc",
-    "output": "/crk/bochs/bochs/misc/bxhub.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/misc/bxhub.cc",
+    "output": "/bal/bochs/misc/bxhub.o"
   },
   {
     "arguments": [
@@ -7081,8 +7081,8 @@
       "misc/netutil.o",
       "./iodev/network/netutil.cc"
     ],
-    "directory": "/crk/bochs/bochs",
-    "file": "/crk/bochs/bochs/iodev/network/netutil.cc",
-    "output": "/crk/bochs/bochs/misc/netutil.o"
+    "directory": "/bal/bochs",
+    "file": "/bal/bochs/iodev/network/netutil.cc",
+    "output": "/bal/bochs/misc/netutil.o"
   }
 ]

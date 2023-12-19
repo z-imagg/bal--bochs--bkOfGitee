@@ -8,7 +8,7 @@
 ### 其中编译步骤抄过来如下：
 ```shell
 #编译bochs过程:
-cd /crk/bochs/bochs/
+cd /bal/bochs/
 sh .conf.linux
 make
 ```
@@ -30,7 +30,7 @@ man bear
 
 
 ### vscode借助compile_commands.json成为正常C++  IDE
-> 用vscode打开项目：```code /crk/bochs/bochs/ &``` ， 
+> 用vscode打开项目：```code /bal/bochs/ &``` ， 
 1. 按住ctrl点击某个函数调用，可以跳转到该函数定义，
 2. 按ctrl+alt+-, 可以返回
 

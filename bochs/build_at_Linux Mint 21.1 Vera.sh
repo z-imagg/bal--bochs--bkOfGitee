@@ -1,6 +1,6 @@
 #make报错1:
 """
-make[1]: 进入目录“/crk/bochs/bochs/gui”
+make[1]: 进入目录“/bal/bochs/gui”
 /bin/bash ../libtool --mode=compile --tag CXX c++ -c -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -I.. -I./.. -I../iodev -I./../iodev -I../instrument/stubs -I./../instrument/stubs -Wall -O3 -fomit-frame-pointer -pipe -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES      x.cc -o x.lo
 mkdir .libs
  c++ -c -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -I.. -I./.. -I../iodev -I./../iodev -I../instrument/stubs -I./../instrument/stubs -Wall -O3 -fomit-frame-pointer -pipe -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES x.cc  -fPIC -DPIC -o .libs/x.o
@@ -26,7 +26,7 @@ apt-get install build-essential
 apt-get install g++ -y
 
 #编译bochs过程:
-cd /crk/bochs/bochs/
+cd /bal/bochs/
 sh .conf.linux
 make
 
@@ -45,7 +45,7 @@ make
 #  :%!grep execve cfg.linux.log
 
 
-/crk/bochs/bochs/bochs --help
+/bal/bochs/bochs --help
 """
 00000000000i[      ] LTDL_LIBRARY_PATH not set. using compile time default '/usr/local/lib/bochs/plugins'
 ========================================================================
@@ -72,6 +72,6 @@ bochsrc section in the user documentation or the man page of bochsrc.
 00000000000i[SIM   ] quit_sim called with exit code 0
 
 """
-ls -lh /crk/bochs/bochs/bochs
--rwxrwxr-x 1 z z 4.5M 10月 28 16:06 /crk/bochs/bochs/bochs
+ls -lh /bal/bochs/bochs
+-rwxrwxr-x 1 z z 4.5M 10月 28 16:06 /bal/bochs/bochs
 
