@@ -85,7 +85,7 @@ SHELL = @SHELL@
 CC = @CC@
 CXX = @CXX@
 CFLAGS = @CFLAGS@ @GUI_CFLAGS@ $(MCH_CFLAGS) $(FLA_FLAGS) @DEFINE_PLUGIN_PATH@ -DBX_SHARE_PATH='"$(sharedir)"'
-CXXFLAGS = -I/pubx/fmt/include/ @CXXFLAGS@ @GUI_CXXFLAGS@ $(MCH_CFLAGS) $(FLA_FLAGS) @DEFINE_PLUGIN_PATH@ -DBX_SHARE_PATH='"$(sharedir)"'
+CXXFLAGS = -I/bal/fmtlib-fmt/include/ @CXXFLAGS@ @GUI_CXXFLAGS@ $(MCH_CFLAGS) $(FLA_FLAGS) @DEFINE_PLUGIN_PATH@ -DBX_SHARE_PATH='"$(sharedir)"'
 CPPFLAGS = @CPPFLAGS@
 
 LDFLAGS = @LDFLAGS@
@@ -150,7 +150,7 @@ EXTERN_ENVIRONMENT_OBJS = \
 	config.o \
 	pc_system.o
 
-FMT_LIB   = /pubx/fmt/build/libfmt.a
+FMT_LIB   = /bal/fmtlib-fmt/build/libfmt.a
 DEBUGGER_LIB   = bx_debug/libdebug.a
 INSTRUMENT_LIB = @INSTRUMENT_DIR@/libinstrument.a
 FPU_LIB        = cpu/fpu/libfpu.a
