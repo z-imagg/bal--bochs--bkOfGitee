@@ -322,7 +322,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 //  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
 //   ;
 
-  BX_INFO( ("记录funcId:%d,0x%x;",  funcId,funcId) );
+  BX_INFO( ("记录funcId:%d,0x%x;EIP=0x%x;",  funcId,funcId,EIP) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
