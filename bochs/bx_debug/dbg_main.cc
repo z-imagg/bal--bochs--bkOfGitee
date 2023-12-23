@@ -1123,7 +1123,7 @@ void bx_dbg_info_segment_regs_command(void)
       global_sreg.base, (unsigned) global_sreg.limit);
 }
 
-void bx_dbg_info_registers_command(int which_regs_mask)
+void bx_dbg_info_registers_command(int which_regs_mask)//bochsdbg源码中 对命令reg的处理代过程
 {
   bx_address reg;
 
@@ -1148,8 +1148,8 @@ void bx_dbg_info_registers_command(int which_regs_mask)
     dbg_printf("esi: 0x%08x %d\n", (unsigned) reg, (int) reg);
     reg = BX_CPU(dbg_cpu)->get_reg32(BX_32BIT_REG_EDI);
     dbg_printf("edi: 0x%08x %d\n", (unsigned) reg, (int) reg);
-    reg = bx_dbg_get_eip();
-    dbg_printf("eip: 0x%08x\n", (unsigned) reg);
+    reg = bx_dbg_get_eip();//变量reg 即函数bx_dbg_get_eip()的返回值 就是bochs源码对eip的表示
+    dbg_printf("eip: 0x%08x\n", (unsigned) reg);//展示"eip:xxx"的代码
 #else
     reg = BX_CPU(dbg_cpu)->get_reg64(BX_64BIT_REG_RAX);
     dbg_printf("rax: %08x_%08x\n", GET32H(reg), GET32L(reg));
@@ -1184,7 +1184,7 @@ void bx_dbg_info_registers_command(int which_regs_mask)
     reg = BX_CPU(dbg_cpu)->get_reg64(BX_64BIT_REG_R15);
     dbg_printf("r15: %08x_%08x\n", GET32H(reg), GET32L(reg));
     reg = bx_dbg_get_rip();
-    dbg_printf("rip: %08x_%08x\n", GET32H(reg), GET32L(reg));
+    dbg_printf("rip: %08x_%08x\n", GET32H(reg), GET32L(reg));//展示"rip:xxx"的代码
 #if BX_SUPPORT_CET
     if (BX_CPU(dbg_cpu)->is_cpu_extension_supported(BX_ISA_CET)) {
       reg = BX_CPU(dbg_cpu)->get_ssp();
@@ -1367,7 +1367,7 @@ void bx_dbg_vmexitbp_command()
 }
 
 bool bx_dbg_read_linear(unsigned which_cpu, bx_address laddr, unsigned len, Bit8u *buf)
-{
+{//读取 从 地址laddr(类似eip) 开始的 len个字节 到目的变量 buf中.  由此可知 形如 read_linear 的名字 就是 读取 地址(类似eip) 处的内容的.
   unsigned remainsInPage;
   bx_phy_address paddr;
   unsigned read_len;
@@ -3046,13 +3046,13 @@ void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
       dis_size = 64;
   }
 
-  do {
+  do {//反编译循环. 循环体 一次只反编译一条指令. 本段注释, 否定了 固有想法 即 "一定形如arrByte[EIP]的样式来获取下一条指令和下下一条指令", 也否定了 fetch32Decode 也不能 用来 获取下一条指令和下下一条指令;  但又间接的发现了 名如*read_linear的函数们 是 可以 获取下一条指令和下下一条指令
     numlines--;
 
-    if (! bx_dbg_read_linear(dbg_cpu, from, 16, bx_disasm_ibuf)) break;
+    if (! bx_dbg_read_linear(dbg_cpu, from, 16, bx_disasm_ibuf)) break;//从地址from(类似eip)处读取16*2个字节到全局变量bx_disasm_ibuf中, x86 cpu 一条指令短于16*2个字节, 故此相当于读取一条指令到全局变量bx_disasm_ibuf中. 每次只读取了 若干个指令 覆盖地放到 只有32个字节的 全局变量bx_disasm_ibuf 中.       因此 不存在一个 大容量字节数组arrByte 存放了 当前指令附近的足够多的指令们, 故而 不可能 能写出 形如arrByte[EIP]的简单样式 来获取到下一条指令.  但是 本行的 read_linear 意思 显然是 读_线性地址, 猜想作者用词风格 可能是有 大量 名字形如 *read_linear 的函数 . 搜索 *read_linear, 确实有很多这样的函数.  由此 在 funcId汇编的jmp指令处 , 要 拿到下一条指令和下下一条指令 (即 拿到 or标记指令和存放funcId的or指令)    是需要调用函数  *read_linear 的.
 
     unsigned ilen = bx_dbg_disasm_wrapper(dis_size==32, dis_size==64,
-       0/*(bx_address)(-1)*/, from/*(bx_address)(-1)*/, bx_disasm_ibuf, bx_disasm_tbuf);
+       0/*(bx_address)(-1)*/, from/*(bx_address)(-1)*/, bx_disasm_ibuf, bx_disasm_tbuf);//反编译一条指令bx_disasm_ibuf 到 文本全局变量 bx_disasm_tbuf 中. 感觉此时不需要 传 地址from(类似eip). 本行最终调用了fetchDecode32来取指令的. 因此 大胆猜测  fetchDecode32 只是用来 翻译   刚已取到的 并 放在全局变量bx_disasm_ibuf 中的 指令.  所以 fetchDecode32 只是 Decode 并没有fetch的作用,  即 fetchDecode32 并不能 用来  拿到下一条指令和下下一条指令. 
 
     const char *Sym=bx_dbg_disasm_symbolic_address(from, 0);
 
@@ -3064,7 +3064,7 @@ void bx_dbg_disassemble_command(const char *format, Bit64u from, Bit64u to)
       dbg_printf("%02x", (unsigned) bx_disasm_ibuf[j]);
     dbg_printf("\n");
 
-    from += ilen;
+    from += ilen;//继续下次循环体. ilen应该是指令长度.
   } while ((from < to) && numlines > 0);
 }
 
@@ -4008,7 +4008,7 @@ Bit16u bx_dbg_get_ip(void)
   return BX_CPU(dbg_cpu)->get_ip();
 }
 
-Bit32u bx_dbg_get_eip(void)
+Bit32u bx_dbg_get_eip(void)//函数bx_dbg_get_eip()的返回值 就是bochs源码对eip的表示
 {
   return BX_CPU(dbg_cpu)->get_eip();
 }

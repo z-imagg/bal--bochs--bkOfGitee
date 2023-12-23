@@ -324,7 +324,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::SLDT_Ew(bxInstruction_c *i)
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
-{
+{//str指令(save保存 任务状态寄存器TR). 指令模拟函数STR_Ew（即TR保存） 已加日志 
   if (! protected_mode()) {
     BX_ERROR(("STR: not recognized in real or virtual-8086 mode"));
     exception(BX_UD_EXCEPTION, 0);
@@ -353,22 +353,28 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
   if (i->modC0()) {
     if (i->os32L()) {
       BX_WRITE_32BIT_REGZ(i->dst(), val16);
+      //记录日志:
+      BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到32位寄存器0x%d " ,val16,i->dst()));
     }
     else {
       BX_WRITE_16BIT_REG(i->dst(), val16);
+      //记录日志:
+      BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到16位寄存器0x%d " ,val16,i->dst()));
     }
   }
   else {
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     write_virtual_word(i->seg(), eaddr, val16);
+    //记录日志:
+    BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到 内存地址（段选择子0x%d,偏移量0x%x）处的字 " ,val16, i->seg(), eaddr));
   }
 
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
-{
+{//LLDT指令( 修改(加载Load) 局部描述符表LDT 寄存器). 指令模拟函数LLDT_Ew（即修改LLDT寄存器） 已加日志 
   /* protected mode */
   bx_descriptor_t  descriptor;
   bx_selector_t    selector;
@@ -407,6 +413,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     raw_selector = read_virtual_word(i->seg(), eaddr);
+  // BX_INFO(("记录日志;模拟指令LLDT;LLDT_Ew;eaddr:0x%x;", eaddr));
   }
 
   /* if selector is NULL, invalidate and done */
@@ -468,11 +475,17 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
   BX_CPU_THIS_PTR ldtr.cache = descriptor;
   BX_CPU_THIS_PTR ldtr.cache.valid = SegValidCache;
 
+  Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
+  Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
+  std::string ldtr_selector_json_text=BX_CPU_THIS->selector_json_text(&(BX_CPU_THIS_PTR ldtr.selector));
+  std::string ldtr_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&(BX_CPU_THIS_PTR ldtr.cache));
+  BX_INFO(("记录日志;模拟指令LLDT;LLDT_Ew;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,ldtr_selector_json_text:0x%x, ,ldtr_descriptor_json_text:0x%x;", (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
+
   BX_NEXT_INSTR(i);
 }
 
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
-{
+{//LTR指令 ( 修改(load加载) 任务状态寄存器TR ). 指令模拟函数LTR_Ew（即修改TR） 已加日志 
   bx_descriptor_t descriptor;
   bx_selector_t selector;
   Bit16u raw_selector;
@@ -510,6 +523,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     raw_selector = read_virtual_word(i->seg(), eaddr);
+  // BX_INFO(("记录日志;模拟指令LTR;LTR_Ew;此行在区;此行内容;EIP:0x%x,eaddr:0x%x;", EIP, eaddr));
+
   }
 
   /* if selector is NULL, invalidate and done */
@@ -572,10 +587,13 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     }
   }
 #endif
-
-  BX_CPU_THIS_PTR tr.selector = selector;
-  BX_CPU_THIS_PTR tr.cache    = descriptor;
+//以下两行，疑似任务切换
+  BX_CPU_THIS_PTR tr.selector = selector;//修改tr.selector即 TR指向的TSS选择子
+  BX_CPU_THIS_PTR tr.cache    = descriptor;//修改tr.cache即 TR指向的TSS描述符 （TR指向的TSS选择子   指向此TSS描述符）
   BX_CPU_THIS_PTR tr.cache.valid = SegValidCache;
+  std::string tss_selector_json_text=BX_CPU_THIS -> selector_json_text(&(BX_CPU_THIS_PTR tr.selector));
+  std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&(BX_CPU_THIS_PTR tr.cache));
+
   // tr.cache.type should not have busy bit, or it would not get
   // through the conditions above.
   BX_ASSERT((BX_CPU_THIS_PTR tr.cache.type & 2) == 0);
@@ -586,6 +604,11 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
     dword2 |= 0x0200; /* set busy bit */
     system_write_dword(BX_CPU_THIS_PTR gdtr.base + selector.index*8 + 4, dword2);
   }
+
+  Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
+  Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
+  BX_INFO(("记录日志;模拟指令LTR(修改 任务状态寄存器TR);LTR_Ew;此行在区;此行内容;tss_selector_json_text=%s,tss_descriptor_json_text=%s,cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x;",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP));
+
 
   BX_NEXT_INSTR(i);
 }
@@ -824,7 +847,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::SIDT_Ms(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGDT_Ms(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGDT_Ms(bxInstruction_c *i)//模拟 指令LGDT
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
@@ -855,6 +878,11 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGDT_Ms(bxInstruction_c *i)
 
   BX_CPU_THIS_PTR gdtr.limit = limit_16;
   BX_CPU_THIS_PTR gdtr.base = base_32;
+  
+  Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
+  Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
+  BX_INFO(("记录日志;模拟指令LGDT;LGDT_Ms;此行在区;此行内容;cpu_mode:%d,_CS_selector_value:0x%x,_CS_selector_index:0x%x,EIP:0x%x,eaddr:0x%x,base_32:0x%x,limit_16:0x%x;",BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP,eaddr,base_32, limit_16));
+
 
   BX_NEXT_INSTR(i);
 }

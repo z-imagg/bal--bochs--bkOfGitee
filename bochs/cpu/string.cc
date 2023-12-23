@@ -813,7 +813,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CMPSQ32_XqYq(bxInstruction_c *i)
   Bit32u esi = ESI;
   Bit32u edi = EDI;
 
-  op1_64 = read_linear_qword(i->seg(), get_laddr64(i->seg(), esi));
+  op1_64 = read_linear_qword(i->seg(), get_laddr64(i->seg(), esi));//比如这里,给定 段选择子 和 地址(类似eip) ,读取8个字节
   op2_64 = read_linear_qword(BX_SEG_REG_ES, edi);
 
   diff_64 = op1_64 - op2_64;

@@ -90,12 +90,12 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::POP32_Sw(bxInstruction_c *i)
 
   if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b) {
     selector = stack_read_word(ESP);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[i->dst()], selector);
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[i->dst()], selector);//如果修改的是CS（即如果i->dst()==CS），则记录一条日志
     ESP += 4;
   }
   else {
     selector = stack_read_word(SP);
-    load_seg_reg(&BX_CPU_THIS_PTR sregs[i->dst()], selector);
+    load_seg_reg(&BX_CPU_THIS_PTR sregs[i->dst()], selector);//如果修改的是CS（即如果i->dst()==CS），则记录一条日志
     SP += 4;
   }
 

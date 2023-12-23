@@ -62,7 +62,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::UndefinedOpcode(bxInstruction_c *i)
   BX_NEXT_TRACE(i); // keep compiler happy
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::NOP(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::NOP(bxInstruction_c *i)//模拟 指令 NOP
 {
   // No operation.
 

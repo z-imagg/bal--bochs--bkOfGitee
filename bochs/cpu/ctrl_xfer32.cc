@@ -107,7 +107,7 @@ void BX_CPU_C::jmp_far32(bxInstruction_c *i, Bit16u cs_raw, Bit32u disp32)
                       BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value, EIP);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RET指令
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
@@ -143,10 +143,11 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)
 
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_RET, PREV_RIP, EIP);
 
+  BX_INFO( ("log__RETnear32_Iw;EIP:0x%x", EIP) );
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET指令
 {
   invalidate_prefetch_q();
 
@@ -180,6 +181,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)
       ESP += imm16;
     else
        SP += imm16;
+
+    //记录一行日志, EIP、cs_raw
+    BX_INFO(( "记录日志_指令模拟函数RETfar32_Iw;EIP=0x%x;cs_raw=0x%x", EIP, cs_raw ));
   }
 
   RSP_COMMIT;
@@ -216,7 +220,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL_Jd(bxInstruction_c *i)
   BX_LINK_TRACE(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL32_Ap(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL32_Ap(bxInstruction_c *i)//模拟call指令
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
@@ -270,8 +274,60 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL32_Ep(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
+void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
+
+  //取得 当前指令 紧挨着的 4个字节
+  Bit32u or1_instr_appendByte=BX_CPU_THIS->read_linear_dword (instr->seg(),EIP);
+  //取得 当前指令地址+3字节 紧挨着的 8个字节
+  Bit64u or2_instr_appendWord=BX_CPU_THIS->read_linear_qword (instr->seg(),EIP+3);
+
+  //funcId汇编 含有三条指令: 短jmp, 标记or1, 存funcId的or2
+  
+  //当前正在执行指令 一条jmp指令,但不确定该jmp后的两条指令  是否为 or1 or2.
+  
+  //取得 当前指令 紧挨着的 3个字节(称为 疑似or1), 待判定 其  是否为 funcId汇编 中的 标记or1 指令
+  Bit32u or1_instr = or1_instr_appendByte & 0x00FFFFFF;
+  
+  //取得 当前指令+3字节 紧挨着的 8个字节 中的 6个字节(称为 疑似or2), 待判定 其  是否为 funcId汇编 中的 存funcId的or2 指令
+  Bit64u or2_instr = or2_instr_appendWord & 0x0000ffFFffFFffFF;
+
+  // 存 疑似or2的 操作码
+  Bit64u or2_instr_opcode = or2_instr &     0x000000000000ffFF;
+
+
+  // 标记or1 常量
+  const Bit32u FuncIdAsm_Or1Instr =  0xffcf83;
+  // or2操作码 常量
+  const Bit32u FuncIdAsm_Or2Instr_Opcode =  0xcf81;
+
+  // 若 疑似or1 不是 or1 , 则结束处理
+  if(FuncIdAsm_Or1Instr!=or1_instr){
+    return;
+  }
+
+  // 若 疑似or2的 操作码 不是 or2操作码 , 则结束处理
+  if(FuncIdAsm_Or2Instr_Opcode!=or2_instr_opcode){
+    return;
+  }
+
+  //or2指令 中提取 funcId , 请 参考: https://gitcode.net/crk/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
+
+  Bit64u fId = (or2_instr & 0x0000ffFFffFF0000)>>(8*2);
+
+  //fId:0x78563412, 则funcId:0x12345678
+  Bit32u funcId = fId;
+//    ( (fId & 0x000000FF)>>(8*0)<<(8*3) )  //外层圆括号不可以丢掉, 否则运算符优先级不是预期的.
+//  + ( (fId & 0x0000FF00)>>(8*1)<<(8*2) )
+//  + ( (fId & 0x00FF0000)>>(8*2)<<(8*1) )
+//  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
+//   ;
+
+  BX_INFO( ("记录funcId:%d,0x%x;",  funcId,funcId) );
+
+}
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
 {
+  logXv6X86FuncId(i);
   Bit32u new_EIP = EIP + (Bit32s) i->Id();
   branch_near32(new_EIP);
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_JMP, PREV_RIP, new_EIP);
@@ -503,6 +559,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Ap(bxInstruction_c *i)
   cs_raw = i->Iw2();
 
   jmp_far32(i, cs_raw, disp32);
+  //指令JMP_Ap模拟函数, 记录一条日志
 
   BX_NEXT_TRACE(i);
 }
@@ -529,11 +586,12 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP32_Ep(bxInstruction_c *i)
   Bit16u cs_raw = read_virtual_word (i->seg(), (eaddr+4) & i->asize_mask());
 
   jmp_far32(i, cs_raw, op1_32);
+  //记录一条日志
 
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指令
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
@@ -566,7 +624,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)
   RSP_SPECULATIVE;
 
   if (protected_mode()) {
-    iret_protected(i);
+    iret_protected(i);//iret_protected只被 指令模拟函数 IRET32 调用过一次，因此iret_protected中的三种情况可以分别记录一条日志
   }
   else {
     if (v8086_mode()) {
@@ -587,6 +645,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)
       load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);
       EIP = eip;
       writeEFlags(eflags32, 0x00257fd5); // VIF, VIP, VM unchanged
+      
+      //记录一行日志, EIP、cs_raw
+      BX_INFO(( "记录日志_指令模拟函数IRET32;EIP=0x%x;cs_raw=0x%x", EIP, cs_raw ));
     }
   }
 

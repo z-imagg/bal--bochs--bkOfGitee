@@ -35,7 +35,7 @@ BX_CPP_INLINE void BX_CPP_AttrRegparmN(1) BX_CPU_C::branch_near16(Bit16u new_IP)
     exception(BX_GP_EXCEPTION, 0);
   }
 
-  EIP = new_IP;
+  EIP = new_IP;//分支指令(call、jmp、loop等): 用目标地址 覆盖EIP
 
 #if BX_SUPPORT_HANDLERS_CHAINING_SPEEDUPS == 0
   // assert magic async_event to stop trace execution
@@ -105,7 +105,7 @@ void BX_CPU_C::jmp_far16(bxInstruction_c *i, Bit16u cs_raw, Bit16u disp16)
                       BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value, EIP);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear16_Iw(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear16_Iw(bxInstruction_c *i)//模拟 ret指令
 {
   BX_ASSERT(BX_CPU_THIS_PTR cpu_mode != BX_MODE_LONG_64);
 
@@ -130,14 +130,14 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear16_Iw(bxInstruction_c *i)
     exception(BX_GP_EXCEPTION, 0);
   }
 
-  EIP = return_IP;
+  EIP = return_IP;//ret指令: 用返回地址覆盖EIP
 
   Bit16u imm16 = i->Iw();
 
   if (BX_CPU_THIS_PTR sregs[BX_SEG_REG_SS].cache.u.segment.d_b) /* 32bit stack */
-    ESP += imm16;
+    ESP += imm16;//ret指令: 弹栈
   else
-     SP += imm16;
+     SP += imm16;//ret指令: 弹栈
 
   RSP_COMMIT;
 
@@ -270,7 +270,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL16_Ep(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jw(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jw(bxInstruction_c *i)//模拟JMP指令
 {
   Bit16u new_IP = IP + i->Iw();
   branch_near16(new_IP);

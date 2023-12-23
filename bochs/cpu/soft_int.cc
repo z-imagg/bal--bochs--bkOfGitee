@@ -109,7 +109,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::INT3(bxInstruction_c *i)
 #endif
 
   // interrupt is not RSP safe
-  interrupt(3, BX_SOFTWARE_EXCEPTION, 0, 0);
+  interrupt(3, BX_SOFTWARE_EXCEPTION, 0, 0);//中断处理过程
 
   BX_INSTR_FAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_INT,
                       FAR_BRANCH_PREV_CS, FAR_BRANCH_PREV_RIP,
@@ -119,7 +119,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::INT3(bxInstruction_c *i)
 }
 
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::INT_Ib(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::INT_Ib(bxInstruction_c *i)//模拟 中断指令int
 {
   Bit8u vector = i->Ib();
 

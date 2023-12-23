@@ -67,7 +67,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::ADD_GbEbM(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::ADC_EbGbM(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::ADC_EbGbM(bxInstruction_c *i)//模拟指令ADC 内存样式
 {
   bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
 
@@ -82,7 +82,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::ADC_EbGbM(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::ADC_GbEbR(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::ADC_GbEbR(bxInstruction_c *i)//模拟指令ADC 寄存器样式
 {
   Bit32u op1 = BX_READ_8BIT_REGx(i->dst(), i->extend8bitL());
   Bit32u op2 = BX_READ_8BIT_REGx(i->src(), i->extend8bitL());
@@ -222,7 +222,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::SUB_GbEbM(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::CMP_EbGbM(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::CMP_EbGbM(bxInstruction_c *i)//模拟指令cmp 内存样式
 {
   bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
 
@@ -235,7 +235,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CMP_EbGbM(bxInstruction_c *i)
   BX_NEXT_INSTR(i);
 }
 
-void BX_CPP_AttrRegparmN(1) BX_CPU_C::CMP_GbEbR(bxInstruction_c *i)
+void BX_CPP_AttrRegparmN(1) BX_CPU_C::CMP_GbEbR(bxInstruction_c *i)//模拟指令cmp 寄存器样式
 {
   Bit32u op1_8 = BX_READ_8BIT_REGx(i->dst(), i->extend8bitL());
   Bit32u op2_8 = BX_READ_8BIT_REGx(i->src(), i->extend8bitL());

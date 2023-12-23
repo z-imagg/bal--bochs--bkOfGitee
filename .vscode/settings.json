@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.def": "cpp",
+        "set": "cpp",
+        "string": "cpp"
+    }
+}

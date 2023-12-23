@@ -73,7 +73,7 @@ struct BX_SMM_State
   Bit32u smbase;
   Bit32u smm_revision_id;
 
-  bx_address gen_reg[BX_GENERAL_REGISTERS];
+  bx_address gen_reg[BX_GENERAL_REGISTERS];//eip == (BX_CPU_THIS_PTR gen_reg[BX_32BIT_REG_EIP].dword.erx)
 
   bx_address rip;
   Bit32u eflags;
