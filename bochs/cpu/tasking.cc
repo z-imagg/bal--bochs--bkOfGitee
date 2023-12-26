@@ -465,7 +465,7 @@ void BX_CPU_C::task_switch(bxInstruction_c *i, bx_selector_t *tss_selector,
   BX_CPU_THIS_PTR tr.cache.type |= 2; // mark TSS in TR as busy
   std::string tss_selector_json_text=BX_CPU_THIS -> selector_json_text(tss_selector);
   std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(tss_descriptor);
-  BX_INFO(("json5日志名=xxx:task_switch#记录日志;{tss_selector_json_text:%s, tss_descriptor_json_text:%s}",tss_selector_json_text,tss_descriptor_json_text));
+  BX_INFO(("json5日志名=业务功能:task_switch#记录日志;{tss_selector_json_text:%s, tss_descriptor_json_text:%s}",tss_selector_json_text,tss_descriptor_json_text));
 
   // Step 9: Set TS flag in the CR0 image stored in the new task TSS.
   BX_CPU_THIS_PTR cr0.set_TS(1);
