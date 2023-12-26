@@ -143,7 +143,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RE
 
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_RET, PREV_RIP, EIP);
 
-  BX_INFO( ("log__RETnear32_Iw;EIP:0x%x", EIP) );
+  BX_INFO( ("json5日志名=RETnear32_Iw;{EIP:0x%x}", EIP) );
   BX_NEXT_TRACE(i);
 }
 
@@ -183,7 +183,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET
        SP += imm16;
 
     //记录一行日志, EIP、cs_raw
-    BX_INFO(( "记录日志_指令模拟函数RETfar32_Iw;EIP=0x%x;cs_raw=0x%x", EIP, cs_raw ));
+    BX_INFO(( "json5日志名=RETfar32_Iw;{EIP:0x%x,cs_raw:0x%x}", EIP, cs_raw ));
   }
 
   RSP_COMMIT;
@@ -645,9 +645,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指�
       load_seg_reg(&BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS], cs_raw);
       EIP = eip;
       writeEFlags(eflags32, 0x00257fd5); // VIF, VIP, VM unchanged
-      
+
       //记录一行日志, EIP、cs_raw
-      BX_INFO(( "记录日志_指令模拟函数IRET32;EIP=0x%x;cs_raw=0x%x", EIP, cs_raw ));
+      BX_INFO(( "json5日志名=IRET32;{EIP:0x%x,cs_raw:0x%x}", EIP, cs_raw ));
     }
   }
 
