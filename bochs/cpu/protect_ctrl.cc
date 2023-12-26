@@ -479,7 +479,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
   std::string ldtr_selector_json_text=BX_CPU_THIS->selector_json_text(&(BX_CPU_THIS_PTR ldtr.selector));
   std::string ldtr_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&(BX_CPU_THIS_PTR ldtr.cache));
-  BX_INFO(("json5日志名=LLDT_Ew#模拟指令LLDT【修改(加载Load)局部描述符表LDT寄存器】;{cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x, ldtr_selector_json_text:0x%x, ldtr_descriptor_json_text:0x%x}", (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
+  BX_INFO(("json5日志名=指令模拟函数:LLDT_Ew#模拟指令LLDT【修改(加载Load)局部描述符表LDT寄存器】;{cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x, ldtr_selector_json_text:0x%x, ldtr_descriptor_json_text:0x%x}", (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
 
   BX_NEXT_INSTR(i);
 }
@@ -607,7 +607,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
 
   Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
-  BX_INFO(("json5日志名=LTR_Ew#模拟指令LTR(修改 任务状态寄存器TR);{tss_selector_json_text:%s, tss_descriptor_json_text:%s, cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x}",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP));
+  BX_INFO(("json5日志名=指令模拟函数:LTR_Ew#模拟指令LTR(修改 任务状态寄存器TR);{tss_selector_json_text:%s, tss_descriptor_json_text:%s, cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x}",tss_selector_json_text.c_str(),tss_descriptor_json_text.c_str(), (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP));
 
 
   BX_NEXT_INSTR(i);
@@ -881,7 +881,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LGDT_Ms(bxInstruction_c *i)//模拟 指令
   
   Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
-  BX_INFO(("json5日志名=LGDT_Ms#模拟指令LGDT;{cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x, eaddr:0x%x, base_32:0x%x, limit_16:0x%x}",BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP,eaddr,base_32, limit_16));
+  BX_INFO(("json5日志名=指令模拟函数:LGDT_Ms#模拟指令LGDT;{cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x, eaddr:0x%x, base_32:0x%x, limit_16:0x%x}",BX_CPU_THIS_PTR cpu_mode,_CS_selector_value, _CS_selector_index, EIP,eaddr,base_32, limit_16));
 
 
   BX_NEXT_INSTR(i);
