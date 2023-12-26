@@ -416,7 +416,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指�
   }
 #endif
 
-  BX_INFO(("json5日志名=MOV_CR0Rd;{CRO:0x%x}",val_32));
+  BX_INFO(("json5日志名=MOV_CR0Rd#修改CR0;{CRO:0x%x}",val_32));
 
   BX_NEXT_TRACE(i);
 }
@@ -439,10 +439,10 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
     }
   }
 #endif
-
+  //注意此行是: this->cr2         = ... ; // 即修改cr2
   BX_CPU_THIS_PTR cr2 = BX_READ_32BIT_REG(i->src());
 
-  BX_INFO(("json5日志名=MOV_CR2Rd;{CR2:0x%x}",(BX_CPU_THIS_PTR cr2) ));
+  BX_INFO(("json5日志名=MOV_CR2Rd#修改CR2;{CR2:0x%x}",(BX_CPU_THIS_PTR cr2) ));
 
   BX_NEXT_INSTR(i);
 }
@@ -489,7 +489,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR3, val_32);
 
-  BX_INFO(("json5日志名=MOV_CR3Rd;{CR3:0x%x}",val_32));
+  BX_INFO(("json5日志名=MOV_CR3Rd#修改CR3;{CR3:0x%x}",val_32));
 
   BX_NEXT_TRACE(i);
 }
@@ -516,7 +516,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR4, val_32);
 #endif
 
-  BX_INFO(("json5日志名=MOV_CR4Rd;{CR4:0x%x}",val_32));
+  BX_INFO(("json5日志名=MOV_CR4Rd#修改CR4;{CR4:0x%x}",val_32));
 
   BX_NEXT_TRACE(i);
 }
