@@ -551,7 +551,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
-  BX_INFO(("指令模拟函数MOV_RdCR0日志,读取CR0（0x%x）到寄存器%d",val_32,i->dst()));
+  BX_INFO(( "json5日志名=MOV_RdCR0#读取CR0;{CR0:0x%x,'目的寄存器':%d}",val_32,i->dst() ));
 
   BX_NEXT_INSTR(i);
 }
@@ -573,7 +573,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), (Bit32u) BX_CPU_THIS_PTR cr2);
 
-  BX_INFO(("指令模拟函数MOV_RdCR2日志,读取CR2（0x%x）到寄存器%d",(Bit32u) BX_CPU_THIS_PTR cr2,i->dst()));
+  BX_INFO(("json5日志名=MOV_RdCR2#读取CR2;{CR2:0x%x,'目的寄存器':%d}",(Bit32u) BX_CPU_THIS_PTR cr2,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
@@ -602,7 +602,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
-  BX_INFO(("指令模拟函数MOV_RdCR3日志,读取CR3（0x%x）到寄存器%d",val_32,i->dst()));
+  BX_INFO(("json5日志名=MOV_RdCR3#读取CR3;{CR3:0x%x,'目的寄存器':%d}",val_32,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
@@ -628,7 +628,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 #endif
 
-  BX_INFO(("指令模拟函数MOV_RdCR4日志,读取CR4（0x%x）到寄存器%d",val_32,i->dst()));
+  BX_INFO(("json5日志名=MOV_RdCR4#读取CR4;{CR4:0x%x,'目的寄存器':%d}",val_32,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
