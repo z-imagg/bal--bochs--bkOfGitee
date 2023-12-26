@@ -479,7 +479,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
   std::string ldtr_selector_json_text=BX_CPU_THIS->selector_json_text(&(BX_CPU_THIS_PTR ldtr.selector));
   std::string ldtr_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&(BX_CPU_THIS_PTR ldtr.cache));
-  BX_INFO(("json5日志名=LLDT_Ew;{cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x, ldtr_selector_json_text:0x%x, ldtr_descriptor_json_text:0x%x}", (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
+  BX_INFO(("json5日志名=LLDT_Ew#模拟指令LLDT【修改(加载Load)局部描述符表LDT寄存器】;{cpu_mode:%d, _CS_selector_value:0x%x, _CS_selector_index:0x%x, EIP:0x%x, ldtr_selector_json_text:0x%x, ldtr_descriptor_json_text:0x%x}", (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
 
   BX_NEXT_INSTR(i);
 }
