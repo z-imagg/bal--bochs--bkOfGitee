@@ -97,7 +97,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     std::string link_selector_json_text=BX_CPU_THIS -> selector_json_text(&link_selector);
     std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&tss_descriptor);
     // json5日志名=IRET中断返回指令函数模拟内的部分逻辑:iret_protected;情况1_IRET_嵌套任务返回@{logName:'iret_protected',link_selector:%s, tss_descriptor:%s}
-    BX_INFO(("=IRET中断返回指令函数模拟内的部分逻辑:iret_protected;情况1_IRET_嵌套任务返回@{logName:'iret_protected',link_selector:%s, tss_descriptor:%s}",link_selector_json_text.c_str(),tss_descriptor_json_text.c_str()));
+    BX_INFO(("iret_protected, %s, %s",link_selector_json_text.c_str(), tss_descriptor_json_text.c_str()));
     return;
   }
 
@@ -185,7 +185,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     std::string cs_selector_json_text=BX_CPU_THIS -> selector_json_text(&cs_selector);
     std::string cs_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&cs_descriptor);
     // json5日志名=IRET中断返回指令函数模拟内的部分逻辑:iret_protected;情况2_同权级中断返回@{logName:'iret_protected',cs_selector:%s, cs_descriptor:%s, new_eip:0x%x}
-    BX_INFO(("=IRET中断返回指令函数模拟内的部分逻辑:iret_protected;情况2_同权级中断返回@{logName:'iret_protected',cs_selector:%s, cs_descriptor:%s, new_eip:0x%x}",cs_selector_json_text.c_str(),cs_descriptor_json_text.c_str(),new_eip));
+    BX_INFO(("iret_protected, %s, %s, 0x%x",cs_selector_json_text.c_str(), cs_descriptor_json_text.c_str(), new_eip));
 
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
     /* satisfied above */
@@ -338,7 +338,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     std::string ss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&ss_descriptor);
     //结束日志行.
     // json5日志名=IRET中断返回指令函数模拟内的部分逻辑:iret_protected;情况3_外权级中断返回@{logName:'iret_protected',cs_selector:%s, cs_descriptor:%s, new_eip:0x%x, ss_selector:%s, ss_descriptor:%s}
-    BX_INFO(("=IRET中断返回指令函数模拟内的部分逻辑:iret_protected;情况3_外权级中断返回@{logName:'iret_protected',cs_selector:%s, cs_descriptor:%s, new_eip:0x%x, ss_selector:%s, ss_descriptor:%s}",cs_selector_json_text.c_str(),cs_descriptor_json_text.c_str(),new_eip,ss_selector_json_text.c_str(),ss_descriptor_json_text.c_str()));
+    BX_INFO(("iret_protected, %s, %s, 0x%x, %s, %s",cs_selector_json_text.c_str(), cs_descriptor_json_text.c_str(), new_eip, ss_selector_json_text.c_str(),ss_descriptor_json_text.c_str()));
 
     if (ss_descriptor.u.segment.d_b)
       ESP = new_esp;
