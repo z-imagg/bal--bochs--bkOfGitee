@@ -417,6 +417,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指�
 #endif
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_CR0Rd#修改CR0;@{logName:'MOV_CR0Rd',CRO:0x%x}",val_32));
+  BX_INFO(("=指令模拟函数:MOV_CR0Rd#修改CR0;@{logName:'MOV_CR0Rd',CRO:0x%x}",val_32));
 
   BX_NEXT_TRACE(i);
 }
@@ -443,6 +444,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
   BX_CPU_THIS_PTR cr2 = BX_READ_32BIT_REG(i->src());
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_CR2Rd#修改CR2;@{logName:'MOV_CR2Rd',CR2:0x%x}",(BX_CPU_THIS_PTR cr2) ));
+  BX_INFO(("=指令模拟函数:MOV_CR2Rd#修改CR2;@{logName:'MOV_CR2Rd',CR2:0x%x}",(BX_CPU_THIS_PTR cr2) ));
 
   BX_NEXT_INSTR(i);
 }
@@ -490,6 +492,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR3, val_32);
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_CR3Rd#修改CR3;@{logName:'MOV_CR3Rd',CR3:0x%x}",val_32));
+  BX_INFO(("=指令模拟函数:MOV_CR3Rd#修改CR3;@{logName:'MOV_CR3Rd',CR3:0x%x}",val_32));
 
   BX_NEXT_TRACE(i);
 }
@@ -517,6 +520,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
 #endif
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_CR4Rd#修改CR4;@{logName:'MOV_CR4Rd',CR4:0x%x}",val_32));
+  BX_INFO(("=指令模拟函数:MOV_CR4Rd#修改CR4;@{logName:'MOV_CR4Rd',CR4:0x%x}",val_32));
 
   BX_NEXT_TRACE(i);
 }
@@ -552,6 +556,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
   BX_INFO(( "json5日志名=指令模拟函数:MOV_RdCR0#读取CR0;@{logName:'MOV_RdCR0',CR0:0x%x,'目的寄存器':%d}",val_32,i->dst() ));
+  BX_INFO(( "=指令模拟函数:MOV_RdCR0#读取CR0;@{logName:'MOV_RdCR0',CR0:0x%x,'目的寄存器':%d}",val_32,i->dst() ));
 
   BX_NEXT_INSTR(i);
 }
@@ -574,6 +579,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
   BX_WRITE_32BIT_REGZ(i->dst(), (Bit32u) BX_CPU_THIS_PTR cr2);
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_RdCR2#读取CR2;@{logName:'MOV_RdCR2',CR2:0x%x,'目的寄存器':%d}",(Bit32u) BX_CPU_THIS_PTR cr2,i->dst()));
+  BX_INFO(("=指令模拟函数:MOV_RdCR2#读取CR2;@{logName:'MOV_RdCR2',CR2:0x%x,'目的寄存器':%d}",(Bit32u) BX_CPU_THIS_PTR cr2,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
@@ -603,6 +609,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_RdCR3#读取CR3;@{logName:'MOV_RdCR3',CR3:0x%x,'目的寄存器':%d}",val_32,i->dst()));
+  BX_INFO(("=指令模拟函数:MOV_RdCR3#读取CR3;@{logName:'MOV_RdCR3',CR3:0x%x,'目的寄存器':%d}",val_32,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
@@ -629,6 +636,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
 #endif
 
   BX_INFO(("json5日志名=指令模拟函数:MOV_RdCR4#读取CR4;@{logName:'MOV_RdCR4',CR4:0x%x,'目的寄存器':%d}",val_32,i->dst()));
+  BX_INFO(("=指令模拟函数:MOV_RdCR4#读取CR4;@{logName:'MOV_RdCR4',CR4:0x%x,'目的寄存器':%d}",val_32,i->dst()));
 
   BX_NEXT_INSTR(i);
 }
