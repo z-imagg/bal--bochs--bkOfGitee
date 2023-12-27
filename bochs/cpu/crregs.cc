@@ -417,7 +417,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rd(bxInstruction_c *i)//模拟 指�
 #endif
 
   //前缀:"指令功能:指令名:指令描述"
-  //json5日志名 csv日志=指令模拟函数:MOV_CR0Rd:修改CR0,CRO
+  //csv日志=指令模拟函数:MOV_CR0Rd:修改CR0,CRO
   BX_INFO(("csv日志=指拟:MOV_CR0Rd:写CR0,0x%x",val_32));
 
   BX_NEXT_TRACE(i);
@@ -444,7 +444,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rd(bxInstruction_c *i)
   //注意此行是: this->cr2         = ... ; // 即修改cr2
   BX_CPU_THIS_PTR cr2 = BX_READ_32BIT_REG(i->src());
 
-  //json5日志名 csv日志=指令模拟函数:MOV_CR2Rd:修改CR2,CR2
+  //csv日志=指令模拟函数:MOV_CR2Rd:修改CR2,CR2
   BX_INFO(("指拟:MOV_CR2Rd:写CR2,0x%x",(BX_CPU_THIS_PTR cr2) ));
 
   BX_NEXT_INSTR(i);
@@ -492,7 +492,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rd(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR3, val_32);
 
-  //json5日志名 csv日志=指令模拟函数:MOV_CR3Rd:修改CR3,CR3
+  //csv日志=指令模拟函数:MOV_CR3Rd:修改CR3,CR3
   BX_INFO(("指拟:MOV_CR3Rd:写CR3,0x%x",val_32));
 
   BX_NEXT_TRACE(i);
@@ -520,7 +520,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rd(bxInstruction_c *i)
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR4, val_32);
 #endif
 
-  //json5日志名 csv日志=指令模拟函数:MOV_CR4Rd:修改CR4,CR4
+  //csv日志=指令模拟函数:MOV_CR4Rd:修改CR4,CR4
   BX_INFO(("指拟:MOV_CR4Rd:写CR4,0x%x",val_32));
 
   BX_NEXT_TRACE(i);
@@ -556,7 +556,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR0(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
-  //json5日志名 csv日志=指令模拟函数:MOV_RdCR0:读取CR0,CRO,目的寄存器
+  //csv日志=指令模拟函数:MOV_RdCR0:读取CR0,CRO,目的寄存器
   BX_INFO(( "指拟:MOV_RdCR0:读CR0,0x%x,%d",val_32,i->dst() ));
 
   BX_NEXT_INSTR(i);
@@ -579,7 +579,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR2(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), (Bit32u) BX_CPU_THIS_PTR cr2);
 
-  //json5日志名 csv日志=指令模拟函数:MOV_RdCR2:读取CR2,CR2,目的寄存器
+  //csv日志=指令模拟函数:MOV_RdCR2:读取CR2,CR2,目的寄存器
   BX_INFO(("指拟:MOV_RdCR2:读CR2,0x%x,%d",(Bit32u) BX_CPU_THIS_PTR cr2,i->dst()));
 
   BX_NEXT_INSTR(i);
@@ -609,7 +609,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR3(bxInstruction_c *i)
 
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 
-  //json5日志名 csv日志=指令模拟函数:MOV_RdCR3:读取CR3,CR3,目的寄存器
+  //csv日志=指令模拟函数:MOV_RdCR3:读取CR3,CR3,目的寄存器
   BX_INFO(("指拟:MOV_RdCR3:读CR3',0x%x,%d",val_32,i->dst()));
 
   BX_NEXT_INSTR(i);
@@ -636,7 +636,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RdCR4(bxInstruction_c *i)
   BX_WRITE_32BIT_REGZ(i->dst(), val_32);
 #endif
 
-  //json5日志名 csv日志=指令模拟函数:MOV_RdCR4:读取CR4,CR4,目的寄存器
+  //csv日志=指令模拟函数:MOV_RdCR4:读取CR4,CR4,目的寄存器
   BX_INFO(("指拟:MOV_RdCR4:读CR4,0x%x,%d",val_32,i->dst()));
 
   BX_NEXT_INSTR(i);

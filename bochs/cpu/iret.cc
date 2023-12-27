@@ -96,7 +96,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     //记录一条日志, 日志行的字段们： 选择子 link_selector、描述符 tss_descriptor
     std::string link_selector_json_text=BX_CPU_THIS -> selector_json_text(&link_selector);
     std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&tss_descriptor);
-    //json5日志名 csv日志=IRET中断返回指令函数模拟内的共用逻辑:iret_protected:@情况1_IRET_嵌套任务返回,link_selector_json_text,tss_descriptor_json_text
+    //csv日志=IRET中断返回指令函数模拟内的共用逻辑:iret_protected:@情况1_IRET_嵌套任务返回,link_selector_json_text,tss_descriptor_json_text
     BX_INFO(("返断程共逻:iret_protected:@嵌任返, %s, %s",link_selector_json_text.c_str(), tss_descriptor_json_text.c_str()));
     return;
   }
@@ -184,7 +184,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     //记录一条日志, 日志行的字段们 : cs选择子 cs_selector 、 代码段描述符 cs_descriptor、 新eip new_eip
     std::string cs_selector_json_text=BX_CPU_THIS -> selector_json_text(&cs_selector);
     std::string cs_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text(&cs_descriptor);
-    //json5日志名 csv日志=IRET中断返回指令函数模拟内的共用逻辑:iret_protected:@情况2_同权级中断返回,cs_selector_json_text,cs_descriptor_json_text
+    //csv日志=IRET中断返回指令函数模拟内的共用逻辑:iret_protected:@情况2_同权级中断返回,cs_selector_json_text,cs_descriptor_json_text
     BX_INFO(("返断程共逻:iret_protected:@同级返, %s, %s, 0x%x",cs_selector_json_text.c_str(), cs_descriptor_json_text.c_str(), new_eip));
 
     /* top 6/12 bytes on stack must be within limits, else #SS(0) */
@@ -344,7 +344,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
     比如: 
     函数分类:函数名:函数功能解释@在函数内的区域
     */
-    //json5日志名 csv日志=IRET中断返回指令函数模拟内的共用逻辑:iret_protected:@情况3_外权级中断返回,cs_selector_json_text,cs_descriptor_json_text,new_eip,ss_selector_json_text,ss_descriptor_json_text
+    //csv日志=IRET中断返回指令函数模拟内的共用逻辑:iret_protected:@情况3_外权级中断返回,cs_selector_json_text,cs_descriptor_json_text,new_eip,ss_selector_json_text,ss_descriptor_json_text
     BX_INFO(("返断程共逻:iret_protected:@外级返, %s, %s, 0x%x, %s, %s",cs_selector_json_text.c_str(), cs_descriptor_json_text.c_str(), new_eip, ss_selector_json_text.c_str(),ss_descriptor_json_text.c_str()));
 
     if (ss_descriptor.u.segment.d_b)

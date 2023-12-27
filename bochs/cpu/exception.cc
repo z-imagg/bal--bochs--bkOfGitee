@@ -373,7 +373,7 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
     // switch tasks with nesting to TSS
     task_switch(0, &tss_selector, &tss_descriptor,
                     BX_TASK_FROM_INT, dword1, dword2, push_error, error_code);
-  //json5日志名 csv日志=进入中断指令int处理过程(中断处理过程)中的共用函数:protected_mode_int:80286准保护模式@此行在x区, gate_descriptor.type, vector, soft_int, push_error, error_code, tss_selector.index, tss_descriptor.u.taskgate.tss_selector, tss_descriptor.type 
+  //csv日志=进入中断指令int处理过程(中断处理过程)中的共用函数:protected_mode_int:80286准保护模式@此行在x区, gate_descriptor.type, vector, soft_int, push_error, error_code, tss_selector.index, tss_descriptor.u.taskgate.tss_selector, tss_descriptor.type 
     BX_INFO(("入断程共逻:protected_mode_int:286准保@区%d, %d, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x", gate_descriptor.type, gate_descriptor.type, vector, soft_int, push_error, error_code, tss_selector.index, tss_descriptor.u.taskgate.tss_selector, tss_descriptor.type ));
 
     return;
@@ -719,7 +719,7 @@ void BX_CPU_C::protected_mode_int(Bit8u vector, bool soft_int, bool push_error, 
     BX_CPU_THIS_PTR clear_VM();
     BX_CPU_THIS_PTR clear_RF();
 
-    //json5日志名 csv日志=进入中断指令int处理过程(中断处理过程)中的共用函数:protected_mode_int:80286准保护模式@此行在x区, gate_descriptor.type, gate_descriptor.type, EIPorigin, vector, soft_int, push_error, error_code, cs_selector.index, cs_descriptor.u.gate.dest_selector, cs_descriptor.u.gate.dest_offset, cs_descriptor.type, EIP
+    //csv日志=进入中断指令int处理过程(中断处理过程)中的共用函数:protected_mode_int:80286准保护模式@此行在x区, gate_descriptor.type, gate_descriptor.type, EIPorigin, vector, soft_int, push_error, error_code, cs_selector.index, cs_descriptor.u.gate.dest_selector, cs_descriptor.u.gate.dest_offset, cs_descriptor.type, EIP
     BX_INFO(("入断程共逻:protected_mode_int:286准保@区%d, %d, 0x%lx, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%lx", gate_descriptor.type, gate_descriptor.type, EIPorigin, vector, soft_int, push_error, error_code, cs_selector.index, cs_descriptor.u.gate.dest_selector, cs_descriptor.u.gate.dest_offset, cs_descriptor.type, EIP ));
 
     return;
