@@ -274,7 +274,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
 
   //branch_far1 和 branch_far2 只有一个会执行
   std::string line_text= fmt::format(
-  "{};{};{};{};{}",
+  "L=指拟:return_protected:保返;{};{};{};{};{}",
   cs_selector_json_text,
   cs_descriptor_json_text,
   return_RIP,
@@ -282,7 +282,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   ss_descriptor_json_text
   );
    
-  BX_INFO(("log_return_protected:%s",line_text)); //打印日志
+  BX_INFO(("%s",line_text)); //打印日志
 }
 
 #if BX_SUPPORT_CET
