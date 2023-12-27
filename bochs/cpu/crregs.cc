@@ -669,7 +669,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR0Rq(bxInstruction_c *i)
     WriteCR8(i, val_64);
   }
 
-  BX_INFO(("64位指令模拟函数MOV_CR0Rq日志,修改CRO为0x%lx",val_64));
+  //csv日志=指令模拟函数:MOV_CR0Rq:修改CR0,新值
+  BX_INFO(("L=指拟:MOV_CR0Rq:写CR0,0x%lx",val_64));
 
   BX_NEXT_TRACE(i);
 }
@@ -699,7 +700,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR2Rq(bxInstruction_c *i)
 
   BX_CPU_THIS_PTR cr2 = BX_READ_64BIT_REG(i->src());
 
-  BX_INFO(("64位指令模拟函数MOV_CR2Rq日志,修改CR2为0x%lx",BX_CPU_THIS_PTR cr2));
+  //csv日志=指令模拟函数:MOV_CR2Rq:修改CR2,新值
+  BX_INFO(("L=指拟:MOV_CR2Rq:写CR2,0x%lx",BX_CPU_THIS_PTR cr2));
 
   BX_NEXT_INSTR(i);
 }
@@ -747,7 +749,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR3Rq(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR3, val_64);
 
-  BX_INFO(("64位指令模拟函数MOV_CR3Rq日志,修改CR3为0x%lx",val_64));
+  //csv日志=指令模拟函数:MOV_CR3Rq:修改CR3,新值
+  BX_INFO(("L=指拟:MOV_CR3Rq:写CR3,0x%lx",val_64));
 
   BX_NEXT_TRACE(i);
 }
@@ -776,7 +779,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_CR4Rq(bxInstruction_c *i)
 
   BX_INSTR_TLB_CNTRL(BX_CPU_ID, BX_INSTR_MOV_CR4, (Bit32u) val_64);
 
-  BX_INFO(("64位指令模拟函数MOV_CR4Rq日志,修改CR4为0x%lx",val_64));
+  //csv日志=指令模拟函数:MOV_CR4Rq:修改CR4,新值
+  BX_INFO(("L=指拟:MOV_CR4Rq:写CR4,0x%lx",val_64));
 
   BX_NEXT_TRACE(i);
 }
@@ -808,7 +812,8 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR0(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), val_64);
 
-  BX_INFO(("64位指令模拟函数MOV_RqCR0日志,读取CR0（0x%x）到寄存器%d",val_64,i->dst()));
+  //csv日志=指令模拟函数:MOV_RqCR0:读CR0,CR0,目的寄存器
+  BX_INFO( ("L=指拟:MOV_RqCR0:读CR0,0x%lx,%d",val_64,i->dst()) );
 
   BX_NEXT_INSTR(i);
 }
@@ -834,7 +839,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR2(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), BX_CPU_THIS_PTR cr2);
 
-  BX_INFO(("64位指令模拟函数MOV_RqCR2日志,读取CR2（0x%x）到寄存器%d",(BX_CPU_THIS_PTR cr2),i->dst()));
+
+  //csv日志=指令模拟函数:MOV_RqCR2:读CR2,CR2,目的寄存器
+  BX_INFO( ("L=指拟:MOV_RqCR2:读CR2,0x%lx,%d",(BX_CPU_THIS_PTR cr2),i->dst()) );
 
   BX_NEXT_INSTR(i);
 }
@@ -865,7 +872,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR3(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), BX_CPU_THIS_PTR cr3);
 
-  BX_INFO(("64位指令模拟函数MOV_RqCR3日志,读取CR3（0x%x）到寄存器%d",BX_CPU_THIS_PTR cr3,i->dst()));
+
+  //csv日志=指令模拟函数:MOV_RqCR3:读CR3,CR3,目的寄存器
+  BX_INFO( ("L=指拟:MOV_RqCR3:读CR3,0x%lx,%d",(BX_CPU_THIS_PTR cr3),i->dst()) );
 
   BX_NEXT_INSTR(i);
 }
@@ -893,7 +902,9 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::MOV_RqCR4(bxInstruction_c *i)
 
   BX_WRITE_64BIT_REG(i->dst(), val_64);
 
-  BX_INFO(("64位指令模拟函数MOV_RqCR4日志,读取CR4（0x%x）到寄存器%d",val_64,i->dst()));
+
+  //csv日志=指令模拟函数:MOV_RqCR4:读CR4,CR4,目的寄存器
+  BX_INFO( ("L=指拟:MOV_RqCR4:读CR4,0x%lx,%d",val_64,i->dst()) );
 
   BX_NEXT_INSTR(i);
 }

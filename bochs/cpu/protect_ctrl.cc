@@ -353,21 +353,21 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::STR_Ew(bxInstruction_c *i)
   if (i->modC0()) {
     if (i->os32L()) {
       BX_WRITE_32BIT_REGZ(i->dst(), val16);
-      //记录日志:
-      BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到32位寄存器0x%d " ,val16,i->dst()));
+      //记录日志: //csv日志=指令模拟函数:STR_Ew:保存TR到目的寄存器,TR,目的寄存器
+      BX_INFO(( "指模:STR_Ew#32:存TR,0x%x,0x%d" ,val16,i->dst()));
     }
     else {
       BX_WRITE_16BIT_REG(i->dst(), val16);
-      //记录日志:
-      BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到16位寄存器0x%d " ,val16,i->dst()));
+      //记录日志: //csv日志=指令模拟函数:STR_Ew:保存TR到目的寄存器,TR,目的寄存器
+      BX_INFO(( "指模:STR_Ew#16:存TR,0x%x,0x%d" ,val16,i->dst()));
     }
   }
   else {
     bx_address eaddr = BX_CPU_RESOLVE_ADDR(i);
     /* pointer, segment address pair */
     write_virtual_word(i->seg(), eaddr, val16);
-    //记录日志:
-    BX_INFO(( "指令模拟函数STR_Ew日志,TR中的选择子为0x%x 保存到 内存地址（段选择子0x%d,偏移量0x%x）处的字 " ,val16, i->seg(), eaddr));
+      //记录日志: //csv日志=指令模拟函数:STR_Ew:保存TR到目的内存字,TR,目的内存段选择子,目的内存段内偏移量
+    BX_INFO(( "指模:STR_Ew#mem:存TR,0x%x,0x%d,0x%x " ,val16, i->seg(), eaddr));
   }
 
   BX_NEXT_INSTR(i);
