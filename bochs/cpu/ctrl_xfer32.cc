@@ -144,7 +144,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RE
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_RET, PREV_RIP, EIP);
 
   //csv日志=指令模拟函数:RETnear32_Iw:近32位返回,EIP
-  BX_INFO( ("指拟:RETnear32_Iw:近32返,0x%x", EIP) );
+  BX_INFO( ("csv日志=指拟:RETnear32_Iw:近32返,0x%x", EIP) );
   BX_NEXT_TRACE(i);
 }
 
@@ -185,7 +185,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET
 
     //记录一行日志, EIP、cs_raw
   //csv日志=指令模拟函数:RETfar32_Iw:远32位返回,EIP,cs_raw
-    BX_INFO(( "指拟:RETfar32_Iw:远32返,0x%x,0x%x", EIP, cs_raw ));
+    BX_INFO(( "csv日志=指拟:RETfar32_Iw:远32返,0x%x,0x%x", EIP, cs_raw ));
   }
 
   RSP_COMMIT;
@@ -325,7 +325,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 //   ;
 
   //csv日志=函数调用:funcIdEnter:clang插件标记的函数,fId,fId(十六进制),EIP
-  BX_INFO( ("函调:funcIdEnter:cl插件标函, %d, 0x%x, 0x%x",  funcId,funcId,EIP) );
+  BX_INFO( ("csv日志=函调:funcIdEnter:cl插件标函, %d, 0x%x, 0x%x",  funcId,funcId,EIP) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
@@ -651,7 +651,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指�
 
       //记录一行日志, EIP、cs_raw
       //csv日志=指令模拟函数:IRET32:32位中断返回,EIP,cs_raw
-      BX_INFO(( "指拟:IRET32:32中返,0x%x,0x%x", EIP, cs_raw ));
+      BX_INFO(( "csv日志=指拟:IRET32:32中返,0x%x,0x%x", EIP, cs_raw ));
     }
   }
 
