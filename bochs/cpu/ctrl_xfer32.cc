@@ -143,7 +143,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RE
 
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_RET, PREV_RIP, EIP);
 
-  BX_INFO( ("json5日志名=指令模拟函数:RETnear32_Iw;@{logName:'RETnear32_Iw',EIP:0x%x}", EIP) );
+  // json5日志名=指令模拟函数:RETnear32_Iw;@{logName:'RETnear32_Iw',EIP:0x%x}
   BX_INFO( ("=指令模拟函数:RETnear32_Iw;@{logName:'RETnear32_Iw',EIP:0x%x}", EIP) );
   BX_NEXT_TRACE(i);
 }
@@ -184,7 +184,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET
        SP += imm16;
 
     //记录一行日志, EIP、cs_raw
-    BX_INFO(( "json5日志名=指令模拟函数:RETfar32_Iw;@{logName:'RETfar32_Iw',EIP:0x%x,cs_raw:0x%x}", EIP, cs_raw ));
+    // json5日志名=指令模拟函数:RETfar32_Iw;@{logName:'RETfar32_Iw',EIP:0x%x,cs_raw:0x%x}
     BX_INFO(( "=指令模拟函数:RETfar32_Iw;@{logName:'RETfar32_Iw',EIP:0x%x,cs_raw:0x%x}", EIP, cs_raw ));
   }
 
@@ -324,7 +324,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 //  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
 //   ;
 
-  BX_INFO( ("json5日志名=函数调用:funcIdEnter#fnIdByCanglPlg;@{logName:'funcIdEnter',fId:%d,fIdx:0x%x,EIP:0x%x}",  funcId,funcId,EIP) );
+  // json5日志名=函数调用:funcIdEnter#fnIdByCanglPlg;@{logName:'funcIdEnter',fId:%d,fIdx:0x%x,EIP:0x%x}
   BX_INFO( ("=函数调用:funcIdEnter#fnIdByCanglPlg;@{logName:'funcIdEnter',fId:%d,fIdx:0x%x,EIP:0x%x}",  funcId,funcId,EIP) );
 
 }
@@ -650,7 +650,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::IRET32(bxInstruction_c *i)//模拟IRET指�
       writeEFlags(eflags32, 0x00257fd5); // VIF, VIP, VM unchanged
 
       //记录一行日志, EIP、cs_raw
-      BX_INFO(( "json5日志名=指令模拟函数:IRET32;@{logName:'IRET32',EIP:0x%x,cs_raw:0x%x}", EIP, cs_raw ));
+      // json5日志名=指令模拟函数:IRET32;@{logName:'IRET32',EIP:0x%x,cs_raw:0x%x}
       BX_INFO(( "=指令模拟函数:IRET32;@{logName:'IRET32',EIP:0x%x,cs_raw:0x%x}", EIP, cs_raw ));
     }
   }
