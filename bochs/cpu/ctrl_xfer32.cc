@@ -131,6 +131,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RE
     BX_ERROR(("%s: offset outside of CS limits", i->getIaOpcodeNameShort()));
     exception(BX_GP_EXCEPTION, 0);
   }
+  Bit32u EIP_origin=EIP ;
   EIP = return_EIP;
 
   Bit16u imm16 = i->Iw();
@@ -144,7 +145,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETnear32_Iw(bxInstruction_c *i)//模拟RE
   BX_INSTR_UCNEAR_BRANCH(BX_CPU_ID, BX_INSTR_IS_RET, PREV_RIP, EIP);
 
   //csv日志=指令模拟函数:RETnear32_Iw:近32位返回;EIP
-  BX_INFO( ("L=指拟:RETnear32_Iw:近32返;0x%x", EIP) );
+  BX_INFO( ("L=指拟:RETnear32_Iw:近32返;0x%x;0x%x", EIP_origin,return_EIP) );
   BX_NEXT_TRACE(i);
 }
 
