@@ -63,7 +63,7 @@ typedef struct
 
   bool p;                /* present */
   Bit8u   dpl;           /* descriptor privilege level 0..3 */
-  bool segment;          /* 0 = system/gate, 1 = data/code segment */
+  bool segment;          /* 0 = system/gate, 1 = data/code segment : segment == 1 包含 数据段/代码段 ，TODO 待确认 segment == 1 也包含 栈段 吗？ 暂且认为 栈段 等同于 数据段 */
   Bit8u   type;          /* For system & gate descriptors:
                           *  0 = invalid descriptor (reserved)
                           *  1 = 286 available Task State Segment (TSS)
