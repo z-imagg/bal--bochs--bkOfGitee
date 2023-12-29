@@ -185,7 +185,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::RETfar32_Iw(bxInstruction_c *i)//模拟RET
        SP += imm16;
 
     //记录一行日志, EIP、cs_raw
-  //csv日志=指令模拟函数:RETfar32_Iw:远32位返回;EIP;cs_raw
+    //csv日志=指令模拟函数:RETfar32_Iw:远32位返回;EIP;cs_raw
     BX_INFO(( "L=指拟:RETfar32_Iw:远32返;0x%x;0x%x", EIP, cs_raw ));
   }
 
