@@ -325,8 +325,8 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 //  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
 //   ;
 
-  //csv日志=标记指令_标记进入标记:funcIdEnter:clang插件标记的函数;fId;fId(十六进制);EIP
-  BX_INFO( ("L=标函入:fnEnt:clPF; %d; 0x%x; 0x%x",  funcId,funcId,EIP) );
+  //csv日志=标记指令_函数进入标记:funcIdEnter:clang插件标记的函数;fId;fId(十六进制);EIP
+  BX_INFO( ("L=函入标:fnEnt:clPF; %d; 0x%x; 0x%x",  funcId,funcId,EIP) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
