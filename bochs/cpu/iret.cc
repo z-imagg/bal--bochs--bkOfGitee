@@ -78,7 +78,7 @@ BX_CPU_C::iret_protected(bxInstruction_c *i)
       exception(BX_TS_EXCEPTION, raw_link_selector & 0xfffc);
     }
     if (tss_descriptor.type != BX_SYS_SEGMENT_BUSY_286_TSS &&
-        tss_descriptor.type != BX_SYS_SEGMENT_BUSY_386_TSS)
+        tss_descriptor.type != BX_SYS_SEGMENT_BUSY_386_TSS)//描述符tss_descriptor类型为 BX_SYS_SEGMENT_BUSY_286_TSS 或 BX_SYS_SEGMENT_BUSY_386_TSS
     {
       BX_ERROR(("iret: TSS selector points to bad TSS"));
       exception(BX_TS_EXCEPTION, raw_link_selector & 0xfffc);
