@@ -463,8 +463,8 @@ void BX_CPU_C::task_switch(bxInstruction_c *i, bx_selector_t *tss_selector,
   BX_CPU_THIS_PTR tr.selector = *tss_selector;//修改tr.selector即 TR指向的TSS选择子
   BX_CPU_THIS_PTR tr.cache    = *tss_descriptor;//修改tr.cache即 TR指向的TSS描述符 （TR指向的TSS选择子   指向此TSS描述符）
   BX_CPU_THIS_PTR tr.cache.type |= 2; // mark TSS in TR as busy
-  std::string tss_selector_json_text=BX_CPU_THIS -> selector_json_text("tss_selector",tss_selector);
-  std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text("tss_descriptor",tss_descriptor);
+  std::string tss_selector_json_text=BX_CPU_THIS -> selector_json_text("tss_selt",tss_selector);
+  std::string tss_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text("tss_desc",tss_descriptor);
   //csv日志=大杂烩共有逻辑:task_switch:;tss_selector_json_text; tss_descriptor_json_text
   BX_INFO(("~L~=杂共逻:task_switch:; %s; %s",tss_selector_json_text, tss_descriptor_json_text));
 

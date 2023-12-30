@@ -477,7 +477,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LLDT_Ew(bxInstruction_c *i)
 
   Bit16u _CS_selector_value=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.value;
   Bit16u _CS_selector_index=BX_CPU_THIS_PTR sregs[BX_SEG_REG_CS].selector.index;
-  std::string ldtr_selector_json_text=BX_CPU_THIS->selector_json_text("ldtr.selector",&(BX_CPU_THIS_PTR ldtr.selector));
+  std::string ldtr_selector_json_text=BX_CPU_THIS->selector_json_text("ldtr.selt",&(BX_CPU_THIS_PTR ldtr.selector));
   std::string ldtr_descriptor_json_text=BX_CPU_THIS->descriptor_json_text("ldtr.cache",&(BX_CPU_THIS_PTR ldtr.cache));
   //csv日志=指令模拟函数:LLDT_Ew:修改(加载Load)局部描述符表LDT寄存器;cpu_mode;_CS_selector_value; _CS_selector_index; EIP; ldtr_selector_json_text;ldtr_descriptor_json_text
   BX_INFO(("~L~=指拟:LLDT_Ew:写LDT; %d; 0x%x; 0x%x; 0x%x; 0x%x; 0x%x"	, (BX_CPU_THIS_PTR cpu_mode),_CS_selector_value, _CS_selector_index, EIP, ldtr_selector_json_text.c_str(),ldtr_descriptor_json_text.c_str()));
@@ -592,7 +592,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::LTR_Ew(bxInstruction_c *i)
   BX_CPU_THIS_PTR tr.selector = selector;//修改tr.selector即 TR指向的TSS选择子
   BX_CPU_THIS_PTR tr.cache    = descriptor;//修改tr.cache即 TR指向的TSS描述符 （TR指向的TSS选择子   指向此TSS描述符）
   BX_CPU_THIS_PTR tr.cache.valid = SegValidCache;
-  std::string task_selector_json_text=BX_CPU_THIS -> selector_json_text("tr.selector",&(BX_CPU_THIS_PTR tr.selector));//TODO 等待确认 tr == task register 吧? 暂且认为是的
+  std::string task_selector_json_text=BX_CPU_THIS -> selector_json_text("tr.selt",&(BX_CPU_THIS_PTR tr.selector));//TODO 等待确认 tr == task register 吧? 暂且认为是的
   std::string task_descriptor_json_text=BX_CPU_THIS -> descriptor_json_text("tr.cache",&(BX_CPU_THIS_PTR tr.cache));//同上
 
   // tr.cache.type should not have busy bit, or it would not get
