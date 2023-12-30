@@ -443,7 +443,8 @@ std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t 
 
   if (desc->segment) { /* data/code segment descriptors 代码段/数据段 描述符*/
     return fmt::format(
-    "{{\"descTypNam\" : \"代码段|数据段\", \"{}^_desc->u.segment.base\" : \"0x{:X}\", \"{}^_desc->u.segment.limit_scaled\" : \"0x{:X}\", \"{}^_desc->u.segment.avl\" : \"0x{:X}\", \"{}^_desc->u.segment.g\" : \"0x{:X}\", \"{}^_desc->u.segment.d_b\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}",  
+    "{{\"{}^_descTypNam\" : \"代码段|数据段\", \"{}^_desc->u.segment.base\" : \"0x{:X}\", \"{}^_desc->u.segment.limit_scaled\" : \"0x{:X}\", \"{}^_desc->u.segment.avl\" : \"0x{:X}\", \"{}^_desc->u.segment.g\" : \"0x{:X}\", \"{}^_desc->u.segment.d_b\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}",  
+    descName,
     descName,desc->u.segment.base,
     descName,desc->u.segment.limit_scaled,
     descName,desc->u.segment.avl,
@@ -461,7 +462,8 @@ std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t 
         // param count only used for call gate
         
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_286_CALL_GATE|BX_286_INTERRUPT_GATE|BX_286_TRAP_GATE\", \"{}^_desc->u.gate.param_count\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_selector\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_offset\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        "{{\"{}^_descTypNam\" : \"BX_286_CALL_GATE|BX_286_INTERRUPT_GATE|BX_286_TRAP_GATE\", \"{}^_desc->u.gate.param_count\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_selector\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_offset\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,
         descName,desc->u.gate.param_count,
         descName,desc->u.gate.dest_selector,  
         descName,desc->u.gate.dest_offset,
@@ -475,7 +477,8 @@ std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t 
         // param count only used for call gate
 
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_386_CALL_GATE|BX_386_INTERRUPT_GATE|BX_386_TRAP_GATE\", \"{}^_desc->u.gate.param_count\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_selector\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_offset\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        "{{\"{}^_descTypNam\" : \"BX_386_CALL_GATE|BX_386_INTERRUPT_GATE|BX_386_TRAP_GATE\", \"{}^_desc->u.gate.param_count\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_selector\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_offset\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,
         descName,desc->u.gate.param_count,
         descName,desc->u.gate.dest_selector,
         descName,desc->u.gate.dest_offset,       
@@ -486,7 +489,8 @@ std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t 
       case BX_TASK_GATE://任务门
 
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_TASK_GATE\", \"{}^_desc->u.taskgate.tss_selector\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        "{{\"{}^_descTypNam\" : \"BX_TASK_GATE\", \"{}^_desc->u.taskgate.tss_selector\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,
         descName,desc->u.taskgate.tss_selector ,
         descName,desc->valid
         );
@@ -499,7 +503,8 @@ std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t 
       case BX_SYS_SEGMENT_BUSY_386_TSS:
         
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_SYS_SEGMENT_LDT|BX_SYS_SEGMENT_AVAIL_286_TSS|BX_SYS_SEGMENT_BUSY_286_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS\", \"{}^_desc->u.segment.base\" : \"0x{:X}\", \"{}^_desc->u.segment.limit_scaled\" : \"0x{:X}\", \"{}^_desc->u.segment.avl\" : \"0x{:X}\", \"{}^_desc->u.segment.g\" : \"0x{:X}\", \"{}^_desc->u.segment.d_b\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        "{{\"{}^_descTypNam\" : \"BX_SYS_SEGMENT_LDT|BX_SYS_SEGMENT_AVAIL_286_TSS|BX_SYS_SEGMENT_BUSY_286_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS\", \"{}^_desc->u.segment.base\" : \"0x{:X}\", \"{}^_desc->u.segment.limit_scaled\" : \"0x{:X}\", \"{}^_desc->u.segment.avl\" : \"0x{:X}\", \"{}^_desc->u.segment.g\" : \"0x{:X}\", \"{}^_desc->u.segment.d_b\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,
         descName,desc->u.segment.base,
         descName,desc->u.segment.limit_scaled,
         descName,desc->u.segment.avl, 
@@ -511,7 +516,8 @@ std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t 
 
       default: // reserved
         return fmt::format(
-        "{{\"descTypNam\" : \"default\",  \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        "{{\"{}^_descTypNam\" : \"default\",  \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,
         descName,desc->valid 
         );
         // break;
