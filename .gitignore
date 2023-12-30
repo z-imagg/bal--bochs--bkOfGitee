@@ -161,3 +161,5 @@ linux4-run_at_bochs/initramfs
 linux4-run_at_bochs/gen-*.bxrc
 linux4-run_at_bochs/initramfs-*.tar.gz
 linux4-run_at_bochs/bochsout.txt
+
+.vscode/

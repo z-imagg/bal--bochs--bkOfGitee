@@ -4766,7 +4766,7 @@ public: // for now...
 #endif
   BX_SMF void validate_seg_reg(unsigned seg);
   BX_SMF void validate_seg_regs(void);
-  BX_SMF std::string selector_json_text(bx_selector_t *selector);//仿照parse_selector写出描述符转json字符串
+  BX_SMF std::string selector_json_text(std::string segName,bx_selector_t *selector);//仿照parse_selector写出描述符转json字符串
   BX_SMF void stack_return_to_v86(Bit32u new_eip, Bit32u raw_cs_selector, Bit32u flags32);
   BX_SMF void iret16_stack_return_from_v86(bxInstruction_c *);
   BX_SMF void iret32_stack_return_from_v86(bxInstruction_c *);

@@ -277,15 +277,15 @@ void BX_CPU_C::validate_seg_regs(void)
   validate_seg_reg(BX_SEG_REG_FS);
   validate_seg_reg(BX_SEG_REG_GS);
 }
-std::string BX_CPU_C::selector_json_text(bx_selector_t *selector)//仿照parse_selector写出描述符转json文本
+std::string BX_CPU_C::selector_json_text(std::string segName,bx_selector_t *selector)//仿照parse_selector写出描述符转json文本
 {
   //libfmt syntax ref: https://fmt.dev/latest/syntax.html
   std::string json_text=fmt::format(
-  "{{\"selector_value\":\"0x{:X}\", \"selector_index\":\"0x{:X}\", \"selector_ti\":\"0x{:X}\", \"selector_rpl\":\"0x{:X}\"}}", 
-  selector->value,
-  selector->index,
-  selector->ti,
-  selector->rpl
+  "{{\"{}^_selector->value\":\"0x{:X}\", \"{}^_selector->index\":\"0x{:X}\", \"{}^_selector->ti\":\"0x{:X}\", \"{}^_selector->rpl\":\"0x{:X}\"}}", 
+  segName,selector->value,
+  segName,selector->index,
+  segName,selector->ti,
+  segName,selector->rpl
   );
   return json_text;
 }
