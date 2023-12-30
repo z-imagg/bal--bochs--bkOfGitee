@@ -438,18 +438,18 @@ bool BX_CPU_C::set_segment_ar_data(bx_segment_reg_t *seg, bool valid,
 
 
 //仿照parse_descriptor写出descriptor转json文本
-std::string BX_CPU_C::descriptor_json_text(bx_descriptor_t *desc)//(保护模式中的)描述符转json文本
+std::string BX_CPU_C::descriptor_json_text(std::string descName,bx_descriptor_t *desc)//(保护模式中的)描述符转json文本
 {
 
   if (desc->segment) { /* data/code segment descriptors 代码段/数据段 描述符*/
     return fmt::format(
-    "{{\"descTypNam\" : \"代码段|数据段\", \"descSegBase\" : \"0x{:X}\", \"descSegLim\" : \"0x{:X}\", \"descSegAvl\" : \"0x{:X}\", \"descSegG\" : \"0x{:X}\", \"descSegDb\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}",  
-    desc->u.segment.base,
-    desc->u.segment.limit_scaled,
-    desc->u.segment.avl,
-    desc->u.segment.g,
-    desc->u.segment.d_b,
-    desc->valid
+    "{{\"descTypNam\" : \"代码段|数据段\", \"{}^_desc->u.segment.base\" : \"0x{:X}\", \"{}^_desc->u.segment.limit_scaled\" : \"0x{:X}\", \"{}^_desc->u.segment.avl\" : \"0x{:X}\", \"{}^_desc->u.segment.g\" : \"0x{:X}\", \"{}^_desc->u.segment.d_b\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}",  
+    descName,desc->u.segment.base,
+    descName,desc->u.segment.limit_scaled,
+    descName,desc->u.segment.avl,
+    descName,desc->u.segment.g,
+    descName,desc->u.segment.d_b,
+    descName,desc->valid
     );
   }
 
@@ -461,11 +461,11 @@ std::string BX_CPU_C::descriptor_json_text(bx_descriptor_t *desc)//(保护模式
         // param count only used for call gate
         
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_286_CALL_GATE|BX_286_INTERRUPT_GATE|BX_286_TRAP_GATE\", \"descGatParmCnt\" : \"0x{:X}\", \"descGatDestSel\" : \"0x{:X}\", \"descDestOffset\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
-        desc->u.gate.param_count,
-        desc->u.gate.dest_selector,  
-        desc->u.gate.dest_offset,
-        desc->valid
+        "{{\"descTypNam\" : \"BX_286_CALL_GATE|BX_286_INTERRUPT_GATE|BX_286_TRAP_GATE\", \"{}^_desc->u.gate.param_count\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_selector\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_offset\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,desc->u.gate.param_count,
+        descName,desc->u.gate.dest_selector,  
+        descName,desc->u.gate.dest_offset,
+        descName,desc->valid
         );
         // break;
 
@@ -475,20 +475,20 @@ std::string BX_CPU_C::descriptor_json_text(bx_descriptor_t *desc)//(保护模式
         // param count only used for call gate
 
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_386_CALL_GATE|BX_386_INTERRUPT_GATE|BX_386_TRAP_GATE\", \"descGatParmCnt\" : \"0x{:X}\", \"descGatDestSel\" : \"0x{:X}\", \"descDestOffset\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
-        desc->u.gate.param_count,
-        desc->u.gate.dest_selector,
-        desc->u.gate.dest_offset,       
-        desc->valid 
+        "{{\"descTypNam\" : \"BX_386_CALL_GATE|BX_386_INTERRUPT_GATE|BX_386_TRAP_GATE\", \"{}^_desc->u.gate.param_count\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_selector\" : \"0x{:X}\", \"{}^_desc->u.gate.dest_offset\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,desc->u.gate.param_count,
+        descName,desc->u.gate.dest_selector,
+        descName,desc->u.gate.dest_offset,       
+        descName,desc->valid 
         );
         // break;
 
       case BX_TASK_GATE://任务门
 
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_TASK_GATE\", \"descTskGatTssSel\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
-        desc->u.taskgate.tss_selector ,
-        desc->valid
+        "{{\"descTypNam\" : \"BX_TASK_GATE\", \"{}^_desc->u.taskgate.tss_selector\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,desc->u.taskgate.tss_selector ,
+        descName,desc->valid
         );
         // break;
 
@@ -499,20 +499,20 @@ std::string BX_CPU_C::descriptor_json_text(bx_descriptor_t *desc)//(保护模式
       case BX_SYS_SEGMENT_BUSY_386_TSS:
         
         return fmt::format(
-        "{{\"descTypNam\" : \"BX_SYS_SEGMENT_LDT|BX_SYS_SEGMENT_AVAIL_286_TSS|BX_SYS_SEGMENT_BUSY_286_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS\", \"descSegBase\" : \"0x{:X}\", \"descSegLim\" : \"0x{:X}\", \"descSegAvl\" : \"0x{:X}\", \"descSegG\" : \"0x{:X}\", \"descSegDb\" : \"0x{:X}\", \"descValid\" : \"0x{:X}\"}}", 
-        desc->u.segment.base,
-        desc->u.segment.limit_scaled,
-        desc->u.segment.avl, 
-        desc->u.segment.g,
-        desc->u.segment.d_b,
-        desc->valid 
+        "{{\"descTypNam\" : \"BX_SYS_SEGMENT_LDT|BX_SYS_SEGMENT_AVAIL_286_TSS|BX_SYS_SEGMENT_BUSY_286_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS|BX_SYS_SEGMENT_AVAIL_386_TSS\", \"{}^_desc->u.segment.base\" : \"0x{:X}\", \"{}^_desc->u.segment.limit_scaled\" : \"0x{:X}\", \"{}^_desc->u.segment.avl\" : \"0x{:X}\", \"{}^_desc->u.segment.g\" : \"0x{:X}\", \"{}^_desc->u.segment.d_b\" : \"0x{:X}\", \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,desc->u.segment.base,
+        descName,desc->u.segment.limit_scaled,
+        descName,desc->u.segment.avl, 
+        descName,desc->u.segment.g,
+        descName,desc->u.segment.d_b,
+        descName,desc->valid 
         );
         // break;
 
       default: // reserved
         return fmt::format(
-        "{{\"descTypNam\" : \"default\",  \"descValid\" : \"0x{:X}\"}}", 
-        desc->valid 
+        "{{\"descTypNam\" : \"default\",  \"{}^_desc->valid\" : \"0x{:X}\"}}", 
+        descName,desc->valid 
         );
         // break;
     }//end_of_switch

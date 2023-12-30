@@ -91,7 +91,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
   parse_descriptor(dword1, dword2, &cs_descriptor);
 //需要打印: cs_selector、cs_descriptor、return_RIP ； 其中 cs_selector、cs_descriptor 需转为  json_text
   std::string cs_selector_json_text=BX_CPU_THIS->selector_json_text("cs",&cs_selector);
-  std::string cs_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&cs_descriptor);
+  std::string cs_descriptor_json_text=BX_CPU_THIS->descriptor_json_text("cs_descriptor",&cs_descriptor);
   std::string ss_selector_json_text;
   std::string ss_descriptor_json_text;
 
@@ -183,7 +183,7 @@ BX_CPU_C::return_protected(bxInstruction_c *i, Bit16u pop_bytes)
       parse_descriptor(dword1, dword2, &ss_descriptor);
       //需要打印:  ss_selector、ss_descriptor ;  ss_selector、ss_descriptor 需要转为 json_text
       ss_selector_json_text=BX_CPU_THIS->selector_json_text("ss",&ss_selector);
-      ss_descriptor_json_text=BX_CPU_THIS->descriptor_json_text(&ss_descriptor);
+      ss_descriptor_json_text=BX_CPU_THIS->descriptor_json_text("ss_descriptor",&ss_descriptor);
 
       /* selector RPL must = RPL of the return CS selector,
        * else #GP(selector) */
