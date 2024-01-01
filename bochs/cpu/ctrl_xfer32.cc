@@ -313,7 +313,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
     return;
   }
 
-  //or2指令 中提取 funcId , 请 参考: https://gitcode.net/crk/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
+  //or2指令 中提取 funcId , 请 参考: https://gitcode.net/bal/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
 
   Bit64u fId = (or2_instr & 0x0000ffFFffFF0000)>>(8*2);
 

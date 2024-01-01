@@ -36,7 +36,7 @@ case $which_config in
 
     #######################################################################
     #
-    #此配置编译出的 /bal/bochs/bochs  就是 bochs-dbg 即 bochs调试器 即 https://gitcode.net/crk/oslab/-/blob/master/bochs/bochs-dbg 即 https://gitee.com/cn-guoziyang/oslab/blob/master/bochs/bochs-dbg
+    #此配置编译出的 /bal/bochs/bochs  就是 bochs-dbg 即 bochs调试器 即 https://gitcode.net/bal/oslab/-/blob/master/bochs/bochs-dbg 即 https://gitee.com/cn-guoziyang/oslab/blob/master/bochs/bochs-dbg
     #######################################################################
     ./configure --enable-sb16 \
                 --enable-ne2000 \
