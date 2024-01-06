@@ -320,7 +320,7 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
   //or2指令 中提取 funcId , 请 参考: https://gitcode.net/bal/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
 
   Bit64u fId = (or2_instr & 0x0000ffFFffFF0000)>>(8*2);
-  Bit64u funcAddr = (or3_instr & 0x0000ffFFffFF0000)>>(8*2);
+  Bit64u curAddrDistanceFuncAddr = (or3_instr & 0x0000ffFFffFF0000)>>(8*2);
 
   //fId:0x78563412, 则funcId:0x12345678
   Bit32u funcId = fId;
@@ -330,8 +330,8 @@ void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 //  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
 //   ;
 
-  //csv日志=标记指令_函数进入标记:FuncIdEnter:clang插件标记的函数;fId;fId(十六进制);EIP
-  BX_INFO( ("~L~=函入标:FnEnt:clPF; %d; 0x%x; 0x%x; 0x%x",  funcId,funcId,EIP,funcAddr) );
+  //csv日志=标记指令_函数进入标记:FuncIdEnter:clang插件标记的函数;fId;fId(十六进制);EIP;当前地址到函数地址的距离
+  BX_INFO( ("~L~=函入标:FnEnt:clPF; %d; 0x%x; 0x%x; 0x%x",  funcId,funcId,EIP,curAddrDistanceFuncAddr) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
