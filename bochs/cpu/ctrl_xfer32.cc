@@ -277,14 +277,12 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL32_Ep(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPU_C::logFnEnt(bxInstruction_c *instr){
+void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
 
   //取得 当前指令 紧挨着的 4个字节
   Bit32u or1_instr_appendByte=BX_CPU_THIS->read_linear_dword (instr->seg(),EIP);
-  //取得 当前指令地址+3字节 紧挨着的 8个字节 : 即 囊括 占6个字节的or2 
+  //取得 当前指令地址+3字节 紧挨着的 8个字节
   Bit64u or2_instr_appendWord=BX_CPU_THIS->read_linear_qword (instr->seg(),EIP+3);
-  //取得 当前指令地址+3+8字节 紧挨着的 8个字节 : 即 囊括 占6个字节的or3
-  Bit64u or3_instr_appendWord=BX_CPU_THIS->read_linear_qword (instr->seg(),EIP+3+8);
 
   //funcId汇编 含有三条指令: 短jmp, 标记or1, 存funcId的or2
   
@@ -295,12 +293,10 @@ void BX_CPU_C::logFnEnt(bxInstruction_c *instr){
   
   //取得 当前指令+3字节 紧挨着的 8个字节 中的 6个字节(称为 疑似or2), 待判定 其  是否为 funcId汇编 中的 存funcId的or2 指令
   Bit64u or2_instr = or2_instr_appendWord & 0x0000ffFFffFFffFF;
-  
-  Bit64u or3_instr = or3_instr_appendWord & 0x0000ffFFffFFffFF;
 
   // 存 疑似or2的 操作码
   Bit64u or2_instr_opcode = or2_instr &     0x000000000000ffFF;
-  
+
 
   // 标记or1 常量
   const Bit32u FuncIdAsm_Or1Instr =  0xffcf83;
@@ -320,7 +316,6 @@ void BX_CPU_C::logFnEnt(bxInstruction_c *instr){
   //or2指令 中提取 funcId , 请 参考: https://gitcode.net/bal/xv6-x86/-/raw/0d1d25271ce959c7b207534caabdd10006ba1295/study/or_edi_machine_code_demo.png
 
   Bit64u fId = (or2_instr & 0x0000ffFFffFF0000)>>(8*2);
-  Bit64u curAddrDistanceFuncAddr = (or3_instr & 0x0000ffFFffFF0000)>>(8*2);
 
   //fId:0x78563412, 则funcId:0x12345678
   Bit32u funcId = fId;
@@ -330,8 +325,8 @@ void BX_CPU_C::logFnEnt(bxInstruction_c *instr){
 //  + ( (fId & 0xFF000000)>>(8*3)<<(8*0) )
 //   ;
 
-  //csv日志=标记指令_函数进入标记:FuncIdEnter:clang插件标记的函数;fId;fId(十六进制);EIP;当前地址到函数地址的距离
-  BX_INFO( ("~L~=函入标:FnEnt:clPF; %d; 0x%x; 0x%x; 0x%x",  funcId,funcId,EIP,curAddrDistanceFuncAddr) );
+  //csv日志=标记指令_函数进入标记:FuncIdEnter:clang插件标记的函数;fId;fId(十六进制);EIP
+  BX_INFO( ("~L~=函入标:FnEnt:clPF; %d; 0x%x; 0x%x",  funcId,funcId,EIP) );
 
 }
 void BX_CPP_AttrRegparmN(1) BX_CPU_C::JMP_Jd(bxInstruction_c *i)
