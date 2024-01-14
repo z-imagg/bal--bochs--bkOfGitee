@@ -277,7 +277,7 @@ void BX_CPP_AttrRegparmN(1) BX_CPU_C::CALL32_Ep(bxInstruction_c *i)
   BX_NEXT_TRACE(i);
 }
 
-void BX_CPU_C::logXv6X86FuncId(bxInstruction_c *instr){
+void BX_CPU_C::logFnEnt(bxInstruction_c *instr){
 
   //取得 当前指令 紧挨着的 4个字节
   Bit32u or1_instr_appendByte=BX_CPU_THIS->read_linear_dword (instr->seg(),EIP);
